@@ -208,7 +208,7 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
     
     MatDatepickerModule,
     MatMomentDateModule,
-    
+    /*
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -219,6 +219,8 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
       }
     }),
 
+    */
+   
     TreeModule.forRoot(),
 
     //conf jidda time mel correctif 

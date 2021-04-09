@@ -2,19 +2,21 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from '../../../magasin/services/article.service';
 import { FormControl, NgForm } from '@angular/forms';
 
-class Model {ArticleID: number ; Value: number;};
+//class Model {ArticleID: number ; Value: number;};
 
 @Component({
   selector: 'app-gerer-da',
   templateUrl: './gerer-da.component.html',
-  styleUrls: ['./gerer-da.component.scss'],
-  providers: [Model]
+  styleUrls: ['./gerer-da.component.scss']
+  //providers: [Model]
 })
 export class GererDaComponent implements OnInit {
   type:Array<{ArticleID: number, Value: number}>;
   articles=[];
   valeurs:Array<{ArticleID: number, Value: number}>=[];
-  constructor(private _articleService:ArticleService,private model: Model) {}
+  constructor(private _articleService:ArticleService
+    //,private model: Model
+    ) {}
 
 
   ngOnInit() {
