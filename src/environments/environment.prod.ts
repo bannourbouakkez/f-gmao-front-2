@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl:'http://localhost:8000/api',
-  publicFolder:'http://localhost:8000/files/fichiers'
+  apiUrl:'https://dashboard.heroku.com/apps/demo-gmao-1/api',
+  publicFolder:'https://dashboard.heroku.com/apps/demo-gmao-1/files/fichiers'
 
 };
