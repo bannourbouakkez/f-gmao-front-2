@@ -10,4 +10,4 @@ export { BlankCorporateComponent } from './blank-corporate/blank-corporate.compo
 export { BlankSimplywhiteComponent } from './blank-simplywhite/blank-simplywhite.component';
 //Remove in production
 //This is a demo a layout
-export { DemoComponent } from './demo/demo.component';
+//export { DemoComponent } from './demo/demo.component';

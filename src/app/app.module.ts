@@ -220,7 +220,7 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
     }),
 
     */
-   
+
     TreeModule.forRoot(),
 
     //conf jidda time mel correctif 
@@ -279,6 +279,8 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
     
     //################
    ,AppRoutingModule
+
+   //,DemoComponent
 
   ],
   providers:[

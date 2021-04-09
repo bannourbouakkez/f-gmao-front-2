@@ -1,3 +1,4 @@
+/*
 import { Component, OnInit, OnDestroy, ViewChild, HostListener, AfterViewInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -13,3 +14,4 @@ export class DemoComponent implements OnInit {
 
   ngOnInit() {}
 }
+*/
