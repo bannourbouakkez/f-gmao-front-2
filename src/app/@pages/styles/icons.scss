@@ -5,11 +5,14 @@ Import Material Icons
 /*
 Pages Icons
 */
+/* kenet
+../../../../asset
+*/
 @font-face {
 	font-family: 'pages-icon';
-	src: url('../../../../assets/fonts/pages-icon/Pages-icon.woff') format('woff'),
-		url('../../../../assets/fonts/pages-icon/Pages-icon.ttf') format('truetype'),
-		url('../../../../assets/fonts/pages-icon/Pages-icon.svg') format('svg');
+	src: url('src/app/@pages/assets/fonts/pages-icon/Pages-icon.woff') format('woff'),
+		url('src/app/@pages/assets/fonts/pages-icon/Pages-icon.ttf') format('truetype'),
+		url('src/app/@pages/assets/fonts/pages-icon/Pages-icon.svg') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
