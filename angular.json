@@ -26,7 +26,7 @@
             "stylePreprocessorOptions": {
               "includePaths": [
                 "src/app/@pages/styles",
-                "src/pages_ui/scss",
+                "src/pages_ui/scss"
                 
               ]
             },
@@ -144,7 +144,8 @@
               "src/assets/plugins/font-awesome/css/font-awesome.min.css",
               "src/assets/plugins/codrops-stepsform/css/component.css",
 
-              "src/theme.less"
+              "src/theme.less",
+              "src/styles.scss"
 
               
 
