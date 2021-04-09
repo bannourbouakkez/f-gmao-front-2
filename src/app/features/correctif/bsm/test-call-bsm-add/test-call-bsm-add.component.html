@@ -1,0 +1,10 @@
+
+<div *ngFor="let bsm of bsms">
+    <span> N°:{{bsm.BsmID}} </span>
+    <span>{{bsm.statut}}</span>
+    <span (click)="AfficherBsm(bsm.BsmID)"> (A) </span>
+    <span (click)="AddOrEditBsm(OtID,bsm.BsmID)"> (M) </span>
+    <span *ngIf="bsm.statut=='enAttente' " (click)="DeleteBsm(bsm.BsmID)"> (X) </span>
+</div>
+
+<span (click)="AddOrEditBsm(OtID,null)">[+]</span>

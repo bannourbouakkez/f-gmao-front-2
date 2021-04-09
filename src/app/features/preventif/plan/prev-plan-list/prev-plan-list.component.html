@@ -1,0 +1,539 @@
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+        <div class="card">
+            <div id="card-header-liste" class="card-header separator">
+                <ol id="breadcrumb-liste" class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                            class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+                </ol>
+            </div>
+
+            <div id="card-body-liste" class="card-body">
+                <div class="row">
+
+
+                    <!------------- Filter ----------------->
+                    <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+                        <nz-collapse [nzBordered]="true">
+                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader=""
+                                [nzActive]="false">
+
+
+                                <table id="id-table-filter">
+                                    <tr>
+                                        <td id="id-table-filter-first-td"></td>
+                                        <td>
+
+                                            <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form"
+                                                autocomplete="off">
+                                                <!------ Contenu filter ------->
+
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Date</label>
+                                                    <div class="col-md-10"> 
+                                                        <div class="row">
+                                                        <div class="col-md-3">
+                                                            <div class="input-group date col-md-12" style="padding:0px; margin:0px;">
+                                                                <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" #datemin
+                                                                ngModel [(ngModel)]="filterForm.get('datemin').value"
+                                                                formControlName="datemin" readonly>
+                                                                <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                                                                <div class="input-group-append">
+                                                                  <span class="input-group-text">
+                                                                    <i class='icon-container'>
+                                                                      <i class="pg-icon">calendar</i>
+                                                                    </i>
+                                                                  </span>
+                                                                </div>
+                                                              </div>
+                                                            <span class="help">Date Debut</span>
+                                                          </div>
+                                                          <div class="col-md-3 sm-m-t-10">
+                                                            <div class="input-group date col-md-12" style="padding:0px; margin:0px;">
+                                                                <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" #datemax
+                                                                ngModel [(ngModel)]="filterForm.get('datemax').value"
+                                                                formControlName="datemax" readonly>
+                                                                <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+                                                                <div class="input-group-append">
+                                                                  <span class="input-group-text">
+                                                                    <i class='icon-container'>
+                                                                      <i class="pg-icon">calendar</i>
+                                                                    </i>
+                                                                  </span>
+                                                                </div>
+                                                              </div>
+ <span class="help">Date Fin</span>
+                    </div>
+
+                    </div>
+
+                                                         
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Type</label>
+                                                    <div class="col-md-10">
+
+                                                        <nz-select formControlName="type" nzMode="multiple"
+                                                            nzPlaceHolder="" nzAllowClear>
+                                                            <nz-option nzLabel="mecanique" nzValue="mecanique"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="electrique" nzValue="electrique"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="graissage" nzValue="graissage"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="hydrolique" nzValue="hydrolique"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="pneumatique" nzValue="pneumatique"
+                                                                [nzHide]="false"></nz-option>
+                                                        </nz-select>
+
+                                                    </div>
+                                                </div>
+
+                                               
+
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-2 control-label">Equipement</label>
+                                                    <div class="col-md-10">
+
+                                                        <app-equi-node-select-multi [inputnodes]="nodes"
+                                                            (emit)="ReceptNodes($event)">
+                                                        </app-equi-node-select-multi>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <!--##### Contenu filter #####-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+
+                        <ng-template #expandedIcon let-active>
+                            <table id="id-bar-filter-table">
+                                <tr>
+                                    <td id="id-bar-filter-td-rotateicon">
+                                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                                            [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                                        <i class='pg-icon md-18'>filter</i> Filtre
+                                    </td>
+                                    <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                                            <input #searchFilterText formControlName="searchFilterText"
+                                                class="form-control input-sm" type="text" autocomplete="off" nz-input
+                                                placeholder="" id="filter" #filter />
+                                        </nz-input-group>
+                                        <ng-template #suffixIconSearch>
+                                            <i class='pg-icon md-18'>search</i>
+                                        </ng-template>
+                                    </td>
+                                    <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                                        <button id="id-bar-filter-btn-first" class='btn btn-default'
+                                            type="submit">Rechercher</button>
+                                        <button type="button" class="btn btn-default" (click)="resetFilter()">
+                                            <span> Réinitialiser </span>
+                                            <!--<i class='pg-icon md-18'>refresh_alt1</i>-->
+                                        </button>
+                                        <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                                            RA </label>
+                                    </td>
+                                    <td id="id-bar-filter-last-td">
+                                        <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-template>
+
+                    </form>
+                    <!--################# Filter ####################-->
+
+
+
+                    <!------------------- Table ----------------------->
+                    <div id="id-div-table">
+
+                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                            [nzShowPagination]="false" [nzData]="plans">
+                            <thead>
+                                <tr>
+
+                                    <th nzWidth="1%">
+                                       #
+                                    </th>
+                                    <th nzWidth="15%">Date Planification</th>
+                                    <th nzWidth="29%">Tache</th>
+                                    <th nzWidth="29%">Equipement</th>
+                                    <th nzWidth="11%">Type</th>
+                                    <th nzWidth="15%">Action</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <tr
+                                    *ngFor="let data of smallTable.data | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+                                    <td align="center">
+                                        <div class="table-firsttd-height"> 
+                                            <a href="gmao/preventif/plans/plan/{{data.InterventionID}}" target="_blank">
+                                                {{data.InterventionID}}
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td style="padding:0px; margin:0px; padding-left:10px; padding-right:10px;" >
+<!--
+                                        <span *ngIf="loading_reporter_function(data.InterventionID)">...</span>
+                                        {{data.date_resultat}}
+                                        <button (click)="reporterPlandialog(data.date_resultat,data.InterventionID)">Reporter</button>
+-->
+                                        <div class="input-group date col-md-12" style="padding:0px; margin:0px;" (click)="reporterPlandialog(data.date_resultat,data.InterventionID)" >
+                                            <input class='form-control input-sm'   [value]="data.date_resultat | date:'dd/MM/yyyy'" nz-input readonly>
+                                            <div class="input-group-append"  *ngIf="!loading_reporter_function(data.InterventionID)" >
+                                              <span class="input-group-text">
+                                                <i class='icon-container'>
+                                                  <i class="pg-icon">edit</i>
+                                                </i>
+                                              </span>
+                                            </div>
+                                            <div class="input-group-append"  *ngIf="loading_reporter_function(data.InterventionID)">
+                                                <span class="input-group-text">
+                                                  <i nz-icon [nzType]="'loading'"></i>
+                                                </span>
+                                            </div>
+            
+                                        </div>
+
+                                          
+
+                                    </td>
+
+                                    <td>{{data.tache}}</td>
+                                    <td>{{data.equipement}}</td>
+                                    <td>{{data.type}}</td>
+
+                                    <td>
+
+
+
+                                      
+
+                                        <ul class="list-inline m-0">
+
+                                            <!--<a href="gmao/preventif/otp/add/{{data.InterventionID}}/0" target="_blank">-->
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/preventif/otp/add/',data.InterventionID,'0']" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> 
+                                                        <span>Executer &nbsp;</span>
+                                                        <i
+                                                            class="pg-icon md-18"
+                                                            style="height:10px;position:relative;top:1px;">flash</i>
+                                                    </button>
+                                                </li>
+                                            <!--</a>-->
+
+                                            <!--<a href="gmao/preventif/preventif/plan/plan/{{data.InterventionID}}" target="_blank">-->
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/preventif/plans/plan/',data.InterventionID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                            class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                                </li>
+                                            <!--</a>-->
+
+                                        </ul>
+
+
+
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                    <!--################# Table ####################-->
+
+
+
+
+
+                    <!------------------- Pagination ----------------------->
+                    <table id="id-pagination-big-table">
+                        <tr>
+                            <td>
+
+                                <div class="my-pagination">
+                                    <table id="id-pagination-small-table">
+                                        <tr>
+                                            <td>
+                                                <nz-select [(ngModel)]="selectedItemPerPage"
+                                                    (ngModelChange)="incrementsItemsPerPage($event)">
+                                                    <nz-option nzValue="5" nzLabel="5"></nz-option>
+                                                    <nz-option nzValue="10" nzLabel="10"></nz-option>
+                                                    <nz-option nzValue="25" nzLabel="25"></nz-option>
+                                                    <nz-option nzValue="50" nzLabel="50"></nz-option>
+                                                </nz-select>
+                                            </td>
+
+                                            <td>
+                                                <pagination-controls maxSize="10" previousLabel="Précédent"
+                                                    nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;"
+                                                    (pageChange)="getPlans($event)" id="server">
+                                                </pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <!--################# Pagination ####################-->
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------   Filter Form ------------------------------->
+
+<!--
+<div style="width:400px;">
+
+<nz-collapse [nzBordered]="true"  >
+    <nz-collapse-panel  nzHeader="Filtre" [nzActive]="false" [nzExtra]="auto">
+      <p>content</p>
+    
+
+<form [formGroup]="filterForm">
+    Date Min:
+    <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="datemin" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+    Date Max:
+    <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="datemax" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+<br>
+<input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+
+<mat-form-field>
+    <mat-select  formControlName="type"   multiple> 
+      <mat-option value='mecanique' >Mecanique</mat-option>
+      <mat-option value='electrique'>Electrique</mat-option>
+      <mat-option value='graissage'>Graissage</mat-option>
+      <mat-option value='hydrolique'>Hydrolique</mat-option>
+      <mat-option value='pneumatique'>Pneumatique</mat-option>
+    </mat-select>
+</mat-form-field>
+
+
+<br>
+<app-equi-node-select-multi  [inputnodes]="nodes" (emit)="ReceptNodes($event)" ></app-equi-node-select-multi>
+
+<br>
+<button (click)="filter()">Search</button>
+
+</form>
+
+</nz-collapse-panel>
+</nz-collapse>
+</div>
+
+<ng-template #auto>
+-->
+    <!--
+    <div (click)="$event.stopPropagation()">
+        <button (click)="resetFilter()">Reset</button> , 
+        
+        (R.A)  : <input type="checkbox"  name="rechercheAuto" [formControl]="rechercheAuto" checked>
+    </div>
+    -->
+<!--
+    <nz-input-group [nzSuffix]="suffixIconSearch" style="position:relative; right:50%; ">
+        <input type="text" autocomplete="off" nz-input placeholder="input search text" id="filter" #filter  />
+      </nz-input-group>
+      <ng-template #suffixIconSearch>
+        <i class='pg-icon md-18'>search</i>
+      </ng-template>
+
+
+</ng-template>
+-->
+<!--###########################   Filter Form   ############################# -->
+
+<!--
+<table border='1'>
+
+<thead>
+    <td>N°</td>
+    <td>date</td>
+    <td>tache</td>
+    <td>equipement</td>
+    <td>type</td>
+   
+</thead>
+<tbody>
+    <ng-container *ngFor="let plan of plans | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+        <tr *ngIf="true">
+         <td>
+            
+            <a href="/preventif/plan/plan/{{plan.InterventionID}}" target="_blank" >
+                {{plan.InterventionID}}
+            </a>
+            
+         </td>
+         <td> 
+             <span *ngIf="loading_reporter_function(plan.InterventionID)">...</span>
+             {{plan.date_resultat}}
+         </td>
+         <td>{{plan.tache}}</td>
+         <td>{{plan.equipement}}</td>
+         <td>{{plan.type}}</td>
+
+         <td>
+            
+            <ng-container *ngIf="true">
+                <a href="preventif/otp/add/{{plan.InterventionID}}/0" target="_blank">
+                  Executer {{plan.InterventionID}}
+               </a>
+            </ng-container>
+
+            <ng-container *ngIf="true">
+                  
+                  <button (click)="reporterPlandialog(plan.date_resultat,plan.InterventionID)">Reporter</button>
+                  
+            </ng-container>
+
+         </td>
+        </tr>
+    </ng-container>
+
+    <tr><td colspan='20'>
+
+        <div  class="my-pagination">
+            <table border='0'><tr style="vertical-align:top;"><td>
+               <select (change)="incrementsItemsPerPage($event)">
+                   <option [value]="5">5</option>
+                   <option [value]="10">10</option>
+                   <option [value]="15" selected>15</option>
+                   <option [value]="20">20</option>
+                   <option [value]="25">25</option>
+               </select>
+           </td><td width='30px' align="center" >
+               <span *ngIf="loadingFilter" >...</span>
+           </td><td align="left" >
+             <pagination-controls
+                             maxSize="10"
+                             previousLabel="&#60;"
+                             nextLabel="&#62;"
+                            (pageChange)="getPlans($event)" id="server">
+             </pagination-controls>
+           </td></tr></table>  
+       </div>
+
+    </td></tr>
+    
+   
+</tbody>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+<ul class="ant-pagination ant-table-pagination" >
+    <li title="Previous Page" class="ant-pagination ant-pagination-prev"><a><</a></li>
+    <li title="1" class="ant-pagination-item ant-pagination-item-1 ant-pagination-item"><a>1&nbsp;</a></li>
+    <li title="1" class="ant-pagination-item ant-pagination-item-1 ant-pagination-item-active"><a>1</a></li>
+    <li title="1" class="ant-pagination-item ant-pagination-item-1 ant-pagination-item"><a>1</a></li>
+    <li title="Next Page" class="ant-pagination ant-pagination-next"><a>></a></li>
+</ul>
+<br>
+
+
+<ul class="ant-pagination ant-table-pagination ant-table-pagination-right" unselectable="unselectable">
+    <li title="Previous Page" class="ant-pagination-prev ant-pagination-disabled" aria-disabled="true">
+        <button class="ant-pagination-item-link" type="button" tabindex="-1" disabled="">
+            <span role="img" aria-label="left" class="anticon anticon-left">
+                <svg viewBox="64 64 896 896" focusable="false" class="" data-icon="left" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path d="M724 218.3V141c0-6.7-7.7-10.4-12.9-6.3L260.3 486.8a31.86 31.86 0 000 50.3l450.8 352.1c5.3 4.1 12.9.4 12.9-6.3v-77.3c0-4.9-2.3-9.6-6.1-12.6l-360-281 360-281.1c3.8-3 6.1-7.7 6.1-12.6z">
+
+                    </path>
+                </svg>
+            </span>
+        </button>
+    </li>
+    <li title="1" class="ant-pagination-item ant-pagination-item-1 ant-pagination-item-active" tabindex="0">
+        <a rel="nofollow">1</a>
+    </li>
+    <li title="Next Page" class="ant-pagination-next ant-pagination-disabled" aria-disabled="true">
+        <button class="ant-pagination-item-link" type="button" tabindex="-1" disabled="">
+            <span role="img" aria-label="right" class="anticon anticon-right">
+                <svg viewBox="64 64 896 896" focusable="false" class="" data-icon="right" width="1em" height="1em" fill="currentColor" aria-hidden="true">
+                    <path d="M765.7 486.8L314.9 134.7A7.97 7.97 0 00302 141v77.3c0 4.9 2.3 9.6 6.1 12.6l360 281.1-360 281.1c-3.9 3-6.1 7.7-6.1 12.6V883c0 6.7 7.7 10.4 12.9 6.3l450.8-352.1a31.96 31.96 0 000-50.4z">
+
+                    </path>
+                </svg>
+            </span>
+        </button>
+    </li>
+</ul>
+
+
+-->
+

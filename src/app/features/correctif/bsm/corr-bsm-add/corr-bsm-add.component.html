@@ -1,0 +1,128 @@
+<div id="" style="overflow:auto;min-height:100px; max-height: 500px; width:100%;">
+
+          <!------------------- Table ----------------------->
+          <div id="id-div-table">
+
+            <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+              [nzData]="['']">
+              <thead>
+                <tr>
+                 
+                  <th nzWidth="35%">Article</th>
+                  <th nzWidth="10%">Qte</th>
+                  <th nzWidth="45%">Motif</th>
+                  <th nzWidth="15%">
+
+  <button class="btn btn-default btn-block" (click)="AddOrEditDaArticle(null,bsmService.formData.BsmID)">
+    <i class="pg-icon md-18" style="width:28px;height:10px;position:relative;top:1px;">add</i>
+  </button>
+
+                   
+
+                  </th>
+                </tr>
+
+              </thead>
+              
+              <tbody>
+                <tr *ngIf=" !(data.BsmID>0) && bsmService.bsmarticles.length==0" [class.text-danger]="!isValid && bsmService.bsmarticles.length==0">
+                  <td class="font-italic text-center" colspan="4">
+                    n ya pas d'articles selectioné    
+                  </td>
+                </tr>
+                <tr *ngIf="loading" >
+                  <td>
+                    <ng-container> Loading ... </ng-container>
+                  </td>
+                </tr>
+                
+                
+                <tr *ngFor="let daarticle of bsmService.bsmarticles;let i=index;">
+            <td>{{daarticle.des}}</td> <!--des-->
+            <td>{{daarticle.qte}} <span *ngIf="daarticle.unite!='unitaire'">{{daarticle.unite}}</span></td>
+            <td>{{daarticle.motif}} </td>
+           
+            <td>
+
+              <ul class="list-inline m-0">
+
+                <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                  <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                    data-placement="top" title="modifier"
+                    (click)="AddOrEditDaArticle(i,bsmService.formData.BsmID)">
+                    <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                  </button>
+                </li>
+                <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                  <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                    data-placement="top" title="supprimer"
+                    (click)="onDeleteBsmArticle(daarticle.BsmDetID,i)">
+                    <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                    </button>
+                </li>
+
+              </ul>
+              
+             </td>
+            </tr>
+          </tbody>
+       
+            </nz-table>
+
+          </div>
+</div>
+          <!--################# Table ####################-->
+
+<!--
+    <table class="table table-borderless">
+        <thead class="thead-light" style="padding:0px;margin:0px;">
+          <th>Article</th>
+          <th>Quantité</th>
+          <th>Motif</th>
+        
+          <th>
+            <a class="btn btn-sm btn-default " (click)="AddOrEditDaArticle(null,bsmService.formData.BsmID)"><i class="fa fa-plus"></i> Ajouter un article</a>
+          </th>
+        </thead>
+
+        <tbody>
+          <tr *ngIf=" !(data.BsmID>0) && bsmService.bsmarticles.length==0" [class.text-danger]="!isValid && bsmService.bsmarticles.length==0">
+            <td class="font-italic text-center" colspan="4">
+
+              n ya pas d'articles selectione dans cet demande d'achat      
+      
+
+            </td>
+          </tr>
+          <tr *ngIf="loading" >
+            <td>
+              <ng-container> Loading ... </ng-container>
+            </td>
+          </tr>
+    
+          <tr *ngFor="let daarticle of bsmService.bsmarticles;let i=index;">
+            <td>{{daarticle.des}}</td> 
+            <td>{{daarticle.qte}} <span *ngIf="daarticle.unite!='unitaire'">{{daarticle.unite}}</span></td>
+            <td>{{daarticle.motif}} </td>
+           
+            <td>
+              <a class="btn btn-sm btn-info text-white" (click)="AddOrEditDaArticle(i,bsmService.formData.BsmID)"><i class="fa fa-pencil">Modifier</i></a>
+              <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBsmArticle(daarticle.BsmDetID,i)"><i class="fa fa-trash">Delete</i></a>
+            </td>
+          </tr>
+        </tbody>
+
+    </table>
+  -->
+<br>
+
+<div style="float:right;">
+  <button class="btn btn-default" type="submit" (click)="Submit()" > Envoyer </button>
+  <!--&nbsp;
+  <button type="button" class="btn btn-default" [mat-dialog-close]><i class="fa fa-close"></i> Ferme </button>-->
+</div>
+
+
+
+
+

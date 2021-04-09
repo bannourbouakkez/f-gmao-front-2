@@ -1,0 +1,98 @@
+
+<div *ngIf="loaded">
+
+    
+    <table style="table-layout: fixed;width: 100%;">
+        <tr>
+            <td width="70%">
+                <!--
+                    <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
+                -->
+           
+                <nz-input-group [nzSuffix]="suffixIconSearch" >
+                    <input type="text" autocomplete="off" nz-input placeholder="input search text" id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" />
+                  </nz-input-group>
+                  <ng-template #suffixIconSearch>
+                    <!--<i nz-icon nzType="search"></i>-->
+                    <i class='pg-icon md-18'>search</i>
+                  </ng-template>
+
+
+            </td>
+            <td width="20%">
+        <div style="padding-left:10px;">
+                <nz-button-group>
+                    <!--<button nz-button nzType="primary"><i nz-icon nzType="cloud"></i></button>
+                    <button nz-button nzType="primary"><i nz-icon nzType="cloud-download"></i></button>-->
+                    <button nz-button nzType="default" (click)="CloseAll()"><i nz-icon class="pg-icon md-10">text_indent_decrease</i></button>
+                    <button nz-button nzType="default" (click)="getALL()" ><i nz-icon class="pg-icon md-10">text_indent_increase</i></button>
+                  </nz-button-group>
+
+                 
+
+        </div>
+                <!--<button (click)="getALL()">open</button>-->
+            </td>
+            <td width="10%">
+                <div *ngIf="!FirstClick && testLoading" >
+                    <i nz-icon [nzType]="'loading'"></i>
+                  </div>
+            </td>
+            <!--
+            <td width="2%">
+                <button (click)="CloseAll()">close</button>
+            </td>
+            -->
+        </tr>
+        <tr><td colspan="2">
+        <br>
+        <div id="" style="overflow:auto; height:400px;">
+
+
+        <tree-root #tree [focused]="true" [options]="options" [nodes]="nodes">
+    
+
+            <ng-template #treeNodeTemplate let-node>
+
+                <label *ngIf="node.data.depth>=NiveauMin" nz-checkbox (click)="SelectNode(node)" >
+                <!--<span class="pull-right">{{ childrenCount(node)}} </span>-->
+                <span title="{{node.data.name}}">{{ node.data.name }} </span>
+                <span class="label" *ngIf="childrenCount(node)>0" >{{ childrenCount(node)}}</span>
+    
+                <!--<input type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true)" />-->
+    
+                <!--
+                <span *ngIf="node.data.depth>=NiveauMin" mat-icon-button (click)="SelectNode(node)" aria-label="Icon-button with an add icon">
+                  &nbsp;&nbsp;&nbsp;&nbsp;<img src="/assets/img/addtree.png" alt="" width="20" height="20" class='icon-tree' >
+                </span>
+                -->
+
+                </label>
+                
+                <ng-container *ngIf="!(node.data.depth>=NiveauMin)">
+                    <!--<span class="pull-right">{{ childrenCount(node)}}</span>-->
+                    <span title="{{node.data.name}}">{{ node.data.name }} </span>
+                    <span class="label" *ngIf="childrenCount(node)>0" >{{ childrenCount(node)}}</span>
+                </ng-container>
+
+
+        
+            </ng-template>
+        
+        </tree-root>
+       </div>
+       </td>
+       
+       </tr>
+    </table>
+
+    <!--
+    <button (click)="expandAll()"> Close All </button>
+    <button (click)="CloseAll()"> Close </button>
+    <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
+    <button (click)="tree.treeModel.clearFilter()">Clear Filter</button>
+    -->
+    
+    
+    
+    </div>

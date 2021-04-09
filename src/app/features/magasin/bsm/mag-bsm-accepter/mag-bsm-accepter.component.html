@@ -1,0 +1,390 @@
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+<div [ngClass]="isData ? 'big-container-list':'big-container'" >
+
+
+
+    <div  [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+  
+  
+  <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData " [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+  
+  
+  
+  
+      <div [ngClass]="isData ? '': 'card'">
+  
+  <div class="card-header separator" *ngIf="!isData">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span class='breadcrumb-title'>Envoyer</span></li> <!--ici-->
+        </ol>
+  </div>
+  
+  
+        <div class="card-body">
+  
+          <ng-container *ngIf="loaded">
+  
+  
+          <div class="card card-default" style="border:1px solid gray;">
+            <div class="card-header  separator">
+              <div class="card-title">
+                <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+                Bsm
+              </div>
+            </div>
+            <div class="card-body">
+  
+  
+              
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-5">
+  
+                    <div class="form-group row">
+  
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">#</span>
+                      </label>
+                      <div class="col-md-8"> 
+                        <label class="control-label">         
+                          <span class="font-affichage-contenu">
+                            <!--<span class="fast-url" [routerLink]="['/gmao/magasin/bsm/aff/',bsm.BsmID,isCorrectifOuPreventif(isCorrectif)]" >-->
+                              {{PouC(isCorrectif)}}{{bsm.BsmID}}
+                            <!--</span>-->
+                          </span>
+                        </label>
+                      </div>
+  
+                    </div>
+
+                    <div class="form-group row">
+  
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">N° OT</span>
+                      </label>
+                      <div class="col-md-8"> 
+                        <label class="control-label">         
+                          <span class="font-affichage-contenu">
+                            <ng-container *ngIf="isCorrectif">
+                              {{bsm.ot_id}}  
+                            </ng-container>
+                            <ng-container *ngIf="!isCorrectif">
+                              {{bsm.otp_id}}  
+                            </ng-container>
+                          </span>
+                        </label>
+                      </div>
+  
+                    </div>
+                    <div class="clearfix"></div>
+
+
+  <!--
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Equipement</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label" style="width:100%">
+                          <span class="font-affichage-contenu">
+                            <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                            </app-aff-equipement>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Tache</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.tache}}</span></label>
+                      </div>
+                    </div>
+  
+  
+                  </div>
+  
+  
+                  <div class="col-2 offset-1">
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Type</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.type}}</span></label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Parametrage</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.parametrage}}</span></label>
+                      </div>
+                    </div>
+  
+                  </div>
+  
+  
+                  <div class="col-2 offset-1">
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Frequence</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label"><span class="font-affichage-contenu">
+                          {{intervention.frequence}}
+                        </span></label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Prochain plan</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.date_resultat | date:'dd/MM/yyyy'}}</span>
+                        </label>
+                      </div>
+                    </div>
+  
+  
+                  -->
+                
+                </div>
+
+                <div class="col-5 offset-1">
+
+                  <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Créé le</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bsm.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Créé par</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bsm.name}}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+  
+                  <div class="clearfix"></div>
+
+                </div>
+  
+                </div>
+              </form>
+            
+  
+            </div>
+          </div>
+  
+  
+          <div class="row">
+            <div class="col-md-12">
+     
+  
+                <br>
+                <ng-container>
+                <div class="row">
+                  <div class="col-md-12">
+                  <ng-container *ngIf="bsm_det.length>0">
+                
+                    <div id="id-div-table">
+                
+                      <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                        [nzData]="['']">
+                        <thead>
+                          <tr>
+  
+                            <th>#</th>
+                            <th>Designation</th>
+                            <th>Qte Démandé</th>
+                            <th>Qte Accepter</th>
+                            <th nzWidth="50%">Derniere Utiliation</th>
+                            
+                
+                          </tr>
+                        </thead>
+                        <tbody>
+                          
+                    <tr *ngFor="let article of bsm_det;let i=index;">
+
+                <td>{{article.article_id}}</td>
+                <td>{{article.des}}</td>
+                <td>{{article.qte}}</td>
+                <td>
+                    
+                          <nz-input-number  [nzAutoFocus]="false"
+                          [class.nz-input-error]="(article.formControl.value > article.qte ) || ( article.formControl.value < 0 )"
+                          [formControl]="article.formControl" [nzMin]="0" [nzMax]="article.qte" 
+                          [nzStep]="1">
+                          </nz-input-number>
+
+                </td>
+                <td>
+                  <!--
+                  {{article.LastUse | json}}
+                  <br>
+                  -->
+                  <ng-container *ngIf="article.LastUse">
+                   
+                  <div class="form-group">
+                    <span class="help" style="margin:0px;margin-top:2px;">
+                  {{article.LastUse.created_at | date:'dd/MM/yyyy HH:mm' }} &nbsp;&nbsp;&nbsp; {{article.LastUse.equipement}} / {{article.LastUse.name}}  
+</span></div>
+</ng-container>
+                </td>
+
+  
+                    </tr>
+                        </tbody>
+                      </nz-table>
+                    
+                    </div>
+                
+                  <br>             
+                  </ng-container>
+                  </div>
+                 
+                
+
+
+
+                </div>
+
+  <div class="row">
+                <div class="col-md-8">
+                </div>
+                
+
+                <div class="col-md-2">
+                <button  *ngIf="!isRefused()" style="width:100%;" aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="true ? 'class': 'disabled'" type="button" (click)="submit('accepted')" > Envoyer
+  
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                </button>
+  
+                </div>
+  
+              <div class="col-md-2">
+                <button style="width:100%;"  aria-label="" class="btn btn-danger btn-lg btn-larger pull-right"
+                [ngClass]="true ? 'class': 'disabled'" type="button" (click)="submit('refused')" > Réfusé
+  
+                <i style='margin-left:10px;' *ngIf="LoadingReactBtn2" nz-icon nzType="loading" class="loading-icon"></i>
+              </button>
+              </div>
+
+
+</div>
+
+              </ng-container>
+
+              
+  
+  
+  
+  
+  
+  
+  <ng-container *ngIf="!loaded">
+    <br><br><br>
+    <div class="center-loading-box">
+    
+             <div class="progress-circle-indeterminate m-t-45"></div>
+    </div>
+    <br><br><br><br>
+  </ng-container>
+  
+  
+            </div>
+          </div>
+          
+  </ng-container>
+  
+
+  <ng-container *ngIf="!loaded">
+    <br>
+    <div class="center-loading-box">
+     <!--
+        <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+       -->
+        <div class="progress-circle-indeterminate m-t-45"></div>
+    </div>
+    <br><br>
+   </ng-container>
+   
+        </div>
+      </div>
+      <!-- END card -->
+    </div>
+  
+  
+  
+  </div>
+
+</div>
+
+
+<!--
+<div *ngIf="!loaded">Looding ...</div>
+<div *ngIf="loaded">
+    <table border="1">
+    
+        <thead>
+            <td>N° Article</td>
+            <td>Des</td>
+            <td>Qte</td>
+            <td>Accepter</td>
+            <td>Last Utiliation</td>
+        </thead>
+    <tbody>
+        <ng-container  *ngFor="let article of bsm_det; let i=index;">
+            <tr>
+                <td>{{article.article_id}}</td>
+                <td>{{article.des}}</td>
+                <td>{{article.qte}}</td>
+                <td>
+                                <mat-form-field class="matInput-number" >
+                                    <input 
+                                    matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+                                    min="0"
+                                    [max]="article.qte"
+                                    >
+                                </mat-form-field>
+                </td>
+                <td>{{article.LastUse | json}}</td>
+            </tr>
+        </ng-container>
+    </tbody>
+
+    </table>
+
+
+<button (click)="submit('accepted')">Envoyer</button>
+<button (click)="submit('refused')">Refuser</button>
+</div>
+-->

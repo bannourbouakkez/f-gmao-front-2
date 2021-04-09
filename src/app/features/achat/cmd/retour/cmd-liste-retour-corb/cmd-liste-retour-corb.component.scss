@@ -1,0 +1,19 @@
+
+  
+  :host ::ng-deep .ngx-pagination {
+    padding-left: 0px;
+  }
+  .my-pagination ::ng-deep .ngx-pagination .current {
+    background: red;
+  }
+  .my-pagination  {
+    padding:0px;
+    /*
+    position: relative;
+    right: 35%;
+    left: 35%;
+    */
+    font-size: 14px;
+  }
+
+ 

@@ -1,0 +1,586 @@
+
+<!--
+<div class='big-container'>
+
+  test  
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    
+
+    <input type="hidden" formControlName="user_id" >
+    <input type="hidden" formControlName="equipement_id" >
+    <input type="hidden" formControlName="decalage">
+    <input type="hidden" formControlName="ancien_ddr">
+
+    
+
+  <div *ngIf="InterventionID>0">
+    <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+  </div>
+
+  <div *ngIf="!(InterventionID>0)">
+    <app-equi-node-select  (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+  </div>
+
+  
+
+
+
+  Tache :  <select formControlName="tache_id" >
+    <option [value]=''></option>
+    <option *ngFor="let tache of taches" [value]="tache.TacheID">{{tache.tache}}</option>
+  </select>
+
+
+  
+  
+
+
+
+
+
+
+
+
+  <br>
+  <label>
+    Derniere date realisation : 
+    <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="ddr" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+</label>
+
+
+
+
+<div class="input-group date col-md-2 p-l-0">
+  <input type="text" class="form-control input-sm" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="ddr" readonly >
+  <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+  <div class="input-group-append ">
+    <span class="input-group-text"><i class="pg-icon">calendar</i></span>
+  </div>
+</div>
+
+
+
+
+ <br>
+  Type :  <select formControlName="type" >
+    <option value='mecanique'>Mecanique</option>
+    <option value='electrique'>Electrique</option>
+    <option value='graissage'>Graissage</option>
+    <option value='hydrolique'>Hydrolique</option>
+    <option value='pneumatique'>Pneumatique</option>
+  </select>
+ <br>
+  NB Operateur : <mat-form-field class="matInput-number" >
+      <input matInput autocomplete="off" formControlName="nb_operateur" type="number"  min="0" >
+  </mat-form-field>
+  <br>
+
+  Heure & minute :  
+  
+    <mat-form-field class="matInput-number" >
+      <input  (change)="changeHeure()"  
+      matInput autocomplete="off" formControlName="h" type="number" 
+      min="0"
+      >
+    </mat-form-field>:
+    <mat-form-field class="matInput-number" >
+      <input  (change)="changeMinute()" 
+      matInput autocomplete="off" formControlName="m" type="number" 
+      min="-1" 
+      [max]="60"
+      >
+    </mat-form-field>
+
+
+    
+
+   <br>
+
+  
+  Frequence : <mat-form-field class="matInput-number" >
+    <input matInput autocomplete="off" formControlName="frequence" type="number"  min="0" >
+  </mat-form-field>
+
+ <label *ngIf="form.get('frequence').value==0">
+  date fixe :
+  <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date_resultat" readonly>
+  <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+</label>
+<br>
+
+  Parametrage :  <select formControlName="parametrage" >
+    <option value='planification'>A la planification</option>
+    <option value='execution'>A l'execution</option>
+    <option value='cloture'>A la cloture</option>
+  </select>
+  <br>
+  Observation : <input type="text" formControlName="observation" >
+  <br>
+
+
+  <button type='submit'>Ajouter</button>
+
+  </form>
+
+</div>
+-->
+
+
+
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+
+<app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+
+
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Preventif</a></li>
+  <li class="breadcrumb-item"><a href="#">Intervention</a></li>
+  <li class="breadcrumb-item active" >Ajouter Intervention</li>
+</ol>
+-->
+
+    <!-- START card -->
+    <div class="card">
+<!--
+      <div class="card-header  separator">
+        <div class="card-title">Portlet Three
+        </div>
+      </div>
+-->
+
+<div class="card-header separator">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{AjouterOuModifier(InterventionID)}} Intervention</span></li>
+      </ol>
+</div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <!--
+                        <h3 class="mw-80">Simple but not simpler, create a separate form layout. Best for settings pages.</h3>
+                        <p class="mw-80">Want it to be more Descriptive and User-Friendly, We Made it possible, Use Separated Form Layouts Structure to Presentation your Form Fields.
+                        </p>
+                        <br>
+            -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+        <ng-container *ngIf="(InterventionID && PageInterventionLoaded) && intervention.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Intervention est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+
+
+
+        <ng-container *ngIf="!isModifiable && InterventionID && PageInterventionLoaded && intervention.exist==1">
+          <div class="alert alert-danger" role="alert">
+            <button aria-label="" class="close" data-dismiss="alert"></button>
+            Vous pouvez pas modifiée cette intrevention maintenant car elle est reliée avec un OT déja en cours .
+          </div>
+        </ng-container>
+
+            
+<ng-container *ngIf=" (InterventionID && PageInterventionLoaded && intervention.exist==1) || !InterventionID">
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal" role="form" autocomplete="off">
+
+              <input type="hidden" formControlName="user_id">
+              <input type="hidden" formControlName="equipement_id">
+              <!--<input type="hidden" formControlName="date_resultat">-->
+              <input type="hidden" formControlName="decalage">
+              <input type="hidden" formControlName="ancien_ddr">
+
+              <div style="display:none;">
+                <label *ngIf="form.get('frequence').value==0">
+                  date fixe :
+                  <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date_resultat" readonly>
+                  <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                </label>
+              </div>
+
+
+
+
+
+
+
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Equipement</label>
+                <div class="col-md-7">
+
+
+                  <ng-container *ngIf="InterventionID>0" >
+
+                      <!--
+                      <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)"
+                      [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                      -->
+                      
+                      <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                      </app-aff-equipement>
+
+
+                  </ng-container>
+
+                  <ng-container *ngIf="!(InterventionID>0)" >
+                    <app-equi-node-select (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID"
+                      [InpuName]="InpuName"></app-equi-node-select>
+                  </ng-container>
+
+
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Tache</label>
+                <div class="col-md-7">
+
+                  <ng-container  *ngIf="!(InterventionID>0)">
+
+                  <nz-select formControlName="tache_id" nzShowSearch nzAllowClear nzPlaceHolder="Select type"
+                    [nzDisabled]="!(EquipementID>0) && taches.length==0"  [nzDropdownRender]="render">
+                    <!--<nz-option nzLabel="" nzValue=""></nz-option>-->
+                    <nz-option *ngFor="let tache of taches" [nzValue]="tache.TacheID" [nzLabel]="tache.tache">
+                    </nz-option>
+                  </nz-select>
+                  <ng-template #render>
+                    <nz-divider></nz-divider>
+                    <div *ngIf="EquipementID>0" (click)="openDialogAddTache(EquipementID)" class="add-item">
+                      <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+                      Ajouter tache
+                   </div>
+                  </ng-template>
+
+
+
+                  
+
+                  <div>
+                    <label class="error" *ngIf="formErrors.tache_id" [innerHTML]="formErrors.tache_id"></label>
+                  </div>
+
+                </ng-container>
+
+                <ng-container  *ngIf="InterventionID">
+
+                  <nz-select formControlName="tache_id" nzShowSearch nzAllowClear nzPlaceHolder="Select type"
+                  nzDisabled>
+                  <nz-option nzLabel="" nzValue=""></nz-option>
+                  <nz-option *ngFor="let tache of taches" [nzValue]="tache.TacheID" [nzLabel]="tache.tache">
+                  </nz-option>
+                 </nz-select>
+
+                <div>
+                  <label class="error" *ngIf="formErrors.tache_id" [innerHTML]="formErrors.tache_id"></label>
+                </div>
+
+                </ng-container>
+
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">DDR</label>
+                <div class="col-md-7">
+
+                  <div class="input-group date col-md-6 p-1-0">
+                    <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                      formControlName="ddr" readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class='icon-container'>
+                          <i class="pg-icon">calendar</i>
+                        </i>
+                      </span>
+
+                    </div>
+                  
+                  </div>
+
+                  <div><label class="error" *ngIf="formErrors.ddr" [innerHTML]="formErrors.ddr"></label>
+                  </div>
+                  <!--
+          <span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+                      Framework to download and process.</span>
+          -->
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="required col-md-5 control-label">Frequence</label>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-3">
+
+
+
+                      <nz-input-number formControlName="frequence" [nzMin]="1" [nzStep]="1"></nz-input-number>
+
+                    </div>
+                    
+                   
+
+                  </div>
+
+                  <div><label class="error" *ngIf="formErrors.frequence" [innerHTML]="formErrors.frequence"></label>
+                  </div>
+                 
+
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">Parametrage</label>
+                <div class="col-md-7">
+
+                  <div class="input-group date col-md-6 p-1-0">
+
+                    <nz-select formControlName="parametrage" nzShowSearch nzAllowClear nzPlaceHolder="Select parametre">
+                      <nz-option nzLabel="à la planification" nzValue="planification"></nz-option>
+                      <nz-option nzLabel="à l'execution" nzValue="execution"></nz-option>
+                      <nz-option nzLabel="à la cloture" nzValue="cloture"></nz-option>
+                    </nz-select>
+
+
+                  </div>
+
+                  <div>
+                    <label class="error" *ngIf="formErrors.parametrage" [innerHTML]="formErrors.parametrage"></label>
+                  </div>
+                  <!--
+          <span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+                      Framework to download and process.</span>
+          -->
+                </div>
+                
+              </div>
+
+
+
+
+
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">Type</label>
+                <div class="col-md-7">
+
+                  <div class="input-group date col-md-6 p-1-0">
+
+                    <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Select type">
+                      <nz-option nzLabel="mecanique" nzValue="mecanique"></nz-option>
+                      <nz-option nzLabel="electrique" nzValue="electrique"></nz-option>
+                      <nz-option nzLabel="graissage" nzValue="graissage"></nz-option>
+                      <nz-option nzLabel="hydrolique" nzValue="hydrolique"></nz-option>
+                      <nz-option nzLabel="pneumatique" nzValue="pneumatique"></nz-option>
+                      <nz-option nzLabel="plus" nzValue="plus"></nz-option>
+                    </nz-select>
+
+
+                  </div>
+
+                  <div>
+                    <label class="error" *ngIf="formErrors.type" [innerHTML]="formErrors.type"></label>
+                  </div>
+                  
+                  <!--
+          <span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+                      Framework to download and process.</span>
+          -->
+                </div>
+              </div>
+
+
+
+
+
+
+
+              <div class="form-group row">
+                <label class="col-md-5 control-label">NB operateur</label>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-3">
+
+
+
+                      <nz-input-number formControlName="nb_operateur" [nzMin]="1" [nzStep]="1"></nz-input-number>
+
+
+                    </div>
+
+                   
+
+                  </div>
+
+                  <div>
+                    <label class="error" *ngIf="formErrors.nb_operateur" [innerHTML]="formErrors.nb_operateur"></label>
+                  </div>
+                  
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label class="col-md-5 control-label">Heure & Minute</label>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-3">
+
+
+
+
+
+                      <nz-input-number formControlName="h" [nzMin]="0" [nzStep]="1"></nz-input-number>
+
+                      <span class="help">Heure</span>
+                    </div>
+                    <div class="col-md-3 sm-m-t-10">
+
+                      <nz-input-number (ngModelChange)="changeMinute()" [(ngModel)]="form.get('m').value"
+                        formControlName="m" [nzMin]="-1" [nzMax]="60" [nzStep]="5"></nz-input-number>
+
+                      <span class="help">Minute</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="error" *ngIf="formErrors.h" [innerHTML]="formErrors.h"></label>
+                  </div>
+                  <div>
+                    <label class="error" *ngIf="formErrors.m" [innerHTML]="formErrors.m"></label>
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Observation</label>
+                <div class="col-md-7">
+                  <textarea formControlName="observation" class="form-control" rows="2" id="name"
+                    placeholder=""></textarea>
+
+                </div>
+              </div>
+
+
+
+              <!--(InterventionID && PageInterventionLoaded && intervention.exist==1) || !InterventionID-->
+              <br>
+              <ng-container *ngIf="!InterventionID || ( isModifiable && InterventionID && PageInterventionLoaded) ">
+              <div class="row">
+
+                <div class="col-md-6">
+
+                  <!--
+                                <p class="small-text hint-text">Note: changes may take some time to apply. Wait a day and then try to verify again </p>
+                              -->
+                </div>
+                <div class="col-md-6">
+                  <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="form.valid ? 'class': 'disabled'" type="submit">{{AjouterOuModifier(InterventionID)}}
+
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+                  <!--
+                  <button *ngIf="LoadingReactBtn1" aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="true ? 'class': 'disabled'">
+                    <i *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+                  -->
+
+                </div>
+              </div>
+
+            </ng-container>
+              
+            </form>
+</ng-container> 
+
+
+<ng-container *ngIf="InterventionID && !PageInterventionLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+   <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+
+
+
+<br><br><br>
+
+<button (click)="openFullscreen()">
+  Plein Ecran
+</button>
+
+<br><br><br><br>
+
+<table border="1"><tbody><tr><td><i class="pg-icon md-18">space</i><br></td><td><i class="pg-icon md-18">exclamation</i><br></td><td><i class="pg-icon md-18">hash</i><br></td><td><i class="pg-icon md-18">dollar</i><br></td><td><i class="pg-icon md-18">percentage</i><br></td><td><i class="pg-icon md-18">and</i><br></td><td><i class="pg-icon md-18">apostrophe</i><br></td><td><i class="pg-icon md-18">open_parenthesis</i><br></td><td><i class="pg-icon md-18">close_parenthesis</i><br></td><td><i class="pg-icon md-18">asterisk</i><br></td><td><i class="pg-icon md-18">add_sm</i><br></td><td><i class="pg-icon md-18">comma</i><br></td><td><i class="pg-icon md-18">minus_sm</i><br></td></tr><tr><td><i class="pg-icon md-18">dot</i><br></td><td><i class="pg-icon md-18">slash</i><br></td><td><i class="pg-icon md-18">0</i><br></td><td><i class="pg-icon md-18">1</i><br></td><td><i class="pg-icon md-18">2</i><br></td><td><i class="pg-icon md-18">3</i><br></td><td><i class="pg-icon md-18">4</i><br></td><td><i class="pg-icon md-18">5</i><br></td><td><i class="pg-icon md-18">6</i><br></td><td><i class="pg-icon md-18">7</i><br></td><td><i class="pg-icon md-18">8</i><br></td><td><i class="pg-icon md-18">9</i><br></td><td><i class="pg-icon md-18">colon</i><br></td></tr><tr><td><i class="pg-icon md-18">semi_colon</i><br></td><td><i class="pg-icon md-18">less_than</i><br></td><td><i class="pg-icon md-18">equal</i><br></td><td><i class="pg-icon md-18">greater_than</i><br></td><td><i class="pg-icon md-18">question_mark</i><br></td><td><i class="pg-icon md-18">at</i><br></td><td><i class="pg-icon md-18">A_caps</i><br></td><td><i class="pg-icon md-18">B_caps</i><br></td><td><i class="pg-icon md-18">C_caps</i><br></td><td><i class="pg-icon md-18">D_caps</i><br></td><td><i class="pg-icon md-18">E_caps</i><br></td><td><i class="pg-icon md-18">F_caps</i><br></td><td><i class="pg-icon md-18">G_caps</i><br></td></tr><tr><td><i class="pg-icon md-18">H_caps</i><br></td><td><i class="pg-icon md-18">I_caps</i><br></td><td><i class="pg-icon md-18">J_caps</i><br></td><td><i class="pg-icon md-18">K_caps</i><br></td><td><i class="pg-icon md-18">L_caps</i><br></td><td><i class="pg-icon md-18">M_caps</i><br></td><td><i class="pg-icon md-18">N_caps</i><br></td><td><i class="pg-icon md-18">O_caps</i><br></td><td><i class="pg-icon md-18">P_caps</i><br></td><td><i class="pg-icon md-18">Q_caps</i><br></td><td><i class="pg-icon md-18">R_caps</i><br></td><td><i class="pg-icon md-18">S_caps</i><br></td><td><i class="pg-icon md-18">T_caps</i><br></td></tr><tr><td><i class="pg-icon md-18">U_caps</i><br></td><td><i class="pg-icon md-18">V_caps</i><br></td><td><i class="pg-icon md-18">W_caps</i><br></td><td><i class="pg-icon md-18">X_caps</i><br></td><td><i class="pg-icon md-18">Y_caps</i><br></td><td><i class="pg-icon md-18">Z_caps</i><br></td><td><i class="pg-icon md-18">open_bracket</i><br></td><td><i class="pg-icon md-18">back_slash</i><br></td><td><i class="pg-icon md-18">close_bracket</i><br></td><td><i class="pg-icon md-18">carat</i><br></td><td><i class="pg-icon md-18">underscore</i><br></td><td><i class="pg-icon md-18">a</i><br></td><td><i class="pg-icon md-18">b</i><br></td></tr><tr><td><i class="pg-icon md-18">c</i><br></td><td><i class="pg-icon md-18">d</i><br></td><td><i class="pg-icon md-18">e</i><br></td><td><i class="pg-icon md-18">f</i><br></td><td><i class="pg-icon md-18">g</i><br></td><td><i class="pg-icon md-18">h</i><br></td><td><i class="pg-icon md-18">i</i><br></td><td><i class="pg-icon md-18">j</i><br></td><td><i class="pg-icon md-18">k</i><br></td><td><i class="pg-icon md-18">l</i><br></td><td><i class="pg-icon md-18">m</i><br></td><td><i class="pg-icon md-18">n</i><br></td><td><i class="pg-icon md-18">o</i><br></td></tr><tr><td><i class="pg-icon md-18">p</i><br></td><td><i class="pg-icon md-18">q</i><br></td><td><i class="pg-icon md-18">r</i><br></td><td><i class="pg-icon md-18">s</i><br></td><td><i class="pg-icon md-18">t</i><br></td><td><i class="pg-icon md-18">u</i><br></td><td><i class="pg-icon md-18">v</i><br></td><td><i class="pg-icon md-18">w</i><br></td><td><i class="pg-icon md-18">x</i><br></td><td><i class="pg-icon md-18">y</i><br></td><td><i class="pg-icon md-18">z</i><br></td><td><i class="pg-icon md-18">open_brace</i><br></td><td><i class="pg-icon md-18">close_brace</i><br></td></tr><tr><td><i class="pg-icon md-18">exit</i><br></td><td><i class="pg-icon md-18">layout</i><br></td><td><i class="pg-icon md-18">window</i><br></td><td><i class="pg-icon md-18">rotate_shape</i><br></td><td><i class="pg-icon md-18">desktop</i><br></td><td><i class="pg-icon md-18">card</i><br></td><td><i class="pg-icon md-18">drag</i><br></td><td><i class="pg-icon md-18">folder</i><br></td><td><i class="pg-icon md-18">history</i><br></td><td><i class="pg-icon md-18">shapes</i><br></td><td><i class="pg-icon md-18">shapes_alt</i><br></td><td><i class="pg-icon md-18">mic</i><br></td><td><i class="pg-icon md-18">volume</i><br></td></tr><tr><td><i class="pg-icon md-18">tag</i><br></td><td><i class="pg-icon md-18">page_add</i><br></td><td><i class="pg-icon md-18">page</i><br></td><td><i class="pg-icon md-18">transition</i><br></td><td><i class="pg-icon md-18">printer</i><br></td><td><i class="pg-icon md-18">drag_handle</i><br></td><td><i class="pg-icon md-18">calendar</i><br></td><td><i class="pg-icon md-18">clipboard</i><br></td><td><i class="pg-icon md-18">play</i><br></td><td><i class="pg-icon md-18">flag</i><br></td><td><i class="pg-icon md-18">torch</i><br></td><td><i class="pg-icon md-18">dislike</i><br></td><td><i class="pg-icon md-18">like</i><br></td></tr><tr><td><i class="pg-icon md-18">menu_level</i><br></td><td><i class="pg-icon md-18">time</i><br></td><td><i class="pg-icon md-18">stop_watch</i><br></td><td><i class="pg-icon md-18">alert_help</i><br></td><td><i class="pg-icon md-18">alert_warning</i><br></td><td><i class="pg-icon md-18">alert_info</i><br></td><td><i class="pg-icon md-18">filter</i><br></td><td><i class="pg-icon md-18">grid</i><br></td><td><i class="pg-icon md-18">column</i><br></td><td><i class="pg-icon md-18">opacity</i><br></td><td><i class="pg-icon md-18">droplet_off</i><br></td><td><i class="pg-icon md-18">cursor</i><br></td><td><i class="pg-icon md-18">settings_small</i><br></td></tr><tr><td><i class="pg-icon md-18">settings</i><br></td><td><i class="pg-icon md-18">globe</i><br></td><td><i class="pg-icon md-18">flash</i><br></td><td><i class="pg-icon md-18">effects</i><br></td><td><i class="pg-icon md-18">eye_off</i><br></td><td><i class="pg-icon md-18">eye</i><br></td><td><i class="pg-icon md-18">save</i><br></td><td><i class="pg-icon md-18">edit</i><br></td><td><i class="pg-icon md-18">draw</i><br></td><td><i class="pg-icon md-18">list_numbers</i><br></td><td><i class="pg-icon md-18">list_bullets</i><br></td><td><i class="pg-icon md-18">paint_bucket</i><br></td><td><i class="pg-icon md-18">format_textbox</i><br></td></tr><tr><td><i class="pg-icon md-18">trash_alt</i><br></td><td><i class="pg-icon md-18">format_clear</i><br></td><td><i class="pg-icon md-18">format_strike_through</i><br></td><td><i class="pg-icon md-18">format_highlight</i><br></td><td><i class="pg-icon md-18">format_bold</i><br></td><td><i class="pg-icon md-18">text_size</i><br></td><td><i class="pg-icon md-18">text_add</i><br></td><td><i class="pg-icon md-18">text_A</i><br></td><td><i class="pg-icon md-18">text_indent_decrease</i><br></td><td><i class="pg-icon md-18">text_indent_increase</i><br></td><td><i class="pg-icon md-18">text_align_center</i><br></td><td><i class="pg-icon md-18">text_align_justify</i><br></td><td><i class="pg-icon md-18">text_align_left</i><br></td></tr><tr><td><i class="pg-icon md-18">text_align_right</i><br></td><td><i class="pg-icon md-18">bulb</i><br></td><td><i class="pg-icon md-18">code</i><br></td><td><i class="pg-icon md-18">mail</i><br></td><td><i class="pg-icon md-18">person</i><br></td><td><i class="pg-icon md-18">users</i><br></td><td><i class="pg-icon md-18">user_add</i><br></td><td><i class="pg-icon md-18">user_profile</i><br></td><td><i class="pg-icon md-18">user</i><br></td><td><i class="pg-icon md-18">tick_circle</i><br></td><td><i class="pg-icon md-18">tick</i><br></td><td><i class="pg-icon md-18">chart_add</i><br></td><td><i class="pg-icon md-18">chart_alt</i><br></td></tr><tr><td><i class="pg-icon md-18">chart_pie</i><br></td><td><i class="pg-icon md-18">chart</i><br></td><td><i class="pg-icon md-18">table_add</i><br></td><td><i class="pg-icon md-18">table</i><br></td><td><i class="pg-icon md-18">crop</i><br></td><td><i class="pg-icon md-18">cloud_off</i><br></td><td><i class="pg-icon md-18">cloud_success</i><br></td><td><i class="pg-icon md-18">cloud</i><br></td><td><i class="pg-icon md-18">upload_alt</i><br></td><td><i class="pg-icon md-18">upload</i><br></td><td><i class="pg-icon md-18">download_alt</i><br></td><td><i class="pg-icon md-18">download</i><br></td><td><i class="pg-icon md-18">bookmark</i><br></td></tr><tr><td><i class="pg-icon md-18">paw</i><br></td><td><i class="pg-icon md-18">close_lg</i><br></td><td><i class="pg-icon md-18">quote</i><br></td><td><i class="pg-icon md-18">keyboard</i><br></td><td><i class="pg-icon md-18">camera</i><br></td><td><i class="pg-icon md-18">color_palette</i><br></td><td><i class="pg-icon md-18">cut</i><br></td><td><i class="pg-icon md-18">add_circle</i><br></td><td><i class="pg-icon md-18">add</i><br></td><td><i class="pg-icon md-18">close_circle</i><br></td><td><i class="pg-icon md-18">close</i><br></td><td><i class="pg-icon md-18">menu</i><br></td><td><i class="pg-icon md-18">link_off</i><br></td></tr><tr><td><i class="pg-icon md-18">link</i><br></td><td><i class="pg-icon md-18">refresh_alt1</i><br></td><td><i class="pg-icon md-18">refresh_alt</i><br></td><td><i class="pg-icon md-18">refresh_disable</i><br></td><td><i class="pg-icon md-18">refresh</i><br></td><td><i class="pg-icon md-18">search</i><br></td><td><i class="pg-icon md-18">chat_alt</i><br></td><td><i class="pg-icon md-18">chat</i><br></td><td><i class="pg-icon md-18">google_plus</i><br></td><td><i class="pg-icon md-18">comment_edit</i><br></td><td><i class="pg-icon md-18">comment</i><br></td><td><i class="pg-icon md-18">comment_alt</i><br></td><td><i class="pg-icon md-18">redo</i><br></td></tr><tr><td><i class="pg-icon md-18">undo</i><br></td><td><i class="pg-icon md-18">disable</i><br></td><td><i class="pg-icon md-18">database</i><br></td><td><i class="pg-icon md-18">image</i><br></td><td><i class="pg-icon md-18">shield_lock</i><br></td><td><i class="pg-icon md-18">lock_outline</i><br></td><td><i class="pg-icon md-18">unlock</i><br></td><td><i class="pg-icon md-18">lock</i><br></td><td><i class="pg-icon md-18">copy</i><br></td><td><i class="pg-icon md-18">more_horizontal</i><br></td><td><i class="pg-icon md-18">more_vertical</i><br></td><td><i class="pg-icon md-18">stepper</i><br></td><td><i class="pg-icon md-18">arrow_down</i><br></td></tr><tr><td><i class="pg-icon md-18">arrow_up</i><br></td><td><i class="pg-icon md-18">arrow_right</i><br></td><td><i class="pg-icon md-18">arrow_left</i><br></td><td><i class="pg-icon md-18">chevron_down</i><br></td><td><i class="pg-icon md-18">chevron_up</i><br></td><td><i class="pg-icon md-18">chevron_right</i><br></td><td><i class="pg-icon md-18">chevron_left</i><br></td><td><i class="pg-icon md-18">arrow_drop_up</i><br></td><td><i class="pg-icon md-18">arrow_drop_down</i><br></td><td><i class="pg-icon md-18">circle</i><br></td><td><i class="pg-icon md-18">collapse</i><br></td><td><i class="pg-icon md-18">expand</i><br></td><td><i class="pg-icon md-18">side_menu</i><br></td></tr><tr><td><i class="pg-icon md-18">home</i><br></td><td><i class="pg-icon md-18">heart_outline</i><br></td><td><i class="pg-icon md-18">heart</i><br></td><td><i class="pg-icon md-18">pin</i><br></td><td><i class="pg-icon md-18">location</i><br></td><td><i class="pg-icon md-18">map_alt</i><br></td><td><i class="pg-icon md-18">map</i><br></td><td><i class="pg-icon md-18">grid_alt</i><br></td><td><i class="pg-icon md-18">note</i><br></td><td><i class="pg-icon md-18">trash</i><br></td><td><i class="pg-icon md-18">twitter</i><br></td><td><i class="pg-icon md-18">send</i><br></td><td><i class="pg-icon md-18">spam</i><br></td></tr><tr><td><i class="pg-icon md-18">inbox_all</i><br></td><td><i class="pg-icon md-18">inbox</i><br></td><td><i class="pg-icon md-18">link_alt</i><br></td><td><i class="pg-icon md-18">facebook</i><br></td><td><i class="pg-icon md-18">circle_fill</i><br></td><td><i class="pg-icon md-18">pin_alt</i><br></td><td><i class="pg-icon md-18">format_italics</i><br></td><td><i class="pg-icon md-18">minus</i><br></td><td><i class="pg-icon md-18">menu_add</i><br></td><td><i class="pg-icon md-18">star</i><br></td><td><i class="pg-icon md-18">star_outline</i><br></td><td><i class="pg-icon md-18">star_half</i><br></td><td><i class="pg-icon md-18">paint_brush</i><br></td></tr><tr><td><i class="pg-icon md-18">format_underline</i><br></td><td><i class="pg-icon md-18">external_link</i><br></td><td><i class="pg-icon md-18">arrow_top_right</i><br></td><td><i class="pg-icon md-18">arrow_top_right</i><br></td><td><i class="pg-icon md-18">globe</i><br></td><td><i class="pg-icon md-18">window</i><br></td><td><i class="pg-icon md-18">opacity</i><br></td><td><i class="pg-icon md-18">time</i><br></td><td><i class="pg-icon md-18">alert_warning</i><br></td><td><i class="pg-icon md-18">spam</i><br></td><td><i class="pg-icon md-18">volume</i><br></td><td><i class="pg-icon md-18">users</i><br></td><td><i class="pg-icon md-18">user_profile</i><br></td></tr><tr><td><i class="pg-icon md-18">user_add</i><br></td><td><i class="pg-icon md-18">user</i><br></td><td><i class="pg-icon md-18">upload_alt</i><br></td><td><i class="pg-icon md-18">upload</i><br></td><td><i class="pg-icon md-18">unlock</i><br></td><td><i class="pg-icon md-18">undo</i><br></td><td><i class="pg-icon md-18">format_underline</i><br></td><td><i class="pg-icon md-18">twitter</i><br></td><td><i class="pg-icon md-18">twitter</i><br></td><td><i class="pg-icon md-18">trash_alt</i><br></td><td><i class="pg-icon md-18">trash</i><br></td><td><i class="pg-icon md-18">transition</i><br></td><td><i class="pg-icon md-18">torch</i><br></td></tr><tr><td><i class="pg-icon md-18">stop_watch</i><br></td><td><i class="pg-icon md-18">time</i><br></td><td><i class="pg-icon md-18">tick_circle</i><br></td><td><i class="pg-icon md-18">tick</i><br></td><td><i class="pg-icon md-18">like</i><br></td><td><i class="pg-icon md-18">text_size</i><br></td><td><i class="pg-icon md-18">text_indent_increase</i><br></td><td><i class="pg-icon md-18">text_indent_decrease</i><br></td><td><i class="pg-icon md-18">text_align_right</i><br></td><td><i class="pg-icon md-18">text_align_left</i><br></td><td><i class="pg-icon md-18">text_align_justify</i><br></td><td><i class="pg-icon md-18">text_align_center</i><br></td><td><i class="pg-icon md-18">text_add</i><br></td></tr><tr><td><i class="pg-icon md-18">text_A</i><br></td><td><i class="pg-icon md-18">tag</i><br></td><td><i class="pg-icon md-18">table_add</i><br></td><td><i class="pg-icon md-18">table</i><br></td><td><i class="pg-icon md-18">minus_sm</i><br></td><td><i class="pg-icon md-18">minus</i><br></td><td><i class="pg-icon md-18">stop_watch</i><br></td><td><i class="pg-icon md-18">stepper</i><br></td><td><i class="pg-icon md-18">star_outline</i><br></td><td><i class="pg-icon md-18">star_half</i><br></td><td><i class="pg-icon md-18">star</i><br></td><td><i class="pg-icon md-18">spam</i><br></td><td><i class="pg-icon md-18">volume</i><br></td></tr><tr><td><i class="pg-icon md-18">person</i><br></td><td><i class="pg-icon md-18">exit</i><br></td><td><i class="pg-icon md-18">side_menu</i><br></td><td><i class="pg-icon md-18">shield_lock</i><br></td><td><i class="pg-icon md-18">shapes_alt</i><br></td><td><i class="pg-icon md-18">shapes</i><br></td><td><i class="pg-icon md-18">settings_small</i><br></td><td><i class="pg-icon md-18">settings</i><br></td><td><i class="pg-icon md-18">send</i><br></td><td><i class="pg-icon md-18">send</i><br></td><td><i class="pg-icon md-18">eye</i><br></td><td><i class="pg-icon md-18">search</i><br></td><td><i class="pg-icon md-18">cut</i><br></td></tr><tr><td><i class="pg-icon md-18">save</i><br></td><td><i class="pg-icon md-18">rotate_shape</i><br></td><td><i class="pg-icon md-18">refresh_disable</i><br></td><td><i class="pg-icon md-18">refresh_alt1</i><br></td><td><i class="pg-icon md-18">refresh_alt</i><br></td><td><i class="pg-icon md-18">refresh</i><br></td><td><i class="pg-icon md-18">redo</i><br></td><td><i class="pg-icon md-18">star</i><br></td><td><i class="pg-icon md-18">quote</i><br></td><td><i class="pg-icon md-18">printer</i><br></td><td><i class="pg-icon md-18">add_sm</i><br></td><td><i class="pg-icon md-18">add</i><br></td><td><i class="pg-icon md-18">play</i><br></td></tr><tr><td><i class="pg-icon md-18">pin_alt</i><br></td><td><i class="pg-icon md-18">pin</i><br></td><td><i class="pg-icon md-18">image</i><br></td><td><i class="pg-icon md-18">person</i><br></td><td><i class="pg-icon md-18">edit</i><br></td><td><i class="pg-icon md-18">edit</i><br></td><td><i class="pg-icon md-18">paw</i><br></td><td><i class="pg-icon md-18">paint_bucket</i><br></td><td><i class="pg-icon md-18">paint_brush</i><br></td><td><i class="pg-icon md-18">paint_bucket</i><br></td><td><i class="pg-icon md-18">page</i><br></td><td><i class="pg-icon md-18">page_add</i><br></td><td><i class="pg-icon md-18">page</i><br></td></tr><tr><td><i class="pg-icon md-18">opacity</i><br></td><td><i class="pg-icon md-18">note</i><br></td><td><i class="pg-icon md-18">map_alt</i><br></td><td><i class="pg-icon md-18">more_vertical</i><br></td><td><i class="pg-icon md-18">more_horizontal</i><br></td><td><i class="pg-icon md-18">more_horizontal</i><br></td><td><i class="pg-icon md-18">minus_sm</i><br></td><td><i class="pg-icon md-18">minus</i><br></td><td><i class="pg-icon md-18">mic</i><br></td><td><i class="pg-icon md-18">menu_add</i><br></td><td><i class="pg-icon md-18">menu_level</i><br></td><td><i class="pg-icon md-18">menu_add</i><br></td><td><i class="pg-icon md-18">menu</i><br></td></tr><tr><td><i class="pg-icon md-18">image</i><br></td><td><i class="pg-icon md-18">map_alt</i><br></td><td><i class="pg-icon md-18">map</i><br></td><td><i class="pg-icon md-18">mail</i><br></td><td><i class="pg-icon md-18">effects</i><br></td><td><i class="pg-icon md-18">effects</i><br></td><td><i class="pg-icon md-18">heart</i><br></td><td><i class="pg-icon md-18">exit</i><br></td><td><i class="pg-icon md-18">lock_outline</i><br></td><td><i class="pg-icon md-18">lock</i><br></td><td><i class="pg-icon md-18">location</i><br></td><td><i class="pg-icon md-18">list_numbers</i><br></td><td><i class="pg-icon md-18">list_bullets</i><br></td></tr><tr><td><i class="pg-icon md-18">link_off</i><br></td><td><i class="pg-icon md-18">link_alt</i><br></td><td><i class="pg-icon md-18">link</i><br></td><td><i class="pg-icon md-18">like</i><br></td><td><i class="pg-icon md-18">layout</i><br></td><td><i class="pg-icon md-18">desktop</i><br></td><td><i class="pg-icon md-18">keyboard</i><br></td><td><i class="pg-icon md-18">inbox_all</i><br></td><td><i class="pg-icon md-18">inbox</i><br></td><td><i class="pg-icon md-18">image</i><br></td><td><i class="pg-icon md-18">bulb</i><br></td><td><i class="pg-icon md-18">person</i><br></td><td><i class="pg-icon md-18">home</i><br></td></tr><tr><td><i class="pg-icon md-18">home</i><br></td><td><i class="pg-icon md-18">history</i><br></td><td><i class="pg-icon md-18">map_alt</i><br></td><td><i class="pg-icon md-18">alert_help</i><br></td><td><i class="pg-icon md-18">heart_outline</i><br></td><td><i class="pg-icon md-18">heart</i><br></td><td><i class="pg-icon md-18">menu</i><br></td><td><i class="pg-icon md-18">grid_alt</i><br></td><td><i class="pg-icon md-18">grid</i><br></td><td><i class="pg-icon md-18">google_plus</i><br></td><td><i class="pg-icon md-18">globe</i><br></td><td><i class="pg-icon md-18">format_underline</i><br></td><td><i class="pg-icon md-18">format_textbox</i><br></td></tr><tr><td><i class="pg-icon md-18">format_strike_through</i><br></td><td><i class="pg-icon md-18">format_italics</i><br></td><td><i class="pg-icon md-18">format_highlight</i><br></td><td><i class="pg-icon md-18">format_clear</i><br></td><td><i class="pg-icon md-18">format_bold</i><br></td><td><i class="pg-icon md-18">folder</i><br></td><td><i class="pg-icon md-18">flash</i><br></td><td><i class="pg-icon md-18">flag</i><br></td><td><i class="pg-icon md-18">filter</i><br></td><td><i class="pg-icon md-18">facebook</i><br></td><td><i class="pg-icon md-18">facebook</i><br></td><td><i class="pg-icon md-18">eye_off</i><br></td><td><i class="pg-icon md-18">eye</i><br></td></tr><tr><td><i class="pg-icon md-18">external_link</i><br></td><td><i class="pg-icon md-18">expand</i><br></td><td><i class="pg-icon md-18">exit</i><br></td><td><i class="pg-icon md-18">mail</i><br></td><td><i class="pg-icon md-18">effects</i><br></td><td><i class="pg-icon md-18">edit</i><br></td><td><i class="pg-icon md-18">globe</i><br></td><td><i class="pg-icon md-18">droplet_off</i><br></td><td><i class="pg-icon md-18">opacity</i><br></td><td><i class="pg-icon md-18">arrow_drop_up</i><br></td><td><i class="pg-icon md-18">arrow_drop_down</i><br></td><td><i class="pg-icon md-18">opacity</i><br></td><td><i class="pg-icon md-18">draw</i><br></td></tr><tr><td><i class="pg-icon md-18">drag_handle</i><br></td><td><i class="pg-icon md-18">drag</i><br></td><td><i class="pg-icon md-18">download_alt</i><br></td><td><i class="pg-icon md-18">download</i><br></td><td><i class="pg-icon md-18">dislike</i><br></td><td><i class="pg-icon md-18">disable</i><br></td><td><i class="pg-icon md-18">desktop</i><br></td><td><i class="pg-icon md-18">database</i><br></td><td><i class="pg-icon md-18">alert_warning</i><br></td><td><i class="pg-icon md-18">cut</i><br></td><td><i class="pg-icon md-18">cursor</i><br></td><td><i class="pg-icon md-18">close</i><br></td><td><i class="pg-icon md-18">crop</i><br></td></tr><tr><td><i class="pg-icon md-18">copy</i><br></td><td><i class="pg-icon md-18">comment_edit</i><br></td><td><i class="pg-icon md-18">comment_alt</i><br></td><td><i class="pg-icon md-18">comment</i><br></td><td><i class="pg-icon md-18">column</i><br></td><td><i class="pg-icon md-18">color_palette</i><br></td><td><i class="pg-icon md-18">color_palette</i><br></td><td><i class="pg-icon md-18">collapse</i><br></td><td><i class="pg-icon md-18">settings</i><br></td><td><i class="pg-icon md-18">code</i><br></td><td><i class="pg-icon md-18">cloud_success</i><br></td><td><i class="pg-icon md-18">cloud_off</i><br></td><td><i class="pg-icon md-18">cloud</i><br></td></tr><tr><td><i class="pg-icon md-18">close_lg</i><br></td><td><i class="pg-icon md-18">close_circle</i><br></td><td><i class="pg-icon md-18">close</i><br></td><td><i class="pg-icon md-18">time</i><br></td><td><i class="pg-icon md-18">clipboard</i><br></td><td><i class="pg-icon md-18">circle_fill</i><br></td><td><i class="pg-icon md-18">circle</i><br></td><td><i class="pg-icon md-18">chevron_up</i><br></td><td><i class="pg-icon md-18">chevron_right</i><br></td><td><i class="pg-icon md-18">chevron_left</i><br></td><td><i class="pg-icon md-18">chevron_down</i><br></td><td><i class="pg-icon md-18">chat_alt</i><br></td><td><i class="pg-icon md-18">chat</i><br></td></tr><tr><td><i class="pg-icon md-18">chart_pie</i><br></td><td><i class="pg-icon md-18">chart_alt</i><br></td><td><i class="pg-icon md-18">chart_add</i><br></td><td><i class="pg-icon md-18">chart</i><br></td><td><i class="pg-icon md-18">card</i><br></td><td><i class="pg-icon md-18">camera</i><br></td><td><i class="pg-icon md-18">calendar</i><br></td><td><i class="pg-icon md-18">bulb</i><br></td><td><i class="pg-icon md-18">paint_brush</i><br></td><td><i class="pg-icon md-18">bookmark</i><br></td><td><i class="pg-icon md-18">twitter</i><br></td><td><i class="pg-icon md-18">trash_alt</i><br></td><td><i class="pg-icon md-18">trash</i><br></td></tr><tr><td><i class="pg-icon md-18">arrow_up</i><br></td><td><i class="pg-icon md-18">arrow_top_right</i><br></td><td><i class="pg-icon md-18">arrow_right</i><br></td><td><i class="pg-icon md-18">arrow_left</i><br></td><td><i class="pg-icon md-18">arrow_drop_up</i><br></td><td><i class="pg-icon md-18">arrow_drop_down</i><br></td><td><i class="pg-icon md-18">arrow_down</i><br></td><td><i class="pg-icon md-18">paw</i><br></td><td><i class="pg-icon md-18">alert_warning</i><br></td><td><i class="pg-icon md-18">alert_info</i><br></td><td><i class="pg-icon md-18">alert_help</i><br></td><td><i class="pg-icon md-18">alert_info</i><br></td><td><i class="pg-icon md-18">user_add</i><br></td></tr><tr><td><i class="pg-icon md-18">add_sm</i><br></td><td><i class="pg-icon md-18">add_circle</i><br></td><td><i class="pg-icon md-18">add</i><br></td></tr></tbody></table>
+<br>

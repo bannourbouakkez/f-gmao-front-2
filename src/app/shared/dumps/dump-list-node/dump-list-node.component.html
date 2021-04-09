@@ -1,0 +1,9 @@
+
+
+<div style="margin-bottom:4px;">
+
+    <span *ngFor="let el of elements">
+        <app-dump-node [name]="el.data.name" [id]="el.data.id" [x]="x" (action)="Action($event)"></app-dump-node>
+    </span>
+
+</div>

@@ -1,0 +1,38 @@
+
+<hr>
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+    <input type="hidden"  name="EquipementArticleID" #EquipementArticleID="ngModel" [(ngModel)]="formData.EquipementArticleID">
+    <input type="hidden"  name="equipement_id" #equipement_id="ngModel" [(ngModel)]="formData.equipement_id">
+    <input type="hidden"  name="des" #des="ngModel" [(ngModel)]="formData.des" >
+
+<table border='1'>
+    <thead>
+        <td>Article</td>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <mat-form-field>
+                    <mat-select name="article_id" [placeholder]="formData.des" ngModel  [(ngModel)]="formData.article_id"  (ngModelChange)="updateNameAndUnite($event)"  >
+                      <mat-option>
+                        <ngx-mat-select-search  ngModel  [formControl]="bankServerSideFilteringCtrl" [searching]="searching"  placeholderLabel="Chercher Article ..."  noEntriesFoundLabel="'Aucune Article'" ></ngx-mat-select-search>
+                      </mat-option>
+                       <!-- <mat-option *ngFor="let bank of filteredServerSideBanks | async" [value]="bank.article_id">-->
+                        <mat-option *ngFor="let bank of articleList" [value]="bank.ArticleID">
+                        {{bank.des}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </td>
+        </tr>
+    </tbody>
+</table>
+  
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
+  </div>
+
+</form>

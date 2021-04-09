@@ -1,0 +1,11 @@
+<p>founisseur-modes works!</p>
+
+
+
+<ul>
+    <li *ngFor="let mode of modes;let i=index;">
+     {{i+1}} {{mode.mode}} <button (click)="edit(mode.id)">modifier</button><button (click)="delete(mode.id,i)">supprimer</button>
+    </li>
+</ul>
+
+<button [routerLink]="['/achat/modes/addoredit']">Ajouter un mode</button>

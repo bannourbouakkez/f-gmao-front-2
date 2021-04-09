@@ -1,0 +1,156 @@
+
+
+<ng-container *ngIf="!PlanID || (PlanID && planloaded)" >
+<div id="card-body-popup" class="card-body" style="margin:0px;padding:0px;" >
+       
+    <div id="card-header-popup" class="card-header separator">
+    <!--<ol id="breadcrumb-popup" class="breadcrumb" >-->
+        <!--<li  class="breadcrumb-item active">-->
+            <!--<span class='breadcrumb-title'>-->
+                <p class="no-margin" style="color:purple">
+                     Planifier demande d'intervention
+                  </p>
+            <!--</span>-->
+            <!--</li>-->
+     <!--</ol>-->
+    </div>
+
+<form [formGroup]="form" (ngSubmit)="planifierDi(form)" class="form-horizontal" role="form" autocomplete="off" width="100%">
+
+    
+    <div class="form-group row">
+        <label class="col-md-4 required control-label">Date & Heure</label>
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+  
+  
+              <div class="input-group date col-md-12 p-1-0">
+                <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                  formControlName="date" readonly>
+                <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class='icon-container'>
+                      <i class="pg-icon">calendar</i>
+                    </i>
+                  </span>
+  
+                </div>
+              
+              </div>
+  
+              <span class="help">Date</span>
+            </div>
+            <div class="col-md-6 sm-m-t-10 ">
+  
+            
+              <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;">
+                <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" #time 
+                formControlName="time"  readonly>
+                <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class='icon-container'>
+                      <i class="pg-icon">time</i>
+                    </i>
+                  </span>
+                </div>
+              </div>
+  
+  
+              <span class="help">Heure</span>
+            </div>
+          </div>
+  
+          <!--
+          <div>
+            <label class="error" *ngIf="formErrors.date" [innerHTML]="formErrors.date"></label>
+          </div>
+          <div>
+            <label class="error" *ngIf="formErrors.time" [innerHTML]="formErrors.time"></label>
+          </div>
+         -->
+          
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="fname" class="required col-md-4 control-label">Type</label>
+        <div class="col-md-8">
+  
+          <div class="input-group date p-1-0">
+  
+            
+            <nz-select formControlName="type"  nzPlaceHolder="Select type">
+            <nz-option nzValue="auto" nzLabel="Automatique" selected="true"></nz-option>
+            <nz-option nzValue="manu" nzLabel="Manuelle"></nz-option>
+            </nz-select>
+
+          </div>
+  
+          <!--
+          <div>
+            <label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label>
+          </div>
+         -->
+        
+        </div>
+      </div>
+      <br>
+      <div class="row">
+
+        <div class="col-md-6">
+        </div>
+        <div class="col-md-6">
+          <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+          [ngClass]="form.valid ? 'class': 'disabled'" type="submit"> Envoyer
+
+          <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+          </button>
+      
+        </div>
+      </div>
+
+
+
+</form>
+
+</div>
+</ng-container>
+
+<ng-container *ngIf="(PlanID && !planloaded)">
+   
+    <div class="center-loading-box">
+    
+             <div class="progress-circle-indeterminate m-t-45"></div>
+    </div>
+    <br>
+  </ng-container>
+
+<!--
+<form [formGroup]="form" (ngSubmit)="planifierDi(form)">
+    
+<label>
+    Date
+    <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+</label>
+
+<label>
+    Time
+    <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+    <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+</label>
+
+Type : <select formControlName="type" >
+    <option value='auto' [selected]="true">Automatique</option>
+    <option value='manu'>Manuelle</option>
+    </select>
+
+    <button type="submit">Planifier</button>
+
+</form>
+-->
+
+

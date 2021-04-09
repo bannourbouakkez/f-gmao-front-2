@@ -1,0 +1,22 @@
+<p>founisseur-secteur works!</p>
+
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="hidden" formControlName="id" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+
+    <div class="form-group" [ngClass]="{'hasclass': !isValid}">
+        <label class="col-sm-6" >Mode<span style="color:red;">(*)</span></label>
+        <div class="col-sm-6">
+            <input maxlength="50" formControlName="secteur" class="form-control" >
+        </div>
+        <small class="help-block col-sm-12" *ngIf="!isValid">Champ obligatoire</small> 
+    </div>
+
+    <button type="submit" class="btn btn-primary" >Submit</button>
+   
+    
+</form>
+
+<button  *ngIf="data" class="btn btn-primary" (click)="close('fromClose')" >Close</button>

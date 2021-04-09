@@ -1,0 +1,74 @@
+
+<!--
+<div *ngIf="Loaded"> 
+Add {{nom}}
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type='hidden' formControlName="id" >
+    <input maxlength="50" formControlName="name" >
+
+    <button (click)="onSubmit()">Add </button>
+</form>
+
+</div>
+-->
+
+
+
+
+
+
+
+<!--
+      <table border='1'>
+        <tr>
+          <td>
+slfj sdjfl kjds
+          </td>
+        </tr>
+      </table>
+-->
+
+    
+
+      <div id="card-body-popup" class="card-body" *ngIf="Loaded" style="margin:0px;padding:0px;" >
+       
+        <div id="card-header-popup" class="card-header separator">
+        <ol id="breadcrumb-popup" class="breadcrumb" >
+            <li  class="breadcrumb-item active"><span class='breadcrumb-title'>Ajouter {{nom}}</span></li>
+         </ol>
+        </div>
+            
+                
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal" role="form" autocomplete="off">
+    
+    
+                    <div class="form-group row">
+                      <label for="name" class="required col-md-5 control-label">Nom</label>
+                      <div class="col-md-7">
+      
+      
+                          <input type='hidden' formControlName="id" >
+                          <input  class='form-control input-sm'  maxlength="50" formControlName="name" >
+  
+      
+      
+                      </div>
+                    </div>
+                    <div class="row">
+      
+                      <div class="col-md-6">
+      
+                      </div>
+                      <div class="col-md-6">
+                         
+                        <button id="button-popup"  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                          [ngClass]="form.valid ? 'class': 'disabled'" type="submit">Ajouter</button>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+        
+        
+
+

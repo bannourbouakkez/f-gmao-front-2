@@ -1,0 +1,417 @@
+<!--{ "CmdRecID": 4, "commande_id": 5, "user_id": 1, "isModified": 1, "exist": 1, "NbDeModif": 1, "created_at": "2020-02-24 20:48:55", "updated_at": "2020-02-24 21:09:57", "name": "Fethi" }-->
+
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+        <div class="card">
+            <div id="card-header-liste" class="card-header separator">
+                <ol id="breadcrumb-liste" class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                            class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+                </ol>
+            </div>
+
+            <div id="card-body-liste" class="card-body">
+                <div class="row">
+
+
+                    <!------------- Filter ----------------->
+                    <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+                        <nz-collapse [nzBordered]="true">
+                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader=""
+                                [nzActive]="false">
+
+
+                                <table id="id-table-filter">
+                                    <tr>
+                                        <td id="id-table-filter-first-td"></td>
+                                        <td>
+
+                                            <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form"
+                                                autocomplete="off">
+                                                <!------ Contenu filter ------->
+
+
+                                              
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Date</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <input class='form-control input-sm' nz-input
+                                                                        [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                                                                        #datemin ngModel
+                                                                        [(ngModel)]="filterForm.get('datemin').value"
+                                                                        formControlName="datemin" readonly>
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt3>
+                                                                    </owl-date-time>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class='icon-container'>
+                                                                                <i class="pg-icon">calendar</i>
+                                                                            </i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help">Date Debut</span>
+                                                            </div>
+                                                            <div class="col-md-3 sm-m-t-10">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <input class='form-control input-sm' nz-input
+                                                                        [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4"
+                                                                        #datemax ngModel
+                                                                        [(ngModel)]="filterForm.get('datemax').value"
+                                                                        formControlName="datemax" readonly>
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt4>
+                                                                    </owl-date-time>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class='icon-container'>
+                                                                                <i class="pg-icon">calendar</i>
+                                                                            </i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help">Date Fin</span>
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+
+                                            
+                                        
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Modifée / Propre</label>
+                                                    <div class="col-md-10">
+                                                        <label nz-checkbox name="isModified" formControlName="isModified" checked>
+                                                        Modifié </label>
+                                                        &nbsp;  &nbsp;   &nbsp;   &nbsp; 
+                                                        <label nz-checkbox name="isPropre" formControlName="isPropre" checked>
+                                                        Propre </label>
+                                                    </div>
+                                                </div>
+
+
+                                                <!--##### Contenu filter #####-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+
+                        <ng-template #expandedIcon let-active>
+                            <table id="id-bar-filter-table">
+                                <tr>
+                                    <td id="id-bar-filter-td-rotateicon">
+                                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                                            [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                                        <i class='pg-icon md-18'>filter</i> Filtre
+                                    </td>
+                                    <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                                            <input #searchFilterText formControlName="searchFilterText"
+                                                class="form-control input-sm" type="text" autocomplete="off" nz-input
+                                                placeholder="" id="filter" #filter />
+                                        </nz-input-group>
+                                        <ng-template #suffixIconSearch>
+                                            <i class='pg-icon md-18'>search</i>
+                                        </ng-template>
+                                    </td>
+                                    <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                                        <button id="id-bar-filter-btn-first" class='btn btn-default'
+                                            type="submit">Rechercher</button>
+                                        <button type="button" class="btn btn-default" (click)="resetFilter()">
+                                            <span> Réinitialiser </span>
+                                            <!--<i class='pg-icon md-18'>refresh_alt1</i>-->
+                                        </button>
+                                        <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                                            RA </label>
+                                    </td>
+                                    <td id="id-bar-filter-last-td">
+                                        <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-template>
+
+                    </form>
+                    <!--################# Filter ####################-->
+
+                  
+
+                        
+
+                    <!------------------- Table ----------------------->
+                    <div id="id-div-table">
+
+                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                            [nzShowPagination]="false" [nzData]="receptions">
+                            <thead>
+                                <tr>
+                                    
+                                    
+
+                                    <th nzWidth="1%">#</th>
+                                    <th>N° Commande</th>
+                                    <th>Recepteur</th>
+                                    <th>Modifié</th>
+                                    <th>Date de creation</th>
+                                    <th>Action</th>
+
+
+                                </tr>
+                            </thead>
+
+
+
+
+                            
+
+                            <tbody>
+                                <ng-container *ngIf=" receptions && receptions.length>0" >
+                                <ng-container *ngFor="let reception of receptions | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+                                <tr>
+                                    
+                                 
+
+                                     <td align="center">
+                                        <div class="table-firsttd-height">
+                                            <a href="gmao/achat/cmd/reception/{{reception.CmdRecID}}" target="_blank">
+                                                {{reception.CmdRecID}}
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                  
+                                     <td>{{reception.commande_id}}</td>
+                                     <td>{{reception.name}}</td>
+                                     <td>{{reception.isModified}}</td>
+                                     <td>{{reception.created_at | date:'dd/MM/yy HH:mm' }}</td>
+
+                                     <!--
+                                     <td>
+                                        <div class="div-statuts">
+                                            <div *ngIf="cmd.statut=='ouvert'" class="label"
+                                            style="padding:5px;">{{cmd.statut}}</div>
+                                            <div *ngIf="cmd.statut=='ferme'" class="label label-warning"
+                                                style="padding:5px;">{{cmd.statut}}</div>
+                                            <div *ngIf="cmd.statut=='ferme'" class="label label-info"
+                                                style="padding:5px;">{{cmd.statut}}</div>
+                                         </div>
+                                     </td>
+                                     -->
+                                    
+                                    
+
+                                        <td>
+
+                                            <ul class="list-inline m-0">
+                                             <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                                                <button [routerLink]="['/gmao/achat/cmd/reception/'+reception.CmdRecID]" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                  data-placement="top" title="afficher"> <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                              </li>
+
+                                              
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button [routerLink]="['/gmao/achat/cmd/editreception/',reception.CmdRecID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                     class="pg-icon md-18"
+                                                     style="width:10px;height:10px;position:relative;top:1px;">edit</i></button>
+                                             </li>
+
+                                             <ng-container *ngIf="!reception.BonID">
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button [routerLink]="['/gmao/achat/cmd/addbon/',reception.CmdRecID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                     class="pg-icon md-18"
+                                                     style="width:10px;height:10px;position:relative;top:1px;">keyboard</i></button>
+                                             </li>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="reception.BonID">
+                                                <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <!--[routerLink]="['/gmao/achat/cmd/affbon/',reception.BonID]" -->
+                                             <button 
+                                             (click)="openBon(reception.BonID,reception.CmdRecID)"
+                                             class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                     class="pg-icon md-18"
+                                                     style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                             </li>
+                                            </ng-container>
+
+
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button [routerLink]="['/gmao/achat/retour/add/',reception.CmdRecID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                     class="pg-icon md-18"
+                                                     style="width:10px;height:10px;position:relative;top:1px;">upload</i></button>
+                                             </li>
+
+                                             
+                                            
+                                            
+                                            <!--
+                                             <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                                                <button nz-popconfirm nzTitle="Vous etes sure a supprimer la commande ?" (nzOnConfirm)="supprimerCmd(cmd.CommandeID,i)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                                                class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                data-placement="top" title="supprimer"><i class="pg-icon md-18"
+                                                style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i></button>
+                                            </li>
+                                            -->
+                                            
+                                            
+                                        </ul>
+                                        
+                                        </td>
+
+
+
+
+
+                                    
+
+                                </tr>
+                            
+                        </ng-container>
+                    </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                    <!--################# Table ####################-->
+
+
+
+
+
+                    <!------------------- Pagination ----------------------->
+                    <table id="id-pagination-big-table">
+                        <tr>
+                            <td>
+
+                                <div class="my-pagination">
+                                    <table id="id-pagination-small-table">
+                                        <tr>
+                                            <td>
+                                                <nz-select [(ngModel)]="selectedItemPerPage"
+                                                    (ngModelChange)="incrementsItemsPerPage($event)">
+                                                    <nz-option nzValue="5" nzLabel="5"></nz-option>
+                                                    <nz-option nzValue="10" nzLabel="10"></nz-option>
+                                                    <nz-option nzValue="25" nzLabel="25"></nz-option>
+                                                    <nz-option nzValue="50" nzLabel="50"></nz-option>
+                                                </nz-select>
+                                            </td>
+
+                                            <td>
+                                                <pagination-controls maxSize="10" previousLabel="Précédent"
+                                                    nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;"
+                                                    (pageChange)="getReceptions($event)" id="server">
+                                                </pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <!--################# Pagination ####################-->
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #iconTpl>
+    <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+    <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>
+
+
+
+<!--
+<form [formGroup]="filterForm">
+
+    <br>
+        Modifié  : <input type="checkbox"  name="isModified" formControlName="isModified" checked> |
+        Propre  : <input type="checkbox"  name="isPropre" formControlName="isPropre" checked> |
+       
+    <br>
+    <input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+    <input type="hidden"  #datemin formControlName="datemin" >
+    <input type="hidden"  #datemax formControlName="datemax" >
+    Rechecrche Automatique  : <input type="checkbox"  name="auto" formControlName="auto" checked>
+    <button (click)="filter()">Search</button>
+    <button (click)="resetFilter()">Reset</button>
+    </form>
+    
+    <form [formGroup]="formDate">
+    
+    <mat-form-field>
+        <input formControlName="minformdate" #dateminmatdeux  matInput  [matDatepicker]="dateminmat" (dateChange)="dateMinFilter($event)" readonly>
+        <mat-datepicker-toggle matSuffix [for]="dateminmat" ></mat-datepicker-toggle>
+        <mat-datepicker #dateminmat  ></mat-datepicker>
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input formControlName="maxformdate"  #datemaxmatdeux matInput [matDatepicker]="datemaxmat" (dateChange)="dateMaxFilter($event)" readonly>
+        <mat-datepicker-toggle matSuffix [for]="datemaxmat" ></mat-datepicker-toggle>
+        <mat-datepicker #datemaxmat  ></mat-datepicker>
+    </mat-form-field>
+    
+    </form>
+
+<div *ngIf=" receptions && receptions.length>0">
+    <div *ngFor="let reception of receptions | paginate: { itemsPerPage: 10, currentPage: p };let i=index;  ">
+    <div [routerLink]="['/achat/cmd/reception/'+reception.CmdRecID]">
+    N° Reception :  {{reception.CmdRecID}} , 
+    N° Commande :  {{reception.commande_id}} , 
+    Recepteur :  {{reception.name}} , 
+    Modifie :  {{reception.isModified}} , 
+    Date de creation  :  {{reception.created_at}} 
+    </div>
+    </div>
+</div>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+-->

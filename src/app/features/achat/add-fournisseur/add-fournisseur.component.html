@@ -1,0 +1,365 @@
+<div style="width:50%; border: 3px solid #73AD21;">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    
+
+    <input type="hidden" formControlName="id" >
+    <input type="hidden" formControlName="dossier_id" >
+    <input type="hidden" formControlName="ref" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+
+
+    <div class="form-group" [ngClass]="{'hasclass': formErrors.nom}" >
+        <label class="col-sm-6" >Nom de Fournisseur <span style="color:red;">(*)</span></label>
+        <div class="col-sm-6">
+            <input maxlength="50" formControlName="nom" class="form-control" (blur)="logValidationErrors()" >
+        </div>
+        <small class="help-block col-sm-12" *ngIf="formErrors.nom" [innerHTML]="formErrors.nom"></small> 
+    </div>
+
+    <div class="form-group" [ngClass]="{'hasclass': formErrors.livmode_id}" >
+      <label class="col-sm-6" >Mode de livraison <span style="color:red;">(*)</span></label>
+      <div class="col-sm-6">
+        <select formControlName="livmode_id" class="form-control" (blur)="logValidationErrors()">
+          <option *ngFor="let mode of modes" [value]="mode.id">{{mode.mode}}</option>
+        
+      </select>
+          <small class="help-block" *ngIf="formErrors.livmode_id" [innerHTML]="formErrors.livmode_id"></small> 
+      </div>
+    </div> 
+
+    <div (click)="openModeDialog()" > ( + ) </div>
+
+
+    <div class="form-group" [ngClass]="{'hasclass': formErrors.secteur_id}" >
+      <label class="col-sm-6" >Secteur d'activite <span style="color:red;">(*)</span></label>
+      <div class="col-sm-6">
+        <select formControlName="secteur_id" class="form-control" (blur)="logValidationErrors()" >
+          <option *ngFor="let secteur of secteurs" [value]="secteur.id">{{secteur.secteur}}</option>
+      </select>
+    </div>
+    <small class="help-block col-sm-12"  *ngIf="formErrors.secteur_id" [innerHTML]="formErrors.secteur_id"></small> 
+    </div>
+
+    <div (click)="openSecteurDialog()" > ( + ) </div>
+
+ 
+    <div class="form-group">
+      <label class="col-sm-6" >Adresse </label>
+      <div class="col-sm-8">
+          <input formControlName="adresse" class="form-control" maxlength="240">
+          <small class="help-block"></small> 
+      </div>
+   </div>
+      
+   <div class="form-group" [ngClass]="{'hasclass': formErrors.TVA}">
+    <label class="col-sm-6" > TVA <span style="color:red;">(*)</span> </label>
+    <div class="col-sm-8">
+        <input formControlName="TVA" class="form-control" (blur)="logValidationErrors()" maxlength="2">
+        <small class="help-block col-md-12" *ngIf="formErrors.TVA" [innerHTML]="formErrors.TVA"></small> 
+      </div>
+  </div>
+
+
+    <div class="form-row">
+
+
+      <div class="form-group" [ngClass]="{'hasclass': formErrors.tel1}" >
+        <label class="col-md-12" >Telephone 1 <span style="color:red;">(*)</span></label>
+        <div class="col-md-12">
+            <input maxlength="15" formControlName="tel1" class="form-control" (blur)="logValidationErrors()">
+          </div>
+          <small class="help-block col-md-12" *ngIf="formErrors.tel1" [innerHTML]="formErrors.tel1"></small> 
+     </div>
+
+     <div class="form-group" [ngClass]="{'hasclass': formErrors.tel2}" >
+      <label class="col-md-12" >Telephone 2 </label>
+      <div class="col-md-12">
+          <input maxlength="15" formControlName="tel2" class="form-control" (blur)="logValidationErrors()">
+        </div>
+        <small class="help-block col-md-12" *ngIf="formErrors.tel2" [innerHTML]="formErrors.tel2"></small> 
+   </div>
+
+
+    </div>
+
+    
+   
+    <div class="form-row">
+
+
+      <div class="form-group" [ngClass]="{'hasclass': formErrors.portable1}" >
+        <label class="col-md-12" >Portable 1 </label>
+        <div class="col-md-12">
+            <input maxlength="15" formControlName="portable1" class="form-control" (blur)="logValidationErrors()">
+          </div>
+          <small class="help-block col-md-12" *ngIf="formErrors.portable1" [innerHTML]="formErrors.portable1"></small> 
+     </div>
+
+     <div class="form-group" [ngClass]="{'hasclass': formErrors.portable2}" >
+      <label class="col-md-12" >Portable 2 </label>
+      <div class="col-md-12">
+          <input maxlength="15" formControlName="portable2" class="form-control" (blur)="logValidationErrors()">
+        </div>
+        <small class="help-block col-md-12" *ngIf="formErrors.portable2" [innerHTML]="formErrors.portable2"></small> 
+   </div>
+
+
+    </div>
+
+
+    <div class="form-row">
+
+
+      <div class="form-group" [ngClass]="{'hasclass': formErrors.fax1}" >
+        <label class="col-md-12" >Fax 1</label>
+        <div class="col-md-12">
+            <input maxlength="15" formControlName="fax1" class="form-control" (blur)="logValidationErrors()">
+          </div>
+          <small class="help-block col-md-12" *ngIf="formErrors.fax1" [innerHTML]="formErrors.fax1"></small> 
+     </div>
+
+     <div class="form-group" [ngClass]="{'hasclass': formErrors.fax2}" >
+      <label class="col-md-12" >Fax 2 </label>
+      <div class="col-md-12">
+          <input maxlength="15" formControlName="fax2" class="form-control" (blur)="logValidationErrors()">
+        </div>
+        <small class="help-block col-md-12" *ngIf="formErrors.fax2" [innerHTML]="formErrors.fax2"></small> 
+   </div>
+
+
+    </div>
+
+    <div class="form-row">
+
+
+      <div class="form-group" [ngClass]="{'hasclass': formErrors.email1}" >
+        <label class="col-md-12" >Email 1 </label>
+        <div class="col-md-12">
+            <input maxlength="50" formControlName="email1" class="form-control" (blur)="logValidationErrors()">
+          </div>
+          <small class="help-block col-md-12" *ngIf="formErrors.email1" [innerHTML]="formErrors.email1"></small> 
+     </div>
+
+     <div class="form-group" [ngClass]="{'hasclass': formErrors.email2}" >
+      <label class="col-md-12" >Email 2 </label>
+      <div class="col-md-12">
+          <input maxlength="50" formControlName="email2" class="form-control" (blur)="logValidationErrors()">
+        </div>
+        <small class="help-block col-md-12" *ngIf="formErrors.email2" [innerHTML]="formErrors.email2"></small> 
+   </div>
+
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-6" >Site web</label>
+      <div class="col-sm-6">
+          <input maxlength="50" formControlName="siteweb" class="form-control">
+      </div>
+     </div>
+
+     <div class="form-row col-sm-24">
+
+     <div class="form-group">
+      <label class="col-sm-12" >Frais</label>
+      <div class="col-sm-12">
+          <input maxlength="50" formControlName="fraisliv" class="form-control">
+      </div>
+     </div>
+
+     <div class="form-group">
+      <label class="col-sm-12" >Autres frais</label>
+      <div class="col-sm-12">
+          <input maxlength="240" formControlName="autresfrais" class="form-control">
+      </div>
+     </div>
+
+     </div>
+   
+     <div class="form-group">
+      <label class="col-sm-6" >Remise</label>
+      <div class="col-sm-6">
+          <input maxlength="50" formControlName="remise" class="form-control">
+      </div>
+     </div>
+
+     <div class="form-group">
+      <label class="col-sm-6" >Condition de reglement</label>
+      <div class="col-sm-6">
+          <input maxlength="240" formControlName="cond_regl" class="form-control">
+      </div>
+     </div>
+
+     <div class="form-group">
+      <label class="col-sm-12" >Remarques</label>
+      <div class="col-sm-12">
+          <input  maxlength="240" formControlName="remarques" class="form-control">
+      </div>
+    </div>
+     
+    
+     
+ 
+
+    <!--
+
+      <div class="form-group">
+        <label class="col-sm-6" >Upload Fichier </label>
+        <div class="col-sm-6">
+          
+          <input type="hidden" formControlName="fichier">
+          
+          
+          <input type="file"  (change)="fileEvent($event)"/>
+        </div>
+      </div>
+    -->
+<!-- ////////////////////////////////////  -->
+
+   <br> 
+
+   <!--
+     <button type="submit" class="btn btn-primary" >Submit</button>
+     <button class="btn btn-primary" (click)="resetForm()" >Reset</button>
+   -->
+
+</form>
+
+<!-- //=====================> -->
+
+
+<!-- Ancien Simple 9bal ng2Upload 
+<form [formGroup]="uploadForm">
+
+  <mat-form-field class="form-field">
+    <mat-label>Select Document Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option value="Passport">Passport</mat-option>
+      <mat-option value="Driving_license">Driving License</mat-option>
+      <mat-option value="PAN">PAN</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <input  type="hidden" formControlName="document" />
+  <input  type="file" (change)="fileEvent($event)" />
+</form>
+-->
+<div *ngIf="isFiles==true">
+   <div *ngFor="let file of files;let i=index;">
+        <a [href]="publicFolder+'/'+file.BDName " ><span>{{file.OriginaleName}}</span></a>
+        <span> {{ ( file.size/(1024) ) | number: '1.0-0' }} Ko</span>
+        <span (click)="removeFile(file.FileID,i)"> X </span>
+   </div>
+</div>
+
+<form [formGroup]="uploadForm">
+  <input  type="hidden" formControlName="document" />
+  <input  type="hidden" formControlName="type" />
+  <input  type="hidden" formControlName="OriginaleName" />
+  <input  type="hidden" formControlName="BDName" />
+  <input  type="hidden" formControlName="size" />
+  <input  type="hidden" formControlName="extention" />
+  
+  <input  type="file" ng2FileSelect [uploader]="uploader" multiple/>
+</form>
+ <!-- <div class="drop-zone" ><div ng2FileDrop [uploader]="uploader" class="drop-zone">Drag and drop files to upload</div></div>-->
+  
+<div *ngIf="uploader.queue.length>0" >
+ <table >
+    <thead>
+    <tr>
+      <th width="70%">File Name</th>
+      <th width="30%"> Remove </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of uploader.queue">
+     
+      <th width="70%">
+        {{item._file.name}}
+      </th>
+      <th width="70%">
+        ( {{(item._file.size/(1024*1024)) | number: '1.0-1'}} MB)
+      </th>
+      <th class="text-center" width="30%">
+        <mat-icon (click)="item.remove()">delete</mat-icon>
+      </th>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="loadingIsStart==true">
+
+Progress:
+<br>
+{{actualFileNameUpload}}<br>
+ {{nbOfFileUploaded}} / {{nbOfFiles}}  <br> 
+ {{(progress.loaded/progress.total)*100}}%<br>
+
+<div class="container">
+  <h2>Basic Progress Bar</h2>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" 
+       aria-valuemin="0" 
+       [attr.aria-valuemax]="100"
+       [attr.aria-valuenow]="progress.loaded"
+       [style.width.%]="(progress.loaded/progress.total)*100"
+    >
+      <span class="sr-only">70% Complete</span>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container">
+  <h2>Basic Progress Bar</h2>
+  <div class="progress">
+    <div class="progress-bar" role="progressbar" 
+       aria-valuemin="0" 
+       [attr.aria-valuemax]="100"
+       [attr.aria-valuenow]="progressLoaded"
+       [style.width.%]="(progressLoaded/progressTotal)*100"
+    >
+      <span class="sr-only">70% Complete</span>
+    </div>
+  </div>
+</div>
+<progress [value]=progress.loaded  [max]=progress.total></progress>
+
+</div>
+
+ <!--//###########################-->
+
+ 
+<!--#######################################-->
+
+<button (click)="onSubmit()">Submit Button</button>
+<button class="btn btn-primary" (click)="resetForm()" >Reset</button>
+
+</div>
+
+<!--
+
+   <table border="1" style="display: inline-block;visibility:hidden;">
+    <tr>
+      <th style="padding: 10px">FormGroup</th>
+      <th width="30%" style="padding: 10px">FormControl (nom)<th>
+    </tr>
+    <tr>
+      <td style="padding: 10px">
+        touched : {{ form.touched }}
+        <br/> dirty : {{ form.dirty }}
+        <br/> valid : {{ form.valid }}
+        <br/> Form Values : {{form.value | json}}
+      </td>
+      <td style="padding: 10px">
+        touched : {{ form.get('nom').touched }}
+        <br/> dirty : {{ form.get('nom').dirty }}
+        <br/> valid : {{ form.get('nom').valid }}
+        <br/> FullName Value : {{form.get('nom').value}}
+      </td>
+    </tr>
+  </table>
+<button (click)="patchLastValueSecteur('fromSubmit')">fromSubmit</button>
+
+-->

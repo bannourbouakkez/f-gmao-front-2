@@ -1,0 +1,28 @@
+
+
+.matInput-number {
+    width:70px;
+}
+
+.input-error{
+/*border: 1px solid #FF0000;*/
+background: #FA8072 !important;
+}
+
+.ant-table-thead>tr.ant-table-row-hover:not(.ant-table-expanded-row)>td, 
+.ant-table-tbody>tr.ant-table-row-hover:not(.ant-table-expanded-row)>td, 
+.ant-table-thead>tr:hover:not(.ant-table-expanded-row)>td, 
+.ant-table-tbody>tr:hover:not(.ant-table-expanded-row)>td {
+    background: unset; //Change the existing color to `unset`
+}
+
+td{
+padding-left:0px;
+padding-right:0px;
+margin-left:0px;
+margin-right:0px;
+}
+
+textarea{
+    font-size: 14px;
+}

@@ -1,0 +1,20 @@
+
+
+  <mat-form-field>
+    <mat-select [formControl]="bankMultiCtrl"  [multiple]="true" #multiSelect>
+      <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+      <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+        {{bank.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+[ 
+<ng-container *ngFor="let bank of bankMultiCtrl?.value">
+  - {{bank.name}} 
+</ng-container>
+]
+
+
+<button (click)="envoyer()">envoyer</button>

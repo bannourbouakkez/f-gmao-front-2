@@ -1,0 +1,11 @@
+<p>mag-dump-intervenants works!</p>
+
+
+<form [formGroup]="Form">
+    <mat-form-field>
+     <mat-label>intervenants</mat-label>
+     <mat-select  formControlName="ListeValueIntervenantsFormControl"  (selectionChange)="change($event)" multiple>
+       <mat-option *ngFor="let i of intervenants" [value]="i.IntervenantID">{{i.name}}</mat-option>
+     </mat-select>
+    </mat-form-field>
+</form>

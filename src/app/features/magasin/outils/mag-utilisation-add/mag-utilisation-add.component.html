@@ -1,0 +1,112 @@
+<p>mag-utilisation-add works!</p>
+
+
+
+<form [formGroup]="UseForm">
+
+    <input type='hidden' formControlName="UseID">
+    <input type='hidden' formControlName="date_cloture">
+    <input type='hidden' formControlName="isOpened">
+    <input type='hidden' formControlName="NbDeModif">
+    <input type='hidden' formControlName="exist">
+    <input type='hidden' formControlName="created_at">
+    <input type='hidden' formControlName="updated_at">
+
+
+    Outils : <select *ngIf="outils.length>0" formControlName="outil_id" >
+      <option value=''></option>
+       <option *ngFor="let o of outils" [value]="o.OutilID" > {{o.des}} </option>
+     </select>
+     <br>
+
+    intervenants : <select *ngIf="intervenants.length>0" formControlName="intervenant_id" >
+        <option value=''></option>
+         <option *ngFor="let i of intervenants" [value]="i.IntervenantID" > {{i.name}} </option>
+       </select>
+       <br>
+
+       
+    unites : <select *ngIf="les_unites.length>0" formControlName="leunite_id" >
+        <option value=''></option>
+         <option *ngFor="let l of les_unites" [value]="l.LeUniteID" > {{l.leunite}} </option>
+       </select>
+       <br>
+    <!--
+    ligne_id : <select *ngIf="lignes.length>0" formControlName="leunite_id" >
+        <option value=''></option>
+         <option *ngFor="let li of lignes" [value]="li.LigneID" > {{li.ligne}} </option>
+       </select>
+       <br>
+     -->
+     
+    equipement_id : <select *ngIf="equipements.length>0" formControlName="equipement_id" >
+        <option value=''></option>
+         <option *ngFor="let e of equipements" [value]="e.EquipementID" > {{e.equipement}} </option>
+       </select>
+       <br>
+
+    sous_equipement_id : <select *ngIf="sous_equipements.length>0" formControlName="sous_equipement_id" >
+        <option value=''></option>
+         <option *ngFor="let s of sous_equipements" [value]="s.SousEquipementID" > {{s.sous_equipement}} </option>
+       </select>
+       <br>
+
+    Date: 
+    <mat-form-field>
+        <input formControlName="date"  matInput  [matDatepicker]="date" readonly>
+        <mat-datepicker-toggle matSuffix [for]="date" ></mat-datepicker-toggle>
+        <mat-datepicker #date ></mat-datepicker>
+    </mat-form-field>
+
+    
+    <br>
+    <!--(keyup)="changeHeure()"-->
+    Heure & minute :  
+    <mat-form-field class="matInput-number" >
+      <input  (change)="changeHeure()" 
+      matInput autocomplete="off" formControlName="heure" type="number" 
+      min="-1"
+      [max]="24"
+      >
+   </mat-form-field>:
+    <mat-form-field class="matInput-number" >
+      <input  (change)="changeMinute()" 
+      matInput autocomplete="off" formControlName="minute" type="number" 
+      min="-1" 
+      [max]="60"
+      >
+   </mat-form-field>
+   <br>
+
+   Eestimation : 
+   <mat-form-field class="matInput-number" >
+    <input
+    matInput autocomplete="off" formControlName="estimation" type="number" 
+    min="0"
+    >
+   </mat-form-field>
+   
+   <select formControlName="periode" >
+     <option value="minute">Minute</option>
+     <option value="heure" selected>Heure</option>
+     <option value="jour">Jour</option>
+   </select>
+
+
+
+
+
+
+  </form>
+   
+
+
+
+
+  <button (click)="submit()">submit</button>
+  
+  <div *ngIf="UseForm" >
+    isOpened  : {{UseForm.controls['isOpened'].value}} 
+    <br>
+    {{UseForm.controls['NbDeModif'].value}} , Last Modification: {{UseForm.controls['updated_at'].value }} 
+  </div>

@@ -1,0 +1,93 @@
+yess <br>
+
+
+<nz-select
+    
+      name="test"
+      nzShowSearch
+      nzServerSearch
+      nzPlaceHolder="input search text"
+      [(ngModel)]="selectedValue"
+      [nzShowArrow]="false"
+      [nzFilterOption]="nzFilterOption"
+      (nzOnSearch)="search($event)"
+      >
+
+      <ng-container *ngFor="let o of listOfOption">
+        <nz-option *ngIf="!isLoading" [nzLabel]="o.des" [nzValue]="o.ArticleID"></nz-option>
+      </ng-container>
+      <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+        <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+      </nz-option>
+
+      <!--
+      <nz-option *ngFor="let o of listOfOption" [nzLabel]="o.des" [nzValue]="o.ArticleID"> </nz-option>
+      -->
+
+
+    </nz-select>
+
+    <br>
+
+    
+
+<form [formGroup]="formtest" (ngSubmit)="onSubmit()">
+    
+    <!--<input  formControlName="name" >-->
+
+
+<!--
+<nz-select formControlName="name" nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+    <nz-option nzLabel="Jack" nzValue="jack"></nz-option>
+    <nz-option nzLabel="Lucy" nzValue="lucy"></nz-option>
+    <nz-option nzLabel="Tom" nzValue="tom"></nz-option>
+</nz-select>
+--> 
+
+
+<nz-select
+formControlName="name"
+
+      nzShowSearch
+      nzServerSearch
+      nzPlaceHolder="input search text"
+      [(ngModel)]="selectedValue"
+      [nzShowArrow]="false"
+      [nzFilterOption]="nzFilterOption"
+      (nzOnSearch)="search($event)"
+      >
+
+      <ng-container *ngFor="let o of listOfOption">
+        <nz-option *ngIf="!isLoading" [nzLabel]="o.des" [nzValue]="o.ArticleID"></nz-option>
+      </ng-container>
+      <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+        <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+      </nz-option>
+
+      <!--
+      <nz-option *ngFor="let o of listOfOption" [nzLabel]="o.des" [nzValue]="o.ArticleID"> </nz-option>
+      -->
+
+
+    </nz-select>
+
+
+    
+
+
+  <button type="submit">Submit</button>
+</form>
+--- <br>
+
+<!--<app-nztest></app-nztest>-->
+
+
+<br> --- input <br>
+
+<nz-input-number name="oops" [(ngModel)]="demoValue" [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
+
+
+<br>
+
+
+

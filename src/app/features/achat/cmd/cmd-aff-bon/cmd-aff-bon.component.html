@@ -1,0 +1,354 @@
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+    <div [ngClass]="isData ? 'big-container-list':'big-container'">
+      <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+    
+        <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres" [home]="home"></app-breadcrumb>
+    
+        <div [ngClass]="isData ? '': 'card'">
+          <div class="card-header" *ngIf="!isData">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+            </ol>
+          </div>
+    
+    
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+    
+    
+      <!--
+      {{ bsm | json }}
+      {{ response_bsm | json }}
+      -->
+            
+      <ng-container *ngIf="loaded">
+            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+              <div class="card-header separator">
+                <div class="card-title">
+                  <span class="my-specific-big-title">
+                  #
+                  {{bon.BonID}}
+                </span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    
+    
+                <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    
+                  <div class="row">
+                   
+    
+    
+                  <div class="col-5">
+    
+                      <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <p class="hint-text p-t-0 fs-12">N° Reception</p>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">
+                                {{bon.cmd_rec_id}}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Facturé ?</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                  {{bon.isFactured}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Suprimé ?</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                  {{isDeleted}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                  </div>
+    
+                  
+                  <div class="col-5 offset-1">
+    
+    
+                    <div class="form-group row">
+    
+                      <label for="name" class="col-md-4 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Créé le</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{bon.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+    
+                    <div class="form-group row">
+    
+                      <label for="name" class="col-md-4 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Créé par</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{bon.name}}
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+    
+                    <div class="clearfix"></div>
+    
+    
+    
+                  </div>
+    
+    
+    
+                  </div>
+    
+          
+    
+                </form>
+    
+    
+    
+    
+              </div>
+            </div>
+    
+      
+        
+            
+          
+          <br> 
+                  <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">Bon</span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+                    
+    
+                      <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                
+      <!---------------- articles Table -->
+      <b>
+      <div id="id-div-table">
+
+        <nz-table #smallTable nzSize="small" [nzFrontPagination]="false"
+            [nzShowPagination]="false" [nzData]="['']" [nzBordered]="true">
+            <thead>
+                <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                    <th>#</th>
+                    <th>Des</th>
+                    <th>TT Q.Recu (Rec)</th>
+                    <th>Qte Bon</th>
+                    <th>Prix Un (HT)</th>
+
+                    <th>TT Un (HT)</th>
+                    <th>Diffirence</th>
+                    <th>AncienPrix</th>
+
+                </tr>
+            </thead>
+            <tbody >
+                <ng-container *ngFor="let article of receptiondetsomme;let i=index;">
+
+                    <!--[ngClass]="!(a.formControl.value>0) ? 'class': 'disactive-tr'"
+[ngClass]="(a.formControl.value==0) ? 'class': 'refused-tr'"
+-->
+
+                    <!--[ngClass]="{
+'active-tr':isNumber(a.formControl.value) && a.formControl.value>0,
+'refused-tr':isNumber(a.formControl.value) && a.formControl.value==0,
+'':!isNumber(a.formControl.value)
+}"-->
+                    <tr align="center" style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">  
+
+
+                        <td>{{article.ArticleID}}</td>
+                        <td>{{article.Des}}</td>
+                        <td>{{article.TTQteRecu}}</td>
+                        <td>
+                            {{ affQteBon(article.ArticleID)  }}       
+                           
+                        </td>
+                        <td>
+                            {{affPrixHT(article.ArticleID) }}    
+                        </td>
+                        <td>
+                            {{ roundMath( affQteBon(article.ArticleID)  * affPrixHT(article.ArticleID) ) }}    
+                        </td>
+
+                        <td>
+                           <!--{{ roundMath( article.formControl.value - article.TTQteRecu ) }}-->
+                           Diff...
+                         </td>
+
+                        <td>
+                           {{ roundMath( affAnPrixHT(article.ArticleID) ) }}
+                        </td>
+
+            
+                              
+        </tr>
+        </ng-container>
+        <tr>
+            <td colspan="5">
+
+            </td>
+            <td>TT HT</td><td>TVA</td><td>TTC</td>
+        </tr>
+        <tr>
+            <td colspan="5">
+
+            </td>
+            <td>{{roundMath(PrxiTTHT())}} </td>
+            <td>{{roundMath(reception.TVA)}} %</td>
+            <td>{{ roundMath(PrxiTTC()) }}</td>
+
+        </tr>
+
+        </tbody>
+        </nz-table>
+        
+        
+
+
+    </div>
+    </b>
+      <!--############### articles Table -->
+      
+    
+      
+                                  
+                      </form>
+    
+                     
+    
+                    </div>
+                  </div>
+                 <ng-container *ngIf="isDeleted==0 && bon.isFactured==0">
+                  <br>
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                      nz-popconfirm nzTitle="Vous etes sure a supprimer le bon ?" (nzOnConfirm)="suprimerBon()" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                      style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                        <span>Supprimer</span>
+                        <i class="pg-icon md-18">trash_alt</i>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+                
+               
+    </ng-container>
+    
+    
+    <ng-container *ngIf="!loaded">
+      <br>
+      <div class="center-loading-box">
+       <!--
+          <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+         -->
+          <div class="progress-circle-indeterminate m-t-45"></div>
+      </div>
+      <br><br>
+     </ng-container>
+    
+    
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+    </div>
+    
+    </div>
+
+
+    <ng-template #iconTpl>
+        <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+        <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+    </ng-template>
+
+<!--
+<table border="1">
+    
+    <thead>
+        <td>N° Art</td>
+        <td>Des</td>
+        <td>TT Q.Recu (Rec)</td>
+        <td>Qte Bon</td>
+        <td>Prix Un (HT)</td>
+        <td>TT Un (HT)</td>
+        <td>Ancien Prix</td>
+    </thead>
+<tbody>
+    <ng-container  *ngFor="let article of receptiondetsomme;let i=index;">
+        <tr>
+            <td>{{article.ArticleID}}</td>
+            <td>{{article.Des}}</td>
+            <td>{{article.TTQteRecu}}</td>
+            <td>
+                {{ affQteBon(article.ArticleID)  }}       
+               
+            </td>
+            <td>
+                {{affPrixHT(article.ArticleID) }}    
+            </td>
+            <td>
+                {{ roundMath( affQteBon(article.ArticleID)  * affPrixHT(article.ArticleID) ) }}    
+            </td>
+            <td>
+               {{ roundMath( affAnPrixHT(article.ArticleID) ) }}
+            </td>
+           
+        </tr>
+    </ng-container>
+<tr>
+    <td colspan="6" *ngIf="reception">
+       TVA : {{roundMath(reception.TVA)}} % , Prxi TT HT : {{roundMath(PrxiTTHT())}} , Prix TTC : {{ roundMath(PrxiTTC()) }}
+    </td>
+</tr>
+
+{{bon | json}}
+<button *ngIf="bon && (isDeleted==0) && bon.isFactured == 0" (click)="suprimerBon()">Suprimer</button>
+</tbody>
+</table>
+
+-->

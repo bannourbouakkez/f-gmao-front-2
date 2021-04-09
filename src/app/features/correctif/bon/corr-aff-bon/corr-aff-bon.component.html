@@ -1,0 +1,637 @@
+
+
+<div class='very-big-container'>
+    <div class="col-md-12 col-xlg-6">
+      
+      <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+  
+      <div class="card">
+        <div class="card-header">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+          </ol>
+        </div>
+  
+  
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+  
+
+<ng-container *ngIf="BonID">
+
+
+              
+          <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+            <div class="card-header separator">
+              <div class="card-title"> <span class="my-specific-big-title"># {{bon.BonID}}</span>
+              </div>
+            </div>
+            <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+  
+  
+              <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+  
+                <div class="row">
+                 
+  
+  
+                <div class="col-5">
+  
+
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 control-label">
+                          <p class="hint-text p-t-0 fs-12">N° OT</p>
+                        </label>
+                        <div class="col-md-8">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">
+                               
+                              <span class="fast-url" [routerLink]="['/gmao/correctif/ot/ot/',bon.ot_id]" >{{bon.ot_id}}</span>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <p class="hint-text p-t-0 fs-12">Equipement</p>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label" style="width:100%;">
+  
+  
+                      <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                      </app-aff-equipement>
+                        
+  
+                      </label>
+                    </div>
+                  </div>
+  
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Anomalie</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{ot.anomalie}}</span>
+                          </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Tache</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{ot.tache}}</span>
+                          </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Date Cloture</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label"> <span class="font-affichage-contenu"> Date cloture lazimha 5édma </span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+
+                </div>
+  
+                
+                <div class="col-5 offset-1">
+  
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Créé le</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bon.created_at  | date:'dd/MM/yyyy HH:mm'}}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Créé par</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bon.name}}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <ng-container *ngIf="bon.NbDeModif>0">
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Derniere modification</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bon.last_modif | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Derniere modifieur</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bon.modifieur_name}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Nombre de modification</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{bon.NbDeModif}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  </ng-container>
+  
+                   
+  
+  
+                </div>
+  
+  
+  
+                </div>
+  
+        
+  
+              </form>
+  
+  
+  
+  
+            </div>
+          </div>
+  
+    
+    <br> 
+    <br>   
+    <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+        <div class="card-header separator">
+          <div class="card-title"> <span class="my-specific-card-title">Rapport</span>
+          </div>
+        </div>
+        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+
+          <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+            <div class="row">
+             
+
+                <span class="font-affichage-contenu">{{bon.rapport}}</span>
+
+
+            </div>
+
+    
+
+          </form>
+
+
+
+
+        </div>
+      </div>
+          
+        <br>
+        <br> 
+                <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                  <div class="card-header separator">
+                    <div class="card-title"> 
+                      <span class="my-specific-card-title">Intervenants</span>
+                    </div>
+                  </div>
+                  <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+                    <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                       
+    <div id="id-div-table">
+    
+      <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+        [nzData]="['']">
+        <thead>
+          <tr>
+    
+            <th nzWidth="20%">Intervenant</th>
+            <th nzWidth="12%">Du</th>
+            <th nzWidth="12%">A</th>
+            <th nzWidth="10%">Durée</th>
+            <th nzWidth="21%">Tache</th>
+            <th nzWidth="25%">Description</th>
+          
+          </tr>
+        </thead>
+        <tbody>
+        
+    <tr *ngFor="let bonintervenant of intervenants;let i=index;">
+      
+      <td>{{bonintervenant.name}}</td> 
+      <td>{{JustDateString(bonintervenant.date1) | date:'dd/MM/yyyy'}} {{JustTimeString(bonintervenant.time1)}}</td>
+      <td>{{JustDateString(bonintervenant.date2) | date:'dd/MM/yyyy'}} {{JustTimeString(bonintervenant.time2)}}</td>
+      <td>{{affichageProHM(CalculerNbMinBetweenTwoDate4(bonintervenant.date1,bonintervenant.time1,bonintervenant.date2,bonintervenant.time2))}}</td>
+      <td>{{bonintervenant.tache}}</td>
+      <td>{{bonintervenant.description}}</td>
+    
+
+    </tr>
+        </tbody>
+      </nz-table>
+    
+    </div>
+    
+                       
+                    </form>
+    
+                   
+
+                  </div>
+                </div>
+             
+
+                
+                <br>
+                <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">PDR</span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+                      <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                       
+             
+                         <ng-container *ngIf="articles.length>0">
+                        
+                        
+                            <div id="id-div-table">
+                        
+                              <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                [nzData]="['']">
+                                <thead>
+                                  <tr>
+                            
+                                    <th>ArticleID</th>
+                                    <th>Desnignation</th>
+                                    <th>Qte Demandé</th>
+                                    <th>Qte Accepté</th>
+                                    <th>Qte Utilisé</th>
+                                    <th>Déja Rétourné</th>
+                                    <th>Rétour En Attente</th>
+                        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  
+                            <tr *ngFor="let article of articles;let i=index;">
+                              
+                                 <td>{{article.article_id}}</td>
+                                 <td>{{article.des}}</td>
+                                 <td>{{article.qted}}</td> 
+                                 <td>{{article.qtea}}</td>
+                        
+                                 <td>
+                                    {{article.qteu}}
+                                </td>
+                                <td>
+                                  <ng-container *ngIf="article.qtea - article.qteu - article.qter > 0">
+
+                                  <ng-container *ngIf="roundMath(article.qter)>0">
+                                  <span class="label label-info">
+                                    {{ roundMath(article.qter) }}
+                                  </span>
+                                  </ng-container>
+
+                                  <ng-container *ngIf="roundMath(article.qter)==0">
+                                      {{ roundMath(article.qter) }}
+                                    </ng-container>
+
+
+
+                                  </ng-container>
+
+                                  <ng-container *ngIf="article.qtea - article.qteu - article.qter == 0">
+                                    {{ roundMath(article.qter) }}
+                                  </ng-container>
+
+
+                                </td>
+                                <td>
+                                  <ng-container *ngIf="article.qtea - article.qteu - article.qter > 0">
+                                    <span class="label label-warning">
+                                       {{ roundMath(article.qtea - article.qteu - article.qter ) }}
+                                    </span>
+                                  </ng-container>
+                                </td>
+                            
+                             
+                            </tr>
+                                </tbody>
+                              </nz-table>
+                            
+                            </div>
+                        
+                            
+                                                
+                                           </ng-container>
+                        
+                                           <ng-container *ngIf="articles.length==0">
+                                             
+                                            <p class="hint-text p-t-0 fs-12">Il n y'a pas des pieces de rechange utilisées .</p>
+                                           </ng-container>
+
+                      
+                         
+                      </form>
+      
+                    
+                    
+
+  
+                    </div>
+                  </div>
+         
+
+                  <br>
+                <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">Outillage</span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+                      <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                       
+             
+                         <ng-container *ngIf="bsos.length>0">
+                        
+                        
+                            <div id="id-div-table">
+                        
+                              <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                [nzData]="['']">
+                                <thead>
+                                  <tr>
+                                    <th nzWidth="1%">#</th>
+                                    <th nzWidth="69%" >Outils</th>
+                                    <th nzWidth="15%">Message</th>
+                                    <th nzWidth="15%">autres dets </th>
+                                    
+
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  
+                            <tr *ngFor="let bso of bsos;let i=index;">
+                                
+                                <td>{{bso.bso.BsoID}}</td> 
+
+                                <td>
+                                
+                               
+
+                                        <div id="id-div-table">
+                        
+                                            <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                              [nzData]="['']">
+                                              <thead>
+                                                <tr>
+                                                  <th nzWidth="7%">#</th>
+                                                  <th nzWidth="25%">Designation</th>
+                                                  <th nzWidth="16%">Etat</th>
+                                                  <th nzWidth="14%">Du</th>
+                                                  <th nzWidth="14%">A</th>
+                                                  <th nzWidth="12%">Estimation</th>
+                                                  <th nzWidth="12%">Durée</th>
+                                                </tr>
+                                              </thead>
+                                              <tbody>
+                                                
+                                          <tr *ngFor="let a of bso.combined;let i=index;">
+                                              
+                                            <td>
+                                               
+                                                    <span *ngIf="a.response.reponse" class="label label-success"
+                                                        >{{a.bso.outil_id}}</span>
+                                                    <span *ngIf="!a.response.reponse" class="label label-danger"
+                                                        >{{a.bso.outil_id}}</span>
+
+                                            </td>
+                                            <td>{{a.bso.des}}</td>
+                                          
+                                            <td> 
+                                            <ng-container *ngIf="a.response.reponse">
+                                                <div class="div-statuts">
+                                                    <div *ngIf="a.bso.statut=='enUtilisation'" class="label label-warning"
+                                                        style="padding:4px; padding-top:5px;">{{a.bso.statut}}</div>
+                                                    <div *ngIf="a.bso.statut=='termine'" class="label label-info"
+                                                        style="padding:4px; padding-top:5px;">{{a.bso.statut}}</div>
+                                                </div>
+                                            </ng-container> 
+                                        </td>
+                                        
+                                        <td>
+                                            <ng-container *ngIf="a.response.reponse">
+                                            {{a.bso.date_utilisation | date:'dd/MM HH:mm'}}
+                                            
+                                            </ng-container>
+                                           
+                                    </td>
+                                        <td>
+                                            <ng-container *ngIf="a.response.reponse">
+                                            {{a.bso.date_termination | date:'dd/MM HH:mm'}}
+                                            </ng-container>
+
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="a.response.reponse">
+                                            {{a.bso.estimation}} {{a.bso.periode}}
+                                            </ng-container>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="a.response.reponse">
+                                            {{affichageProHM(CalculerNbMinBetweenTwoDate2(a.bso.date_utilisation,a.bso.date_termination))}}
+                                            </ng-container>
+                                        </td>
+                                            
+                                          </tr>
+                                              </tbody>
+                                            </nz-table>
+                                          
+                                          </div>
+                                   
+                         
+
+                               </td>
+                                <td  >
+                                  <div class="form-group">
+                                        <span class="help" style="margin:0px;margin-top:2px;">
+                                    {{bso.response_bso.message}}
+                                </span>
+                            </div>
+                                   
+                                </td>
+                                <td >
+
+
+                                  <form class="form-horizontal">
+                                    <div class="row">
+                                         <div class="form-group row">
+                                          <span class="help" style="margin:0px; margin-top:2px;">
+                                          Créé Le : 
+                                          {{bso.bso.created_at | date:'dd/MM/yyyy HH:mm'}}
+                                          <br>
+                                          Par : 
+                                          {{bso.bso.name}}
+                                        </span>
+                                          </div>
+                                          <div class="clearfix"></div>
+                                          <div class="form-group row">
+                                            <span class="help" style="margin:0px; margin-top:2px;">
+                                            Repondu Le :
+                                            {{bso.response_bso.created_at | date:'dd/MM/yyyy HH:mm'}}
+                                            <br>
+                                            Par :
+                                            {{bso.response_bso.name}}
+                                            </span>
+                                          </div>
+                                         
+                                    </div>
+                                  </form>
+                             
+
+                                </td>
+                            </tr>
+                                </tbody>
+                              </nz-table>
+                            
+                            </div>
+                        
+                            
+                            
+                        
+                                           </ng-container>
+                        
+                                           <ng-container *ngIf="bsos.length==0">
+                                            <p class="hint-text p-t-0 fs-12">Il n y'a pas d'outils de rechange utilisées .</p>
+
+                                           </ng-container>
+
+                      
+                         
+                      </form>
+      
+                    
+                    
+                      <br>
+                      <div class="row">
+                        <div class="col-md-10">
+                        </div>
+                       
+                        <div class="col-md-2">
+                          <button [routerLink]="['/gmao/correctif/bon/add/0/',BonID]" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                            <span>Modifier</span>
+                            <i class="pg-icon md-18">edit</i>
+                          </button>
+                        </div>
+                      </div>
+
+  
+                    </div>
+                  </div>
+
+</ng-container>
+  
+
+<ng-container *ngIf="!BonID">
+  <br><br><br>
+  <div class="center-loading-box">
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+  
+  
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  </div>
+
+
+<!--
+<div *ngIf="BonID">
+ 
+    {{ bon | json }}
+    <br>-------------------<br>
+    {{ taches | json }}
+    <br>-------------------<br>
+    {{ retours | json }}
+
+</div>
+
+<a target="_blank" href="/correctif/bon/add/0/{{BonID}}" > Modifier Bon </a>
+-->
+
+<!--
+<ng-container *ngIf=" isPosts(['ChefDePoste','ResponsableMaintenance'])  || isPosts(['Admin','Methode']) ">
+               
+    <ng-container *ngIf="di.statut=='enAttente'">
+        <a href="correctif/ot/add/{{di.DiID}}" target="_blank">
+            <button>Lancer</button>
+        </a>
+    </ng-container>
+
+</ng-container>
+-->
+
+
+
+

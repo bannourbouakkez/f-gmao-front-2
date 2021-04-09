@@ -1,0 +1,485 @@
+  <!-- START NOTIFICATION LIST -->
+  <ul class="d-lg-inline-block d-none notification-list no-margin  b-grey b-l b-r no-style p-l-20 p-r-20">
+    <li class="p-r-10 inline" style="margin-left:10px;">
+      <div class="dropdown" dropdown>
+        <a (click)="markAsView('notifications')" id="notification-center" class="header-icon btn-icon-link" dropdownToggle>
+          <i class="pg-icon">world</i>
+
+          <!--<span class="bubble"> <span style="position:relative; top:5px; font-size:10px;">{{unread_count}}</span></span>-->
+          
+
+          
+            <ng-container *ngIf="unview_count<=3 && unview_count>0">
+              <span class="bubble" style="height: 18px; width:17px; top:-7px; right:-7px;"> <span style="position:relative; top:6px; font-size:11px;">{{unview_count}}</span></span>
+            </ng-container>
+
+          <ng-container *ngIf="unview_count>3">
+              <span class="bubble" style="height: 21px; width:25px; top:-8px; right:-8px; "> <span style="position:relative; top:7px; font-size:12px; ">9+</span></span>
+          </ng-container>
+          
+
+        </a>
+        <!-- START Notification Dropdown -->
+        <div *dropdownMenu class="dropdown-menu notification-toggle">
+          <!-- START Notification -->
+          <div class="notification-panel" style="width:500px;">
+            <!-- START Notification Body-->
+            <div class="notification-body scrollable">
+              <!-- START Notification Item-->
+<!--
+              <div class="notification-item unread clearfix">
+                <div class="heading open">
+                  <a href="#" class="text-complete pull-left d-flex align-items-center">
+                    <i class="pg-icon m-r-10">map</i>
+                    <span class="bold">Carrot Design</span>
+                    <span class="fs-12 m-l-10">David Nester</span>
+                  </a>
+                  <div class="pull-right">
+                    <div class="thumbnail-wrapper d16 circular inline m-t-15 m-r-10 toggle-more-details">
+                      <div><i class="pg-icon">chevron_down</i>
+                      </div>
+                    </div>
+                    <span class=" time">few sec ago</span>
+                  </div>
+                  <div class="more-details">
+                    <div class="more-details-inner">
+                      <h5 class="semi-bold fs-16">“Apple’s Motivation - Innovation <br>
+                        distinguishes between <br>
+                        A leader and a follower.”</h5>
+                      <p class="small hint-text">
+                        Commented on john Smiths wall.
+                        <br> via pages framework.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="option" tooltip="mark as read" placement="right">
+                  <a style="" class="mark"></a>
+                </div>
+              </div>
+            -->
+
+              <!-- START Notification Body-->
+              <!-- START Notification Item
+              <div class="notification-item  clearfix">
+                <div class="heading">
+                  <a style="" class="text-danger pull-left">
+                    <i class="pg-icon m-r-10">alert_warning</i>
+                    <span class="bold">98% Server Load</span>
+                    <span class="fs-12 m-l-10">Take Action</span>
+                  </a>
+                  <span class="pull-right time">2 mins ago</span>
+                </div>
+
+                <div class="option">
+                  <a style="" class="mark"></a>
+                </div>
+               
+              </div>
+            
+              END Notification Item-->
+              <!-- START Notification Item
+              <div class="notification-item  clearfix">
+                <div class="heading">
+                  <a style="" class="text-warning pull-left">
+                    <i class="pg-icon m-r-10">alert_warning</i>
+                    <span class="bold">Warning Notification</span>
+                    <span class="fs-12 m-l-10">Buy Now</span>
+                  </a>
+                  <span class="pull-right time">yesterday</span>
+                </div>
+                
+                <div class="option">
+                  <a style="" class="mark"></a>
+                </div>
+               
+              </div>
+            
+               END Notification Item-->
+              <!-- START Notification Item-->
+
+              <ng-container *ngFor="let notification of notifications">
+              <div class="notification-item clearfix"  [ngClass]="notification.read_at ? '':'unread'" >
+                
+                <div class="heading">
+                    
+                  <div class="thumbnail-wrapper d24 circular b-white m-r-5 b-a b-white m-t-10 m-r-10">
+                    <img width="30" height="30" src2x="assets/img/profiles/1x.jpg" pgRetina
+                      src1x="assets/img/profiles/1.jpg" alt="" src="assets/img/profiles/1.jpg">
+                  </div>
+
+                  <a (click)="MarkAsRead(notification.read_at,'notifications',notification.id,notification.data['route'])" class="text-complete pull-left">
+                    <span class="bold">{{notification.data['msg']}}</span>
+                    <span class="fs-12 m-l-10">{{notification.data['user']}}</span>
+                    <!--&nbsp; &nbsp;  &nbsp;
+                    <span class="pull-right time">{{notification.created_at | date:'dd/MM HH:mm'}}</span>-->
+
+                  </a>
+
+                  <span class="pull-right time">{{notification.created_at | date:'dd/MM HH:mm'}}</span>
+                </div>
+
+                <!-- START Notification Item Right Side-->
+                <div class="option" tooltip="mark as read" placement="right">
+                  <a class="mark"></a>
+                </div>
+               
+               
+
+                <!-- END Notification Item Right Side-->
+              </div>
+            </ng-container>
+
+              <!-- END Notification Item-->
+            </div>
+            <!-- END Notification Body-->
+            <!-- START Notification Footer-->
+            <div class="notification-footer text-center" >
+              <a style="" class="">Voir tout les notifications</a>
+              <a data-toggle="refresh" class="portlet-refresh text-black pull-right" style="">
+                <i class="pg-refresh_new"></i>
+              </a>
+            </div>
+            <!-- START Notification Footer-->
+          </div>
+          <!-- END Notification -->
+        </div>
+        <!-- END Notification Dropdown -->
+      </div>
+    </li>
+
+    <li class="p-r-10 inline">
+      <div class="dropdown" dropdown>
+        <a (click)="markAsView('alerts')" id="notification-center" class="header-icon btn-icon-link" dropdownToggle>
+          <i class="pg-icon">alert_warning</i>
+            <ng-container *ngIf="unview_alerts_count<=3 && unview_alerts_count>0">
+              <!--<span class="bubble"> <span style="position:relative; top:5px; font-size:11px;">{{unview_alerts_count}}</span></span>-->
+              <span class="bubble" style="height: 18px; width:17px; top:-6px; right:-4px;"> <span style="position:relative; top:6px; font-size:11px;">{{unview_alerts_count}}</span></span>
+
+            </ng-container>
+
+          <ng-container *ngIf="unview_alerts_count>3">
+              <span class="bubble" style="height: 21px; width:25px; top:-8px; right:-8px; "> <span style="position:relative; top:7px; font-size:12px; ">9+</span></span>
+          </ng-container>
+          
+
+        </a>
+        <div *dropdownMenu class="dropdown-menu notification-toggle">
+          <div class="notification-panel" style="width:500px;">
+            <div class="notification-body scrollable">
+<!--
+              <div class="notification-item unread clearfix">
+                <div class="heading open">
+                  <a href="#" class="text-complete pull-left d-flex align-items-center">
+                    <i class="pg-icon m-r-10">map</i>
+                    <span class="bold">Carrot Design</span>
+                    <span class="fs-12 m-l-10">David Nester</span>
+                  </a>
+                  <div class="pull-right">
+                    <div class="thumbnail-wrapper d16 circular inline m-t-15 m-r-10 toggle-more-details">
+                      <div><i class="pg-icon">chevron_down</i>
+                      </div>
+                    </div>
+                    <span class=" time">few sec ago</span>
+                  </div>
+                  <div class="more-details">
+                    <div class="more-details-inner">
+                      <h5 class="semi-bold fs-16">“Apple’s Motivation - Innovation <br>
+                        distinguishes between <br>
+                        A leader and a follower.”</h5>
+                      <p class="small hint-text">
+                        Commented on john Smiths wall.
+                        <br> via pages framework.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="option" tooltip="mark as read" placement="right">
+                  <a style="" class="mark"></a>
+                </div>
+              </div>
+            -->
+
+              <!-- START Notification Body-->
+              <!-- START Notification Item
+              <div class="notification-item  clearfix">
+                <div class="heading">
+                  <a style="" class="text-danger pull-left">
+                    <i class="pg-icon m-r-10">alert_warning</i>
+                    <span class="bold">98% Server Load</span>
+                    <span class="fs-12 m-l-10">Take Action</span>
+                  </a>
+                  <span class="pull-right time">2 mins ago</span>
+                </div>
+
+                <div class="option">
+                  <a style="" class="mark"></a>
+                </div>
+               
+              </div>
+            
+              END Notification Item-->
+              <!-- START Notification Item
+              <div class="notification-item  clearfix">
+                <div class="heading">
+                  <a style="" class="text-warning pull-left">
+                    <i class="pg-icon m-r-10">alert_warning</i>
+                    <span class="bold">Warning Notification</span>
+                    <span class="fs-12 m-l-10">Buy Now</span>
+                  </a>
+                  <span class="pull-right time">yesterday</span>
+                </div>
+                
+                <div class="option">
+                  <a style="" class="mark"></a>
+                </div>
+               
+              </div>
+            
+               END Notification Item-->
+              <!-- START Notification Item-->
+
+              <ng-container *ngFor="let alert of alerts">
+              <div class="notification-item clearfix"  [ngClass]="alert.read_at ? '':'unread'" >
+                
+                <div class="heading">
+                    
+                  <div class="thumbnail-wrapper d24 circular b-white m-r-5 b-a b-white m-t-10 m-r-10">
+                    <img width="30" height="30" src2x="assets/img/profiles/1x.jpg" pgRetina
+                      src1x="assets/img/profiles/1.jpg" alt="" src="assets/img/profiles/1.jpg">
+                  </div>
+
+                  <a (click)="MarkAsRead(alert.read_at,'alerts',alert.id,alert.data['route'])" class="text-complete pull-left">
+                    <span class="bold">{{alert.data['msg']}}</span>
+                    <span class="fs-12 m-l-10">{{alert.data['user']}}</span>
+                    <!--&nbsp; &nbsp;  &nbsp;
+                    <span class="pull-right time">{{notification.created_at | date:'dd/MM HH:mm'}}</span>-->
+
+                  </a>
+
+                  <span class="pull-right time">{{alert.created_at | date:'dd/MM HH:mm'}}</span>
+                </div>
+
+                <!-- START Notification Item Right Side-->
+                <div  class="option" tooltip="mark as read" placement="right">
+                  <a class="mark"></a>
+                </div>
+               
+               
+
+                <!-- END Notification Item Right Side-->
+              </div>
+            </ng-container>
+
+              <!-- END Notification Item-->
+            </div>
+            <!-- END Notification Body-->
+            <!-- START Notification Footer-->
+            <div class="notification-footer text-center" >
+              <a style="" class="">Voir tout les alertes</a>
+              <a data-toggle="refresh" class="portlet-refresh text-black pull-right" style="">
+                <i class="pg-refresh_new"></i>
+              </a>
+            </div>
+            <!-- START Notification Footer-->
+          </div>
+          <!-- END Notification -->
+        </div>
+        <!-- END Notification Dropdown -->
+      </div>
+    </li>
+
+    <!--
+    <ng-template [ngIf]="_layoutOption != 'email'">
+      <li class="p-r-10 inline">
+        <a style="" class="header-icon btn-icon-link">
+          <i class="pg-icon">link_alt</i>
+        </a>
+      </li>
+      <li class="p-r-10 inline">
+        <a style="" class="header-icon btn-icon-link">
+          <i class="pg-icon">grid_alt</i>
+        </a>
+      </li>
+    </ng-template>
+
+    <ng-template [ngIf]="_layoutOption == 'email'">
+      <li class="inline">
+        <a style="" id="mark-email" class="mark-email btn-icon-link m-l-10"><i
+            class="pg-icon">edit</i></a>
+      </li>
+    </ng-template>
+    -->
+
+  </ul>
+  <!-- END NOTIFICATIONS LIST -->
+
+
+
+   <!-- START NOTIFICATION LIST -->
+   <!--
+   <ul class="d-lg-inline-block d-none notification-list no-margin  b-grey b-l b-r no-style p-l-20 p-r-20">
+    <li class="p-r-10 inline">
+      <div class="dropdown" dropdown>
+        <a (click)="markAsView('alerts')" id="notification-center" class="header-icon btn-icon-link" dropdownToggle>
+          <i class="pg-icon">alert_warning</i>
+
+    
+          
+            <ng-container *ngIf="unview_alerts_count<=3 && unview_alerts_count>0">
+              <span class="bubble"> <span style="position:relative; top:5px; font-size:10px;">{{unview_alerts_count}}</span></span>
+            </ng-container>
+
+          <ng-container *ngIf="unview_alerts_count>3">
+              <span class="bubble" style="height: 21px; width:23px; top:-8px; right:-8px; "> <span style="position:relative; top:8px; font-size:10px;">3+</span></span>
+          </ng-container>
+          
+
+        </a>
+        <div *dropdownMenu class="dropdown-menu notification-toggle">
+          <div class="notification-panel" style="width:500px;">
+            <div class="notification-body scrollable">
+            -->
+              <!--
+              <div class="notification-item unread clearfix">
+                <div class="heading open">
+                  <a href="#" class="text-complete pull-left d-flex align-items-center">
+                    <i class="pg-icon m-r-10">map</i>
+                    <span class="bold">Carrot Design</span>
+                    <span class="fs-12 m-l-10">David Nester</span>
+                  </a>
+                  <div class="pull-right">
+                    <div class="thumbnail-wrapper d16 circular inline m-t-15 m-r-10 toggle-more-details">
+                      <div><i class="pg-icon">chevron_down</i>
+                      </div>
+                    </div>
+                    <span class=" time">few sec ago</span>
+                  </div>
+                  <div class="more-details">
+                    <div class="more-details-inner">
+                      <h5 class="semi-bold fs-16">“Apple’s Motivation - Innovation <br>
+                        distinguishes between <br>
+                        A leader and a follower.”</h5>
+                      <p class="small hint-text">
+                        Commented on john Smiths wall.
+                        <br> via pages framework.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+               
+                <div class="option" tooltip="mark as read" placement="right">
+                  <a style="" class="mark"></a>
+                </div>
+              </div>
+            -->
+
+              <!-- START Notification Body-->
+              <!-- START Notification Item
+              <div class="notification-item  clearfix">
+                <div class="heading">
+                  <a style="" class="text-danger pull-left">
+                    <i class="pg-icon m-r-10">alert_warning</i>
+                    <span class="bold">98% Server Load</span>
+                    <span class="fs-12 m-l-10">Take Action</span>
+                  </a>
+                  <span class="pull-right time">2 mins ago</span>
+                </div>
+
+                <div class="option">
+                  <a style="" class="mark"></a>
+                </div>
+               
+              </div>
+            
+              END Notification Item-->
+              <!-- START Notification Item
+              <div class="notification-item  clearfix">
+                <div class="heading">
+                  <a style="" class="text-warning pull-left">
+                    <i class="pg-icon m-r-10">alert_warning</i>
+                    <span class="bold">Warning Notification</span>
+                    <span class="fs-12 m-l-10">Buy Now</span>
+                  </a>
+                  <span class="pull-right time">yesterday</span>
+                </div>
+                
+                <div class="option">
+                  <a style="" class="mark"></a>
+                </div>
+               
+              </div>
+            
+               END Notification Item-->
+              <!-- START Notification Item-->
+<!--
+              <ng-container *ngFor="let alert of alerts">
+              <div class="notification-item clearfix"  [ngClass]="alert.read_at ? '':'unread'" >
+                
+                <div class="heading">
+                    
+                  <div class="thumbnail-wrapper d24 circular b-white m-r-5 b-a b-white m-t-10 m-r-10">
+                    <img width="30" height="30" src2x="assets/img/profiles/1x.jpg" pgRetina
+                      src1x="assets/img/profiles/1.jpg" alt="" src="assets/img/profiles/1.jpg">
+                  </div>
+
+                  <a (click)="MarkAsRead(alert.read_at,'alerts',alert.id,alert.data['route'])" class="text-complete pull-left">
+                    <span class="bold">{{alert.data['msg']}}</span>
+                    <span class="fs-12 m-l-10">{{alert.data['user']}}</span>
+                    
+
+                  </a>
+
+                  <span class="pull-right time">{{alert.created_at | date:'dd/MM HH:mm'}}</span>
+                </div>
+
+                <div  class="option" tooltip="mark as read" placement="right">
+                  <a class="mark"></a>
+                </div>
+               
+               
+
+              </div>
+            </ng-container>
+
+            </div>
+
+            <div class="notification-footer text-center" >
+              <a style="" class="">Read all notifications</a>
+              <a data-toggle="refresh" class="portlet-refresh text-black pull-right" style="">
+                <i class="pg-refresh_new"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+
+    <ng-template [ngIf]="_layoutOption != 'email'">
+      <li class="p-r-10 inline">
+        <a style="" class="header-icon btn-icon-link">
+          <i class="pg-icon">link_alt</i>
+        </a>
+      </li>
+      <li class="p-r-10 inline">
+        <a style="" class="header-icon btn-icon-link">
+          <i class="pg-icon">grid_alt</i>
+        </a>
+      </li>
+    </ng-template>
+
+    <ng-template [ngIf]="_layoutOption == 'email'">
+      <li class="inline">
+        <a style="" id="mark-email" class="mark-email btn-icon-link m-l-10"><i
+            class="pg-icon">edit</i></a>
+      </li>
+    </ng-template>
+
+  </ul>
+-->
+
+
+
+  <!--href="javascript:void(0)"-->

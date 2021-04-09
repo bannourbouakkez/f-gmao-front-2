@@ -1,0 +1,129 @@
+
+
+
+
+<div *ngIf="loaded">
+
+
+<table style="table-layout: fixed;width: 100%;">
+  <tr>
+    <td colspan="2">
+
+      <div *ngIf="NodeLoaded" style="margin-bottom:4px;" >
+        <table *ngIf="selectedIds.length>0" class='table-select-tree' ><tr><td  style="padding:4px;">
+          <app-dump-list-node [elements]="IdsArrToNodesArr(selectedIds)" [x]="true" (action)="deleteNode($event)" ></app-dump-list-node>
+        </td></tr></table>
+      </div>
+
+    </td>
+  </tr>
+  <tr>
+      <td width="75%">
+
+          <nz-input-group [nzSuffix]="suffixIconSearch" >
+              <input type="text" autocomplete="off" nz-input placeholder="input search text" id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <i class='pg-icon md-18'>search</i>
+            </ng-template>
+
+      </td>
+      <td width="25%">
+  <div style="padding-left:10px;">
+          <nz-button-group>
+              <button nz-button nzType="default" (click)="CloseAll()"><i nz-icon class="pg-icon md-10">text_indent_decrease</i></button>
+              <button nz-button nzType="default" (click)="expandAll()" ><i nz-icon class="pg-icon md-10">text_indent_increase</i></button>
+            </nz-button-group>
+
+  </div>
+      </td>
+      <!--
+      <td width="2%">
+          <button (click)="CloseAll()">close</button>
+      </td>
+      -->
+  </tr>
+  <tr><td colspan="2">
+  <br>
+  <div id="" style="overflow:auto; height:400px;">
+
+
+ 
+<tree-root #tree [focused]="true" [options]="options" [nodes]="nodes">
+  <ng-template #treeNodeFullTemplate let-node let-index="index" let-templates="templates">
+    
+
+    <div *ngIf="!NodeLoaded" >
+      <i nz-icon [nzType]="'loading'"></i>
+    </div>
+    <div class="tree-node" *ngIf="NodeLoaded" >
+
+      <!--
+        <input *ngIf="node.data.depth>=NiveauMin" type="checkbox" [checked]="node.isActive" (change)="node.toggleActivated(true)" (change)="onChange(node)"/>
+      -->
+       
+      
+
+        <tree-node-expander [node]="node"></tree-node-expander>
+        
+      
+      <!--
+      <div *ngIf="node.data.depth>=NiveauMin"
+        class="node-content-wrapper"
+        [class.node-content-wrapper-active]="node.isActive"
+        [class.node-content-wrapper-focused]="node.isFocused"
+        (click)="node.toggleActivated(true)" (click)="onChange(node)">
+        <span  title="{{node.data.name}}"  > {{ node.data.name }} </span>
+      </div>
+      -->
+
+      <label nz-checkbox  *ngIf="node.data.depth>=NiveauMin" [ngModel]="node.isActive" (click)="node.toggleActivated(true)" (click)="onChange(node)" >
+        <!--<span class="pull-right">{{ childrenCount(node)}} </span>-->
+        <span title="{{node.data.name}}">{{ node.data.name }} </span>
+        <span class="label" *ngIf="childrenCount(node)>0" >{{ childrenCount(node)}}</span>
+      </label>
+
+
+
+      <!--
+        <div *ngIf="node.data.depth<NiveauMin"
+        class="node-content-wrapper"
+        [class.node-content-wrapper-active]="node.isActive"
+        [class.node-content-wrapper-focused]="node.isFocused"
+        >
+        <span  title="{{node.data.name}}"  > {{ node.data.name }} </span>
+      </div>
+    -->
+      
+
+      <ng-container *ngIf="node.data.depth<NiveauMin">
+        <!--<span class="pull-right">{{ childrenCount(node)}}</span>-->
+        <span title="{{node.data.name}}">{{ node.data.name }} </span>
+        <span class="label" *ngIf="childrenCount(node)>0" >{{ childrenCount(node)}}</span>
+      </ng-container>
+
+
+
+      <!--<span class="pull-right">{{ childrenCount(node) }}</span>-->
+
+      <tree-node-children [node]="node" [templates]="templates"></tree-node-children>
+
+    </div>
+
+  </ng-template>
+</tree-root>
+
+
+
+ </div>
+
+<button class='btn btn-default' *ngIf="NodeLoaded" (click)="Envoyer()"> Envoyer </button>
+
+ </td>
+ 
+ </tr>
+</table>
+
+</div>
+
+

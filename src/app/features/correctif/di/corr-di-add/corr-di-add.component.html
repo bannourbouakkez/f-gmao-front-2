@@ -1,0 +1,776 @@
+
+
+
+
+
+
+
+
+
+
+
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+
+<app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+
+
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Preventif</a></li>
+  <li class="breadcrumb-item"><a href="#">Intervention</a></li>
+  <li class="breadcrumb-item active" >Ajouter Intervention</li>
+</ol>
+-->
+
+    <!-- START card -->
+    <div class="card">
+<!--
+      <div class="card-header  separator">
+        <div class="card-title">Portlet Three
+        </div>
+      </div>
+-->
+
+<div class="card-header separator">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{AjouterOuModifier(DiID)}} DI</span></li>
+      </ol>
+</div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <!--
+                        <h3 class="mw-80">Simple but not simpler, create a separate form layout. Best for settings pages.</h3>
+                        <p class="mw-80">Want it to be more Descriptive and User-Friendly, We Made it possible, Use Separated Form Layouts Structure to Presentation your Form Fields.
+                        </p>
+                        <br>
+            -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+        <ng-container *ngIf="(DiID && PageDiLoaded) && di.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Demande d'intervention est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+
+        
+<!--
+        <ng-container *ngIf="!isModifiable && InterventionID && PageInterventionLoaded">
+          <div class="alert alert-danger" role="alert">
+            <button aria-label="" class="close" data-dismiss="alert"></button>
+            Vous pouvez pas modifiée cette intrevention maintenant car elle est reliée avec un OT déja en cours .
+          </div>
+        </ng-container>
+-->     
+            
+  <ng-container *ngIf=" (DiID && PageDiLoaded && di.exist==1) || !DiID">
+  <!--<ng-container>-->
+  
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal" role="form" autocomplete="off">
+
+              <input type="hidden" formControlName="DiID" >
+    <input type="hidden" formControlName="user_id" >
+    <input type="hidden" formControlName="datetime" >
+    <input type="hidden" formControlName="statut" >
+    <input type="hidden" formControlName="equipement_id" >
+    <input type="hidden" formControlName="anomalie_id" >
+    <input type="hidden" formControlName="dossier_id" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+
+
+
+             
+
+    <div class="form-group row">
+      <label class="col-md-5 required control-label">Date & Heure</label>
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-6">
+
+
+            <div class="input-group date col-md-12 p-1-0">
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                formControlName="date" readonly>
+              <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">calendar</i>
+                  </i>
+                </span>
+
+              </div>
+            
+            </div>
+
+            <!--<div><label class="error" *ngIf="formErrors.ddr" [innerHTML]="formErrors.ddr"></label>
+            </div>-->
+
+            <span class="help">Date</span>
+          </div>
+          <div class="col-md-6 sm-m-t-10 ">
+
+            <!--
+            <label>
+              Time
+              <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+              <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+            </label>
+            -->
+
+            <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;">
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" #time 
+              formControlName="time"  readonly>
+              <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">time</i>
+                  </i>
+                </span>
+              </div>
+            </div>
+
+
+            <span class="help">Heure</span>
+          </div>
+        </div>
+
+        
+        <div>
+          <label class="error" *ngIf="formErrors.date" [innerHTML]="formErrors.date"></label>
+        </div>
+        <div>
+          <label class="error" *ngIf="formErrors.time" [innerHTML]="formErrors.time"></label>
+        </div>
+        
+      </div>
+    </div>
+
+
+    
+    <div class="form-group row">
+      <label for="fname" class="required col-md-5 control-label">Demandeur</label>
+      <div class="col-md-7">
+
+        <div class="input-group date p-1-0">
+
+          
+          <nz-select formControlName="demandeur_user_id" nzShowSearch nzAllowClear nzPlaceHolder="Select demandeur"
+          [nzDisabled]="demandeurs.length==0 || isChefDeEquipe">
+          <nz-option *ngFor="let demandeur of demandeurs" [nzValue]="demandeur.id" [nzLabel]="demandeur.name">
+          </nz-option>
+          </nz-select>
+
+          
+
+        
+
+
+
+        </div>
+
+        <div>
+          <label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label>
+        </div>
+      
+        
+        <!--
+<span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+            Framework to download and process.</span>
+-->
+      </div>
+    </div>
+
+
+<div class="form-group row">
+      <label for="fname" class="required col-md-5 control-label">Recepteur</label>
+      <div class="col-md-7">
+
+        <div class="input-group date  p-1-0">
+
+          <!--
+          <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Select type">
+            <nz-option nzLabel="mecanique" nzValue="mecanique"></nz-option>
+            <nz-option nzLabel="electrique" nzValue="electrique"></nz-option>
+            <nz-option nzLabel="graissage" nzValue="graissage"></nz-option>
+            <nz-option nzLabel="hydrolique" nzValue="hydrolique"></nz-option>
+            <nz-option nzLabel="pneumatique" nzValue="pneumatique"></nz-option>
+            <nz-option nzLabel="plus" nzValue="plus"></nz-option>
+          </nz-select>
+        -->
+
+
+<nz-select formControlName="recepteur_user_id" nzShowSearch nzAllowClear nzPlaceHolder="Select recepteur"
+[nzDisabled]="recepteurs.length==0">
+<nz-option *ngFor="let recepteur of recepteurs" [nzValue]="recepteur.id" [nzLabel]="recepteur.name">
+</nz-option>
+</nz-select>
+
+
+        </div>
+
+        <div>
+          <label class="error" *ngIf="formErrors.recepteur_user_id" [innerHTML]="formErrors.recepteur_user_id"></label>
+        </div>
+      
+        
+        <!--
+<span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+            Framework to download and process.</span>
+-->
+      </div>
+    </div>
+
+
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Equipement</label>
+                <div class="col-md-7">
+
+
+                  <div *ngIf="DiID>0">
+
+                    <ng-container *ngIf="di.statut=='enAttente' || ( di.statut=='planifie' && plan && plan.isExecuted==0 ) ">
+                    <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                    </ng-container>
+
+                    <ng-container *ngIf="di.statut=='enCours' || di.statut=='ferme' || ( di.statut=='planifie' && plan && plan.isExecuted==1 ) ">
+                    <app-aff-equipement *ngIf="niveaux.length>0" [niveaux]="niveaux" type="verticale" >
+                    </app-aff-equipement>
+                    </ng-container>
+
+                  </div>
+                
+                  <div *ngIf="!(DiID>0)">
+                    <app-equi-node-select  (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                  </div>
+
+                  
+
+
+
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Anomalie</label>
+                <div class="col-md-7">
+
+                  <!--
+                  <ng-container  *ngIf="!(InterventionID>0)">
+                  <nz-select formControlName="tache_id" nzShowSearch nzAllowClear nzPlaceHolder="Select type"
+                    [nzDisabled]="taches.length==0">
+                    <nz-option nzLabel="" nzValue=""></nz-option>
+                    <nz-option *ngFor="let tache of taches" [nzValue]="tache.TacheID" [nzLabel]="tache.tache">
+                    </nz-option>
+
+                  </nz-select>
+
+                  <div>
+                    <label class="error" *ngIf="formErrors.tache_id" [innerHTML]="formErrors.tache_id"></label>
+                  </div>
+
+                </ng-container>
+
+                <ng-container  *ngIf="InterventionID">
+
+                  <nz-select formControlName="tache_id" nzShowSearch nzAllowClear nzPlaceHolder="Select type"
+                  nzDisabled>
+                  <nz-option nzLabel="" nzValue=""></nz-option>
+                  <nz-option *ngFor="let tache of taches" [nzValue]="tache.TacheID" [nzLabel]="tache.tache">
+                  </nz-option>
+
+                </nz-select>
+
+                <div>
+                  <label class="error" *ngIf="formErrors.tache_id" [innerHTML]="formErrors.tache_id"></label>
+                </div>
+
+                </ng-container>
+
+              -->    
+              
+              <!--
+              <select formControlName="anomalie_id" >
+                <option [value]=''></option>
+                <option *ngFor="let anomalie of anomalies" [value]="anomalie.AnomalieID">{{anomalie.anomalie}}</option>
+              </select>
+              -->
+              
+
+              
+<nz-select formControlName="anomalie_id" nzShowSearch nzAllowClear nzPlaceHolder="Select anomalie"
+[nzDisabled]="( !(EquipementID>0) && anomalies.length==0 ) ||  LoadGetAnomalies"  [nzDropdownRender]="render" >
+<!--<nz-option nzLabel="" nzValue=""></nz-option>-->
+<nz-option *ngFor="let anomalie of anomalies" [nzValue]="anomalie.AnomalieID" [nzLabel]="anomalie.anomalie">
+</nz-option>
+</nz-select>
+
+<ng-template #render>
+  <nz-divider></nz-divider>
+  <div *ngIf="EquipementID>0" (click)="openDialogAddAnomalie(EquipementID)" class="add-item">
+    <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+    Ajouter anomalie
+</div>
+</ng-template>
+
+
+              
+<div><label class="error" *ngIf="formErrors.anomalie_id" [innerHTML]="formErrors.anomalie_id"></label>
+</div>
+                </div>
+
+                
+
+              </div>
+
+
+          
+
+
+<!--
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">DDR</label>
+                <div class="col-md-7">
+
+                  <div class="input-group date col-md-6 p-1-0">
+                    <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                      formControlName="ddr" readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class='icon-container'>
+                          <i class="pg-icon">calendar</i>
+                        </i>
+                      </span>
+
+                    </div>
+                  
+                  </div>
+
+                  <div><label class="error" *ngIf="formErrors.ddr" [innerHTML]="formErrors.ddr"></label>
+                  </div>
+                 
+                </div>
+              </div>
+            -->
+
+              <div class="form-group row">
+                <label class="required col-md-5 control-label">Type</label>
+                <div class="col-md-7">
+                
+                  
+                  <div class="input-group date col-md-6 p-1-0">
+
+                  <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Select type">
+                    <nz-option nzLabel="Mecanique" nzValue="mecanique"></nz-option>
+                    <nz-option nzLabel="Electrique" nzValue="electrique"></nz-option>
+                    <nz-option [selected]="true" nzLabel="Autres" nzValue="autres"></nz-option>
+                   
+                  </nz-select>
+
+                  </div>
+                  <div><label class="error" *ngIf="formErrors.type" [innerHTML]="formErrors.type"></label>
+                  </div>
+                 
+
+                </div>
+
+              </div>
+
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">Degree d'urgence</label>
+                <div class="col-md-7">
+
+                  <div class="input-group date col-md-6 p-1-0">
+                    <!--
+                    <nz-select formControlName="parametrage" nzShowSearch nzAllowClear nzPlaceHolder="Select parametre">
+                      <nz-option nzLabel="à la planification" nzValue="planification"></nz-option>
+                      <nz-option nzLabel="à l'execution" nzValue="execution"></nz-option>
+                      <nz-option nzLabel="à la cloture" nzValue="cloture"></nz-option>
+                    </nz-select>
+                  -->
+
+
+
+<nz-select formControlName="degre" nzShowSearch nzAllowClear nzPlaceHolder="Select degree">
+  <nz-option [selected]="true" nzLabel="Faible" nzValue="faible"></nz-option>
+  <nz-option nzLabel="Moyen" nzValue="moyen"></nz-option>
+  <nz-option nzLabel="Urgent" nzValue="urgent"></nz-option>
+</nz-select>
+
+
+
+
+                  </div>
+
+                  
+                  <div>
+                    <label class="error" *ngIf="formErrors.degre" [innerHTML]="formErrors.degre"></label>
+                  </div>
+                  
+
+                  <!--
+          <span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+                      Framework to download and process.</span>
+          -->
+                </div>
+                
+              </div>
+
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Description</label>
+                <div class="col-md-7">
+
+                  <textarea formControlName="description" class="form-control" rows="2" id="name"
+                    placeholder=""></textarea>
+
+
+
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <!--<label for="name" class="col-md-2 control-label">Description</label>-->
+                <div class="col-md-12" >
+
+
+  <app-test-upload-files InputType="ajouter" [InputID]="DiID" [InputDossierID]="form.get('dossier_id').value" (ActionDossierID)="ActionDossierIDFunc($event)" (ActionUpload)="ActionUploadFunc($event)" [UploadOrder]="UploadOrder" [InputGetFiles]="GetFiles" [ResetUplaodComp]="ResetUplaodComp"></app-test-upload-files>
+
+
+
+
+                </div>
+              </div>
+
+
+
+
+
+
+<!--
+              <div class="form-group row">
+                <label class="col-md-5 control-label">NB operateur</label>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-3">
+
+
+
+                      <nz-input-number formControlName="nb_operateur" [nzMin]="1" [nzStep]="1"></nz-input-number>
+
+
+                    </div>
+
+                   
+
+                  </div>
+
+                  <div>
+                    <label class="error" *ngIf="formErrors.nb_operateur" [innerHTML]="formErrors.nb_operateur"></label>
+                  </div>
+                  
+                </div>
+              </div>
+-->
+
+  
+            
+
+
+
+
+
+           
+
+
+
+              <!--(InterventionID && PageInterventionLoaded && intervention.exist==1) || !InterventionID-->
+              
+              
+              <br>
+              <!--<ng-container *ngIf="!InterventionID || ( isModifiable && InterventionID && PageInterventionLoaded) ">-->
+              <ng-container>
+              <div class="row">
+
+                <div class="col-md-6">
+
+                
+                </div>
+                <div class="col-md-6">
+                  <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="form.valid ? 'class': 'disabled'" type="button" (click)="submit()" >{{AjouterOuModifier(DiID)}}
+
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+              
+                </div>
+              </div>
+
+            </ng-container>
+
+            </form>
+</ng-container> 
+
+
+
+<ng-container *ngIf="DiID && !PageDiLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+  
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    
+
+    <input type="hidden" formControlName="DiID" >
+    <input type="hidden" formControlName="user_id" >
+    <input type="hidden" formControlName="datetime" >
+    <input type="hidden" formControlName="statut" >
+    <input type="hidden" formControlName="equipement_id" >
+    <input type="hidden" formControlName="anomalie_id" >
+    <input type="hidden" formControlName="dossier_id" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+
+   
+
+
+    <label>
+        Date
+        <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date" readonly>
+        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+    </label>
+    
+    <label>
+        Time
+        <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+        <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+    </label>
+    
+    
+  <div *ngIf="DiID>0">
+    <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+  </div>
+
+  <div *ngIf="!(DiID>0)">
+    <app-equi-node-select  (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+  </div>
+
+    Anomalies :  <select formControlName="anomalie_id" >
+      <option [value]=''></option>
+        <option *ngFor="let anomalie of anomalies" [value]="anomalie.AnomalieID">{{anomalie.anomalie}}</option>
+    </select> 
+    
+    <span *ngIf="EquipementID>0" (click)="openDialogAddAnomalie(EquipementID)">[+]</span>
+
+  -->
+    
+    <!--
+    <mat-form-field>
+        <mat-select name="AnomalieID" formControlName="anomalie_id" >
+          <mat-option>
+            <ngx-mat-select-search  [formControl]="bankServerSideFilteringCtrl" [searching]="searching"  placeholderLabel="Chercher Anomalie..."  noEntriesFoundLabel="'Aucune Anomalie'" ></ngx-mat-select-search>
+          </mat-option>
+            <mat-option *ngFor="let bank of anomalies" [value]="bank.AnomalieID">
+            {{bank.anomalie}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    -->
+<!--
+    <input formControlName="description">
+
+    Type :  <select formControlName="type" >
+        <option value='mecanique' [selected]="true">Mecanique</option>
+        <option value='electrique'>Electrique</option>
+        <option value='autres'>Autres</option>
+
+    </select>
+
+    Degre d'urgence :  <select formControlName="degre" >
+        <option value='faible' [selected]="true">Faible</option>
+        <option value='moyen'>Moyen</option>
+        <option value='urgent'>Urgent</option>
+    </select>
+
+    Demandeur :  <select formControlName="demandeur_user_id" >
+        <option *ngFor="let demandeur of demandeurs" [value]="demandeur.id">{{demandeur.name}}</option>
+    </select>
+
+    Recepteur :  <select formControlName="recepteur_user_id" >
+        <option *ngFor="let recepteur of recepteurs" [value]="recepteur.id">{{recepteur.name}}</option>
+    </select>
+
+ </form>
+
+ <button (click)="submit()">Envoyer</button>
+-->
+
+
+
+<!-- //=====================> -->
+
+
+<!-- Ancien Simple 9bal ng2Upload 
+<form [formGroup]="uploadForm">
+
+  <mat-form-field class="form-field">
+    <mat-label>Select Document Type</mat-label>
+    <mat-select formControlName="type" required>
+      <mat-option value="Passport">Passport</mat-option>
+      <mat-option value="Driving_license">Driving License</mat-option>
+      <mat-option value="PAN">PAN</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <input  type="hidden" formControlName="document" />
+  <input  type="file" (change)="fileEvent($event)" />
+</form>
+-->
+
+
+  <!--//###########################-->
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+// Test DateTime 
+<input [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" placeholder="Date Time">
+<owl-date-time #dt1></owl-date-time>
+
+<input [owlDateTime]="dt2" placeholder="Date Time" readonly>
+<span [owlDateTimeTrigger]="dt2">[+]<i class="fa fa-calendar"></i></span>
+<owl-date-time #dt2></owl-date-time>
+
+
+<owl-date-time-inline [(ngModel)]="selectedMoment"></owl-date-time-inline>  
+
+
+<form [formGroup]="form">
+<label>
+    Date
+    <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+</label>
+
+<label>
+    Time
+    <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+    <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+
+</label>
+
+<label>
+    Date Time:
+    <input [owlDateTimeTrigger]="dt" [owlDateTime]="dt" formControlName="datetime" readonly>
+    <owl-date-time #dt></owl-date-time>
+</label>
+
+
+</form>
+
+<button (click)="consoleForm()">consoleForm</button>
+
+<button (click)="openDialogAddAnomalie()">openDialogAddAnomalie</button>
+
+-->
+
+
+
+
+

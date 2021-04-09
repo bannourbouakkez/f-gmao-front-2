@@ -1,0 +1,53 @@
+<p>mag-inv-intervenants works!</p>
+
+<!-- =========> Filter -->
+
+<form [formGroup]="filterForm">
+
+    <br>
+        Enregistrement  : <input type="checkbox"  name="Enregistrement" formControlName="Enregistrement" checked>
+        Correction  : <input type="checkbox"  name="Correction" formControlName="Correction" checked>
+    <br>
+
+    <input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+    <input type="hidden"  #datemin formControlName="datemin" >
+    <input type="hidden"  #datemax formControlName="datemax" >
+    Rechecrche Automatique  : <input type="checkbox"  name="auto" formControlName="auto" checked>
+    <button (click)="filter()">Search</button>
+    <button (click)="resetFilter()">Reset</button>
+    </form>
+    
+    <form [formGroup]="formDate">
+    
+    <mat-form-field>
+        <input formControlName="minformdate" #dateminmatdeux  matInput  [matDatepicker]="dateminmat" (dateChange)="dateMinFilter($event)" readonly>
+        <mat-datepicker-toggle matSuffix [for]="dateminmat" ></mat-datepicker-toggle>
+        <mat-datepicker #dateminmat  ></mat-datepicker> <!--[startAt]="mystartdate"-->
+    </mat-form-field>
+    
+    <mat-form-field>
+        <input formControlName="maxformdate"  #datemaxmatdeux matInput [matDatepicker]="datemaxmat" (dateChange)="dateMaxFilter($event)" readonly>
+        <mat-datepicker-toggle matSuffix [for]="datemaxmat" ></mat-datepicker-toggle>
+        <mat-datepicker #datemaxmat  ></mat-datepicker> <!--[startAt]="mystartdate"-->
+    </mat-form-field>
+    
+    </form>
+    
+    <!--########## Filter-->
+
+<div *ngFor="let inventaire of inventaires;let i=index;">
+
+    <div [routerLink]="['/magasin/inv/inventaire/'+inventaire.InventaireID]" >
+        N° Inventaire: {{inventaire.InventaireID}},
+        Famille : {{inventaire.famille}},
+        Sous Famille : {{inventaire.name_famille}},
+        Type : {{inventaire.type}},
+        Liste Intervenants : {{StringListeToArray(inventaire.ListeIntervenants) | json}}
+
+        <div *ngFor="let intervenant of StringListeToArray(inventaire.ListeIntervenants);let i=index;">
+            {{NameIntervenantByID(intervenant)}},
+        </div>
+
+    </div>
+
+</div>

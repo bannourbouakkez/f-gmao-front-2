@@ -1,0 +1,741 @@
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+        <div class="card">
+            <div id="card-header-liste" class="card-header separator">
+                <ol id="breadcrumb-liste" class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                            class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+                </ol>
+            </div>
+
+            <div id="card-body-liste" class="card-body">
+                <div class="row">
+
+
+                    <!------------- Filter ----------------->
+                    <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+                        <nz-collapse [nzBordered]="true">
+                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader=""
+                                [nzActive]="false">
+
+
+                                <table id="id-table-filter">
+                                    <tr>
+                                        <td id="id-table-filter-first-td"></td>
+                                        <td>
+
+                                            <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form"
+                                                autocomplete="off">
+                                                <!------ Contenu filter ------->
+
+
+                                              
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Date</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <input class='form-control input-sm' nz-input
+                                                                        [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                                                                        #datemin ngModel
+                                                                        [(ngModel)]="filterForm.get('datemin').value"
+                                                                        formControlName="datemin" readonly>
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt3>
+                                                                    </owl-date-time>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class='icon-container'>
+                                                                                <i class="pg-icon">calendar</i>
+                                                                            </i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help">Date Debut</span>
+                                                            </div>
+                                                            <div class="col-md-3 sm-m-t-10">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <input class='form-control input-sm' nz-input
+                                                                        [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4"
+                                                                        #datemax ngModel
+                                                                        [(ngModel)]="filterForm.get('datemax').value"
+                                                                        formControlName="datemax" readonly>
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt4>
+                                                                    </owl-date-time>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class='icon-container'>
+                                                                                <i class="pg-icon">calendar</i>
+                                                                            </i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help">Date Fin</span>
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row" style="display:none;">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Statut</label>
+                                                    <div class="col-md-10">
+
+                                                        <nz-select formControlName="statut" nzMode="multiple"
+                                                            nzPlaceHolder="" nzAllowClear>
+                                                            <nz-option nzLabel="En Cours" nzValue="enCours"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="Ferme" nzValue="ferme"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="En Attente" nzValue="enAttente"
+                                                                [nzHide]="false"></nz-option>
+            
+                                                        </nz-select>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Type</label>
+                                                    <div class="col-md-10">
+
+                                                        <nz-select formControlName="type" nzMode="multiple"
+                                                            nzPlaceHolder="" nzAllowClear>
+                                                            <nz-option nzLabel="Mecanique" nzValue="mecanique"
+                                                                [nzHide]="false"></nz-option>
+                                                                <nz-option nzLabel="Electrique" nzValue="electrique"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="Autres" nzValue="autres" [nzHide]="false">
+                                                            </nz-option>
+                                                        </nz-select>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Degre</label>
+                                                    <div class="col-md-10">
+
+                                                        <nz-select formControlName="degre" nzMode="multiple"
+                                                            nzPlaceHolder="" nzAllowClear>
+                                                            <nz-option nzLabel="Faible" nzValue="faible"
+                                                                [nzHide]="false"></nz-option>
+                                                                <nz-option nzLabel="Moyen" nzValue="moyen"
+                                                                [nzHide]="false"></nz-option>
+                                                            <nz-option nzLabel="Urgent" nzValue="urgent" [nzHide]="false">
+                                                            </nz-option>
+                                                        </nz-select>
+
+                                                    </div>
+                                                </div>
+
+
+
+
+
+                                                <div class="form-group row">
+                                                    <label class="col-md-2 control-label">Equipement</label>
+                                                    <div class="col-md-10">
+
+                                                        <app-equi-node-select-multi [inputnodes]="nodes"
+                                                            (emit)="ReceptNodes($event)">
+                                                        </app-equi-node-select-multi>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <!--##### Contenu filter #####-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+
+                        <ng-template #expandedIcon let-active>
+                            <table id="id-bar-filter-table">
+                                <tr>
+                                    <td id="id-bar-filter-td-rotateicon">
+                                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                                            [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                                        <i class='pg-icon md-18'>filter</i> Filtre
+                                    </td>
+                                    <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                                            <input #searchFilterText formControlName="searchFilterText"
+                                                class="form-control input-sm" type="text" autocomplete="off" nz-input
+                                                placeholder="" id="filter" #filter />
+                                        </nz-input-group>
+                                        <ng-template #suffixIconSearch>
+                                            <i class='pg-icon md-18'>search</i>
+                                        </ng-template>
+                                    </td>
+                                    <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                                        <button id="id-bar-filter-btn-first" class='btn btn-default'
+                                            type="submit">Rechercher</button>
+                                        <button type="button" class="btn btn-default" (click)="resetFilter()">
+                                            <span> Réinitialiser </span>
+                                            <!--<i class='pg-icon md-18'>refresh_alt1</i>-->
+                                        </button>
+                                        <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                                            RA </label>
+                                    </td>
+                                    <td id="id-bar-filter-last-td">
+                                        <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-template>
+
+                    </form>
+                    <!--################# Filter ####################-->
+
+
+
+                    <!------------------- Table ----------------------->
+                    <div id="id-div-table">
+
+                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                            [nzShowPagination]="false" [nzData]="dis">
+                            <thead>
+                                <tr>
+                                    
+
+                                    <th nzWidth="2%">
+
+                                        <button [routerLink]="['/gmao/correctif/di/add/0']" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                        data-placement="top" title="afficher">
+                                        <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                                      </button>
+
+                                    </th>
+                                    <!--<th>Statut</th>-->
+                                    <!--<th>Createur</th>-->
+                                    <th>Demandeur</th>
+                                    <th>Recepteur</th>
+                                    <th>Equipement</th>
+                                    <th>Anomalie</th>
+                                    <th>Type</th>
+                                    <th>Degre</th>
+                                    <th>Date</th>
+                                    <!--<th>Temps</th>-->
+                                    <!--<th>Date De Creation</th>-->
+                                    <th>Action</th>
+
+
+                                </tr>
+                            </thead>
+
+
+
+
+
+                            <tbody>
+                                <ng-container *ngFor="let data of smallTable.data | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+                                <ng-container *ngIf="data.statut!='planifie'" >
+                                <tr>
+                                    
+                                    
+                                     <td align="center">
+                                        <div class="table-firsttd-height">
+                                            <a href="gmao/correctif/di/di/{{data.DiID}}" target="_blank">
+                                                {{data.DiID}}
+                                            </a>
+                                        </div>
+                                    </td>
+<!--
+                                     <td>
+                                    
+                                         <div class="div-statuts">
+                                            <div *ngIf="data.statut=='enAttente'" class="label"
+                                            style="padding:5px;">{{data.statut}}</div>
+                                            <div *ngIf="data.statut=='enCours'" class="label label-warning"
+                                                style="padding:5px;">{{data.statut}}</div>
+                                            <div *ngIf="data.statut=='ferme'" class="label label-info"
+                                                style="padding:5px;">{{data.statut}}</div>
+                                         </div>
+
+                                     </td>
+-->
+                                     <!--<td>{{data.name}}</td>-->
+                                     <td>{{data.demandeur | titlecase}}</td>
+                                     <td>{{data.recepteur | titlecase}}</td>
+                                     <td>{{data.equipement | titlecase}}</td>
+                                     <td>{{data.anomalie | titlecase}}</td>
+                                    <!--<td>{{_replace('correctif','type_di',data.type)}}</td>-->
+                                     <td>{{data.type | replace:'type_di'}}</td>
+                                     <td>{{data.degre | titlecase}}</td>
+                                     <td>{{data.datetime | date:'dd/MM/yy HH:mm'}}</td>
+                                     <!--<td>{{data.time}}</td>-->
+                                     <!--<td>{{data.created_at | date:'dd/MM/yy'}}</td>-->
+
+                                    
+                                    
+                                        <td>
+                                            <ul class="list-inline m-0">
+
+                                            <ng-container *ngIf=" ( isCCR(data) && isPosts(['ChefDeEquipe']) )  || isPosts(['Admin','Methode']) ">
+                                            
+                                           
+                                                <!--béch tabda 7aja parfait lazim najjim nsuprimi w nmodifi 7atta w statut planifie 
+                                                    ama statut planifie méch b tharoura ma walletich ot tnajjim tkoun wallét ot ama ot enAttente -->
+
+            
+
+                                             <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                                                <button [routerLink]="['/gmao/correctif/di/di/',data.DiID]" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                  data-placement="top" title="afficher"> <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                              </li>
+
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button [routerLink]="['/gmao/correctif/di/add/',data.DiID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                     class="pg-icon md-18"
+                                                     style="width:10px;height:10px;position:relative;top:1px;">edit</i></button>
+                                             </li>
+
+                                               
+
+                                               
+
+                                               
+
+                                           
+                            
+                                            </ng-container>
+                                            
+                                           
+                                            <!--<ng-container *ngIf=" isPosts(['ChefDePoste','ResponsableMaintenance']) || isPosts(['Admin','Methode']) ">-->
+                                                <ng-container *ngIf=" isPosts(['ChefDePoste','ResponsableMaintenance']) || isPosts(['Admin','Methode']) ">
+                                           
+                                                   
+                                                    <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/correctif/ot/add/',data.DiID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"
+                                                        style="width:10px;height:10px;position:relative;top:1px;"> 
+                                                        <!--<span>Executer &nbsp;</span>-->
+                                                        <i
+                                                            class="pg-icon md-18"
+                                                            style="height:10px;position:relative;top:1px;">flash</i>
+                                                    </button>
+                                                    </li>
+
+                            
+                                            </ng-container>
+                            
+                                            <ng-container *ngIf="isPosts(['Admin','Methode'])">
+                                            <!--<button (click)="planifierDi(di.PlanID,di.DiID)">Planifier</button>-->
+                            
+                                           
+
+
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button (click)="planifierDi(data.PlanID,data.DiID)" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"
+                                                 style="width:10px;height:10px;position:relative;top:1px;" > 
+                                                 <!--<span>Planifier &nbsp;</span>-->
+                                                 <i
+                                                     class="pg-icon md-18"
+                                                     style="height:10px;position:relative;top:1px;">calendar</i>
+                                             </button>
+                                             </li>
+
+
+                                            
+                            
+                                            <!--
+
+                                            <ng-container *ngIf="data.PlanID">
+
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button [routerLink]="['/gmao/correctif/lien_thez_lel_tableau_mte3_el_planification/',data.PlanID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="afficher"> 
+                                                 <span>Planifcation {{data.PlanID}}  &nbsp;</span>
+                                                 <i
+                                                     class="pg-icon md-18"
+                                                     style="height:10px;position:relative;top:1px;">eye</i>
+                                             </button>
+                                             </li>
+
+                                            </ng-container>
+                            
+                                            -->
+
+                                            </ng-container>
+
+                                            <ng-container *ngIf=" ( isCCR(data) && isPosts(['ChefDeEquipe']) )  || isPosts(['Admin','Methode']) ">
+                                                <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button nz-popconfirm nzTitle="Vous etes sure a supprimer la demande d'intervention ?" (nzOnConfirm)="deleteDi(data.DiID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                            
+                                                     class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                      data-placement="top" title="supprimer"><i class="pg-icon md-18"
+                                                        style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i></button>
+                                                  </li>
+                                            </ng-container>
+
+                            
+                                            <!--
+                                            <ng-container *ngIf="data.statut=='enCours' || data.statut=='ferme'">
+                            
+                                                <li class="list-inline-item"
+                                                style="padding:0px;margin:0px;margin-right:4px;">
+                                                <button [routerLink]="['/gmao/correctif/ot/ot/',data.OtID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                    data-toggle="tooltip" data-placement="top" title="afficher"> 
+                                                    <span>OT &nbsp;</span>
+                                                    <i
+                                                        class="pg-icon md-18"
+                                                        style="height:10px;position:relative;top:1px;">eye</i>
+                                                </button>
+                                                </li>
+                                                
+                                                
+                                            </ng-container>
+                                             -->
+                                            <!--
+                                            <ng-container *ngIf="data.statut=='enCours'">
+                            
+                                                <li class="list-inline-item"
+                                                style="padding:0px;margin:0px;margin-right:4px;">
+                                                <button [routerLink]="['/gmao/correctif/ot/ot/',data.OtID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                    data-toggle="tooltip" data-placement="top" title="afficher"> 
+                                                    <span>OT &nbsp;</span>
+                                                    <i
+                                                        class="pg-icon md-18"
+                                                        style="height:10px;position:relative;top:1px;">eye</i>
+                                                </button>
+                                                </li>
+                                                
+                                                
+                                            </ng-container>
+                                            -->
+                            
+                                            
+                                          </ul>
+                                         </td>
+
+
+
+
+
+                                    
+
+                                </tr>
+                            </ng-container>
+                        </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                    <!--################# Table ####################-->
+
+
+
+
+
+                    <!------------------- Pagination ----------------------->
+                    <table id="id-pagination-big-table">
+                        <tr>
+                            <td>
+
+                                <div class="my-pagination">
+                                    <table id="id-pagination-small-table">
+                                        <tr>
+                                            <td>
+                                                <nz-select [(ngModel)]="selectedItemPerPage"
+                                                    (ngModelChange)="incrementsItemsPerPage($event)">
+                                                    <nz-option nzValue="5" nzLabel="5"></nz-option>
+                                                    <nz-option nzValue="10" nzLabel="10"></nz-option>
+                                                    <nz-option nzValue="25" nzLabel="25"></nz-option>
+                                                    <nz-option nzValue="50" nzLabel="50"></nz-option>
+                                                </nz-select>
+                                            </td>
+
+                                            <td>
+                                                <pagination-controls maxSize="10" previousLabel="Précédent"
+                                                    nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;"
+                                                    (pageChange)="getDis($event)" id="server">
+                                                </pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <!--################# Pagination ####################-->
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #iconTpl>
+    <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+    <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!---------------------------   Filter Form ------------------------------->
+<!--
+<form [formGroup]="filterForm">
+        Date Min:
+        <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="datemin" readonly>
+        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+        Date Max:
+        <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="datemax" readonly>
+        <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+    <br>
+    <input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+   
+    <mat-form-field>
+       
+         <mat-select  formControlName="statut" multiple> 
+           <mat-option value='enCours' >En Cours</mat-option>
+           <mat-option value='ferme'>Ferme</mat-option>
+           <mat-option value='enattente'>En Attente</mat-option>
+         </mat-select>
+     </mat-form-field>
+
+     
+    <mat-form-field>
+      
+        <mat-select  formControlName="type"   multiple> 
+          <mat-option value='mecanique' >Mecanique</mat-option>
+          <mat-option value='electrique'>Electrique</mat-option>
+          <mat-option value='autres'>Autres</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select  formControlName="degre"   multiple> 
+            <mat-option style="background-color: yellow; " value='faible' >Faible</mat-option>
+            <mat-option style="background-color: green; " value='moyen'>Moyen</mat-option>
+            <mat-option style="background-color: red; " value='urgent'>Urgent</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <br>
+    <app-equi-node-select-multi  [inputnodes]="nodes" (emit)="ReceptNodes($event)" ></app-equi-node-select-multi>
+
+    <br>
+    <button (click)="filter()">Search</button>
+    <button (click)="resetFilter()">Reset</button>
+
+</form>
+
+Rechecrche Automatique  : <input type="checkbox"  name="rechercheAuto" [formControl]="rechercheAuto" checked>
+-->
+
+<!--###########################   Filter Form   ############################# -->
+<!--
+<table border='1'>
+
+    <thead>
+        <td>N°</td>
+        <td>Statut</td>
+        <td>Createur</td>
+        <td>Demandeur</td>
+        <td>Recepteur</td>
+        <td>Equipement</td>
+        <td>Anomalie</td>
+        <td>Type</td>
+        <td>Degre</td>
+        <td>Date</td>
+        <td>Temps</td>
+        <td>Date De Creation</td>
+        <td>Action</td>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let di of dis | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+            <tr *ngIf="di.statut!='planifie'">
+             <td>
+                
+                <a href="/correctif/di/di/{{di.DiID}}" target="_blank" >
+                    {{di.DiID}}
+                </a>
+                
+             </td>
+             <td>{{di.statut}}</td>
+             <td>{{di.name}}</td>
+             <td>{{di.demandeur}}</td>
+             <td>{{di.recepteur}}</td>
+             <td>{{di.equipement}}</td>
+             <td>{{di.anomalie}}</td>
+             <td>{{di.type}}</td>
+             <td>{{di.degre}}</td>
+             <td>{{di.date}}</td>
+             <td>{{di.time}}</td>
+             <td>{{di.created_at}}</td>
+             <td>
+                
+                <ng-container *ngIf=" ( isCCR(di) && isPosts(['ChefDeEquipe']) )  || isPosts(['Admin','Methode']) ">
+                
+                <ng-container *ngIf="di.statut=='enAttente'">
+
+-->
+                    <!--béch tabda 7aja parfait lazim najjim nsuprimi w nmodifi 7atta w statut planifie 
+                        ama statut planifie méch b tharoura ma walletich ot tnajjim tkoun wallét ot ama ot enAttente -->
+<!--
+                    <button (click)="delete(di.DiID)">Supprimer</button>
+
+                    <a href="/correctif/di/add/{{di.DiID}}" >
+                        <button>Modifier</button>
+                    </a>
+
+                </ng-container>
+
+                </ng-container>
+
+               
+                <ng-container *ngIf=" isPosts(['ChefDePoste','ResponsableMaintenance'])  || isPosts(['Admin','Methode']) ">
+               
+                    <ng-container *ngIf="di.statut=='enAttente'">
+                        <a href="correctif/ot/add/{{di.DiID}}" target="_blank">
+                            <button>Lancer</button>
+                        </a>
+                    </ng-container>
+
+                </ng-container>
+
+                <ng-container *ngIf="isPosts(['Admin','Methode'])">
+-->
+                <!--<button (click)="planifierDi(di.PlanID,di.DiID)">Planifier</button>-->
+<!--
+                <ng-container *ngIf="di.statut=='enAttente'">
+                 <button (click)="planifierDi(di.PlanID,di.DiID)">
+                    Planifier
+                 </button>
+                </ng-container>
+
+                <ng-container *ngIf="di.statut!='enCours' && di.PlanID">
+                  <a href="lien_thez_lel_tableau_mte3_el_planification/{{di.PlanID}}" target="_blank">
+                    Planifcation {{di.PlanID}}
+                 </a>
+                </ng-container>
+
+                </ng-container>
+
+
+                <ng-container *ngIf="di.statut=='enCours' || di.statut=='ferme'">
+
+                    <a href="correctif/ot/ot/{{di.OtID}}" target="_blank">
+                     Ot
+                    </a>
+                    
+                    
+                </ng-container>
+
+                
+
+             </td>
+            </tr>
+        </ng-container>
+
+        <tr><td colspan='20'>
+
+            <div  class="my-pagination">
+                <table border='0'><tr style="vertical-align:top;"><td>
+                   <select (change)="incrementsItemsPerPage($event)">
+                       <option [value]="5">5</option>
+                       <option [value]="10">10</option>
+                       <option [value]="15" selected>15</option>
+                       <option [value]="20">20</option>
+                       <option [value]="25">25</option>
+                   </select>
+               </td><td width='30px' align="center" >
+                   <span *ngIf="loadingFilter" >...</span>
+               </td><td align="left" >
+                 <pagination-controls
+                                 maxSize="10"
+                                 previousLabel="Precedent"
+                                 nextLabel="Suivant"
+                                (pageChange)="getDis($event)" id="server">
+                 </pagination-controls>
+               </td></tr></table>  
+           </div>
+
+        </td></tr>
+        
+       
+    </tbody>
+
+</table>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

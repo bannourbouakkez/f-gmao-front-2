@@ -1,0 +1,49 @@
+
+<div *ngIf="EquipementID>0">
+<form [formGroup]="formEquipement" (ngSubmit)="onSubmit()">
+    
+    <!--
+    <input type="hidden" formControlName="EquipementID" >
+    <input type="hidden" formControlName="dossier_id" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+    -->
+
+    <input type="hidden" formControlName="EquipementID" >
+    <input type="hidden" formControlName="dossier_id" >
+    
+
+    Equipement : <input type='text' formControlName="equipement">
+    
+    <br>
+
+
+    <label>
+        Date Mise En Service
+        <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="mise_en_service" readonly>
+        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+    </label>
+ 
+
+    <br>
+     Statut :  <select formControlName="isMarche" >
+        <option [value]='1'>En Marche</option>
+        <option [value]='0'>En Arret</option>
+        </select> 
+    <br>
+    Prix TTC : <input type='text' formControlName="prixTTC">
+
+    <br><br><br>
+    
+    
+<div *ngIf="EquipementID>0">
+    <app-add-articles-page-comp [EquipementID]="EquipementID" (emitter)="getData($event)"></app-add-articles-page-comp>
+</div>
+
+    <button type='submit'>Enregistrer</button>
+
+</form>
+
+
+</div>
+

@@ -1,0 +1,56 @@
+
+
+
+
+  <!--
+    <span *ngIf="receptednodes.length>0">
+      <span *ngFor="let node of receptednodes;let i=index;">
+         {{node.data.name}},
+      </span>
+    </span>
+  -->
+    
+
+
+
+
+
+
+
+<table class='table-select-tree-multi'>
+   
+
+  <tr width="100%">
+    
+
+
+     
+  <td width="1%">
+
+       <!--
+       <span style="font-size:30px; visibility:hidden;"  >R</span>
+       -->
+       
+         
+         <div style="visibility:hidden;">
+           <nz-input-number></nz-input-number>
+          </div>
+        
+       
+  </td>
+  <td width="90%">
+      
+          
+    <app-dump-list-node [elements]="receptednodes" [x]="true" (action)="Action($event)" ></app-dump-list-node>
+    <span *ngIf="receptednodes.length==0">No Nodes Selected</span>
+
+  </td>
+  <td width="8%" (click)="SelectNodesDialog()" class='td-table-select-tree-multi' align="right">
+      
+          <i  style="border-left: 1px solid #e4dede;padding:5px;" class="pg-icon md-18">menu_level</i>
+
+  </td>
+  
+</tr>
+  </table>
+

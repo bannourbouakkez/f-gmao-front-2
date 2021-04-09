@@ -1,0 +1,683 @@
+<div class='very-big-container'>
+  <div class="col-md-12 col-xlg-6">
+<!--
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+-->
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+        <div class="card">
+            <div class="card-header separator">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title" class='breadcrumb-title'>
+                            <ng-container *ngIf="breadcrumb.length>0">{{lastbreadcrumb()}}</ng-container>
+                        </span></li>
+                </ol>
+            </div>
+
+            <ng-container *ngIf="!cmdLoaded" >
+                <br><br>
+                <div class="center-loading-box">
+                   <div class="progress-circle-indeterminate m-t-45"></div>
+                </div>
+                <br><br><br>
+            </ng-container>
+
+<ng-container *ngIf="cmdLoaded">
+            <div class="card-body">
+
+                <div class="card-body"  style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+                    
+                    
+                    
+                    
+                    <div class="card card-default" style="border:1px solid gray; margin-bottom: 0px;padding-bottom: 0px;">
+                      <div class="card-header  separator">
+                        <div class="card-title">
+                          <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+                          Commande
+                        </div>
+                      </div>
+                      <div class="card-body">
+            
+            
+                        
+                        <form class="form-horizontal">
+                          <div class="row">
+                            <div class="col-2">
+            
+                              <div class="form-group row">
+            
+                                <label for="name" class="col-md-4 control-label">
+                                  <span class="hint-text p-t-0 fs-12">#</span>
+                                </label>
+                                <div class="col-md-8"> 
+                                  <label class="control-label">         
+                                    <span class="font-affichage-contenu">
+                                      <span class="fast-url" [routerLink]="['/gmao/achat/cmd/cmd/',cmd.CommandeID]" >{{cmd.CommandeID}}</span>
+                                    </span>
+                                  </label>
+                                </div>
+                              </div>
+            
+                              <div class="form-group row">
+                                <label for="name" class="col-md-4 control-label">
+                                  <span class="hint-text p-t-0 fs-12">Statut</span>
+                                </label>
+                                <div class="col-md-8">
+                                  <label class="control-label">
+                                    <span class="font-affichage-contenu">{{cmd.statut}}</span></label>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+
+                             
+            
+                            </div>
+            
+            
+                            <div class="col-4 offset-1">
+            
+                                <div class="form-group row">
+                                    <label for="name" class="col-md-4 control-label">
+                                      <span class="hint-text p-t-0 fs-12">Createur</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                      <label class="control-label" style="width:100%">
+                                        <span class="font-affichage-contenu">
+                                            {{cmd.name}}
+                                        </span>
+                                      </label>
+                                    </div>
+                                  </div>
+                
+                                  <div class="form-group row">
+                                    <label for="name" class="col-md-4 control-label">
+                                      <span class="hint-text p-t-0 fs-12"> Fournisseur </span>
+                                    </label>
+                                    <div class="col-md-8">
+                                      <label class="control-label">
+                                        <span class="font-affichage-contenu"> {{cmd.nom}}</span></label>
+                                    </div>
+                                  </div>
+                
+                                  <div class="clearfix"></div>
+            
+                            </div>
+            
+            
+                            <div class="col-2 offset-1">
+            
+                              <div class="form-group row">
+                                <label for="name" class="col-md-6 control-label">
+                                  <span class="hint-text p-t-0 fs-12">Date creation</span>
+                                </label>
+                                <div class="col-md-6">
+                                  <label class="control-label"><span class="font-affichage-contenu">
+                                    {{cmd.created_at | date:'dd/MM/yyyy'}}
+                                  </span></label>
+                                </div>
+                              </div>
+                              <div class="clearfix"></div>
+                              
+            
+                            </div>
+            
+            
+                          </div>
+                        </form>
+                      
+            
+                      </div>
+                    </div>
+            
+          
+                </div>
+
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+                    <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+                      <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+          
+                        <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                          <div class="card-header separator">
+                            <div class="card-title">
+                              <span class="my-specific-big-title"># {{reception.CmdRecID}}</span>
+                            </div>
+                          </div>
+                          <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+          
+          
+          
+                            <form class="form-horizontal">
+          
+          
+                              <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+          
+          
+                                <div class="col-6">
+          
+                                  <div class="form-group row">
+                                    <label for="name" class="col-md-4 control-label">
+                                      <span class="hint-text p-t-0 fs-12">Rapport</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                      <label class="control-label">
+                                        <span class="font-affichage-contenu">
+                                           {{reception.rapport}}          
+                                        </span>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+
+                                </div>
+          
+          
+                                <div class="col-4 offset-1">
+          
+          
+                                  <div class="form-group row">
+                                    <label for="name" class="col-md-4 control-label">
+                                      <span class="hint-text p-t-0 fs-12">Créé le</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                      <label class="control-label"><span
+                                          class="font-affichage-contenu">{{reception.created_at | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+          
+                                  <div class="form-group row">
+                                    <label for="name" class="col-md-4 control-label">
+                                      <span class="hint-text p-t-0 fs-12">Créé Par</span>
+                                    </label>
+                                    <div class="col-md-8">
+                                      <label class="control-label"><span
+                                          class="font-affichage-contenu">{{reception.name}}</span></label>
+                                    </div>
+                                  </div>
+                                  <div class="clearfix"></div>
+          
+                                  <ng-container *ngIf="reception.NbDeModif>0">
+                                   
+          
+          
+                                    <div class="form-group row">
+                                      <label for="name" class="col-md-4 control-label">
+                                        <span class="hint-text p-t-0 fs-12">Modifié le</span>
+                                      </label>
+                                      <div class="col-md-8">
+                                        <label class="control-label">
+                                          <span class="font-affichage-contenu">{{reception.updated_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                                        </label>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+          
+                                    <div class="form-group row">
+                                      <label for="name" class="col-md-4 control-label">
+                                        <span class="hint-text p-t-0 fs-12">Nb de modification</span>
+                                      </label>
+                                      <div class="col-md-8">
+                                        <label class="control-label"><span
+                                            class="font-affichage-contenu">{{reception.NbDeModif}}</span></label>
+                                      </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+<!--
+                                    <div class="form-group row">
+                                        <label for="name" class="col-md-4 control-label">
+                                          <span class="hint-text p-t-0 fs-12">Modifieur</span>
+                                        </label>
+                                        <div class="col-md-8">
+                                          <label class="control-label"><span
+                                              class="font-affichage-contenu">{{reception.modifieur_name}}</span></label>
+                                        </div>
+                                      </div>
+                                      <div class="clearfix"></div>
+-->         
+                                  </ng-container>
+          
+          
+                                </div>
+          
+          
+          
+                              </div>
+          
+          
+          
+          
+                            </form>
+          
+          
+          
+          
+                          </div>
+          
+                        </div>
+          
+                      </div>
+                    </div>
+                  </div>
+           
+
+
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+                    <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+                        <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+                            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                                <div class="card-header separator">
+                                    <div class="card-title">
+                                        <span class="my-specific-card-title">Reception</span>
+                                    </div>
+                                </div>
+                                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                                    <!--
+                                    <ng-container *ngIf="!pageLoaded">
+                                        <br><br>
+                                        <div class="center-loading-box">
+                                            <div class="progress-circle-indeterminate m-t-45"></div>
+                                        </div>
+                                        <br><br><br>
+                                    </ng-container>
+
+                                    <br>
+                                    <div *ngIf="pageLoaded && fournisseurs.length>0">
+                                        <form [formGroup]="fournisseurForm">
+                                            <nz-select formControlName="fournisseur"
+                                                (ngModelChange)="selectFournisseur($event)"
+                                                nzPlaceHolder="Select Fournisseur">
+                                                <nz-option *ngFor="let f of fournisseurs;" [nzValue]="f.id"
+                                                    nzLabel="{{f.nom}} &nbsp;&nbsp; [ {{f.count}} ] "></nz-option>
+                                            </nz-select>
+                                        </form>
+                                    </div>
+                                
+
+                                    <div *ngIf="pageLoaded && fournisseurs.length==0">
+
+                                        <p class="hint-text p-t-0 fs-12">
+                                            Acune demande confirmé .
+                                        </p>
+
+                                    </div>
+                                -->
+                                    <form #form="ngForm" (ngSubmit)="submit(form)">
+                                        <!--------------------PDR Table -->
+
+                                        <!--<ng-container *ngIf="articlesLoad"> <i nz-icon [nzType]="'loading'"></i>
+                                        </ng-container>-->
+
+                                        <!--<ng-container *ngIf="!articlesLoad && articles.length>0">-->
+<b>
+                                        <div id="id-div-table">
+
+                                            <nz-table #smallTable nzSize="small" [nzFrontPagination]="false"
+                                                [nzShowPagination]="false" [nzData]="['']" [nzBordered]="true">
+                                                <thead>
+                                                    <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+        
+                                                        <th>#</th>
+                                                        <th>Des</th>
+                                                        <th>TT Q.Cmd (Rec)</th>
+                                                        <th>TT Q.Recu (Rec)</th>
+                                                        <th>TT Q.Recu</th>
+                                                        <th>TT Q.Ret</th>
+                                                        <th>TT Res (Rec)</th>
+                                                        <th>Modification de Reception</th>
+                                                        <th>TT Qte A Recepter</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody >
+                                                    <ng-container *ngFor="let article of receptiondetsomme;let i=index;">
+
+                                                        <!--[ngClass]="!(a.formControl.value>0) ? 'class': 'disactive-tr'"
+                                    [ngClass]="(a.formControl.value==0) ? 'class': 'refused-tr'"
+                                -->
+
+                                                        <!--[ngClass]="{
+                                  'active-tr':isNumber(a.formControl.value) && a.formControl.value>0,
+                                  'refused-tr':isNumber(a.formControl.value) && a.formControl.value==0,
+                                  '':!isNumber(a.formControl.value)
+                                }"-->
+                                                        <tr align="center" style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                <td>{{article.ArticleID}}</td>
+                <td>{{article.Des}}</td>
+                <td>{{article.TTQteCmde}}</td>
+                <td>{{article.TTQteRecu}}</td>
+                <td>{{TTQteAutreRec(article.ArticleID)}}</td>
+                <td>{{TTRetoursDetFunc(article.ArticleID)}}</td>
+                <td>{{roundMath( article.TTQteCmde - article.TTQteRecu - TTRetoursDetFunc(article.ArticleID) )}} </td>
+                
+
+
+                                                           
+
+
+                                                                <td colspan="0" style="padding-top:0px; margin-top:0px;">
+
+                                                                    <!--
+                                                                        <table border="0">
+                                                                        <thead>
+                                                                            <td>Demandeur</td>
+                                                                            <td>Qte Demandé</td>
+                                                                            <td>Qte Commandé</td>
+                                                                            <td>Qte Recu</td>
+                                                                            <td>Reste</td>
+                                                                            <td>Nouveau Rec</td>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        -->
+                                                        <div id="id-div-table">
+                                                                    <nz-table #smallTable nzSize="small"
+                                                                        [nzFrontPagination]="false"
+                                                                        [nzShowPagination]="false" [nzData]="['']"
+                                                                        [nzBordered]="false"
+                                                                        >
+                                                                        <thead>
+                                                                            <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                                 <th>Dem</th>
+                                 <th>Q.Dem</th>
+                                 <th>Q.Cmd</th>
+                                 <th>TT Q.Recu</th>
+                                 <th>Reste</th>
+                                 <th>Modifier</th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                <tbody>
+
+                                                 <ng-container *ngFor="let det of receptiondet;let i=index;" >
+                             <ng-container *ngIf="det.ArticleID==article.ArticleID" >
+    
+                                
+    
+                                
+                              
+
+
+
+
+                                                            <tr align="center" style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                                <td>{{det.name}}</td>
+                                <td>{{roundMath(det.qte)}}</td>
+                                <td>{{roundMath(det.QteCmde)}}</td>
+                                <td>{{TTQteAutreRecDet(article.ArticleID) }} &nbsp; ({{roundMath(det.TTQteRecu)}})</td>
+                                <td>{{ roundMath(receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu) }} </td>
+
+                                                                <td style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                                                                    
+                              
+                                                                       
+
+                                                                        <!--
+                                                                          ( {{roundMath(det.QteRecu)}} )
+                                                                        <mat-form-field class="matInput-number" >
+                                                                            <input  (change)="changeQteRecu(i)" (keyup)="changeQteRecu(i)"
+                                                                            [class.input-error]="(det.formControl.value > roundMath(receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu)) || ( det.formControl.value < 0 )"
+                                                                            matInput autocomplete="off" [formControl]="det.formControl" type="number" 
+                                                                            min="0" 
+                                                                            [max]="receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu"
+                                                                            >
+                                                                         <mat-error *ngIf="1==2">Erreur</mat-error>
+                                                                        </mat-form-field>
+                                                                             [{{TTRetoursDetFunc(article.ArticleID)}} .. {{receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu}}]
+
+                                                                      -->
+                                                                      
+                                                                        <!--( {{roundMath(det.QteRecu)}} )-->
+                                                                        <nz-input-number [nzAutoFocus]="false" [formControl]="det.formControl"  nzPlaceHolder="{{roundMath(det.QteRecu)}} [{{TTRetoursDetFunc(article.ArticleID)}}-{{receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu}}]"
+                                                                        [nzMin]="TTRetoursDetFunc(article.ArticleID)"  [nzMax]="receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu" [nzStep]="1"
+                                                                        (ngModelChange)="changeQteRecu(i)" (keyup)="changeQteRecu(i)">
+                                                                       </nz-input-number>
+
+                                                                        <!--[{{TTRetoursDetFunc(article.ArticleID)}} .. {{receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu}}]-->
+                                                                        
+                                                               
+
+                                                                     <!--
+                                                                    <ng-container *ngIf="(det.QteCmde - det.TTQteRecu)>0">
+                                                                    <nz-input-number [nzAutoFocus]="false" [formControl]="det.formControl" [nzMin]="0"
+                                                                     [nzMax]="roundMath(det.QteCmde - det.TTQteRecu)" [nzStep]="1">
+                                                                    </nz-input-number>
+                                                                     </ng-container>
+
+                                                                    <ng-container *ngIf="roundMath(det.QteCmde - det.TTQteRecu)==0">
+                                                                        <nz-input-number [nzDisabled]="true">
+                                                                       </nz-input-number>
+                                                                    </ng-container>
+                                                                -->
+                                                                </td>
+                                                                
+                                                            </tr>
+                                                        
+
+
+                                                        </ng-container>
+                                                    </ng-container>
+
+                                                </tbody>
+                                            </nz-table>
+                                             </div>
+                                            </td>
+                                            <td>
+                                                {{ roundMath(ancienttarecepte(article.ArticleID)) }} &nbsp; ({{ roundMath(ttarecepte(article.ArticleID)) }})
+                                            </td>
+                                            </tr>
+                                            </ng-container>
+
+                                            </tbody>
+                                            </nz-table>
+                                            
+                                            
+
+
+                                        </div>
+                                    </b>
+
+                                    <!--
+                                    <div *ngIf="reception">
+                                        <input ngModel name="rapport" [(ngModel)]="reception.rapport">
+                                    </div>
+                                    -->
+
+                                    <ng-container *ngIf="reception">
+                                    <div class="row">
+                                        <div class="col-md-5" >
+                                    <br>Rapport : <br>
+                                    <textarea  ngModel name="rapport" [(ngModel)]="reception.rapport" class="form-control" rows="2"></textarea>
+                                    <!--<input ngModel name="rapport">-->
+                                    </div>
+                                    </div>
+                                    </ng-container>
+
+                                        <!--</ng-container>-->
+                                    </form>
+
+
+
+
+                                    <!--################## PDR table-->
+
+
+
+                                    <!--<ng-container *ngIf="!articlesLoad && articles.length>0">-->
+
+
+
+                                    <br>
+                                    <div class="row" style="vertical-align: top;">
+                                        <div class="col-md-1" style="vertical-align: top;">
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button (click)="remiseAZero()"
+                                                        class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="Complet">
+                                                        <i class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">dislike</i></button>
+                                                </li>
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button (click)="CompletAll()"
+                                                        class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="Complet">
+                                                        <i class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">like</i></button>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-9">
+                                        </div>
+
+                                      
+                                        <div class="col-md-2">
+                                            <!--isAllCompletedIncludeTache(à-->
+                                            <button  style="width:100%;" aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                                                [ngClass]="true ? 'class': 'disabled'" (click)="submit(form)">Envoyer
+                                                <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon
+                                                    nzType="loading" class="loading-icon"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!--</ng-container>-->
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+</ng-container>
+
+        </div>
+    </div>
+</div>
+
+<!--
+<form #form="ngForm" (ngSubmit)="submit(form)">
+
+    <table border="1">
+    
+        <thead>
+            <td>N° Art</td>
+            <td>Des</td>
+            <td>TT Q.Cmd (Rec)</td>
+            <td>TT Q.Recu (Rec)</td>
+            <td>TT Q.Recu</td>
+            <td>TT Q.Ret</td>
+            <td>TT Res (Rec)</td>
+            <td>Modification de Reception </td>
+            <td>TT Qte A Recepter</td>
+        </thead>
+    
+        <ng-container  *ngFor="let article of receptiondetsomme;let i=index;">
+            <tr>
+                <td>{{article.ArticleID}}</td>
+                <td>{{article.Des}}</td>
+                <td>{{article.TTQteCmde}}</td>
+                <td>{{article.TTQteRecu}}</td>
+                <td>{{TTQteAutreRec(article.ArticleID)}}</td>
+                
+                <td>{{TTRetoursDetFunc(article.ArticleID)}}</td>
+                <td>{{roundMath( article.TTQteCmde - article.TTQteRecu - TTRetoursDetFunc(article.ArticleID) )}} </td>
+                <td>
+    
+                    
+                        <tr>
+                        <td colspan="5">
+                         <table border="1">
+                             <thead>
+                                 <td>Dem</td>
+                                 <td>Q.Dem</td>
+                                 <td>Q.Cmd</td>
+                                 <td>TT Q.Recu</td>
+                                 <td>Reste</td>
+                               
+                                 <td>Modifier</td>
+                             </thead>
+                             <tbody>
+                         <ng-container *ngFor="let det of receptiondet;let i=index;" >
+                             <ng-container *ngIf="det.ArticleID==article.ArticleID" >
+    
+                                <tr>
+    
+                                <td>{{det.name}}</td>
+                                <td>{{roundMath(det.qte)}}</td>
+                                <td>{{roundMath(det.QteCmde)}}</td>
+                                <td>{{TTQteAutreRecDet(article.ArticleID) }} , {{roundMath(det.TTQteRecu)}}</td>
+                                <td>{{ roundMath(receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu) }} </td>
+                              
+                                
+                                <td>
+                              
+                                ( {{roundMath(det.QteRecu)}} ) 
+                                <mat-form-field class="matInput-number" >
+                                    <input  (change)="changeQteRecu(i)" (keyup)="changeQteRecu(i)"
+                                    [class.input-error]="(det.formControl.value > roundMath(receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu)) || ( det.formControl.value < 0 )"
+                                    matInput autocomplete="off" [formControl]="det.formControl" type="number" 
+                                    min="0" 
+                                    [max]="receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu"
+                                    >
+                                 <mat-error *ngIf="1==2">Erreur</mat-error>
+                                </mat-form-field>
+                                [{{TTRetoursDetFunc(article.ArticleID)}} .. {{receptiondetOriginal[i].QteCmde - receptiondetOriginal[i].TTQteRecu + receptiondetOriginal[i].QteRecu}}]
+                                
+                                </td>
+    
+                                </tr>
+    
+    
+                             </ng-container>
+                         </ng-container>
+    
+                           </tbody>
+                        </table>
+    
+                      </td>
+                       </tr>
+    
+                
+                </td>
+                <td>
+                  (   {{ roundMath(ancienttarecepte(article.ArticleID)) }}  )  {{ roundMath(ttarecepte(article.ArticleID)) }}
+                </td>
+               
+            </tr>
+        </ng-container>
+    
+    </table>
+
+<div *ngIf="reception">
+    <input ngModel name="rapport" [(ngModel)]="reception.rapport">
+</div> 
+
+    </form>
+    <button (click)="submit(form)">Submit</button>
+    <button (click)="remiseAZero()">Remise A Zero</button>
+    <button (click)="CompletAll()">Complet</button>
+
+
+
+-->
+    
+
+
+  
+    

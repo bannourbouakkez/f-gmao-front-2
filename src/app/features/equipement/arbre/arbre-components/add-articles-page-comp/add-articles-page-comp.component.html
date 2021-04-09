@@ -1,0 +1,69 @@
+<table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Article</th>
+      <th>
+        <a class="btn btn-sm btn-success text-white" (click)="AddOrEditEquipementArticle(null,addArticle.formData.EquipementID,'magasin')"><i class="fa fa-plus"></i> Ajouter un article</a>
+      </th>
+    </thead>
+
+    <tbody>
+      <tr *ngIf=" !(EquipementID>0) && addArticle.articlesMagasin.length==0" [class.text-danger]="!isValid && addArticle.articlesMagasin.length==0">
+        <td class="font-italic text-center" colspan="4">
+          n ya pas d'articles magasin          
+        </td>
+      </tr>
+      <tr *ngIf="loading" >
+        <td>
+          <ng-container> Loading ... </ng-container>
+        </td>
+      </tr>
+
+      <tr *ngFor="let article of addArticle.articlesMagasin;let i=index;">
+        <td>{{article.des}}</td> 
+        <td>
+          <!--<a class="btn btn-sm btn-info text-white" (click)="AddOrEditEquipementArticle(i,addArticle.formData.EquipementID,'magasin')"><i class="fa fa-pencil">Modifier</i></a>-->
+          <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteArticlesMagasin(article.EquipementArticleID,i)"><i class="fa fa-trash">Delete</i></a>
+        </td>
+      </tr>
+    </tbody>
+</table>
+
+
+<table class="table table-borderless">
+  <thead class="thead-light">
+    <th>Article</th>
+    <th>
+      <a class="btn btn-sm btn-success text-white" (click)="AddOrEditEquipementArticle(null,addArticle.formData.EquipementID,'atelier')"><i class="fa fa-plus"></i> Ajouter un article</a>
+    </th>
+  </thead>
+
+  <tbody>
+    <tr *ngIf=" !(EquipementID>0) && addArticle.articlesAtelier.length==0" [class.text-danger]="!isValid && addArticle.articlesAtelier.length==0">
+      <td class="font-italic text-center" colspan="4">
+        n ya pas d'articles Atelier          
+      </td>
+    </tr>
+    <tr *ngIf="loading" >
+      <td>
+        <ng-container> Loading ... </ng-container>
+      </td>
+    </tr>
+
+    <tr *ngFor="let article of addArticle.articlesAtelier;let i=index;">
+      <td>{{article.des}}</td> 
+      <td>
+        <!--<a class="btn btn-sm btn-info text-white" (click)="AddOrEditEquipementArticle(i,addArticle.formData.EquipementID,'Atelier')"><i class="fa fa-pencil">Modifier</i></a>-->
+        <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteArticlesAtelier(article.EquipementArticleID,i)"><i class="fa fa-trash">Delete</i></a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!--
+<button type="submit" (click)="Submit()" > Submit </button>
+-->
+
+
+
+
+

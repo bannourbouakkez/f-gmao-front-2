@@ -1,0 +1,59 @@
+
+<!--
+<form [formGroup]="form">
+-->
+<!--<input type='text' formControlName='date'>-->
+<!--
+<input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="date" readonly>
+<owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+
+</form>
+-->
+
+
+
+
+<div id="card-body-popup" class="card-body" style="margin:0px;padding:0px;" >
+       
+    <div id="card-header-popup" class="card-header separator">
+    <!--<ol id="breadcrumb-popup" class="breadcrumb" >-->
+        <!--<li  class="breadcrumb-item active">-->
+            <!--<span class='breadcrumb-title'>-->
+                <p class="no-margin" style="color:purple">
+                    Modifier Date
+                  </p>
+            <!--</span>-->
+            <!--</li>-->
+     <!--</ol>-->
+    </div>
+
+<form [formGroup]="form" class="form-horizontal" role="form" autocomplete="off" width="100%">
+    <!--<input type='text' formControlName='date'>-->
+    <!--
+    <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="date" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+    -->
+
+    <div class="form-group row">
+        <label for="fname" class="col-md-6 control-label">Date</label>
+        <div class="col-md-6">
+          <div class="input-group date  p-1-0" >
+            <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4"
+              formControlName="date" readonly>
+            <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class='icon-container'>
+                  <i class="pg-icon">calendar</i>
+                </i>
+              </span>
+            </div>
+          </div>
+          <div><label class="error"></label></div>
+        </div>
+    </div>
+
+</form>
+
+</div>
+

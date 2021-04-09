@@ -1,0 +1,164 @@
+<!--<div class="padding-dialog-10px">-->
+
+  <!--
+  <div class="x-close-btn" >
+    <ul class="list-inline m-0">
+      <li class="list-inline-item"
+        style="padding:0px;margin:0px;margin-left:4px;">
+          <button class="btn btn-default btn-xs rounded-0" type="button"
+            data-toggle="tooltip" data-placement="top" title="ferme" [mat-dialog-close]>
+            <i class="pg-icon md-18"
+              style="width:10px;height:10px;position:relative;top:1px;">close_lg</i>
+          </button>
+      </li>
+    </ul>
+  </div>
+
+  -->
+
+
+<!--
+<table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Outil</th>
+      <th>Estimation</th>
+      <th>Periode</th>
+    
+      <th>
+        <a class="btn btn-sm btn-success text-white" (click)="AddOrEditDaArticle(null,bsoService.formData.BsoID)"><i class="fa fa-plus"></i> Ajouter un Outil</a>
+      </th>
+    </thead>
+
+    <tbody>
+      <tr *ngIf=" !(data.BsoID>0) && bsoService.bsoarticles.length==0" [class.text-danger]="!isValid && bsoService.bsoarticles.length==0">
+        <td class="font-italic text-center" colspan="4">
+
+          n ya pas d'articles selectioné         
+
+        </td>
+      </tr>
+      <tr *ngIf="loading" >
+        <td>
+          <ng-container> Loading ... </ng-container>
+        </td>
+      </tr>
+
+      <tr *ngFor="let daarticle of bsoService.bsoarticles;let i=index;">
+        <td>{{daarticle.des}}</td> 
+        <td>{{daarticle.estimation}} </td>
+        <td>{{daarticle.periode}} </td>
+        <td>
+          <a class="btn btn-sm btn-info text-white" (click)="AddOrEditDaArticle(i,bsoService.formData.BsoID)"><i class="fa fa-pencil">Modifier</i></a>
+          <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBsoArticle(daarticle.BsoDetID,i)"><i class="fa fa-trash">Delete</i></a>
+        </td>
+      </tr>
+    </tbody>
+
+</table>
+
+<button type="submit" (click)="Submit()" > Submit </button>
+-->
+
+
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 500px; width:100%;">
+
+ 
+
+  <!------------------- Table ----------------------->
+  <div id="id-div-table">
+
+    <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+      [nzData]="['']">
+      <thead>
+        <tr>
+         
+          <th nzWidth="55%">Outils</th>
+          <th nzWidth="15%">Estimation</th>
+          <th nzWidth="15%">Periode</th>
+          <th nzWidth="15%">
+
+<button class="btn btn-default btn-block" (click)="AddOrEditDaArticle(null,bsoService.formData.BsoID)">
+<i class="pg-icon md-18" style="width:28px;height:10px;position:relative;top:1px;">add</i>
+</button>
+
+           
+
+          </th>
+        </tr>
+
+      </thead>
+      
+      <tbody>
+
+      
+
+        <tr *ngIf="!(data.BsoID>0) && bsoService.bsoarticles.length==0" [class.text-danger]="!isValid && bsoService.bsoarticles.length==0">
+          <td class="font-italic text-center" colspan="4">
+            n ya pas d'articles selectioné    
+          </td>
+        </tr>
+        <tr *ngIf="loading" >
+          <td>
+            <ng-container> Loading ... </ng-container>
+          </td>
+        </tr>
+        
+
+
+        <tr *ngFor="let daarticle of bsoService.bsoarticles;let i=index;">
+    <td>{{daarticle.des}}</td> <!--des-->
+    <td>{{daarticle.estimation}} </td>
+    <td>{{daarticle.periode}} </td>
+   
+    <td>
+
+      <ul class="list-inline m-0">
+
+        <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+            data-placement="top" title="modifier"
+            (click)="AddOrEditDaArticle(i,bsoService.formData.BsoID)">
+            <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+          </button>
+        </li>
+        <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+            data-placement="top" title="supprimer"
+            (click)="onDeleteBsoArticle(daarticle.BsoDetID,i)">
+            <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+            </button>
+        </li>
+
+      </ul>
+      
+     </td>
+    </tr>
+  </tbody>
+
+    </nz-table>
+
+  </div>
+</div>
+
+
+
+<br>
+
+<div style="float:right;">
+  <button class="btn btn-default" type="submit" (click)="Submit()" > Envoyer </button>
+  <!--&nbsp;
+  <button type="button" class="btn btn-default" [mat-dialog-close]><i class="fa fa-close"></i> Ferme </button>-->
+</div>
+
+<br>
+
+
+
+
+
+
+<!--</div>-->
+
+
+

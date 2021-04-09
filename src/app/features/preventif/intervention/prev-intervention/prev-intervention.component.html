@@ -1,0 +1,384 @@
+<div class='big-container'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div class="card">
+      <div class="card-header">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+
+            <!--
+            <div *ngIf="InterventionID">
+              {{intervention | json }}
+
+
+              <br>
+              Equipement :
+              <span *ngFor="let niveau of niveaux; let i=index;">
+                {{niveau.equipement}}
+                <ng-container *ngIf="i<niveaux.length-1"> > </ng-container>
+              </span>
+
+              <br>
+
+            </div>
+            -->
+
+
+        <ng-container *ngIf="InterventionID && intervention.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Intervention est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+
+
+        <ng-container *ngIf="InterventionID && intervention.exist==1">   
+        <div class="card card-default" >
+          <div class="card-header separator">
+            <div class="card-title">
+              <span class="my-specific-big-title"># {{intervention.InterventionID}}</span>
+
+            </div>
+          </div>
+          <div class="card-body">
+
+
+
+            <form class="form-horizontal">
+
+
+              <div class="row">
+               
+
+
+              <div class="col-5">
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label">
+                    <p class="hint-text p-t-0 fs-12">Equipement</p>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label" style="width:100%;">
+
+
+                    <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                    </app-aff-equipement>
+                      
+
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Tache</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.tache}}</span>
+                        </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label">
+                    <span class="hint-text p-t-0 fs-12">Type</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label"> <span class="font-affichage-contenu">{{intervention.type}}</span></label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Parametrage</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.parametrage}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">DDR</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.ddr | date:'dd/MM/yyyy'}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Frequence</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.frequence}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Prochain plan</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.date_resultat | date:'dd/MM/yyyy'}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label">
+                    <span class="hint-text p-t-0 fs-12">Nombre d'operateur</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.nb_operateur}}</span></label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Dérniere Durée</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.h}} h {{intervention.m}} m
+                        </span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+           
+
+          
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Observation</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.observation}}</span>
+                      </label>
+                  </div>
+                </div>
+                <!--<div class="clearfix"></div>-->
+
+
+
+
+              </div>
+
+              
+              <div class="col-5 offset-1">
+
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé le</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé par</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.name}}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Derniere modification</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.updated_at | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Derniere modifieur</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">Mohammed Bén Fréj</span></label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Nombre de modification</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{intervention.NbDeModif}}</span></label>
+                  </div>
+                </div>
+                <!--<div class="clearfix"></div>-->
+
+                 
+
+
+              </div>
+
+
+
+              </div>
+
+              
+
+              <div class="row">
+                <div class="col-md-7">
+                </div>
+               
+                <div class="col-md-2">
+                  <button [routerLink]="['/gmao/preventif/intervention/addoredit/',InterventionID]" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>Modifier</span>
+                    <i class="pg-icon md-18">edit</i>
+
+                  </button>
+                </div>
+                <div class="col-md-2">
+                  <button style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left" 
+    
+                  nz-popconfirm nzTitle="Vous etes sure a supprimer l'intervention ?" (nzOnConfirm)="deleteIntervention(InterventionID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="top" [nzIcon]="iconTpl"
+                  >
+                    <span>Supprimer</span>
+                    <i class="pg-icon md-18" *ngIf="!LoadingReactBtn1">trash_alt</i>
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+                </div>
+
+
+                
+              </div>
+
+
+
+
+
+               <!-- 
+               IMMMMMMMMMMMMMMMMMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               IMMMMMMMMMMMMMMMMMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               IMMMMMMMMMMMMMMMMMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               IMMMMMMMMMMMMMMMMMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+               IMMMMMMMMMMMMMMMMMPORTANT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+              <div class="row">
+                <div class="col-10">
+                  <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">Equipement</label>
+                    <div class="col-md-9">
+                      <label class="control-label">
+
+                        
+                        <span *ngFor="let niveau of niveaux; let i=index;">
+                          {{niveau.equipement}}
+                          <ng-container *ngIf="i<niveaux.length-1"> > </ng-container>
+                        </span>
+                        
+
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
+              -->
+
+
+              
+
+
+            </form>
+
+
+
+
+          </div>
+        </div>
+        </ng-container>   
+
+
+
+
+        <ng-container *ngIf="!(InterventionID>0)">
+          <br><br><br>
+          <div class="center-loading-box">
+           <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+          </div>
+          <br><br><br><br>
+        </ng-container>
+        
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<ng-template #iconTpl>
+  <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+  <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>

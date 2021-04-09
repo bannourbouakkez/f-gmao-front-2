@@ -1,0 +1,520 @@
+
+<div class='very-big-container'>
+    <div class="col-md-12 col-xlg-6">
+
+<app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+<div class="card">
+    <div class="card-header separator">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><span id="id-breadcrumb-title" class='breadcrumb-title'>
+                    <ng-container *ngIf="breadcrumb.length>0">{{lastbreadcrumb()}}</ng-container>
+                </span></li>
+        </ol>
+    </div>
+
+    <ng-container *ngIf="!pageLoaded" >
+        <br><br>
+        <div class="center-loading-box">
+           <div class="progress-circle-indeterminate m-t-45"></div>
+        </div>
+        <br><br><br>
+    </ng-container>
+
+<ng-container *ngIf="pageLoaded">
+    <div class="card-body">
+
+        <div class="card-body"  style="margin-bottom: 0px;padding-bottom: 0px;">
+
+            
+            
+            
+            
+            <div class="card card-default" style="border:1px solid gray; margin-bottom: 0px;padding-bottom: 0px;">
+              <div class="card-header  separator">
+                <div class="card-title">
+                  <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+                  Reception
+                </div>
+              </div>
+              <div class="card-body">
+    
+    
+                
+                <form class="form-horizontal">
+                  <div class="row">
+                    <div class="col-3">
+    
+                      <div class="form-group row">
+    
+                        <label for="name" class="col-md-4 control-label">
+                          <span class="hint-text p-t-0 fs-12">#</span>
+                        </label>
+                        <div class="col-md-8"> 
+                          <label class="control-label">         
+                            <span class="font-affichage-contenu">
+                              <span class="fast-url" [routerLink]="['/gmao/achat/cmd/reception/',reception.CmdRecID]" >{{reception.CmdRecID}}</span>
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+    
+                      <div class="form-group row">
+                        <label for="name" class="col-md-4 control-label">
+                          <span class="hint-text p-t-0 fs-12">N° Commande</span>
+                        </label>
+                        <div class="col-md-8">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">
+                                <span class="fast-url" [routerLink]="['/gmao/achat/cmd/cmd/',reception.commande_id]" >{{reception.commande_id}}</span>
+                              </span>
+                            </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+                      <div class="form-group row">
+                        <label for="name" class="col-md-4 control-label">
+                          <span class="hint-text p-t-0 fs-12">Rapport</span>
+                        </label>
+                        <div class="col-md-8">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{reception.rapport}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+                     
+    
+                    </div>
+    
+    
+                    <div class="col-4 offset-1">
+    
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <span class="hint-text p-t-0 fs-12">Createur</span>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label" style="width:100%">
+                                <span class="font-affichage-contenu">
+                                    {{reception.name}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+        
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <span class="hint-text p-t-0 fs-12"> Fournisseur </span>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu"> {{reception.nom}} </span></label>
+                            </div>
+                          </div>
+        
+                          <div class="clearfix"></div>
+    
+                    </div>
+    
+    
+                    <div class="col-2 offset-1">
+    
+                      <div class="form-group row">
+                        <label for="name" class="col-md-6 control-label">
+                          <span class="hint-text p-t-0 fs-12">Date creation</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label"><span class="font-affichage-contenu">
+                            {{reception.created_at | date:'dd/MM/yyyy HH:mm'}}
+                          </span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+    
+                    </div>
+    
+    
+                  </div>
+                </form>
+              
+    
+              </div>
+            </div>
+    
+  
+        </div>
+   
+
+<ng-container *ngIf="'cmd.statut'!='ouvert'">
+        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+                <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+                    <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                        <div class="card-header separator">
+                            <div class="card-title">
+                                <span class="my-specific-card-title">Retour</span>
+                            </div>
+                        </div>
+                        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                            <!--
+                            <ng-container *ngIf="!pageLoaded">
+                                <br><br>
+                                <div class="center-loading-box">
+                                    <div class="progress-circle-indeterminate m-t-45"></div>
+                                </div>
+                                <br><br><br>
+                            </ng-container>
+
+                            <br>
+                            <div *ngIf="pageLoaded && fournisseurs.length>0">
+                                <form [formGroup]="fournisseurForm">
+                                    <nz-select formControlName="fournisseur"
+                                        (ngModelChange)="selectFournisseur($event)"
+                                        nzPlaceHolder="Select Fournisseur">
+                                        <nz-option *ngFor="let f of fournisseurs;" [nzValue]="f.id"
+                                            nzLabel="{{f.nom}} &nbsp;&nbsp; [ {{f.count}} ] "></nz-option>
+                                    </nz-select>
+                                </form>
+                            </div>
+                        
+
+                            <div *ngIf="pageLoaded && fournisseurs.length==0">
+
+                                <p class="hint-text p-t-0 fs-12">
+                                    Acune demande confirmé .
+                                </p>
+
+                            </div>
+                        -->
+                            <form #form="ngForm" (ngSubmit)="submit(form)">
+                                <!--------------------PDR Table -->
+
+                                <!--<ng-container *ngIf="articlesLoad"> <i nz-icon [nzType]="'loading'"></i>
+                                </ng-container>-->
+
+                                <!--<ng-container *ngIf="!articlesLoad && articles.length>0">-->
+<b>
+                                <div id="id-div-table">
+
+                                    <nz-table #smallTable nzSize="small" [nzFrontPagination]="false"
+                                        [nzShowPagination]="false" [nzData]="['']" [nzBordered]="true">
+                                        <thead>
+                                            <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+
+                                                <th>#</th>
+                                                <th>Des</th>
+                                                <th>TT Q.Recu (Rec)</th>
+                                                <th>Qte Bon</th>
+                                                <th>Prix Un (HT)</th>
+
+                                                <th>TT Un (HT)</th>
+                                                <th>Diffirence</th>
+                                                <th>AncienPrix</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody >
+                                            <ng-container *ngFor="let article of receptiondetsomme;let i=index;">
+
+                                                <!--[ngClass]="!(a.formControl.value>0) ? 'class': 'disactive-tr'"
+                            [ngClass]="(a.formControl.value==0) ? 'class': 'refused-tr'"
+                        -->
+
+                                                <!--[ngClass]="{
+                          'active-tr':isNumber(a.formControl.value) && a.formControl.value>0,
+                          'refused-tr':isNumber(a.formControl.value) && a.formControl.value==0,
+                          '':!isNumber(a.formControl.value)
+                        }"-->
+                                                <tr align="center" style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">  
+
+                                                    <td>{{article.ArticleID}}</td>
+                                                    <td>{{article.Des}}</td>
+                                                    <td>{{article.TTQteRecu}}</td>
+                                                    
+                                                    <td>
+                                                        <!--
+                                                        <mat-form-field class="matInput-number" >
+                                                            <input 
+                                                            matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+                                                            min="0" 
+                                                            >
+                                                        </mat-form-field>
+                                                        -->
+
+                                                        <ng-container>
+                                                            <nz-input-number [nzAutoFocus]="false" [formControl]="article.formControl" [nzMin]="0"
+                                                            [nzStep]="1">
+                                                            </nz-input-number>
+                                                        </ng-container>
+
+                                        </td><td>
+                                            <!--
+                                                        <mat-form-field class="matInput-number" >
+                                                            <input 
+                                                          
+                                                            matInput autocomplete="off" [formControl]="article.formControlPrixHT" type="number" 
+                                                            min="0" 
+                                                            >
+                                                            
+                                                        </mat-form-field>
+                                                    -->
+                                                        <ng-container>
+                                                            <nz-input-number [nzAutoFocus]="false" [formControl]="article.formControlPrixHT" [nzMin]="0"
+                                                            [nzStep]="1">
+                                                            </nz-input-number>
+                                                        </ng-container>
+                                          </td>
+                                          <td>
+                                            {{ roundMath( article.formControl.value * article.formControlPrixHT.value  ) }}
+                                        </td>
+                                        <td>
+                                           {{ roundMath( article.formControl.value - article.TTQteRecu ) }}
+                                        </td>
+                                        <td>
+                                           {{ roundMath ( GetAnPrixHTByArticleID(article.ArticleID) ) }} &nbsp; 
+                                           <ng-container *ngIf="article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)!=0">
+                                               [
+                                               <span *ngIf="( article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)  ) > 0" style="color:green;">+</span>
+                                               <span *ngIf="( article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)  ) < 0" style="color:yellow;"></span>
+                                               {{ roundMath ( article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)  ) }}
+                                               ]
+                                            </ng-container>
+                        
+                                        </td>
+
+<!--
+                                                    <td style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                                                        <ng-container *ngIf="roundMath(article.TTQteRecu - TTRetoursDetFunc(article.ArticleID))>0">
+                                                            <nz-input-number [nzAutoFocus]="false" [formControl]="article.formControl" [nzMin]="0"
+                                                             [nzMax]="article.TTQteRecu - TTRetoursDetFunc(article.ArticleID)" [nzStep]="1">
+                                                            </nz-input-number>
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="roundMath(article.TTQteRecu - TTRetoursDetFunc(article.ArticleID))<=0">
+                                                            <nz-input-number [nzDisabled]="true">
+                                                           </nz-input-number>
+                                                        </ng-container>
+                                    </td>
+                                -->                                  
+                                    </tr>
+                                    </ng-container>
+                                    <tr>
+                                        <td colspan="5">
+
+                                        </td>
+                                        <td>TT HT</td><td>TVA</td><td>TTC</td>
+
+                                        <!--
+                                        <td colspan="3">
+                                           TVA : {{roundMath(reception.TVA)}} % , Prxi TT HT : {{roundMath(PrxiTTHT())}} , Prix TTC : {{ roundMath(PrxiTTC()) }}
+                                        </td>
+                                        -->
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+
+                                        </td>
+                                        <td>{{roundMath(PrxiTTHT())}} </td>
+                                        <td>{{roundMath(reception.TVA)}} %</td>
+                                        <td>{{ roundMath(PrxiTTC()) }}</td>
+
+                                    </tr>
+
+                                    </tbody>
+                                    </nz-table>
+                                    
+                                    
+
+
+                                </div>
+                            </b>
+
+                            
+
+                                <!--</ng-container>-->
+                            </form>
+
+
+
+
+                            <!--################## PDR table-->
+
+
+
+                            <!--<ng-container *ngIf="!articlesLoad && articles.length>0">-->
+
+
+
+                            <br>
+                            <ng-container *ngIf="true">
+                            <div class="row" style="vertical-align: top;">
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item"
+                                            style="padding:0px;margin:0px;margin-right:4px;">
+                                            <button (click)="remiseAZero()"
+                                                class="btn btn-default btn-xs rounded-0" type="button"
+                                                data-toggle="tooltip" data-placement="top" title="Complet">
+                                                <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">dislike</i></button>
+                                        </li>
+                                        <li class="list-inline-item"
+                                            style="padding:0px;margin:0px;margin-right:4px;">
+                                            <button (click)="CompletAll()"
+                                                class="btn btn-default btn-xs rounded-0" type="button"
+                                                data-toggle="tooltip" data-placement="top" title="Complet">
+                                                <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">like</i></button>
+                                        </li>
+                                        &nbsp;
+                                        <li class="list-inline-item"
+                                            style="padding:0px;margin:0px;margin-right:4px;">
+                                            <button (click)="remiseAZeroPrix()"
+                                                class="btn btn-default btn-xs rounded-0" type="button"
+                                                data-toggle="tooltip" data-placement="top" title="Complet">
+                                                <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">dislike</i></button>
+                                        </li>
+                                        <li class="list-inline-item"
+                                        style="padding:0px;margin:0px;margin-right:4px;">
+                                        <button (click)="CompletPrice()"
+                                            class="btn btn-default btn-xs rounded-0" type="button"
+                                            data-toggle="tooltip" data-placement="top" title="Complet">
+                                            <i class="pg-icon md-18"
+                                                style="width:10px;height:10px;position:relative;top:1px;">like</i></button>
+                                    </li>
+
+                                    </ul>
+                                </div>
+                                <div class="col-md-8">
+                                </div>
+
+                                <div class="col-md-2">
+                                    <!--isAllCompletedIncludeTache(à-->
+                                    <button  style="width:100%;" aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                                        [ngClass]="true ? 'class': 'disabled'" (click)="submit(form)">Envoyer
+                                        <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon
+                                            nzType="loading" class="loading-icon"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-container>
+                          
+                            <!--</ng-container>-->
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</ng-container>
+
+<!--
+<ng-container *ngIf="'cmd.statut'=='ouvert'">
+<div class="center-loading-box">
+Commande est férmé.
+</div>
+<br>
+</ng-container>
+-->
+
+    </div>
+</ng-container>
+
+</div>
+</div>
+</div>
+
+
+
+
+<!-- 3<td>TT Q.Cmd (Rec)</td>--> <!--<td>{{article.TTQteCmde}}</td>-->
+<!-- 5<td>TT Res (Rec)</td>--><!--<td>{{roundMath(article.TTQteCmde-article.TTQteRecu)}}</td>-->
+<!--
+<form #form="ngForm" (ngSubmit)="submit(form)">
+
+    <table border="1">
+    
+        <thead>
+            <td>N° Art</td>
+            <td>Des</td>
+            <td>TT Q.Recu (Rec)</td>
+            <td>Qte Bon</td>
+            <td>Prix Un (HT)</td>
+            <td>TT Un (HT)</td>
+            <td>Diffirence</td>
+            <td>AncienPrix</td>
+           
+        </thead>
+    <tbody>
+        <ng-container  *ngFor="let article of receptiondetsomme;let i=index;">
+            <tr>
+                <td>{{article.ArticleID}}</td>
+                <td>{{article.Des}}</td>
+                <td>{{article.TTQteRecu}}</td>
+                <td>
+                                <mat-form-field class="matInput-number" >
+                                    <input 
+                                    matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+                                    min="0" 
+                                    >
+                                </mat-form-field>
+                </td><td>
+                                <mat-form-field class="matInput-number" >
+                                    <input 
+                                  
+                                    matInput autocomplete="off" [formControl]="article.formControlPrixHT" type="number" 
+                                    min="0" 
+                                    >
+                                    
+                                </mat-form-field>
+                </td>
+                <td>
+                    {{ roundMath( article.formControl.value * article.formControlPrixHT.value  ) }}
+                </td>
+                <td>
+                   {{ roundMath( article.formControl.value - article.TTQteRecu ) }}
+                </td>
+                <td>
+                   {{ roundMath ( GetAnPrixHTByArticleID(article.ArticleID) ) }} , 
+
+                   Diff:
+                   <span *ngIf="( article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)  ) > 0">+</span>
+                   <span *ngIf="( article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)  ) < 0"></span>
+
+                   {{ roundMath ( article.formControlPrixHT.value - GetAnPrixHTByArticleID(article.ArticleID)  ) }}
+
+                </td>
+               
+            </tr>
+        </ng-container>
+    <tr>
+        <td colspan="6">
+           TVA : {{roundMath(reception.TVA)}} % , Prxi TT HT : {{roundMath(PrxiTTHT())}} , Prix TTC : {{ roundMath(PrxiTTC()) }}
+        </td>
+    </tr>
+</tbody>
+    </table>
+
+
+    
+    </form>
+    <button (click)="submit(form)">Submit</button>
+    <button (click)="remiseAZero()">Remise A Zero</button>
+    <button (click)="remiseAZeroPrix()">Remise A Zero Prix</button>
+    <button (click)="CompletAll()">Remplir Qte</button>
+    <button (click)="CompletPrice()">Remplir Prix</button>
+-->
+
+
+

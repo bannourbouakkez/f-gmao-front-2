@@ -1,0 +1,73 @@
+<p>liste-cmd works!</p>
+
+<!-- =========> Filter -->
+
+<form [formGroup]="filterForm">
+<input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+( Strict  : <input type="checkbox"  name="strict" formControlName="strict" checked> ) 
+Rechecrche Automatique  : <input type="checkbox"  name="auto" formControlName="auto" checked>
+
+<app-equi-node-select-multi  [inputnodes]="nodes" (emit)="ReceptNodes($event)" ></app-equi-node-select-multi>
+
+<button (click)="filter()">Search</button>
+<button (click)="resetFilter()">Reset</button>
+</form>
+
+<!--########## Filter-->
+
+<div *ngFor="let anomalie of anomalies | paginate: { itemsPerPage: 10, currentPage: p };let i=index; " >
+    
+    {{anomalie.anomalie}} , 
+    <button *ngIf=" FussionSession && NotExistInSelectedAnomalies(anomalie)" (click)="SelectAnomalie(anomalie)">ADD+</button>
+
+    <span [routerLink]="['/equipement/anomalie/anomalie/'+anomalie.AnomalieID]" >
+       [>]
+    </span>
+
+    <span [routerLink]="['/equipement/anomalie/add/'+anomalie.AnomalieID]" >
+        [Modifier]
+     </span>
+
+
+</div>
+
+<pagination-controls  (pageChange)="p = $event"> </pagination-controls>
+
+
+Fussion : <span *ngIf="!FussionSession" (click)="ChangeFussionSession()">[+]</span> <span *ngIf="FussionSession"  (click)="ChangeFussionSession()">[-]</span>
+<div *ngIf="FussionSession" >
+
+<div *ngIf="selectedanomalies.length<2"> Selecter Deux anomalies ou plus  pour fussionner </div>
+
+
+<div *ngIf="FusionnerLoading">Loading ...</div>
+<div *ngIf="!FusionnerLoading">
+<span  *ngIf="selectedanomalies.length>1"  >
+Nouveau Nom : <input #communeName [value]="selectedanomalies[0].anomalie"> 
+<br>
+ Description :<input #communeDescription [value]="selectedanomalies[0].description">
+ <br>
+<button (click)="FusionnerAnomalie(communeName.value,communeDescription.value)">Fusionner</button>
+<br> 
+</span> 
+
+<div *ngFor="let anomalie of selectedanomalies">
+    <app-dump-node [name]="anomalie.anomalie" [id]="anomalie.AnomalieID" [x]="true" (action)="Action($event)"></app-dump-node>
+</div>
+</div>
+
+
+<div *ngIf="AnomalieFusionner.length>0">
+   Nouveau Anomalie : {{AnomalieFusionner[0].anomalie}}
+ <span [routerLink]="['/equipement/anomalie/anomalie/'+AnomalieFusionner[0].AnomalieID]" >
+    [>]
+ </span>
+ <span [routerLink]="['/equipement/anomalie/add/'+AnomalieFusionner[0].AnomalieID]" >
+    [Modifier]
+ </span>
+
+
+</div>
+</div>
+
+

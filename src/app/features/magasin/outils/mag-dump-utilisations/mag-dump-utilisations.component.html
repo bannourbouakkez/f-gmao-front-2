@@ -1,0 +1,32 @@
+
+<form [formGroup]="Form">
+
+<!--
+<mat-form-field>
+ <mat-label>utilisations</mat-label>
+ <mat-select  formControlName="ListeValueUtilisationsFormControl"  (selectionChange)="change($event)" multiple>
+   <mat-option *ngFor="let u of utilisations" [value]="u.UtilisationID">{{u.utilisation}}</mat-option>
+ </mat-select>
+</mat-form-field>
+-->
+
+
+<nz-select nzMode="multiple" formControlName="ListeValueUtilisationsFormControl" (ngModelChange)="change($event)" nzShowSearch nzAllowClear nzPlaceHolder="Select Utilisation"
+[nzDisabled]="utilisations.length==0" [nzDropdownRender]="render" >
+<nz-option *ngFor="let u of utilisations" [nzValue]="u.UtilisationID" [nzLabel]="u.utilisation">
+</nz-option>
+</nz-select>
+
+<ng-template #render>
+  <nz-divider></nz-divider>
+  <div (click)="openDialogAddUtilisation()" class="add-item">
+    <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+    Ajouter Utilisation
+</div>
+</ng-template>
+
+</form>
+
+
+
+

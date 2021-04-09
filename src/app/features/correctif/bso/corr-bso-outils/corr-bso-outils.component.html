@@ -1,0 +1,189 @@
+
+<!--
+<hr>
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+    <input type="hidden"  name="BsoDetID" #BsoArticleID="ngModel" [(ngModel)]="formData.BsoDetID">
+    <input type="hidden"  name="BsoID" #BsmID="ngModel" [(ngModel)]="formData.BsoID">
+    <input type="hidden"  name="des" #des="ngModel" [(ngModel)]="formData.des" > 
+  
+<table border='1'>
+    <thead>
+        <td>Outil</td>
+        <td>Estimation</td>
+        <td>Periode</td>
+        <td>Reserve</td>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                 <mat-form-field>
+                    <mat-select name="outil_id" [placeholder]="formData.des" ngModel  [(ngModel)]="formData.outil_id"  (ngModelChange)="updateNameAndUnite($event)"  >
+                      <mat-option>
+                        <ngx-mat-select-search  ngModel  [formControl]="bankServerSideFilteringCtrl" [searching]="searching"  placeholderLabel="Chercher Article ..."  noEntriesFoundLabel="'Aucune Article'" ></ngx-mat-select-search>
+                      </mat-option>
+                        <mat-option *ngFor="let bank of articleList" [value]="bank.OutilID">
+                        {{bank.des}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+            </td>
+            <td>
+              <input name="estimation" #estimation ngModel [(ngModel)]="formData.estimation" class="form-control">
+           </td>
+           <td>
+           <select name="periode" ngModel [(ngModel)]="formData.periode" >
+             <option value='minute'>Miniutes</option>
+             <option value='heure'>Heures</option>
+             <option value='jour'>Jours</option>
+           </select>
+         </td>
+         <td>
+          {{formData.reserve}}
+         </td>
+        </tr>
+    </tbody>
+</table>
+     
+     
+ 
+  <div class="form-group">
+    <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+    <button type="button" class="btn btn-outline-dark ml-1" [mat-dialog-close]><i class="fa fa-close"></i> Close</button>
+  </div>
+
+</form>
+
+-->
+
+
+
+
+
+
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+  <input type="hidden"  name="BsoDetID" #BsoArticleID="ngModel" [(ngModel)]="formData.BsoDetID">
+    <input type="hidden"  name="BsoID" #BsmID="ngModel" [(ngModel)]="formData.BsoID">
+    <input type="hidden"  name="des" #des="ngModel" [(ngModel)]="formData.des" > 
+
+<div id="id-div-table">
+
+  <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+    [nzData]="['']">
+    <thead>
+      <tr>
+       
+        <th nzWidth="45%">Outil</th>
+        <th nzWidth="15%">Estimation</th>
+        <th nzWidth="30%">Periode</th>
+        <th nzWidth="10%">Reserve</th>
+
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr>
+        <td>
+          <!--
+          <mat-form-field>
+            <mat-select name="outil_id" [placeholder]="formData.des" ngModel  [(ngModel)]="formData.outil_id"  (ngModelChange)="updateNameAndUnite($event)"  >
+              <mat-option>
+                <ngx-mat-select-search  ngModel  [formControl]="bankServerSideFilteringCtrl" [searching]="searching"  placeholderLabel="Chercher Article ..."  noEntriesFoundLabel="'Aucune Article'" ></ngx-mat-select-search>
+              </mat-option>
+                <mat-option *ngFor="let bank of articleList" [value]="bank.OutilID">
+                {{bank.des}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          -->
+ 
+    <nz-select   name="outil_id" nzShowSearch nzServerSearch [nzPlaceHolder]="formData.des" (ngModelChange)="updateNameAndUnite($event)"
+    [(ngModel)]="formData.outil_id"  [nzShowArrow]="false" [nzFilterOption]="nzFilterOption" (nzOnSearch)="search($event)">
+    
+    <ng-container *ngFor="let o of articleList">
+      <nz-option *ngIf="!isLoading" [nzLabel]="o.des" [nzValue]="o.OutilID"></nz-option>
+    </ng-container>
+
+    <ng-container *ngIf="articleList.length==0">
+      <nz-option [nzLabel]="formData.des" [nzValue]="formData.outil_id"></nz-option>
+    </ng-container>
+
+    <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+      <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+    </nz-option>
+
+    </nz-select>
+
+
+        </td>
+
+
+
+
+
+
+        <td>
+          <!--<input name="estimation" #estimation ngModel [(ngModel)]="formData.estimation" class="form-control">-->
+          <nz-input-number name="estimation"  #estimation [(ngModel)]="formData.estimation" [nzMin]="0" [nzStep]="1"></nz-input-number>
+
+       </td>
+       <td>
+       <!--
+       <select name="periode" ngModel [(ngModel)]="formData.periode" >
+         <option value='minute'>Miniutes</option>
+         <option value='heure'>Heures</option>
+         <option value='jour'>Jours</option>
+       </select>
+       -->
+       
+       <nz-select name="periode" [(ngModel)]="formData.periode">
+        <nz-option nzValue="minute" nzLabel="Minute"></nz-option>
+        <nz-option nzValue="heure" nzLabel="Heure"></nz-option>
+        <nz-option nzValue="jour" nzLabel="Jour"></nz-option>
+      </nz-select>
+
+     </td>
+     <td>
+      {{formData.reserve}}
+     </td>
+
+
+<!--
+        <td>
+
+            <nz-input-number name="qte"  #qte [(ngModel)]="formData.qte" [nzMin]="0" [nzStep]="1"></nz-input-number>
+
+        </td>
+        <td>
+            {{formData.unite}}
+        </td>
+        <td>
+            {{formData.stock}}
+        </td>
+        <td>
+            <input name="motif" #motif ngModel [(ngModel)]="formData.motif" class='form-control input-sm' >
+        </td>
+      -->
+    </tr>
+
+    </tbody>
+  </nz-table>
+
+</div>
+
+
+<br>
+<div class="form-group" style="float:right;">
+  <button type="submit" class="btn btn-default"><i class="fa fa-database"></i> Envoyer</button>
+  <!--&nbsp;
+  <button type="button" class="btn btn-default" [mat-dialog-close]><i class="fa fa-close"></i> Ferme </button>-->
+</div>
+
+</form>
+
+
+
+

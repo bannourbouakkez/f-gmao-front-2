@@ -1,0 +1,21 @@
+<p>mag-utilisation-aff works!</p>
+
+<div *ngIf="use && use.UseID>0" >
+    {{use | json}}
+    
+    <div *ngIf="use.isOpened==1">
+        <button [routerLink]="['/magasin/outils/addoredit/'+use.UseID]" >Modifier</button>
+        <button (click)="Cloture()" >Cloture</button>
+    </div>
+    
+    <div *ngIf="use.isOpened==0 && duree>0">
+     {{dureeFunc(duree)}}
+    </div>
+
+    <div *ngIf="!isDeleted">
+      <button (click)="deleteUse()">Delete</button>
+    </div>
+
+</div>
+<!--{{use | json}}-->
+

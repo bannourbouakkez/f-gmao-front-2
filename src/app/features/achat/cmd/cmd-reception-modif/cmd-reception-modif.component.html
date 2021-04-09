@@ -1,0 +1,430 @@
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+    <div [ngClass]="isData ? 'big-container-list':'big-container'">
+      <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+    
+        <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres" [home]="home"></app-breadcrumb>
+    
+        <div [ngClass]="isData ? '': 'card'">
+          <div class="card-header" *ngIf="!isData">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+            </ol>
+          </div>
+    
+    
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+    
+    
+      <!--
+      {{ bsm | json }}
+      {{ response_bsm | json }}
+      -->
+            
+      <ng-container *ngIf="loaded">
+            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+              <div class="card-header separator">
+                <div class="card-title">
+                  <span class="my-specific-big-title">
+                  #
+                  {{modif.CmdRecModifID}}
+                </span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    
+    
+                <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    
+                  <div class="row">
+                   
+    
+    
+                  <div class="col-5">
+    
+                      <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <p class="hint-text p-t-0 fs-12">N° Reception</p>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">
+                                {{modif.cmd_rec_id}}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">N° Commande</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                  {{modif.commande_id}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Rapport</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                  {{modif.rapport}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                  </div>
+    
+                  
+                  <div class="col-5 offset-1">
+    
+    
+                    <div class="form-group row">
+    
+                      <label for="name" class="col-md-4 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Créé le</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{modif.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+    
+                    <div class="form-group row">
+    
+                      <label for="name" class="col-md-4 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Créé par</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{modif.name}}
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+    
+                    <div class="clearfix"></div>
+    
+    
+    
+                  </div>
+    
+    
+    
+                  </div>
+    
+          
+    
+                </form>
+    
+    
+    
+    
+              </div>
+            </div>
+    
+      
+        
+            
+          
+          <br> 
+                  <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">Modification</span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+                    
+    
+                      <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                
+      
+    
+      <!--
+      {{ bsm | json }}
+      {{ response_bsm | json }}
+      -->
+      
+       <!---------------- articles Table -->
+       <b>            
+        <div id="id-div-table">
+    
+          <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+            [nzData]="['']">
+            <thead>
+              <tr>
+                
+              
+                <th nzShowExpand ></th>
+                <th>#</th>
+                <th>Designation</th>
+                <th>TT Ancien Qte</th>
+                <th>TT Nouveau Qte</th>
+                <th>Diff(Nv-An)</th>
+                <th>NB Recepteurs</th>
+                
+               
+    
+              </tr>
+            </thead>
+            <tbody>
+        <ng-container *ngFor="let article of modifssomme;let i=index;">
+        <tr>
+          
+            <td nzShowExpand [nzExpand]="expandSet.has(article.ArticleID)"
+            (nzExpandChange)="onExpandChange(article.ArticleID, $event)"></td> 
+            
+            <td>{{article.ArticleID}}</td>
+            <td>{{article.Des}}</td>
+            <!--[2]-->
+            <td>{{roundMath(article.TTAn)}}</td>
+            <td>{{roundMath(article.TTNv)}}</td>
+            <td>{{roundMath(article.TTNv - article.TTAn)}}</td>
+            <td>{{nbDeRecepteurs(article.ArticleID)}}</td>
+           
+
+        </tr>
+        <tr [nzExpand]="expandSet.has(article.ArticleID)">
+            <td></td>
+            <td colspan="6" style="padding-top:0px; margin-top:0px;">
+
+
+             <div id="id-div-table">
+    
+              <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                [nzData]="['']">
+                <thead>
+                  <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                    <th>Recepteur</th>
+                    <th>An Qte</th>
+                    <th>Nv Qte</th>
+                    <th>Diff</th>
+        
+                  </tr>
+                </thead>
+                <tbody>
+
+            <ng-container *ngFor="let modif of modifs">
+            <ng-container *ngIf="modif.ArticleID==article.ArticleID" >
+            <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+              <!--
+              <td>
+                <div class="table-firsttd-height">
+                    <a href="/gmao/achat/da/da/{{det.id}}" target="_blank">
+                        {{det.id}}
+                    </a>
+                </div>
+              </td>
+            -->
+
+            <td>{{modif.name}}</td>
+            <td>{{roundMath(modif.AnQteRecu)}}</td>
+            <td>{{roundMath(modif.NvQteRecu)}}</td>
+            <td>{{ roundMath(modif.NvQteRecu - modif.AnQteRecu) }}</td>
+
+            </tr>
+            </ng-container>
+          </ng-container>   
+
+                </tbody>
+              </nz-table>
+            
+            </div>
+
+
+          </td>
+         
+        </tr>
+      </ng-container>   
+
+            </tbody>
+          </nz-table>
+        
+        </div>
+    
+      </b>     
+      <!--############### articles Table -->
+      
+    
+      
+                                  
+                      </form>
+    
+                      <br>
+                      <div class="row" style="vertical-align: top;">
+                          <div class="col-md-2" style="vertical-align: top;">
+                              <ul class="list-inline m-0">
+                                  <li class="list-inline-item"
+                                      style="padding:0px;margin:0px;margin-right:4px;">
+                                      <button (click)="ImprimerModification()"
+                                          class="btn btn-default btn-xs rounded-0" type="button"
+                                          data-toggle="tooltip" data-placement="top" title="Complet">
+                                          <i class="pg-icon md-18"
+                                              style="width:10px;height:10px;position:relative;top:1px;">printer</i></button>
+                                  </li>
+                                </ul>
+                            </div>
+                      </div>
+                     
+    
+                    </div>
+                  </div>
+
+                  <br>
+<!--
+                 <ng-container *ngIf="isDeleted==0">
+                  <br>
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+                      <button
+                      nz-popconfirm nzTitle="Vous etes sure a supprimer le retour ?" (nzOnConfirm)="deleteRetour()" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                      style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                        <span>Supprimer</span>
+                        <i class="pg-icon md-18">trash_alt</i>
+                      </button>
+                    </div>
+                  </div>
+                </ng-container>
+-->             
+               
+    </ng-container>
+    
+    
+    <ng-container *ngIf="!loaded">
+      <br>
+      <div class="center-loading-box">
+       <!--
+          <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+         -->
+          <div class="progress-circle-indeterminate m-t-45"></div>
+      </div>
+      <br><br>
+     </ng-container>
+    
+    
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+    </div>
+    
+    </div>
+
+
+
+<!--
+{{modif | json }}
+<br> --- <br> 
+{{modifs | json }}
+
+<br> --- <br> 
+
+{{modifssomme | json}}
+
+
+
+
+<div *ngIf="modifs.length>0">
+
+<table border="1">
+    <thead>
+     <td></td>
+     <td>Designation</td>
+     [1]
+     <td>TT Ancien Qte</td>
+     <td>TT Nouveau Qte</td>
+     <td>Diffirence ( Nouveau - Ancien )</td>
+     <td>Details v</td>
+    
+    </thead>
+    <tbody>
+<ng-container  *ngFor="let article of modifssomme;let i=index;">
+    <tr>
+        <td>
+            {{i+1}}
+        </td>
+        <td>
+            <a target="_blank" [routerLink]="['/achat/wa9talliNa3milpageArticle/',article.ArticleID]" >
+                {{article.Des}}
+            </a>
+        </td>
+        [2]
+        <td>{{roundMath(article.TTAn)}}</td>
+        <td>{{roundMath(article.TTNv)}}</td>
+        <td>{{roundMath(article.TTNv - article.TTAn)}}</td>
+        <td  (click)="open(article.ArticleID)"> {{nbDeRecepteurs(article.ArticleID)}} Recepteurs v </td>
+       
+    </tr>
+  
+    <ng-container *ngIf="article.open==1"  >
+      <tr>
+      <td colspan="6">
+       <div *ngFor="let modif of modifs" >
+           <div *ngIf="modif.ArticleID==article.ArticleID" >
+              Recepteur : {{modif.name}}
+              [3]
+              Ancien Qte: {{roundMath(modif.AnQteRecu)}} , 
+              Nouveau Qte: {{roundMath(modif.NvQteRecu)}} , 
+              Diff : {{ roundMath(modif.NvQteRecu - modif.AnQteRecu) }}
+           </div>
+       </div>
+    </td>
+     </tr>
+    </ng-container>
+
+</ng-container>
+
+
+    </tbody>
+</table>
+</div>
+
+<div *ngIf="modifs.length==0">
+    Aucune modification de valeurs 
+    <br>
+    seleuemelnt modification de rapport de confirmté 
+</div>
+
+<div *ngIf="modif">
+    {{modif.rapport}}
+</div> 
+
+
+
+<button (click)="ImprimerModification()">Imprimer</button>
+-->
+
+
+ <!--1 <td>Qte Commande</td>-->
+<!--2<td>{{article.TTQteCmde}}</td>-->
+ <!-- 3Qte commandé : {{det.qte}}-->
+

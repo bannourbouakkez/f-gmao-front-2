@@ -1,0 +1,159 @@
+<ng-container *ngIf="Loaded">
+    <div id="card-body-popup" class="card-body" style="margin:0px;padding:0px;">
+
+        <div id="card-header-popup" class="card-header separator">
+            <!--<ol id="breadcrumb-popup" class="breadcrumb" >-->
+            <!--<li  class="breadcrumb-item active">-->
+            <!--<span class='breadcrumb-title'>-->
+            <p class="no-margin" style="color:purple">
+                Ajouter Tache
+            </p>
+            <!--</span>-->
+            <!--</li>-->
+            <!--</ol>-->
+        </div>
+
+
+
+        <form [formGroup]="Form" class="form-horizontal" role="form" autocomplete="off" width="100%">
+
+            <input type="hidden" formControlName="TacheID">
+            <input type="hidden" formControlName="NB">
+            <input type="hidden" formControlName="exist">
+            <input type="hidden" formControlName="created_at">
+            <input type="hidden" formControlName="updated_at">
+
+
+<div class="row">
+    <div class="col-md-8">
+
+            <div class="form-group row">
+                <label for="fname" class="required col-md-3 control-label">Tache</label>
+                <div class="col-md-9">
+                    <div class="input-group date p-1-0">
+                        <input maxlength="250" class="form-control input-sm" formControlName="tache">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="name" class="required col-md-3 control-label">Equipement</label>
+                <div class="col-md-9">
+                    <app-equi-node-select-multi [inputnodes]="nodes" (emit)="ReceptNodes($event)">
+                    </app-equi-node-select-multi>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="fname" class="col-md-3 control-label">Description</label>
+                <div class="col-md-9">
+                    <div class="input-group date p-1-0">
+                        <textarea formControlName="description" class="form-control" rows="2" id="name"
+                            placeholder=""></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <br>
+            <div class="row">
+
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                    <button aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                        [ngClass]="Form.valid && nodes.length>0 ? 'class': 'disabled'" type="submit" (click)="submit()"> Envoyer
+
+                        <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading"
+                            class="loading-icon"></i>
+                    </button>
+
+                </div>
+            </div>
+
+  </div>
+
+  <div class="col-md-4">
+    <div style="overflow:auto; height:200px;">
+        
+        <i style='margin-left:24px; margin-top:15px;'  *ngIf="SemblablesLoading" nz-icon nzType="loading"
+                            class="loading-icon"></i>
+        
+        <!--<span *ngFor="let semblable of semblables;">
+            {{semblable.tache}}<br>
+        </span>-->
+        
+        <ul style="margin-top:8px;" class="md-icon">
+
+                <li *ngFor="let semblable of semblables;">
+                <span>
+                    {{semblable.tache}}
+                </span>
+                </li>
+               
+        </ul>
+            
+
+    </div> 
+  </div>
+
+
+
+       
+
+    </div>
+    
+</form>
+</div>
+</ng-container>
+
+<ng-container *ngIf="!Loaded">
+
+    <div class="center-loading-box">
+
+        <div class="progress-circle-indeterminate m-t-45"></div>
+    </div>
+    <br>
+</ng-container>
+
+
+
+<!--
+<form [formGroup]="Form" *ngIf="Loaded" >
+    
+    
+    <input type="hidden" formControlName="TacheID" >
+    <input type="hidden" formControlName="NB" >
+    <input type="hidden" formControlName="exist" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+
+   
+    <table border='1'>
+        <tr><td>
+            <input  maxlength="50" formControlName="tache" class="form-control" >
+            <input formControlName="description" >
+
+        </td><td rowspan="2">
+            <span *ngIf="SemblablesLoading">Loading ... </span>
+            <span *ngFor="let semblable of semblables;">
+               {{semblable.tache}}<br>
+            </span>
+
+        </td></tr>
+        <tr><td> 
+            <app-equi-node-select-multi  [inputnodes]="nodes" (emit)="ReceptNodes($event)" ></app-equi-node-select-multi>
+        </td></tr>
+    </table>
+    
+   
+ 
+
+
+    <button (click)="submit()"> Envoyer </button>
+
+</form>
+
+-->

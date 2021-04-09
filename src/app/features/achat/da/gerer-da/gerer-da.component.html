@@ -1,0 +1,26 @@
+<p>gerer-da works!</p>
+
+<select (change)="selectChange($event.target)">
+    <option value="a">value a</option>
+    <option value="e">value e</option>
+    <option value="s">value s</option>
+</select>
+
+<!--Najjim na77i el ngForm wel ngSubmit ? -->
+<form #form="ngForm" (ngSubmit)="submit(form)">
+
+    <div *ngFor="let article of articles;let i=index;">
+        {{article.des}} 
+        <!--Najjim na77i name ?-->
+        <input name="name-{{article.ArticleID}}" [formControl]="article.formControl" [placeholder]="article.ArticleID" />
+    </div>  
+
+    <button type="submit">Submit</button>
+</form>
+
+
+
+<div *ngFor="let article of articles">
+    <label>{{article.des}} value: </label> <span>{{article.formControl.value}}</span>
+</div>
+

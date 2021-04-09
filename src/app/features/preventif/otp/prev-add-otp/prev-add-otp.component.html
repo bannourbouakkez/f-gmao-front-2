@@ -1,0 +1,411 @@
+<div class='big-container-list'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div class="card">
+      <div class="card-header separator">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+              class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+
+        <br>
+
+        <ng-container *ngIf="allLoaded">
+        
+        <div class="card card-default" style="border:1px solid gray;">
+          <div class="card-header  separator">
+            <div class="card-title">
+              <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+              Intervention
+            </div>
+          </div>
+          <div class="card-body">
+
+
+            
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="col-5">
+
+                  <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">#</span>
+                    </label>
+                    <div class="col-md-8"> 
+                      <label class="control-label">         
+                        <span class="font-affichage-contenu">
+                          <span class="fast-url" [routerLink]="['/gmao/preventif/intervention/intervention/',intervention.InterventionID]" >{{intervention.InterventionID}}</span>
+
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Equipement</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label" style="width:100%">
+                        <span class="font-affichage-contenu">
+                          <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                          </app-aff-equipement>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Tache</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.tache}}</span></label>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+                <div class="col-2 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Type</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.type}}</span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Parametrage</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.parametrage}}</span></label>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="col-2 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Frequence</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="font-affichage-contenu">
+                        {{intervention.frequence}}
+                      </span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Prochain plan</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.date_resultat | date:'dd/MM/yyyy'}}</span>
+                      </label>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+            </form>
+          
+
+          </div>
+        </div>
+
+
+
+
+        <!--<div class="card card-transparent">-->
+
+        <!--
+    <div class="card-header  no-padding">
+      <div class="card-title">
+        Intervention
+      </div>
+    </div>
+    -->
+
+        <!--<div class="card-body no-padding">-->
+
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal">
+          <div class="row">
+            <div class="col-md-6">
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">
+                  <span class="font-affichage-name-contenu">Date execution</span>
+                </label>
+                <div class="col-md-7">
+
+
+
+
+                  <div class="input-group date col-md-12 p-1-0">
+                    <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                      formControlName="date_execution" readonly>
+                    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i class='icon-container'>
+                          <i class="pg-icon">calendar</i>
+                        </i>
+                      </span>
+                    </div>
+                  </div>
+
+
+
+                </div>
+              </div>
+
+
+
+
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">
+                  <span class="font-affichage-name-contenu">Reservation PDR</span></label>
+                <div class="col-md-7">
+                  <div class="input-group  col-md-12 p-1-0">
+                    <!--<label class="control-label" width="100%">-->
+
+                    <ng-container *ngIf="articles_reserved.length>0">
+
+
+                      <div *ngFor="let article of articles_reserved" style="width:100%;">
+
+                        <div class="row" style="width:100%;">
+                          <div class="b-b b-grey" style="width:100%;">
+                            <p class="pull-left no-margin p-t-5 p-b-5 fs-13">{{article.des}}</p>
+
+                            <p class="pull-right no-margin p-t-5 p-b-5 fs-13">{{article.qte}}
+                              {{ affichageUnite(article.unite) }}</p>
+                            <div class="clearfix"></div>
+                          </div>
+                        </div>
+
+
+                      </div>
+
+
+                    </ng-container>
+
+
+                    <ul class="list-inline m-0" *ngIf="articles_reserved.length==0">
+                      <li class="list-inline-item" style="padding:0px;margin:0px;">
+                        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="ajouter" *ngIf="articles_reserved.length==0"
+                          (click)="AddOrEditBsm(OtpID,null)">
+                          <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                        </button>
+                      </li>
+                    </ul>
+
+                    <div style="width:100%;" *ngIf="articles_reserved.length>0">
+                      <ul class="list-inline m-0" style="float:right;">
+
+
+
+                        <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                            data-placement="top" title="modifier" *ngIf="articles_reserved.length>0"
+                            (click)="AddOrEditBsm(OtpID,null)">
+                            <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                          </button>
+                        </li>
+                        <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                            data-placement="top" title="reset" *ngIf="articles_reserved.length>0"
+                            (click)="ViderArticlesReserved()">
+                            <i class="pg-icon md-18"
+                              style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                          </button>
+                        </li>
+
+                      </ul>
+                    </div>
+
+
+                    <!--
+                          <span *ngIf="articles_reserved.length==0" (click)="AddOrEditBsm(OtpID,null)">[+]</span>
+                          <span *ngIf="articles_reserved.length>0" (click)="AddOrEditBsm(OtpID,null)">[edit]</span>
+                          <span *ngIf="articles_reserved.length>0" (click)="ViderArticlesReserved()">[X]</span>
+-->
+
+
+
+                    <!--</label>-->
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">
+                  <span class="font-affichage-name-contenu">Reservation Intervenants</span></label>
+                <div class="col-md-7">
+                  <div class="input-group  col-md-12 p-1-0">
+                    <!--<label class="control-label">-->
+                    <div style="width:100%;">
+
+                      <app-prev-reservation-default *ngIf="form.get('date_execution').value"
+                        [Input_IntReservationID]="IntReservationID" [Input_OtpID]="OtpID"
+                        [Input_DateTimeOTp]="form.get('date_execution').value"
+                        [Input_reservedintervenants]="local_2_reservedintervenants" [Input_DontSend]="true"
+                        [InterventionID]="InterventionID"
+
+                        [InputEquipementID]="intervention.equipement_id"
+                        [InputEquipement]="intervention.equipement"
+                        [InputNiv]="intervention.Niv"
+                        
+                        
+                        >
+                      </app-prev-reservation-default>
+                    </div>
+
+                    <div *ngIf="!form.get('date_execution').value" >
+
+
+                      <ul class="list-inline m-0" >
+                        <li class="list-inline-item" style="padding:0px;margin:0px;">
+                          <button class="btn btn-default btn-xs rounded-0 disabled" type="button" data-toggle="tooltip"
+                            data-placement="top" title="" style="cursor:not-allowed;" >
+                            <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                          </button>
+                        </li>
+                      </ul>
+                      <label class="error text-complete">
+                        Choisir la date d'execution pour pouvoir reserver des intervenants.
+                      </label>
+
+
+                    </div>
+
+
+                    <!--</label>-->
+                  </div>
+                </div>
+              </div>
+
+
+
+
+          
+
+          <br>
+          <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+              <button type="button" aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                [ngClass]="form.valid ? 'class': 'disabled'" (click)="onSubmit()">Executer
+                <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+      </div>
+
+
+
+
+        </form>
+
+
+      </ng-container>
+
+      <ng-container *ngIf="!allLoaded">
+        <br><br><br>
+        <div class="center-loading-box">
+         <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+        </div>
+        <br><br><br><br>
+      </ng-container>
+
+
+        <!--
+          </div>
+        </div>
+        -->
+
+
+      </div>
+
+
+
+
+
+
+
+    </div>
+  </div>
+</div>
+
+<!--
+{{ intervention | json }}
+
+-->
+
+<!--
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <label>
+    Derniere execution :
+    <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date_execution" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+  </label>
+
+  <button type='submit'>Executer</button>
+
+</form>
+-->
+
+
+
+<!-- hétha fil otp aff 
+ 
+    <span> <a target="_blank" href="/preventif/reservation/{{reservation.ReservationID}}" >(A)</a></span>
+
+    <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+    <span (click)="AddOrEditBsm(OtpID,reservation.ReservationID)"> (M) </span>
+    <span  (click)="DeleteBsm(reservation.ReservationID)"> (X) </span>
+    </ng-container>
+
+
+<ng-container *ngIf="otp.statut=='enCours' && reservation.ReservationID " >
+  <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+    <span (click)="AddOrEditBsm(OtpID,null)">[+]</span>
+  </ng-container>
+</ng-container>
+
+-->

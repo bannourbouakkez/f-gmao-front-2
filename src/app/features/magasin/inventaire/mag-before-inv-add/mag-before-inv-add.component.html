@@ -1,0 +1,40 @@
+<p>mag-before-inv-add works!</p>
+
+<form [formGroup]="Form">
+  Familles : <select formControlName="famille_id" *ngIf="familles.length>0"  (change)="SelectFamille($event.target.value)" >
+    <option value=''></option>
+    <option *ngFor="let f of familles" [value]="f.FamilleID" > {{f.famille}} </option>
+   </select>
+   
+  Sous Familles : <select  formControlName="sous_famille_id" (change)="Selectsous_famille_id($event.target.value)" >
+    <option value=''>Aucune</option>
+    <option *ngFor="let sousf of sousfamilles" [value]="sousf.FamCaraID" > {{sousf.name_famille}} </option>
+   </select>
+
+   Type d'iventaire : 
+   <select  formControlName="type_inventaire" >
+    <option value=''></option>
+    <option value='enregistrement'>Enregistrement Sans Correction</option>
+    <option value='corerction'>Correction</option>
+   </select>
+
+   Intervenants : <app-mag-dump-intervenants *ngIf="intervenants.length>0"  [intervenants]="intervenants" [ListeValueIntervenants]="ListeValueIntervenants" (ListeValueIntervenantsEmitted)="ReceptListeValueIntervenantsEmitted($event)"></app-mag-dump-intervenants>
+
+</form>
+
+   <form #artIDsForm="ngForm">
+    
+    <div *ngIf=" articles && articles.length>0">
+     <div *ngFor="let article of articles;let i=index;">
+         <input type="checkbox" [formControl]="article.formControl"> : 
+         {{article.ArticleID}} , {{article.des}} 
+     </div>
+    </div>
+
+   </form>
+
+
+
+   <button (click)="inventaireArtIDs()">Add Inventaire</button>
+
+

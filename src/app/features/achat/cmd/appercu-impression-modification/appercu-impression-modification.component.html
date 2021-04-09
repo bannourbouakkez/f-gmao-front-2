@@ -1,0 +1,28 @@
+<p>appercu-impression-modification works!</p>
+
+  {{modification | json }}
+  <br>
+{{modification_det | json}}
+  <mat-dialog-content #imprimer>
+      
+    
+    
+    N° Modification : {{modification.CmdRecModifID}} ,
+    N° Reception : {{modification.cmd_rec_id}} ,
+    N° Commande : {{modification.commande_id}} ,
+    Nom de Modifieur : {{modification.name}} , 
+    Date de modification : {{modification.created_at}} 
+    
+    
+    <div *ngFor="let article of modification_det;let i=index;">
+        {{i+1}} : {{article.ArticleID}} , {{article.Des}} , {{roundMath(article.TTAn)}} , {{roundMath(article.TTNv)}} , {{roundMath(article.TTNv - article.TTAn)}}
+      </div>
+  
+     
+      Rapport : {{modification.rapport}}
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+      <button mat-button tabindex="1" (click)="downloadPDF()">ExportPdf</button>
+      <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+  </mat-dialog-actions>

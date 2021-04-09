@@ -1,0 +1,261 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* 
+@import "~ng-zorro-antd/style/index.min.css"; 
+@import "~ng-zorro-antd/button/style/index.min.css"; 
+*/
+/*  
+@import "~ng-zorro-antd/style/entry.less";
+@import "~ng-zorro-antd/button/style/entry.less"; 
+*/
+ 
+  
+@import '~angular-tree-component/dist/angular-tree-component.css';
+
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+
+
+
+
+
+.big-container{
+    margin-left:10%;
+}
+
+.big-container-list{
+  margin-left:5%;
+}
+
+.very-big-container{
+  margin-left:1%;
+}
+
+.icon-container {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    position: relative;
+    bottom: 3px;
+    right: 4px;
+  }
+
+
+.my-specific-card-title{
+  color:purple;
+}
+
+.my-specific-big-title{
+  color:purple;
+  font-size: 14px;
+}
+
+.fast-url{
+  text-decoration: underline;
+  cursor:pointer;
+  font-weight: 500;
+}
+
+.center-box {
+  margin: auto;
+  width: 60%;
+  border: 3px solid gray;
+  padding: 30px;
+  //margin-top:500px;
+  //margin-left:50px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.center-loading-box {
+  margin: auto;
+  width: 60%;
+  padding: 30px;
+  text-align: center;
+}
+
+.center-loading-box-disponibilite{
+  margin: auto;
+  width: 80%;
+  padding: 10px;
+  text-align: center;
+}
+
+
+
+/*
+  textarea{
+      font-size: 10px;
+  }
+*/
+
+  .font-affichage-contenu{
+   font-size: 13px;
+  }
+
+  .my-nz-input-error{
+    background-color: #ffd1d1;
+    color:red;
+  }
+
+  .div-statuts>div{min-width:75px; max-width:80px;text-align: center;}
+  .div-statuts-smaller>div{min-width:60px; max-width:70px;text-align: center;}
+  .breadcrumb-title{font-size: 14px;}
+  #id-breadcrumb-title{/*text-transform: lowercase;*/}
+
+  // ---- popup ------
+  #breadcrumb-popup.breadcrumb{margin-bottom:0;padding:0px;}
+  #button-popup{margin-top:7px;}
+  #card-header-popup{
+    background-color: white;
+    margin:0;
+    padding:0px;
+  }
+// ###################
+
+//  ---- liste ----------------
+  #breadcrumb-liste.breadcrumb{
+    margin:0px;
+    padding:0px;
+    margin-bottom:7px;
+  }
+  #card-body-liste.card-body{
+    padding-bottom:0px;
+    margin-bottom: 0px;
+  }
+  #card-header-liste{
+    padding-left:0px;
+    margin-left:8px;
+  }
+//#############################
+
+
+///////// Liste //////////////////////////////////////
+// ---- Bar de filtre --------------------------------
+#id-table-filter{width:100%;}
+#id-table-filter-first-td{width:13%;text-align:center;}
+#id-filter-form{padding-bottom:0px;margin-bottom:0px;}
+#id-div-filter-form-horizontal{padding-bottom:0px;margin-bottom:0px;}
+#id-bar-filter-table{table-layout: fixed;width: 100%;}
+#id-bar-table-filter{table-layout: fixed;width: 100%;}
+#id-bar-filter-td-rotateicon{width:10%; text-align:center;}
+#id-bar-search-filter{width:50%;}
+#id-bar-filter-btns{width:35%;text-align:left;}
+#id-bar-filter-btns>button{margin-right:5px; width: 100px;}
+#id-bar-filter-btns>label{margin-right:5px;}
+#id-bar-filter-btn-first{margin-left:10px;}
+#id-bar-filter-last-td{width:5%;text-align:right; vertical-align: top;}
+// ---- pagination ---------------
+#id-pagination-big-table{width:100%;}
+#id-pagination-big-table>td{text-align:right;}
+.my-pagination{float:right;margin-top:5px;}
+#id-pagination-small-table>tr{vertical-align:top;}
+#id-pagination-small-table>td{vertical-align:top;}
+// ---- tableau de liste 
+#id-div-table{margin-top:10px; width:100%;}
+#table-firsttd-height{margin-top:2px;margin-bottom:2px;}
+//######## Liste ######################################
+
+
+#card-info{
+  //border-width: 1px; 
+  //border-left-style:solid; 
+  //border-left-color:#c9c9c9; 
+  padding-left:10px;
+  border:1px solid #c9c9c9; 
+  
+
+}
+
+  .tree-settings_small:hover>i{
+    color:gray;
+    //border-color: blue;
+    //background-color: red;
+    //opacity: 1.7;
+  }
+  
+
+
+  
+.calender-btn{
+  color:gray;
+  padding:0px;
+  margin:0px;
+  position:relative;
+  top:5px;
+}
+.calender-btn:hover{
+ color:blue;
+}
+
+
+
+
+/*
+.cal-event-title{
+  font-size: 20px;
+  //line-height: 16px;
+  //margin-bottom: 8px;
+  overflow: visible;
+  text-overflow: initial;
+
+}
+
+.event-title{
+  //font-size: 20px;
+  //line-height: 16px;
+  //margin-bottom: 8px;
+  overflow: visible;
+  text-overflow: initial;
+
+}
+*/
+
+//style="height:10px;position:relative;top:1px;"
+
+  
+//@import './assets/my-styles/pagination-style.css';
+
+
+
+.x-close-btn{
+  position:relative;
+  //top:3px;
+  //right:5px;
+  left:100%;
+  bottom:100%;
+}
+
+.padding-dialog-10px{
+  padding:10px;
+}
+ 
+
+
+ .mat-dialog-container {
+   padding: 10px !important;
+   //margin: 0px !important;
+ }
+
+.custom-dialog-container{
+  padding: 0px !important;
+  margin: 0px !important;
+  //border:1px solid red;
+}
+.custom-dialog-container.card:first-child {
+  padding:0px; margin:0px;
+ }
+
+
+ .overflowdialog{
+  overflow:auto; max-height: 600px; width:100%;
+ }
+
+
+
+  
+
+
+
+

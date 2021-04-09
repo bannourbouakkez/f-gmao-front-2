@@ -1,0 +1,59 @@
+<!--
+Cause de refus : <br>
+<form (ngSubmit)="onSubmit(msg.value)" >
+<input #msg ><br>
+<button type="submit" > Submit </button> 
+</form>
+<button (click)="annuler()" >Annuler</button>
+-->
+<!--<button (click)="close()" >Close</button>-->
+
+
+
+<div id="card-body-popup" class="card-body"  style="margin:0px;padding:0px;" >
+       
+    <div id="card-header-popup" class="card-header separator">
+    <ol id="breadcrumb-popup" class="breadcrumb" >
+        <li  class="breadcrumb-item active"><span class='breadcrumb-title'>Cause de refus</span></li>
+     </ol>
+    </div>
+        
+            
+            <form (ngSubmit)="onSubmit(msg.value)" class="form-horizontal" role="form" autocomplete="off">
+
+
+                <div class="form-group row">
+                  <label for="name" class=" col-md-4 control-label">Message</label>
+                  <div class="col-md-8">
+  
+  
+                   
+                      <!--<input  class='form-control input-sm'  maxlength="50" #msg>-->
+
+                      <textarea  #msg class="form-control" rows="2" placeholder=""></textarea>
+
+  
+  
+                  </div>
+                </div>
+                <div class="row">
+  
+                  <div class="col-md-6">
+  
+                  </div>
+                  <div class="col-md-3">
+                     
+                    <button style="display:block; width:100%;" id="button-popup"  aria-label="" class="btn  btn-lg btn-larger"
+                       type="submit">Envoyer</button>
+
+                  </div>
+
+                  <div class="col-md-3">
+                     
+                    <button style="display:block;width:100%;" (click)="annuler()" id="button-popup"  aria-label="" class="btn btn-lg btn-larger "
+                       type="button">Annuler</button>
+
+                  </div>
+                </div>
+              </form>
+        </div>

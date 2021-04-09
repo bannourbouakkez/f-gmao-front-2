@@ -1,0 +1,92 @@
+
+<div >
+
+<ng-container *ngIf="!(IntervenantID && date1 && time1 && date2 && time2)">
+    
+    <!--
+    <div class="alert" role="alert" style="background-color: white;">
+        <span class="hint-text p-t-0 fs-12">Remplir les formulaire pour tester la disponibilité d'intervenant .</span>
+    </div>
+    -->
+
+</ng-container>
+
+<ng-container *ngIf="IntervenantID && date1 && time1 && date2 && time2">
+    
+<ng-container *ngIf="!loading">
+    <div *ngIf="l_ResultObject">
+        <ng-container *ngIf="l_ResultObject.DateTimeList.length>0">
+
+            <!--
+            les reservation de {{l_ResultObject.DateTimeList[0].name}} entre
+            {{JustDateString(date1)}} {{JustTimeString(time1)}} et {{JustDateString(date2)}} {{JustTimeString(time2)}} est : 
+            -->
+
+            <div class="alert alert-danger" role="alert">
+                <!--<button aria-label="" class="close" data-dismiss="alert"></button>-->
+                <div class="pull-right">
+                    <i class="pg-icon md-18" style="color:red;">disable</i>
+                </div>
+                
+                {{l_ResultObject.DateTimeList[0].name}} [ {{JustDateString(date1)}} <strong>{{JustTimeString(time1)}}</strong> &nbsp; -  &nbsp; {{JustDateString(date2)}} <strong>{{JustTimeString(time2)}}</strong> ]
+                <br>
+                <strong> N'est pas disponible  </strong>
+            </div>
+
+
+        <div *ngFor="let dtdt of l_ResultObject.DateTimeList;">
+           
+
+
+            <div class="row" style="width:100%;">
+                <div class="b-b b-grey" style="width:100%;" >
+                  <p class="pull-right no-margin p-t-5 p-b-5 fs-13">{{affichageProHM(CalculerNbMinBetweenTwoDate2(dtdt.datetime1,dtdt.datetime2))}}</p>
+                  <p class="pull-left no-margin p-t-5 p-b-5 fs-13">{{dtdt.datetime1 | date:'dd/MM/yyyy HH:mm'}} &nbsp; - &nbsp;  {{dtdt.datetime2 | date:'dd/MM/yyyy HH:mm'}} 
+                      &nbsp; 
+                      <span class="hint-text p-t-0 fs-12"> ( Reservé le {{ dtdt.date_reservation}} Par : {{dtdt.reserveur}} )  </span>
+                  </p>
+
+                  <div class="clearfix"></div>
+                </div>
+            </div> 
+
+           
+      
+              
+
+        </div>
+        </ng-container>
+
+        <ng-container *ngIf="l_ResultObject.DateTimeList.length==0">
+            
+            
+
+
+
+            <div class="alert alert-success" role="alert">
+                <div class="pull-right">
+                    <i class="pg-icon md-18" style="color:green;">tick_circle</i>
+                </div>
+                <strong> Disponible </strong>
+            </div>
+
+
+
+        </ng-container>
+
+    </div>
+
+    <!--= {{l_ResultObject.IsIntReserved}}-->
+
+</ng-container>
+
+<ng-container *ngIf="loading">
+    <i nz-icon nzType="loading" class="icon icon-loading" ></i>
+</ng-container>
+
+
+
+</ng-container>
+
+
+</div>

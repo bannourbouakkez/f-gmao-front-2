@@ -1,0 +1,632 @@
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+  <div [ngClass]="isData ? 'very-big-container':'very-big-container'">
+      <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-12 col-xlg-12'">
+        
+        <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+    
+        <div [ngClass]="isData ? '': 'card'" style="padding-top:0px; padding-bottom:0px; margin-bottom:10px;">
+          <div class="card-header" *ngIf="!isData" style="padding-top:0px; padding-bottom:0px;">
+            <table width="100%"><tr><td width="95%">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+              </ol>
+            </td><td>
+            
+              <ng-container *ngIf="CommandeID && cmdLoaded">
+              <ul  class="list-inline m-0">
+                <li class="list-inline-item"
+                    style="padding:0px;margin:0px;margin-right:4px;">
+
+                    <button [routerLink]="['/gmao/achat/cmd/imprimer',cmd.fournisseur_id]"
+                        class="btn btn-default btn-xs rounded-0" type="button"
+                        data-toggle="tooltip" data-placement="top" title="Complet">
+                        <i class="pg-icon md-18"
+                            style="width:10px;height:10px;position:relative;top:1px;">printer</i></button>
+                </li>
+              </ul>
+            </ng-container>
+
+              
+            </td></tr></table>
+            
+          </div>
+        </div>
+
+
+       
+
+        <div class="full-height no-padding">
+          <div class="row full-height no-margin">
+          
+            
+
+           
+            <div class="col-md-8 no-padding full-height">
+            
+              <div style="width:100%; padding-right:10px;">
+              <ng-container *ngIf="CommandeID && !cmdLoaded" >
+                <br><br>
+                <div class="center-loading-box">
+                         <div class="progress-circle-indeterminate m-t-45"></div>
+                </div>
+                <br><br><br>
+              </ng-container>
+
+              <ng-container *ngIf="CommandeID && cmdLoaded" >
+
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                <div class="card-header separator">
+                  <div class="card-title"> <span class="my-specific-big-title"># {{CommandeID}}</span>
+                  </div> 
+                  <i *ngIf="btnClicked" style="float:right;"  nz-icon [nzType]="'loading'"></i>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+      
+      
+                  <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+      
+                    <div class="row">
+                     
+      
+      
+                    <div class="col-5">
+      
+    
+                       
+  
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Statut</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                   {{cmd.statut}}
+
+                                   <!--
+                                   <div class="div-statuts-smaller">
+                                    <div *ngIf="conversionStatut(da.statut)=='En Cours' || conversionStatut(da.statut)=='Reporté'" class="label"
+                                      style="padding:4px; padding-top:5px;">En Attente</div>
+                                    <div *ngIf="conversionStatut(da.statut)=='Confirmé'" class="label label-success"
+                                      style="padding:4px; padding-top:5px;">Confirmé</div>
+                                    <div *ngIf="conversionStatut(da.statut)=='Rejeté'" class="label label-danger"
+                                      style="padding:4px; padding-top:5px;">Réfusé</div>
+                                  </div>
+                                  -->
+
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Fournisseur</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                  {{cmd.nom}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                    </div>
+      
+                    
+                    <div class="col-5 offset-1">
+      
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Créé le</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{cmd.created_at  | date:'dd/MM/yyyy HH:mm'}}</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Créé par</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{cmd.name}}
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+                      <!--
+                      <ng-container *ngIf="retour.NbDeModif>0">
+      
+                      <div class="form-group row">
+                        
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Derniere modification</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{retour.last_modif | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Derniere modifieur</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{retour.modifieur_name}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Nombre de modification</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{retour.NbDeModif}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+    
+                      </ng-container>
+                    -->
+                       
+      
+      
+                    </div>
+      
+      
+      
+                    </div>
+      
+            
+      
+                  </form>
+      
+      
+      
+      
+                </div>
+              </div>
+
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                <div class="card-header separator">
+                  <div class="card-title"> 
+                    <span class="my-specific-card-title">Detail Commande </span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+                  <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                   
+         
+                     <ng-container *ngIf="cmddetsomme.length>0">
+                    
+                        <!--------------------PDR Table -->
+                    
+                        <div id="id-div-table">
+                    
+                          <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                            [nzData]="['']">
+                            <thead>
+                              <tr>
+                                
+                              
+                                <th nzShowExpand ></th>
+                                <th>#</th>
+                                <th>Designation</th>
+                                <th>NB Demandeur</th>
+                                <th>Qte Cmdé</th>
+                                <th>Qte Recu</th>
+                               
+                    
+                              </tr>
+                            </thead>
+                            <tbody>
+                        <ng-container *ngFor="let article of cmddetsomme;let i=index;">
+                        <tr>
+                          
+                            <td nzShowExpand [nzExpand]="expandSet.has(article.ArticleID)"
+                            (nzExpandChange)="onExpandChange(article.ArticleID, $event)"></td> 
+
+                            <td>{{article.ArticleID }}</td>
+                            <td>{{article.Des}}</td>
+                            <td>{{nbDeDemandeurs(article.ArticleID)}}</td>
+                            <td>{{roundMath(article.TTQteCmde)}}</td>
+                            <td>{{roundMath(article.TTQteRecu)}}</td>
+                        </tr>
+                        <tr [nzExpand]="expandSet.has(article.ArticleID)">
+                            <td></td>
+                            <td colspan="5" style="padding-top:0px; margin-top:0px;">
+
+
+                             <div id="id-div-table">
+                    
+                              <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                [nzData]="['']">
+                                <thead>
+                                  <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+                                    
+                                    <th>#</th>
+                                    <th>Ref</th>
+                                    <th>Demandeur</th>
+                                    <th>Qte demdé</th>
+                                    <th>Qte Cmdé</th>
+                                    <th>Qte Recu</th>
+                        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                            <ng-container *ngFor="let det of cmddet;let i=index;">
+                            <ng-container *ngIf="det.article_id==article.ArticleID" >
+                            <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                              <td>
+                                <div class="table-firsttd-height">
+                                  
+                                    <a href="/gmao/achat/da/da/{{det.id}}" target="_blank">
+                                        {{det.id}}
+                                    </a>
+                                  
+                                </div>
+                              </td>
+                            <td>{{det.ref}}</td>
+                            <td>{{det.name}}</td>
+                            <td>{{roundMath(det.qte)}}</td>
+                            <td>{{roundMath(det.QteCmde)}}</td>
+                            <td>{{roundMath(det.TTQteRecu)}}</td>
+
+                            </tr>
+                            </ng-container>
+                          </ng-container>   
+    
+                                </tbody>
+                              </nz-table>
+                            
+                            </div>
+
+
+                          </td>
+                         
+                        </tr>
+                      </ng-container>   
+
+                            </tbody>
+                          </nz-table>
+                        
+                        </div>
+                    
+                        
+                        
+                        <!--################## PDR table-->
+                    
+                                       </ng-container>
+                    
+                                       <!--
+                                       <ng-container *ngIf="articles.length==0">
+                                         
+                                        <p class="hint-text p-t-0 fs-12">Il n y'a pas des pieces de rechange utilisées .</p>
+                                       </ng-container>
+                                       -->
+
+                  
+                     
+                  </form>
+  
+                
+                                
+<!--        
+<button *ngIf="cmd && cmd.exist==1" (click)="supprimerCmd(cmd.CommandeID)" [disabled]="receptions.length>0" >Supprimer</button>
+<button *ngIf="cmd && cmd.exist==1 " [routerLink]="['/achat/cmd/cmdreception/',cmd.CommandeID]">Nouveau Reception</button>
+<button *ngIf="cmd && cmd.exist==1 && cmd.statut=='ouvert' " (click)="fermerCmd(cmd.CommandeID)" >Fermer Commande</button>
+<button *ngIf="cmd && cmd.exist==1 && cmd.statut=='ferme' " (click)="ouvrirCmd(cmd.CommandeID)" >Ouvrir Commande</button>
+<button *ngIf="cmd && cmd.exist==0" (click)="restaurerCmd(cmd.CommandeID)" [disabled]="arr_droitRestauration.length>0" >Restaurer</button>
+-->   
+<!--
+<button (click)="Imprimer()">Imprimer</button>
+<a [routerLink]="['/gmao/achat/cmd/imprimer',cmd.fournisseur_id]" >Imprimer multiple</a>
+-->
+
+<br>
+                            <div class="row" style="vertical-align: top;">
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item"
+                                            style="padding:0px;margin:0px;margin-right:4px;">
+                                            <button (click)="Imprimer()"
+                                                class="btn btn-default btn-xs rounded-0" type="button"
+                                                data-toggle="tooltip" data-placement="top" title="Complet">
+                                                <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">printer</i></button>
+                                        </li>
+                                      </ul>
+                                  </div>
+                            </div>
+
+            <br>
+            <ng-container *ngIf="cmd && cmd.exist==0 && !(arr_droitRestauration.length>0)">
+              <div class="row">
+              <div class="col-md-10"></div>
+              <div class="col-md-2">
+                <button  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left"
+                (click)="restaurerCmd(cmd.CommandeID)" ><span> Restaurer </span>
+                </button>
+               </div>
+            </div>
+            </ng-container>
+
+            
+            <ng-container *ngIf="cmd && cmd.exist==1">
+
+            <div class="row">
+                 <ng-container *ngIf="receptions.length>0">
+                  <div class="col-md-10"></div>
+                 </ng-container>
+
+                 <ng-container *ngIf="!(receptions.length>0)">
+                  <div class="col-md-8"></div>
+                 </ng-container>
+                
+
+              <ng-container *ngIf="cmd.statut=='ouvert' ">
+               <div class="col-md-2">
+                <button  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left"
+                 (click)="fermerCmd(cmd.CommandeID)"><span> Fermé </span>
+                </button>
+               </div>
+              </ng-container>
+              <ng-container *ngIf="cmd.statut=='ferme' ">
+               <div class="col-md-2">
+                <button  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left"
+                (click)="ouvrirCmd(cmd.CommandeID)"><span> Ouvrir </span>
+                </button>
+               </div>
+              </ng-container>
+
+              <ng-container *ngIf="!(receptions.length>0)">
+                <div class="col-md-2">
+                 <button  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left"
+                 nz-popconfirm nzTitle="Vous etes sure a supprimer le commande ?" (nzOnConfirm)="supprimerCmd(cmd.CommandeID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                 ><span> Supprimer </span>
+                 </button>
+                </div>
+               </ng-container>
+
+
+
+              </div>
+
+           
+            </ng-container>
+            <br>
+
+
+                </div>
+
+
+
+            </div>
+
+           <!--<ng-container *ngIf="da.statut=='rejete' || da.statut=='rejeteParAdmin'">-->
+
+
+          <!--</ng-container>-->
+
+              </ng-container>
+              </div>
+            
+            </div>
+         
+
+            <div class="col-md-4 no-padding full-height" style=" background-color: white;">
+              <!--<div style="width:100%; padding:10px; ">
+                <div style="width:100%;">-->
+                  <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">Receptions </span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+   <ng-container *ngIf="CommandeID && !receptionsLoaded" >
+                <br><br>
+                <div class="center-loading-box">
+                         <div class="progress-circle-indeterminate m-t-45"></div>
+                </div>
+                <br><br><br>
+   </ng-container>
+
+<ng-container *ngIf="CommandeID && receptionsLoaded" >
+
+  <div id="id-div-table">
+                    
+    <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+      [nzData]="receptions">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Recepteur</th>
+          <th>Date</th>
+          <th>M</th>
+        </tr>
+      </thead>
+      <tbody>
+  <ng-container *ngFor="let rec of receptions;let i=index;">
+  <tr>
+    <td>
+      <div class="table-firsttd-height">
+          <a href="/gmao/achat/cmd/reception/{{rec.CmdRecID}}" target="_blank">
+              {{rec.CmdRecID}}
+          </a>
+      </div>
+  </td>
+      <td>{{rec.name}}</td>
+      <td>{{rec.created_at | date:'dd/MM/yy HH:mm '}}</td>
+      <td>
+        <span *ngIf="rec.isModified==1">{{rec.NbDeModif}} </span>
+      </td>
+  </tr>
+ 
+</ng-container>   
+
+      </tbody>
+    </nz-table>
+  
+  </div>
+
+</ng-container>
+
+
+
+<ng-container *ngIf="cmd && cmd.exist==1">
+  <br>
+  <div class="row">
+  <div class="col-md-6"></div>
+  <div class="col-md-6">
+    <button  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left"
+    [routerLink]="['/gmao/achat/cmd/cmdreception/',cmd.CommandeID]" ><span> Nouveau Reception </span>
+    </button>
+   </div>
+</div>
+</ng-container>
+<br>
+
+                </div>
+              </div>   
+
+
+            </div>
+
+          </div>
+        </div>
+        
+
+
+      </div>
+  </div>
+</div>
+
+
+<ng-template #iconTpl>
+  <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+  <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>
+
+
+
+
+<!---
+{{cmd | json }}
+<br>
+
+
+{{ cmddetsomme | json }}
+
+<table border="1">
+    <thead>
+     <td></td>
+     <td>Designation</td>
+     <td>Qte Commande</td>
+     <td>Qte Recu</td>
+     <td>Details v</td>
+    
+    </thead>
+    <tbody>
+<ng-container  *ngFor="let article of cmddetsomme;let i=index;">
+    <tr>
+        <td>{{i+1}}</td>
+        <td>{{article.Des}}</td>
+        <td>{{roundMath(article.TTQteCmde)}}</td>
+        <td>{{roundMath(article.TTQteRecu)}}</td>
+        <td  (click)="open(article.ArticleID)">{{nbDeDemandeurs(article.ArticleID)}} Demandeurs</td>
+       
+    </tr>
+  
+    <ng-container *ngIf="article.open==1"  >
+      <tr>
+      <td colspan="5">
+       <div *ngFor="let det of cmddet" >
+           <div *ngIf="det.article_id==article.ArticleID" >
+               N° Demande : 
+              <a target="_blank" [routerLink]="['/gmao/achat/wa9talliNa3milpageDa/',det.ref]" >
+                {{det.ref}}
+              </a>
+              Demandeur : {{det.name}} ,
+              Qte demandé : {{roundMath(det.qte)}} , 
+              Qte commandé : {{roundMath(det.QteCmde)}} ,
+              Qte Recu : {{roundMath(det.TTQteRecu)}} 
+           </div>
+       </div>
+    </td>
+     </tr>
+    </ng-container>
+
+</ng-container>
+
+
+    </tbody>
+</table>
+
+
+<button *ngIf="cmd && cmd.exist==1" (click)="supprimerCmd(cmd.CommandeID)" [disabled]="receptions.length>0" >Supprimer</button>
+<button *ngIf="cmd && cmd.exist==1 " [routerLink]="['/achat/cmd/cmdreception/',cmd.CommandeID]">Nouveau Reception</button>
+<button *ngIf="cmd && cmd.exist==1 && cmd.statut=='ouvert' " (click)="fermerCmd(cmd.CommandeID)" >Fermer Commande</button>
+<button *ngIf="cmd && cmd.exist==1 && cmd.statut=='ferme' " (click)="ouvrirCmd(cmd.CommandeID)" >Ouvrir Commande</button>
+<button *ngIf="cmd && cmd.exist==0" (click)="restaurerCmd(cmd.CommandeID)" [disabled]="arr_droitRestauration.length>0" >Restaurer</button>
+
+<button (click)="Imprimer()">Imprimer</button>
+
+<a 
+[routerLink]="['/gmao/achat/cmd/imprimer',cmd.fournisseur_id]" 
+>Imprimer multiple</a>
+
+
+
+<table border="1">
+  <thead>
+      <td>N°</td>
+      <td>Recepteur</td>
+      <td>Date</td>
+      <td></td>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let rec of receptions;let i=index;">
+      <tr [routerLink]="['/gmao/achat/cmd/reception/', rec.CmdRecID]" >
+
+      <td>{{i+1}}</td>
+      <td>{{rec.name}}</td>
+      <td>{{rec.created_at | date:'dd/MM/yy HH:mm '}}</td>
+      <td>
+        <span *ngIf="rec.isModified==1">Modifiée : {{rec.NbDeModif}} foi(s) </span>
+      </td>
+    </tr>
+    </ng-container>
+
+    <ng-container *ngIf="receptions.length==0">
+    <tr><td colspan="3">Aucune Reception</td></tr>
+    </ng-container>
+  </tbody>
+</table>
+-->

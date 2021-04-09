@@ -1,0 +1,29 @@
+
+<!--
+{{mon_date}} <span (click)="EditDate(mon_date)">[(E)]</span> 
+<span *ngIf="loading">...</span>
+-->
+
+
+<div class="input-group date col-md-12" style="width:100%;padding:0px; margin:0px;" (click)="EditDate(mon_date)" >
+    <input class='form-control input-sm' [value]="mon_date | date:'dd/MM/yyyy' " nz-input readonly>
+    <div class="input-group-append"  *ngIf="!loading">
+      <span class="input-group-text">
+        <i class='icon-container'>
+          <i class="pg-icon">edit</i>
+        </i>
+      </span>
+    </div>
+    <div class="input-group-append"  *ngIf="loading">
+        <span class="input-group-text">
+          <!-- <i class='icon-container'>
+          <i class="pg-icon">more_horizontal</i>
+          </i>-->
+          <i nz-icon [nzType]="'loading'"></i>
+        </span>
+    </div>
+   
+  </div>
+
+
+  

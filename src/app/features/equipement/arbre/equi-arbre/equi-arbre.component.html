@@ -1,0 +1,218 @@
+
+
+
+<!--
+<button [nzSize]="small" nz-button nz-dropdown [nzDropdownMenu]="menu">Actions<i nz-icon nzType="down"></i></button>
+<nz-dropdown-menu #menu="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item>
+      <a>1st item</a>
+    </li>
+    <li nz-menu-item>
+      <a>2nd item</a>
+    </li>
+    <li nz-menu-item>
+      <a>3rd item</a>
+    </li>
+  </ul>
+</nz-dropdown-menu>
+-->
+
+
+
+
+
+
+
+
+<div *ngIf="loaded">
+
+<!--
+<cdk-tree [dataSource]="dataSource" [treeControl]="treeControl">
+     This is the tree node template for leaf nodes
+    <cdk-nested-tree-node *cdkTreeNodeDef="let node" class="example-tree-node">
+     use a disabled button to provide padding for tree leaf
+      <button mat-icon-button disabled></button>
+      {{node.name}} Feuille
+    </cdk-nested-tree-node>
+   This is the tree node template for expandable node
+    <cdk-nested-tree-node *cdkTreeNodeDef="let node; when: hasChild" class="example-tree-node">
+      <button mat-icon-button [attr.aria-label]="'toggle ' + node.name" cdkTreeNodeToggle>
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      {{node.name}} Noeud
+      <div [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+        <ng-container cdkTreeNodeOutlet></ng-container>
+      </div>
+    </cdk-nested-tree-node>
+</cdk-tree>
+-->
+
+
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" ></app-breadcrumb>
+
+
+    <div class="card">
+
+<table style="table-layout: fixed;width: 100%; margin:20px;">
+  <tr>
+      <td width="75%">
+          <!--
+              <input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
+          -->
+     
+          <nz-input-group [nzSuffix]="suffixIconSearch" >
+              <input type="text" autocomplete="off" nz-input placeholder="input search text" id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+              <!--<i nz-icon nzType="search"></i>-->
+              <i class='pg-icon md-18'>search</i>
+            </ng-template>
+
+
+      </td>
+      <td width="15%">
+  <div style="padding-left:10px;">
+          <nz-button-group>
+              <!--<button nz-button nzType="primary"><i nz-icon nzType="cloud"></i></button>
+              <button nz-button nzType="primary"><i nz-icon nzType="cloud-download"></i></button>-->
+              <button nz-button nzType="default" (click)="CloseAll()"><i nz-icon class="pg-icon md-10">text_indent_decrease</i></button>
+              <button nz-button nzType="default" (click)="getALL()" ><i nz-icon class="pg-icon md-10">text_indent_increase</i></button>
+            </nz-button-group>
+
+  </div>
+          <!--<button (click)="getALL()">open</button>-->
+      </td>
+      <td width="10%">
+        <div *ngIf="!FirstClick && testLoading" >
+            <i nz-icon [nzType]="'loading'"></i>
+          </div>
+    </td>
+      <!--
+      <td width="2%">
+          <button (click)="CloseAll()">close</button>
+      </td>
+      -->
+  </tr>
+  <tr><td colspan="2">
+  <br>
+
+
+
+
+<!--
+<button (click)="getALL()">get All Arbre & Load All & opened  </button>
+<button (click)="expandAll()"> Load All & Opened </button>
+<button (click)="CloseAll()"> CloseAll </button>
+<input id="filter" #filter (keyup)="tree.treeModel.filterNodes(filter.value)" placeholder="filter nodes"/>
+<button (click)="tree.treeModel.clearFilter()">Clear Filter</button>
+-->
+
+<tree-root #tree [focused]="true" [options]="options" [nodes]="nodes">
+
+
+    <ng-template #treeNodeTemplate let-node>
+
+     <!--
+        <button nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" aria-label="" class="btn btn-default btn-xs m-t-10 dropdown-toggle" type="button" >
+          <i class="pg-icon md-18" style="padding-right:0px; margin-top:3px;" >settings_small</i>
+        </button>
+      -->
+     
+
+
+        <span title="{{node.data.name}}">{{ node.data.name }} </span>
+        <!--<span class="pull-right" ></span>-->
+
+        <span class="label" *ngIf="childrenCount(node)>0" >{{ childrenCount(node)}}</span>
+
+        <a class='tree-settings_small'  nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu" >  <i class="pg-icon md-18" style=" position:relative; top:4px; padding-right:0px; margin-top:20px; " >settings_small</i> </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li *ngIf="node.data.depth<NiveauMax" (click)="addNode(node)"  nz-menu-item><i class="pg-icon md-18">add_circle</i>Ajouter</li>
+            <li *ngIf="node.data.depth != 0" (click)="editNode(node)" nz-menu-item><i class="pg-icon md-18">edit</i>Modifier</li>
+            <li *ngIf="node.data.depth != 0" (click)="afficherNode(node)" nz-menu-item><i class="pg-icon md-18">eye</i>Afficher</li>
+            <li *ngIf="node.data.depth != 0" (click)="removeNode(node)" nz-menu-item><i class="pg-icon md-18">close</i>Delete</li>
+          </ul>
+        </nz-dropdown-menu>
+
+
+        <!--*ngIf="childrenCount(node)"-->
+       
+        
+
+        <!--
+        <span *ngIf="node.data.depth<NiveauMax" mat-icon-button (click)="addNode(node)" aria-label="Icon-button with an add icon">
+          
+            &nbsp;&nbsp;&nbsp;<img src="/assets/img/add.png" alt="" width="20" height="20" class='icon-tree' >
+        </span>
+    
+        <span *ngIf="node.data.depth != 0" mat-icon-button (click)="editNode(node)" aria-label="Icon-button with an add icon">
+        
+          &nbsp;&nbsp;&nbsp;<img src="/assets/img/edit.png" alt="" width="20" height="20" class='icon-tree' >
+        </span>
+
+        <span *ngIf="node.data.depth != 0" mat-icon-button (click)="afficherNode(node)" aria-label="Icon-button with an add icon">
+         
+          &nbsp;&nbsp;&nbsp;<img src="/assets/img/afficher.png" alt="" width="20" height="20" class='icon-tree' >
+        </span>
+
+        <span *ngIf="node.data.depth != 0" mat-icon-button (click)="removeNode(node)" aria-label="Icon-button with a delete icon">
+          &nbsp;&nbsp;&nbsp;<img src="/assets/img/supprimer.png" alt="" width="15" height="15"  class='icon-tree' >
+        </span>
+        -->
+
+
+        <!--
+        <span *ngIf="node.data.depth>0" mat-icon-button (click)="SelectNiveau(node)" aria-label="Icon-button with an add icon">
+          &nbsp;&nbsp;&nbsp;&nbsp;<img src="/assets/img/addtree.png" alt="" width="20" height="20" class='icon-tree' >
+        </span>
+        -->
+
+    </ng-template>
+
+
+</tree-root>
+
+
+
+</td>
+
+</tr>
+</table>
+
+
+
+
+</div>
+</div>
+</div>
+
+
+</div>
+
+
+
+<!--
+<app-equi-node-select (emit)="ReceptNode($event)" ></app-equi-node-select>
+-->
+
+<!--
+<app-equi-node-select-multi (emit)="ReceptNode($event)" ></app-equi-node-select-multi>
+-->
+
+
+
+
+
+
+
+  

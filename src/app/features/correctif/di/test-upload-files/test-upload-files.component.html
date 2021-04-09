@@ -1,0 +1,325 @@
+<!--
+<div *ngIf="isFiles==true">
+  <div *ngFor="let file of files;let i=index;">
+    <a [href]="publicFolder+'/'+file.BDName "><span>{{file.OriginaleName}}</span></a>
+    <span> {{ ( file.size/(1024) ) | number: '1.0-0' }} Ko</span>
+    <span (click)="removeFile(file.FileID,i)"> X </span>
+  </div>
+</div>
+-->
+
+
+<form [formGroup]="uploadForm">
+  <input type="hidden" formControlName="document" />
+  <input type="hidden" formControlName="type" />
+  <input type="hidden" formControlName="OriginaleName" />
+  <input type="hidden" formControlName="BDName" />
+  <input type="hidden" formControlName="size" />
+  <input type="hidden" formControlName="extention" />
+  
+  <!--<input type="file" ng2FileSelect [uploader]="uploader" multiple />-->
+  <input id="file-upload{{InputIDComp}}" type="file" ng2FileSelect [uploader]="uploader" multiple />
+  
+</form>
+
+
+<!-- <div class="drop-zone" ><div ng2FileDrop [uploader]="uploader" class="drop-zone">Drag and drop files to upload</div></div>-->
+<!--
+<div *ngIf="uploader.queue.length>0" >
+<table >
+   <thead>
+   <tr>
+     <th width="70%">File Name</th>
+     <th width="30%"> Remove </th>
+   </tr>
+   </thead>
+   <tbody>
+   <tr *ngFor="let item of uploader.queue">
+    
+     <th width="70%">
+       {{item._file.name}}
+     </th>
+     <th width="70%">
+       ( {{(item._file.size/(1024*1024)) | number: '1.0-1'}} MB)
+     </th>
+     <th class="text-center" width="30%">
+       <mat-icon (click)="item.remove()">delete</mat-icon>
+     </th>
+   </tr>
+   </tbody>
+ </table>
+
+</div>
+-->
+
+<!--
+    {{item._file.name}}
+    {{(item._file.size/(1024*1024)) | number: '1.0-1'}}
+
+    style="background-image: url('');"
+  -->
+
+
+<ng-container *ngIf="!(InputType=='affichage') || ( (InputType=='affichage') && isFiles==true && files.length>0 ) ">              
+<div style="width:100%;border: 1px dashed gray; border-radius: 5px; padding:10px; padding-bottom:0px;" 
+>
+
+
+
+
+
+
+
+  <div style="width:100%;">
+  <div class="row">
+
+   
+
+    <ng-container *ngIf="isFiles==true">
+      <ng-container *ngFor="let file of files;let i=index;">
+
+        <!--
+        <a [href]="publicFolder+'/'+file.BDName "><span>{{file.OriginaleName}}</span></a>
+        <span> {{ ( file.size/(1024) ) | number: '1.0-0' }} Ko</span>
+        <span (click)="removeFile(file.FileID,i)"> X </span>
+        -->
+
+        
+       
+        <div class="thumbnail upload-img-container">
+          <div class="upload-clear-btn" 
+          nz-popconfirm nzTitle="Vous etes sure a supprimer cet fichier ?" (nzOnConfirm)="removeFile(file.FileID,i)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="rightTop" [nzIcon]="iconTpl"
+          style="color:red;">x</div>
+          <a [href]="publicFolder+'/'+file.BDName" target="_blank">
+        
+          <ng-container *ngIf="isImage(file.BDName)">
+            <img [src]="publicFolder+'/'+file.BDName" class="img-thumbnail upload-img-thumbnail aff-img-thumbnail " 
+            style="margin:0px;"  width="130px;" height="130px;"
+            nz-popover [nzPopoverContent]="temp1"
+            >
+          </ng-container>
+          <ng-container *ngIf="!isImage(file.BDName)">
+            <img [src]="imagefile(file.BDName)" class="img-thumbnail upload-img-thumbnail aff-img-thumbnail" 
+            style="margin:0px;"  width="110px;" height="110px;"
+            nz-popover [nzPopoverContent]="temp1"
+            >
+          </ng-container>
+          
+
+          <ng-template  #temp1 >
+            {{file.OriginaleName}}  
+            <br>
+            {{  ( file.size/(1024) ) | number: '1.0-0' }} Ko
+          </ng-template>
+          <!--ng-attr-id="{{ 'object-' + myScopeObject.index }}"-->
+
+          </a>
+          <div class="caption upload-caption">
+            <br>
+          </div>
+          <!--
+            <div class="caption upload-caption">
+                <p class="upload-font">
+                  
+                  {{  ( file.size/(1024) ) | number: '1.0-0' }} Ko</p>     
+            </div>
+          -->
+        </div>
+    
+
+
+      </ng-container>
+    </ng-container>
+
+      <ng-container *ngIf="uploader.queue.length>0">
+    <ng-container *ngFor="let item of uploader.queue;let i=index;">
+        
+        <div class="thumbnail upload-img-container">
+          <div class="upload-clear-btn" (click)="item.remove()" >x</div>
+
+          <div style="display:inline-block;">
+          <ng-container *ngIf="isImage(item._file.name)">
+
+            <img thumbnail [image]="item?._file" class="img-thumbnail upload-img-thumbnail" 
+            style="margin:0px; min-width:50px; min-height:50px;" 
+            nz-popover [nzPopoverContent]="temp2">
+
+          </ng-container>
+          <ng-container *ngIf="!isImage(item._file.name)">
+            <img [src]="imagefile(item._file.name)" class="img-thumbnail upload-img-thumbnail" 
+            style="margin:0px; min-width:50px; min-height:50px;" width="110px;" height="110px;"
+            nz-popover [nzPopoverContent]="temp2">
+          </ng-container>
+
+          <!--<div class="progress" style="width:100%;">
+            <span>{{(progress.loaded/progress.total)*100}} %</span>
+            <div class="progress-bar" style="width:0%;"  ></div>
+          </div>-->
+
+          <div *ngIf="i==iloaded && loadingIsStart" class="progress">
+            <!--<span>{{(progress.loaded/progress.total)*100}} %</span>-->
+           
+            <div class="progress-bar" [style.width.%]="(progress.loaded/progress.total)*100"  ></div>
+          </div>
+
+          <div *ngIf="i>iloaded && loadingIsStart" class="progress">
+            <!--<span>{{(progress.loaded/progress.total)*100}} %</span>-->
+            <div class="progress-bar" style="width:0%;"  ></div>
+          </div>
+
+          <div *ngIf="i<iloaded && loadingIsStart" class="progress">
+            <!--<span>{{(progress.loaded/progress.total)*100}} %</span>-->
+            <div class="progress-bar" style="width:100%;"  ></div>
+          </div>
+
+
+
+
+        </div>
+          <ng-template  #temp2 >
+            {{item._file.name}} 
+            {{item._file.width}}
+            <br>
+            {{  ( item._file.size/(1024) ) | number: '1.0-0' }} Ko 
+          </ng-template>
+
+          <div class="caption upload-caption">
+            
+            <br *ngIf="!loadingIsStart">
+
+          </div>
+
+          <!--
+            <div class="caption upload-caption">
+                
+                <p class="upload-font">
+                  {{  ( item._file.size/(1024) ) | number: '1.0-0' }} Ko
+                </p>     
+            </div>
+          -->
+        </div>
+     
+    </ng-container>
+  </ng-container>
+
+  </div>
+
+<ng-container *ngIf="!(InputType=='affichage')">
+  <label  for="file-upload{{InputIDComp}}" class="custom-file-upload" style="width:100%;">
+
+
+    <ng-container *ngIf="!loadingIsStart && getFileLoading">
+      <i  nz-icon nzType="loading" class="loading-icon" style="position:relative; top:-3px;"></i>
+    </ng-container>
+
+    <ng-container *ngIf="!loadingIsStart && !getFileLoading">
+    <i class="pg-icon md-18" style="position:relative;top:3px;">upload</i>
+    <!--&nbsp; &nbsp; 
+      Upload-->
+    </ng-container>
+
+
+    <ng-container *ngIf="loadingIsStart &&  ((NewToTaleSize/(1024*1024))>1) " >
+      <div style="width:100%;">
+      <span style="float:left;">{{( (ActualSizeUploaded/NewToTaleSize)*100 ) | number: '1.0-0' }} % </span>
+        <span style="float:right;">{{ (ActualSizeUploaded/(1024*1024)) | number: '1.0-0'}} MB / {{ (NewToTaleSize/(1024*1024)) | number: '1.0-0'}} MB</span>
+      </div>
+      <br>
+      <div class="progress" style="width:100%;">
+        <div class="progress-bar" [style.width.%]="(ActualSizeUploaded/NewToTaleSize)*100"  ></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="loadingIsStart &&  ((NewToTaleSize/(1024*1024))<1) " >
+      <div style="width:100%;">
+      <span style="float:left;">{{( (ActualSizeUploaded/NewToTaleSize)*100 ) | number: '1.0-0' }} % </span>
+        <span style="float:right;">{{ (ActualSizeUploaded/(1024)) | number: '1.0-0'}} Ko / {{ (NewToTaleSize/(1024)) | number: '1.0-0'}} Ko</span>
+      </div>
+      <br>
+      <div class="progress" style="width:100%;">
+        <div class="progress-bar" [style.width.%]="(ActualSizeUploaded/NewToTaleSize)*100"  ></div>
+      </div>
+    </ng-container>
+
+
+
+  </label>
+  </ng-container>
+
+
+
+  </div>
+
+</div>
+</ng-container>    
+
+<ng-template #iconTpl>
+  <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+  <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>
+
+
+
+<!--
+<div style="width:100%;">
+<ng-container *ngIf="uploader.queue.length>0">
+  <ng-container *ngFor="let item of uploader.queue">
+
+<span>
+<img thumbnail [image]="item?._file" class="img-thumbnail" style="margin:5px;">
+
+
+
+</span>
+
+</ng-container>
+</ng-container>
+</div>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+    <div *ngIf="loadingIsStart==true">
+
+      Progress:
+      <br>
+      {{actualFileNameUpload}}<br>
+      {{nbOfFileUploaded}} / {{nbOfFiles}} <br>
+      {{(progress.loaded/progress.total)*100}}%<br>
+
+      <div class="container">
+        <h2>Basic Progress Bar</h2>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" [attr.aria-valuemax]="100"
+            [attr.aria-valuenow]="progress.loaded" [style.width.%]="(progress.loaded/progress.total)*100">
+            <span class="sr-only">70% Complete</span>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="container">
+        <h2>Total bar</h2>
+        <div class="progress">
+          <div class="progress-bar" role="progressbar" aria-valuemin="0" [attr.aria-valuemax]="100"
+            [attr.aria-valuenow]="ActualSizeUploaded" [style.width.%]="(ActualSizeUploaded/NewToTaleSize)*100">
+            <span class="sr-only">70% Complete</span>
+          </div>
+        </div>
+      </div>
+      Totale = {{NewToTaleSize}}
+      <br>
+      Actuelle = {{ActualSizeUploaded}}
+      <progress [value]=progress.loaded [max]=progress.total></progress>
+
+    </div>
+-->

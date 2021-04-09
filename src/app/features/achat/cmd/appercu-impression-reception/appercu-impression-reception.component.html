@@ -1,0 +1,26 @@
+<p>appercu-impression-reception works!</p>
+
+
+  <mat-dialog-content #imprimer>
+      
+    
+    
+    N° reception : {{reception.CmdRecID}} ,
+    N° Commande : {{reception.commande_id}} ,
+    Nom de recepteur : {{reception.name}} , 
+    Date de reception : {{reception.created_at}} 
+    
+    
+    <div *ngFor="let article of reception_det;let i=index;">
+        {{i+1}} : {{article.ArticleID}} , {{article.Des}} , {{roundMath(article.TTQteRecu)}}
+    </div>
+  
+    Rapport : {{reception.rapport}}
+     
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+      <button mat-button tabindex="1" (click)="downloadPDF()">ExportPdf</button>
+      <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+  </mat-dialog-actions>
+

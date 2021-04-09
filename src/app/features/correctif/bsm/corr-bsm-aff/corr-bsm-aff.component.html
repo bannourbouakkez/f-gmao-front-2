@@ -1,0 +1,419 @@
+
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+<div [ngClass]="isData ? 'big-container-list':'big-container'">
+  <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [home]="home"></app-breadcrumb>
+
+    <div [ngClass]="isData ? '': 'card'">
+      <div class="card-header" *ngIf="!isData">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+
+  <!--
+  {{ bsm | json }}
+  {{ response_bsm | json }}
+  -->
+        
+  <ng-container *ngIf="loaded">
+        <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+          <div class="card-header separator">
+            <div class="card-title">
+              <span class="my-specific-big-title">
+              #
+              {{PouC(isCorrectif)}}{{bsm.BsmID}}
+            </span>
+            </div>
+          </div>
+          <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+
+            <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+              <div class="row">
+               
+
+
+              <div class="col-5">
+
+                  <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <p class="hint-text p-t-0 fs-12">Statut</p>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">
+
+                            <div class="div-statuts-smaller">
+                              <div *ngIf="bsm.statut=='enAttente'" class="label"
+                                style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                              <div *ngIf="bsm.statut=='accepted'" class="label label-info"
+                                style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                              <div *ngIf="bsm.statut=='refused'" class="label label-danger"
+                                style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                            </div>
+                          
+
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <p class="hint-text p-t-0 fs-12">N° OT</p>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">
+                            <ng-container *ngIf="isCorrectif">
+                              {{bsm.ot_id}}  
+                            </ng-container>
+                            <ng-container *ngIf="!isCorrectif">
+                              {{bsm.otp_id}}  
+                            </ng-container>
+
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <ng-container *ngIf="bsm.statut!='enAttente'">
+
+                    <div class="form-group row">
+  
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Repondu le</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{response_bsm.created_at | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                    </div>
+                  </div>
+                 
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Repondu par</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{response_bsm.name}}</span></label>
+                    </div>
+                  </div>
+                 
+                  <div class="clearfix"></div>
+                  </ng-container>
+
+                  <ng-container *ngIf="bsm.statut=='refused'">
+                    <div class="clearfix"></div>
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <p class="hint-text p-t-0 fs-12">Cause de refus</p>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">
+                            {{response_bsm.reason}}  
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                  </ng-container>
+
+
+<!--
+                <div class="form-group row">
+                  <label for="name" class="col-md-6 control-label">
+                    <p class="hint-text p-t-0 fs-12">Equipement</p>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label" style="width:100%;">
+
+
+                    <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                    </app-aff-equipement>
+                      
+
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-6 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Tache</span>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{otp.tache}}</span>
+                        </label>
+                  </div>
+                </div>
+              -->            
+
+
+
+
+              </div>
+
+              
+              <div class="col-5 offset-1">
+
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé le</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{bsm.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé par</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{bsm.name}}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+              </div>
+
+
+
+              </div>
+
+      
+
+            </form>
+
+
+
+
+          </div>
+        </div>
+
+  
+    
+        
+      
+      <br> 
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                <div class="card-header separator">
+                  <div class="card-title"> 
+                    <span class="my-specific-card-title">Articles</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                
+
+                  <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+            
+  
+
+  <!--
+  {{ bsm | json }}
+  {{ response_bsm | json }}
+  -->
+  
+   <!---------------- articles Table -->
+   <div id="id-div-table">
+                          
+    <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+      [nzData]="['']">
+      <thead>
+        <tr>
+          <th nzWidth="10%">#</th>
+          <th nzWidth="40%">Designation</th>
+          <th nzWidth="25%">Qté Demandé</th>
+          <th nzWidth="25%" *ngIf=" bsm.statut=='accepted' ">Qté Accépté</th>
+        </tr>
+      </thead>
+      <tbody>
+            
+    <ng-container *ngIf="bsm.statut=='accepted' " >
+      <ng-container *ngFor="let a of combined; let i=index;">
+        <tr>
+            <td>{{a.bsm.article_id}}</td>
+            <td>{{a.bsm.des}}</td>
+            <td>{{a.bsm.qte}} {{a.bsm.unite}} </td>
+            <td>{{a.response.qte}} {{a.bsm.unite}}</td>
+        </tr>
+     </ng-container>
+   </ng-container>
+  
+  
+   <ng-container *ngIf=" bsm.statut != 'accepted' " >
+    <ng-container *ngFor=" let a of bsm_dets; let i=index;">
+      <tr>
+          <td>{{a.article_id}}</td>
+          <td>{{a.des}}</td>
+          <td>{{a.qte}} {{a.unite}} </td>
+      </tr>
+    </ng-container>
+  </ng-container>
+  
+  
+  
+      </tbody>
+    </nz-table>
+  
+  </div>
+  <!--############### articles Table -->
+  
+
+  
+                              
+                  </form>
+
+                 
+
+                </div>
+              </div>
+<ng-container *ngIf="!source">
+              <br>
+              <div class="row">
+                <div class="col-md-10">
+                </div>
+                <div class="col-md-2">
+                  <!--<a href="gmao/preventif/bonp/add/0/{{BonpID}}">-->
+                    <!--[routerLink]="['/gmao/magasin/retour/add/',RetourID,SrcToNumber()]" -->
+                  <ng-container *ngIf="bsm.statut=='enAttente'">
+                  <button 
+                
+                  (click)="openBsmAdd()"
+                  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>
+                            Repondre
+                    </span>
+
+                    <i class="pg-icon md-18">
+                      list_bullets
+                    </i>
+
+                  </button>
+                </ng-container>
+
+                  <!--</a>-->
+                </div>
+              </div>
+            </ng-container>
+            
+           
+</ng-container>
+
+
+<ng-container *ngIf="!loaded">
+  <br>
+  <div class="center-loading-box">
+   <!--
+      <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+     -->
+      <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br>
+ </ng-container>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+<!--
+<div *ngIf="loaded">
+{{ bsm | json }}
+{{ response_bsm | json }}
+<table>
+    <thead>
+        <td>N° Article</td>
+        <td> Des </td>
+        <td> Qte Demande </td>
+        <td *ngIf=" bsm.statut=='accepted' " > Qte Accepte </td>
+    </thead>
+
+    <tbody>
+
+        <ng-container *ngIf="bsm.statut=='accepted' " >
+          <ng-container *ngFor="let a of combined; let i=index;">
+            <tr>
+                <td>{{a.bsm.article_id}}</td>
+                <td>{{a.bsm.des}}</td>
+                <td>{{a.bsm.qte}}</td>
+                <td>{{a.response.qte}}</td>
+            </tr>
+         </ng-container>
+       </ng-container>
+
+     <ng-container *ngIf=" bsm.statut != 'accepted' " >
+        <ng-container *ngFor=" let a of bsm_dets; let i=index;">
+          <tr>
+              <td>{{a.article_id}}</td>
+              <td>{{a.des}}</td>
+              <td>{{a.qte}}</td>
+          </tr>
+        </ng-container>
+     </ng-container>
+
+
+    </tbody>
+
+</table>
+
+<div *ngIf=" bsm.statut=='refused' ">
+  Cause de refus : 
+  {{ response_bsm.reason }}
+</div>
+
+</ng-container>
+
+-->

@@ -1,0 +1,1255 @@
+<div class='big-container'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div class="card">
+      <div class="card-header">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+      <ng-container *ngIf="OtpID>0 && otp.exist==0">
+        <br><br><br>
+        <div class="center-box" >
+           Ordre de travail est supprimé .
+        </div>
+        <br><br><br><br><br>
+      </ng-container>
+
+      <ng-container *ngIf="OtpID>0 && otp.exist==1">
+
+
+
+
+
+        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+          <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                <div class="card-header separator">
+                  <div class="card-title">
+                    <span class="my-specific-big-title"># {{otp.OtpID}}</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+
+                  <form class="form-horizontal">
+
+
+                    <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+                      <div class="col-6">
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <span class="hint-text p-t-0 fs-12">N° intervention</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">
+                                <span class="fast-url" [routerLink]="['/gmao/preventif/intervention/intervention/',otp.intervention_id]" >{{otp.intervention_id}}</span>
+
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <span class="hint-text p-t-0 fs-12">Date d'execution</span>
+                          </label>
+                          <div class="col-md-8">
+
+                            <span class="font-affichage-contenu">
+
+                              <app-editable-date [date]="otp.date_execution" whattoedit='otp_date_execution'
+                                [id]="OtpID">
+                              </app-editable-date>
+                              <!--{{otp.date_execution}}-->
+                            </span>
+
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <span class="hint-text p-t-0 fs-12">Statut</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">
+                                {{otp.statut}}
+                              </span>
+                            </label>
+
+
+
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <span class="hint-text p-t-0 fs-12">Equipement</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label" style="width:100%;">
+                              <span class="font-affichage-contenu">
+                                
+                                <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                                </app-aff-equipement>
+
+                              </span>
+                            </label>
+
+
+
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                      
+
+
+
+
+                      </div>
+
+
+                      <div class="col-4 offset-1">
+
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <span class="hint-text p-t-0 fs-12">Créé le</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label"><span
+                                class="font-affichage-contenu">{{otp.created_at | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <span class="hint-text p-t-0 fs-12">Créé Par</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label"><span
+                                class="font-affichage-contenu">{{otp.name}}</span></label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        <ng-container *ngIf="otp.NbDeModif>0">
+                         
+
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <span class="hint-text p-t-0 fs-12">Modifié le</span>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">{{otp.last_modif | date:'dd/MM/yyyy HH:mm'}}</span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <span class="hint-text p-t-0 fs-12">Modifieur</span>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label"><span
+                                  class="font-affichage-contenu">{{otp.modifieur_name}}</span></label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <span class="hint-text p-t-0 fs-12">Nb de modification</span>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label"><span
+                                  class="font-affichage-contenu">{{otp.NbDeModif}}</span></label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                        </ng-container>
+
+
+                      </div>
+
+
+
+                    </div>
+
+
+
+
+                  </form>
+
+
+
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+          <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                <div class="card-header separator">
+                  <div class="card-title">
+                    <span class="my-specific-card-title">Bsm & Bso</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                  <form class="form-horizontal">
+                    <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+                      <div class="col-5">
+
+
+                        <div class="form-group row">
+
+
+                          <label for="name" class="col-md-3 control-label">
+                            <p class="hint-text p-t-0 fs-12">Bsm</p>
+                          </label>
+                          <div class="col-md-9">
+                            <div class="input-group  col-md-12 p-1-0">
+
+
+
+
+                              <!--
+    <div *ngFor="let bsm of bsms">
+      <span> N°:{{bsm.BsmID}} </span>
+      <span>{{bsm.statut}}</span>
+
+      <span> <a target="_blank" href="/correctif/bsm/bsm/{{bsm.BsmID}}/2">(A)</a></span>
+      <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+        <span *ngIf="bsm.statut=='enAttente'" (click)="AddOrEditBsm(OtpID,bsm.BsmID)"> (M) </span>
+        <span *ngIf="bsm.statut=='enAttente' " (click)="deleteBsm(bsm.BsmID)"> (X) </span>
+      </ng-container>
+
+    </div>
+
+    <ng-container *ngIf="otp.statut=='enCours'">
+      <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+        <span (click)="AddOrEditBsm(OtpID,null)">[+]</span>
+      </ng-container>
+    </ng-container>
+
+-->
+
+
+                              <ng-container *ngIf="otp.statut=='enCours' || otp.statut=='ferme' ">
+                                <table class="pull-left no-margin p-t-5 p-b-5 fs-13" style="width: 100%;">
+
+                                  <ng-container *ngFor="let bsm of bsms" style="width:100%;">
+ 
+
+                                    <tr>
+                                      <td >
+
+                                        <span> # P{{bsm.BsmID}} </span></td>
+                                      <td style="text-align: left;">
+                                        <div class="div-statuts-smaller">
+                                          <div *ngIf="bsm.statut=='enAttente'" class="label"
+                                            style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                                          <div *ngIf="bsm.statut=='accepted'" class="label label-success"
+                                            style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                                          <div *ngIf="bsm.statut=='refused'" class="label label-danger"
+                                            style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                                        </div>
+
+                                     
+
+
+                                      </td>
+                                      <td width="25%"></td>
+                                     
+                                      <td style="padding:0px; margin:0px; padding-bottom:3px;">
+
+
+                                        <div style="width:100%;">
+                                          <ul class="list-inline m-0" style="float:right;">
+
+
+                                            <li class="list-inline-item"
+                                              style="padding:0px;margin:0px;margin-left:4px;">
+                                              <!--<a target="_blank" href="/gmao/correctif/bsm/bsm/{{bsm.BsmID}}/2">-->
+                                                <!--<button  [routerLink]="['/gmao/correctif/bsm/bsm/',bsm.BsmID,'2']" class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="afficher bsm">
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i>
+                                                </button>-->
+                                              <!--</a>-->
+
+                                              <button  (click)="openBsm(bsm.BsmID,'preventif')" class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="afficher bsm">
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i>
+                                                </button>
+
+
+                                            </li>
+
+
+                                            <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+
+                                              <li class="list-inline-item"
+                                                style="padding:0px;margin:0px;margin-left:4px;"
+                                                *ngIf="bsm.statut=='enAttente'">
+                                                <button class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="modifier"
+                                                  (click)="AddOrEditBsm(OtpID,bsm.BsmID)">
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                                                </button>
+                                              </li>
+
+                                              <li class="list-inline-item"
+                                                style="padding:0px;margin:0px;margin-left:4px;"
+                                                *ngIf="bsm.statut=='enAttente'">
+                                                <button class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="reset"
+                                                  
+                                                  nz-popconfirm nzTitle="Vous etes sure a supprimer le demande bsm ?" (nzOnConfirm)="deleteBsm(bsm.BsmID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="rightTop" [nzIcon]="iconTpl"
+
+                                                  >
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                                </button>
+                                              </li>
+
+                                            </ng-container>
+
+                                          </ul>
+                                        </div>
+
+
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="4" style="padding:0px;">
+                                        <div class="b-b b-grey" style="width:100%;">
+                                          <div class="clearfix"></div>
+                                        </div>
+                                      </td>
+                                    </tr>
+ 
+
+                                  </ng-container>
+                                </table>
+
+
+                                <ng-container *ngIf="otp.statut=='enCours'">
+                                  <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+                                    <ul class="list-inline m-0">
+                                      <li class="list-inline-item" style="padding:0px;margin:0px;">
+                                        <button class="btn btn-default btn-xs rounded-0" type="button"
+                                          data-toggle="tooltip" data-placement="top" title="ajouter"
+                                          (click)="AddOrEditBsm(OtpID,null)">
+                                          <i class="pg-icon md-18"
+                                            style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                                        </button>
+                                      </li>
+                                    </ul>
+                                  </ng-container>
+                                </ng-container>
+
+                              </ng-container>
+
+
+                              <ng-container *ngIf="otp.statut=='enAttente'">
+                                la tnajjim tzid la bso la bsm 5ater statut enAttente
+                              </ng-container>
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                      </div>
+
+
+                      <div class="col-5  offset-1">
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-3 control-label">
+                            <p class="hint-text p-t-0 fs-12">Bso</p>
+                          </label>
+                          <div class="col-md-9">
+                            <div class="input-group  col-md-12 p-1-0">
+
+
+                              <!--
+<ng-container *ngIf="otp.statut=='enCours' || otp.statut=='ferme' ">     
+
+  <div *ngFor="let bso of bsos">
+    <span> N°:{{bso.BsoID}} </span>
+    <span>{{bso.statut}}</span>
+    <span> <a target="_blank" href="/correctif/bso/bso/{{bso.BsoID}}">(A)</a></span>
+
+    <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+      <ng-container *ngIf="otp.statut=='enCours'">
+        <span *ngIf="bso.statut=='ouvert'" (click)="AddOrEditBso(OtpID,bso.BsoID)"> (M) </span>
+        <span *ngIf="bso.statut=='ouvert' " (click)="deleteBso(bso.BsoID)"> (X) </span>
+      </ng-container>
+    </ng-container>
+
+  </div>
+
+  <ng-container *ngIf="otp.statut=='enCours'">
+    <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+      <span (click)="AddOrEditBso(OtpID,null)">[+]</span>
+    </ng-container>
+  </ng-container>
+
+</ng-container>
+-->
+
+
+
+
+                              <ng-container *ngIf="otp.statut=='enCours' || otp.statut=='ferme' ">
+
+
+
+                                <table class="pull-left no-margin p-t-5 p-b-5 fs-13" style="width: 100%;">
+
+                                  <ng-container *ngFor="let bso of bsos" style="width:100%;">
+
+                                    <tr>
+                                      <td>
+
+                                        <span># P{{bso.BsoID}} </span></td>
+
+                                      <td style="text-align: left;">
+                                        <div class="div-statuts-smaller">
+                                          <div *ngIf="bso.statut=='ouvert'" class="label"
+                                            style="padding:4px; padding-top:5px;">{{bso.statut}}</div>
+                                          <div *ngIf="bso.statut=='repondu'" class="label label-warning"
+                                            style="padding:4px; padding-top:5px;">{{bso.statut}}</div>
+                                          <div *ngIf="bso.statut=='ferme'" class="label label-info"
+                                            style="padding:4px; padding-top:5px;">{{bso.statut}}</div>
+                                        </div>
+
+
+
+
+                                      </td>
+                                      <td width="25%"></td>
+                                      <td style="padding:0px; margin:0px; padding-bottom:3px;">
+
+
+                                        <div style="width:100%;">
+
+                                          <ul class="list-inline m-0" style="float:right;">
+
+
+                                            <li class="list-inline-item"
+                                              style="padding:0px;margin:0px;margin-left:4px;">
+                                              <!--<a target="_blank" href="/correctif/bso/bso/{{bso.BsoID}}">-->
+                                                <!--<button [routerLink]="['/gmao/correctif/bso/bso/',bso.BsoID,'preventif']" class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="afficher bso">
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i>
+                                                </button>-->
+
+                                                <button (click)="openBso(bso.BsoID,'preventif')" class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="afficher bso">
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i>
+                                                </button>
+                                                
+                                                
+                                              <!--</a>-->
+
+                                              
+                                            </li>
+
+
+                                            <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+
+                                              <li class="list-inline-item"
+                                                style="padding:0px;margin:0px;margin-left:4px;"
+                                                *ngIf="bso.statut=='ouvert'">
+                                                <button class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="modifier"
+                                                  (click)="AddOrEditBso(OtpID,bso.BsoID)">
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                                                </button>
+                                              </li>
+
+
+                                              <li class="list-inline-item"
+                                                style="padding:0px;margin:0px;margin-left:4px;"
+                                                *ngIf="bso.statut=='ouvert'">
+                                                <button class="btn btn-default btn-xs rounded-0" type="button"
+                                                  data-toggle="tooltip" data-placement="top" title="reset"
+                                                  nz-popconfirm nzTitle="Vous etes sure a supprimer le demande bso ?" (nzOnConfirm)="deleteBso(bso.BsoID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+
+                                                  >
+                                                  <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                                </button>
+                                              </li>
+
+                                            </ng-container>
+
+                                          </ul>
+                                        </div>
+
+
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td colspan="4" style="padding:0px;">
+                                        <div class="b-b b-grey" style="width:100%;">
+                                          <div class="clearfix"></div>
+                                        </div>
+                                      </td>
+                                    </tr>
+
+
+                                  </ng-container>
+                                </table>
+
+
+
+
+                                <ng-container *ngIf="otp.statut=='enCours'">
+                                  <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+                                    <ul class="list-inline m-0">
+                                      <li class="list-inline-item" style="padding:0px;margin:0px;">
+                                        <button class="btn btn-default btn-xs rounded-0" type="button"
+                                          data-toggle="tooltip" data-placement="top" title="ajouter"
+                                          (click)="AddOrEditBso(OtpID,null)">
+                                          <i class="pg-icon md-18"
+                                            style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                                        </button>
+                                      </li>
+                                    </ul>
+                                  </ng-container>
+                                </ng-container>
+
+
+
+
+
+
+                              </ng-container>
+
+
+
+
+                              <ng-container *ngIf="otp.statut=='enAttente'">
+                                la tnajjim tzid la bso la bsm 5ater statut enAttente
+                              </ng-container>
+
+
+
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+
+
+        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+          <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                <div class="card-header separator">
+                  <div class="card-title">
+                    <span class="my-specific-card-title">Reservation</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                  <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                    <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+                      <div class="col-5">
+
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-3 control-label">
+                            <p class="hint-text p-t-0 fs-12">PDR</p>
+                          </label>
+                          <div class="col-md-9">
+                            <div class="input-group  col-md-12 p-1-0">
+
+
+
+                              <!--
+                          
+  <ng-container *ngIf="articles_reserved.length>0">
+    ---<br>
+    Pieces reserve : <br>
+    <div *ngFor="let article of articles_reserved">
+      {{article.des}} - {{article.qte}} <br>
+    </div>
+    ---<br>
+  </ng-container>
+
+  <ng-container *ngIf="reservation">
+    <span *ngIf="articles_reserved.length==0"
+      (click)="AddOrEditBsmForReservation(OtpID,reservation.ReservationID)">[+]</span>
+    <span *ngIf="articles_reserved.length>0"
+      (click)="AddOrEditBsmForReservation(OtpID,reservation.ReservationID)">[edit]</span>
+    <span *ngIf="articles_reserved.length>0" (click)="ViderArticlesReserved(reservation.ReservationID)">[X]</span>
+  </ng-container>
+
+  <ng-container *ngIf="!reservation">
+    <span *ngIf="articles_reserved.length==0" (click)="AddOrEditBsmForReservation(OtpID,null)">[+]</span>
+  </ng-container>
+
+                        -->
+
+
+
+                              <ng-container *ngIf="articles_reserved.length>0">
+
+                                <div *ngFor="let article of articles_reserved" style="width:100%;">
+
+                                  <div class="row" style="width:100%;">
+                                    <div class="b-b b-grey" style="width:100%;">
+
+                                      <p class="pull-left no-margin p-t-5 p-b-5 fs-13">{{article.des}}</p>
+
+                                      <p class="pull-right no-margin p-t-5 p-b-5 fs-13">{{article.qte}}
+                                        {{ affichageUnite(article.unite) }}</p>
+
+                                      <div class="clearfix"></div>
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                              </ng-container>
+
+
+
+                              <ng-container *ngIf="reservation">
+
+                                <ul class="list-inline m-0" *ngIf="articles_reserved.length==0">
+                                  <li class="list-inline-item" style="padding:0px;margin:0px;">
+                                    <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                      data-placement="top" title="ajouter" *ngIf="articles_reserved.length==0"
+                                      (click)="AddOrEditBsmForReservation(OtpID,reservation.ReservationID)">
+                                      <i class="pg-icon md-18"
+                                        style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                                    </button>
+                                  </li>
+                                </ul>
+
+
+                                <div style="width:100%;" *ngIf="articles_reserved.length>0">
+                                  <ul class="list-inline m-0" style="float:right;">
+
+
+
+                                    <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                      <button class="btn btn-default btn-xs rounded-0" type="button"
+                                        data-toggle="tooltip" data-placement="top" title="modifier"
+                                        *ngIf="articles_reserved.length>0"
+                                        (click)="AddOrEditBsmForReservation(OtpID,reservation.ReservationID)">
+                                        <i class="pg-icon md-18"
+                                          style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                                      </button>
+                                    </li>
+
+                                    <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                      <button class="btn btn-default btn-xs rounded-0" type="button"
+                                        data-toggle="tooltip" data-placement="top" title="reset"
+                                        *ngIf="articles_reserved.length>0"
+                                        (click)="ViderArticlesReserved(reservation.ReservationID)">
+                                        <i class="pg-icon md-18"
+                                          style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                      </button>
+                                    </li>
+
+                                  </ul>
+                                </div>
+
+
+                              </ng-container>
+
+                              <ng-container *ngIf="!reservation">
+
+                                <ul class="list-inline m-0" *ngIf="articles_reserved.length==0">
+                                  <li class="list-inline-item" style="padding:0px;margin:0px;">
+                                    <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                      data-placement="top" title="ajouter" *ngIf="articles_reserved.length==0"
+                                      (click)="AddOrEditBsmForReservation(OtpID,null)">
+                                      <i class="pg-icon md-18"
+                                        style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                                    </button>
+                                  </li>
+                                </ul>
+
+                              </ng-container>
+
+
+                            </div>
+                          </div>
+                        </div>
+
+
+
+                        <div class="clearfix"></div>
+
+                      </div>
+
+
+                      <div class="col-5  offset-1">
+
+                        <div class="form-group row">
+                          <label for="name" class="col-md-3 control-label">
+                            <p class="hint-text p-t-0 fs-12">Intervenants</p>
+                          </label>
+                          <div class="col-md-9">
+                            <div class="input-group  col-md-12 p-1-0">
+                              <!--<label class="control-label">-->
+
+                              <div style="width:100%;">
+
+                                <app-prev-reservation-default *ngIf="getOtp_Load"
+                                  [Input_IntReservationID]="IntReservationID" [Input_OtpID]="OtpID"
+                                  [Input_DateTimeOTp]="DateTimeOTp"
+                                  [Input_reservedintervenants]="local_2_reservedintervenants" [Input_DontSend]="false"
+                                  (action)="getIntReservationID($event)" [InterventionID]="otp.intervention_id"
+                                  
+                                  [InputEquipementID]="intervention.equipement_id"
+                        [InputEquipement]="intervention.equipement"
+                        [InputNiv]="intervention.Niv"
+                        >
+                                </app-prev-reservation-default>
+
+
+                              </div>
+
+                              <!--
+                        <div *ngIf="!form.get('date_execution').value" >
+    
+    
+                          <ul class="list-inline m-0" >
+                            <li class="list-inline-item" style="padding:0px;margin:0px;">
+                              <button class="btn btn-default btn-xs rounded-0 disabled" type="button" data-toggle="tooltip"
+                                data-placement="top" title="" style="cursor:not-allowed;" >
+                                <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                              </button>
+                            </li>
+                          </ul>
+                          <label class="error text-complete">
+                            Choisir la date d'execution pour pouvoir reserver des intervenants.
+                          </label>
+    
+    
+                        </div>
+    -->
+
+                              <!--</label>-->
+                            </div>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                      </div>
+
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+        <br>
+        <br>
+
+        <div class="row">
+          <div class="col-md-9">
+          </div>
+
+          <!--
+        <div class="col-md-2">
+          <button style="margin:5px;" aria-label="" type="button"
+            class="btn btn-block btn-default btn-lg btn-icon-left">
+            <span>Modifier</span>
+            <i class="pg-icon md-18">edit</i>
+          </button>
+        </div>
+        -->
+
+          <ng-container *ngIf="OtpID && otp.statut=='enCours'">
+            <div class="col-md-2">
+              <button style="margin:5px;" aria-label="" type="button" 
+                class="btn btn-block btn-default btn-lg btn-icon-left"
+                nz-popconfirm nzTitle="Vous etes sure a supprimer l'OT ?" (nzOnConfirm)="deleteOtp(OtpID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="top" [nzIcon]="iconTpl"
+                >
+                <span>Supprimer OT</span>
+
+                <i class="pg-icon md-18" *ngIf="!LoadingReactBtn1">trash_alt</i>
+                <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+     
+
+
+              </button>
+            </div>
+          </ng-container>
+
+        </div>
+
+
+        <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+          <div class="row">
+            <div class="col-md-7">
+            </div>
+
+            <ng-container *ngIf="otp.statut=='ferme'">
+              <div class="col-md-2">
+                <!--<a target="_blank" href="gmao/preventif/bonp/bonp/{{BonpID}}">-->
+                  <button [routerLink]="['/gmao/preventif/bonp/bonp/',BonpID]" style="margin:5px;" aria-label="" type="button"
+                    class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>Afficher Bon</span>
+                    <i class="pg-icon md-18">eye</i>
+                  </button>
+                <!--</a>-->
+              </div>
+
+              <div class="col-md-2">
+                <!--<a target="_blank" href="gmao/preventif/bonp/add/0/{{BonpID}}">-->
+                  <button  [routerLink]="['/gmao/preventif/bonp/add/0/',BonpID]" style="margin:5px;" aria-label="" type="button"
+                    class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>Modifier Bon</span>
+                    <i class="pg-icon md-18">edit</i>
+                  </button>
+                <!--</a>-->
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="otp.statut=='enCours'">
+              <div class="col-md-2 offset-2">
+                <!--<a target="_blank" href="gmao/preventif/bonp/add/{{OtpID}}/0">-->
+                  <button [routerLink]="['/gmao/preventif/bonp/add/',OtpID,'0']" style="margin:5px;" aria-label="" type="button"
+                    class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>Créer Bon</span>
+                    <i class="pg-icon md-18">add_circle</i>
+                  </button>
+                <!--</a>-->
+              </div>
+            </ng-container>
+
+
+          </div>
+        </ng-container>
+
+
+
+
+
+        <br><br>
+
+
+      </ng-container>
+
+      
+
+      <ng-container *ngIf="!(OtpID>0)">
+       <br><br><br>
+       <div class="center-loading-box">
+        <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+       </div>
+       <br><br><br><br>
+      </ng-container>
+
+
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+  <ng-template #iconTpl>
+    <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+    <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+  </ng-template>
+
+
+
+
+
+<!------------------------------------------------------------------------------------------>
+
+<!--
+<div class='big-container-list'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [home]="home"></app-breadcrumb>
+
+    <div class="card">
+      <div class="card-header separator">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+              class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+
+        <br>
+
+
+        <div class="card card-default" style="border:1px solid gray;">
+          <div class="card-header  separator">
+            <div class="card-title">
+              <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i>
+              Ordre de travail
+            </div>
+          </div>
+          <div class="card-body">
+
+
+
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="col-3">
+
+                  <div class="form-group row">
+
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">#</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{otp.OtpID}}</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">N° intervention</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{otp.intervention_id}}</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Date d'execution</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{otp.date_execution}}</span></label>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+                <div class="col-3 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Créé le</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="font-affichage-contenu">{{otp.created_at}}</span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Créé Par</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="font-affichage-contenu">{{otp.name}}</span></label>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="col-3 offset-1">
+
+                
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Modifié le</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{otp.last_modif}}</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Modifieur</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="font-affichage-contenu">{{otp.modifieur_name}}</span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Nombre de modification</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="font-affichage-contenu">{{otp.NbDeModif}}</span></label>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+-->
+
+
+
+
+
+
+
+<!--------------------------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div *ngIf="OtpID>0 && otp.exist==1">
+  {{ otp | json }}
+
+
+  {{ otp | json }}
+  <br>
+  {{ intervenants | json }}
+  <br>
+
+  
+  <app-editable-date [date]="otp.date_execution" whattoedit='otp_date_execution' [id]="OtpID"></app-editable-date>
+   
+  <br>
+
+  <ng-container *ngIf="otp.statut=='enCours' || otp.statut=='ferme' ">
+    <br>
+
+    --- bsos --- <br>
+    <div *ngFor="let bso of bsos">
+      <span> N°:{{bso.BsoID}} </span>
+      <span>{{bso.statut}}</span>
+      <span> <a target="_blank" href="/correctif/bso/bso/{{bso.BsoID}}">(A)</a></span>
+
+      <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+        <ng-container *ngIf="otp.statut=='enCours'">
+          <span *ngIf="bso.statut=='ouvert'" (click)="AddOrEditBso(OtpID,bso.BsoID)"> (M) </span>
+          <span *ngIf="bso.statut=='ouvert' " (click)="deleteBso(bso.BsoID)"> (X) </span>
+        </ng-container>
+      </ng-container>
+
+    </div>
+
+    <ng-container *ngIf="otp.statut=='enCours'">
+      <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+        <span (click)="AddOrEditBso(OtpID,null)">[+]</span>
+      </ng-container>
+    </ng-container>
+
+    <br>
+    --- bsms ---
+    <br>
+
+
+    <div *ngFor="let bsm of bsms">
+      <span> N°:{{bsm.BsmID}} </span>
+      <span>{{bsm.statut}}</span>
+      <span> <a target="_blank" href="/correctif/bsm/bsm/{{bsm.BsmID}}/2">(A)</a></span>
+
+      <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+        <span *ngIf="bsm.statut=='enAttente'" (click)="AddOrEditBsm(OtpID,bsm.BsmID)"> (M) </span>
+        <span *ngIf="bsm.statut=='enAttente' " (click)="deleteBsm(bsm.BsmID)"> (X) </span>
+      </ng-container>
+
+    </div>
+
+    <ng-container *ngIf="otp.statut=='enCours'">
+      <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+        <span (click)="AddOrEditBsm(OtpID,null)">[+]</span>
+      </ng-container>
+    </ng-container>
+
+
+  </ng-container>
+  
+  
+  <ng-container *ngIf="otp.statut=='enAttente'">
+    la tnajjim tzid la bso la bsm 5ater statut enAttente
+  </ng-container>
+
+  <br><br>
+-->
+
+<!--
+  <br> ---------- Partie reservation -----------------
+
+
+  <ng-container *ngIf="articles_reserved.length>0">
+    ---<br>
+    Pieces reserve : <br>
+    <div *ngFor="let article of articles_reserved">
+      {{article.des}} - {{article.qte}} <br>
+    </div>
+    ---<br>
+  </ng-container>
+
+  <ng-container *ngIf="reservation">
+    <span *ngIf="articles_reserved.length==0"
+      (click)="AddOrEditBsmForReservation(OtpID,reservation.ReservationID)">[+]</span>
+    <span *ngIf="articles_reserved.length>0"
+      (click)="AddOrEditBsmForReservation(OtpID,reservation.ReservationID)">[edit]</span>
+    <span *ngIf="articles_reserved.length>0" (click)="ViderArticlesReserved(reservation.ReservationID)">[X]</span>
+  </ng-container>
+
+  <ng-container *ngIf="!reservation">
+    <span *ngIf="articles_reserved.length==0" (click)="AddOrEditBsmForReservation(OtpID,null)">[+]</span>
+  </ng-container>
+
+
+  <br> ---------------------------------------------<br>
+
+
+
+  <br> --- <br>
+  <br> --- Reservation Intervenants <br>
+
+  <app-prev-reservation-default *ngIf="getOtp_Load" [Input_IntReservationID]="IntReservationID" [Input_OtpID]="OtpID"
+    [Input_DateTimeOTp]="DateTimeOTp" [Input_reservedintervenants]="local_2_reservedintervenants"
+    [Input_DontSend]="false" (action)="getIntReservationID($event)">
+  </app-prev-reservation-default>
+  <br> --- <br>
+  <br> --- <br>
+-->
+
+<!--
+  <br> ------------ Supression Otp ----------------<br>
+  <button *ngIf="OtpID" (click)="deleteOtp(OtpID)"> Supprimer Otp </button>
+  <br> #############################################<br>
+
+
+
+  // les buttons creer bon afficher bon modifier bon lazim ma tothhir kén lel admin methode wa ella el chefdeposte walla
+  chefde maintenanace elli jetou el ot recepteur
+  <ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+  
+    <ng-container *ngIf="otp.statut=='enCours'">
+      // *ngIf="otp.statut=='enCours'" // lazim nthabbit fil cas mte3 ot lance auto <br>
+      <a target="_blank" href="/preventif/bonp/add/{{OtpID}}/0">Creer Un Bon</a>
+    </ng-container>
+    <br><br>
+    <ng-container *ngIf="otp.statut=='ferme'">
+      <a target="_blank" href="preventif/bonp/add/0/{{BonpID}}">Modifier Bon</a>
+      <br>
+      <a target="_blank" href="/preventif/bonp/bonp/{{BonpID}}">Afficher Bon</a>
+    </ng-container>
+
+  </ng-container>
+
+
+
+</div>
+-->

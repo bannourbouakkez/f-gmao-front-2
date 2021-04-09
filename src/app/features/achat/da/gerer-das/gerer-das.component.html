@@ -1,0 +1,938 @@
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+        <div class="card">
+            <div id="card-header-liste" class="card-header separator">
+                <ol id="breadcrumb-liste" class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                            class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+                </ol>
+            </div>
+
+            <div id="card-body-liste" class="card-body">
+                <div class="row">
+
+
+
+                    <!--
+                    <form [formGroup]="filterForm">
+                        ----
+                        <br>
+
+                        En Cours : <input type="checkbox" name="statusencours" formControlName="statusencours" checked>
+                        |
+                        Reporté : <input type="checkbox" name="statusreporte" formControlName="statusreporte" checked> |
+                        Confirmé : <input type="checkbox" name="statusconfirme" formControlName="statusconfirme"
+                            checked> |
+                        Rejeté : <input type="checkbox" name="statusrejete" formControlName="statusrejete" checked>
+
+                        <div *ngIf="Admin==true"> All : <input type="checkbox" name="all" formControlName="all"></div>
+                        <br>
+                        ----<br>
+
+
+
+                        <input autocomplete="off" #searchFilterText formControlName="searchFilterText"
+                            placeholder="Search...">
+                        <input autocomplete="off" #delaimin formControlName="delaimin">
+                        <select formControlName="periodedelaimin">
+                            <option value='jour'>Jour</option>
+                            <option value='semaine'>Semaine</option>
+                            <option value='mois'>Mois</option>
+                            <option value='annee'>Année</option>
+                        </select>
+                        <input autocomplete="off" #delaimax formControlName="delaimax">
+                        <select formControlName="periodedelaimax">
+                            <option value='jour'>Jour</option>
+                            <option value='semaine'>Semaine</option>
+                            <option value='mois'>Mois</option>
+                            <option value='annee'>Année</option>
+                        </select>
+
+                        <input #datemin formControlName="datemin">
+                        <input type="hidden" #datemax formControlName="datemax">
+
+
+
+                        Rechecrche Automatique : <input type="checkbox" name="auto" formControlName="auto" checked>
+
+                        <button (click)="filter()">Search</button>
+                        <button (click)="resetFilter()">Reset</button>
+
+
+
+                    </form>
+
+                    <form [formGroup]="formDate">
+
+                        <mat-form-field>
+                            <input formControlName="minformdate" #dateminmatdeux matInput [matDatepicker]="dateminmat"
+                                (dateChange)="dateMinFilter($event)" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="dateminmat"></mat-datepicker-toggle>
+                            <mat-datepicker #dateminmat></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                            <input formControlName="maxformdate" #datemaxmatdeux matInput [matDatepicker]="datemaxmat"
+                                (dateChange)="dateMaxFilter($event)" readonly>
+                            <mat-datepicker-toggle matSuffix [for]="datemaxmat"></mat-datepicker-toggle>
+                            <mat-datepicker #datemaxmat></mat-datepicker>
+                        </mat-form-field>
+
+                    </form>
+                -->
+
+
+                    <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+                        <nz-collapse [nzBordered]="true">
+                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader=""
+                                [nzActive]="false">
+
+
+                                <table id="id-table-filter">
+                                    <tr>
+                                        <td id="id-table-filter-first-td"></td>
+                                        <td>
+
+                                            <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form"
+                                                autocomplete="off">
+
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Date</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <input class='form-control input-sm' nz-input
+                                                                        [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                                                                        #datemin ngModel
+                                                                        [(ngModel)]="filterForm.get('datemin').value"
+                                                                        formControlName="datemin" readonly>
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt3>
+                                                                    </owl-date-time>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class='icon-container'>
+                                                                                <i class="pg-icon">calendar</i>
+                                                                            </i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help">Date Debut</span>
+                                                            </div>
+                                                            <div class="col-md-3 sm-m-t-10">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <input class='form-control input-sm' nz-input
+                                                                        [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4"
+                                                                        #datemax ngModel
+                                                                        [(ngModel)]="filterForm.get('datemax').value"
+                                                                        formControlName="datemax" readonly>
+                                                                    <owl-date-time [pickerType]="'calendar'" #dt4>
+                                                                    </owl-date-time>
+                                                                    <div class="input-group-append">
+                                                                        <span class="input-group-text">
+                                                                            <i class='icon-container'>
+                                                                                <i class="pg-icon">calendar</i>
+                                                                            </i>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="help">Date Fin</span>
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+
+
+                                             
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Delai</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <nz-input-number #delaimax
+                                                                            formControlName="delaimax" 
+                                                                            [nzStep]="1"></nz-input-number>
+                                                                    </div>
+                                                                    <div class="offset-1 col-md-7">
+                                                                        <nz-select formControlName="periodedelaimax"
+                                                                            nzShowSearch nzAllowClear
+                                                                            nzPlaceHolder="Select periode">
+                                                                            <nz-option nzValue="jour" nzLabel="Jour">
+                                                                            </nz-option>
+                                                                            <nz-option nzValue="semaine"
+                                                                                nzLabel="Semaine"></nz-option>
+                                                                            <nz-option nzValue="mois" nzLabel="Mois">
+                                                                            </nz-option>
+                                                                            <nz-option nzValue="annee" nzLabel="Année">
+                                                                            </nz-option>
+                                                                        </nz-select>
+                                                                    </div>
+
+                                                                </div>
+
+                                                                <span class="help">Delai Min</span>
+                                                            </div>
+                                                            <div class="offset-1 col-md-3 sm-m-t-10">
+                                                                
+
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <nz-input-number #delaimin
+                                                                            formControlName="delaimin" 
+                                                                            [nzStep]="1"></nz-input-number>
+                                                                    </div>
+                                                                    <div class="offset-1 col-md-7">
+                                                                        <nz-select formControlName="periodedelaimin"
+                                                                            nzShowSearch nzAllowClear
+                                                                            nzPlaceHolder="Select periode">
+                                                                            <nz-option nzValue="jour" nzLabel="Jour">
+                                                                            </nz-option>
+                                                                            <nz-option nzValue="semaine"
+                                                                                nzLabel="Semaine"></nz-option>
+                                                                            <nz-option nzValue="mois" nzLabel="Mois">
+                                                                            </nz-option>
+                                                                            <nz-option nzValue="annee" nzLabel="Année">
+                                                                            </nz-option>
+                                                                        </nz-select>
+                                                                    </div>
+
+                                                                </div>
+                                                                <span class="help">Delai Max</span>
+                                                            </div>
+
+                                                        </div>
+
+
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Statut</label>
+                                                    <div class="col-md-10">
+                                                        <label nz-checkbox name="statusencours"
+                                                            formControlName="statusencours" checked>
+                                                            En Cours </label>
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                                        <label nz-checkbox name="statusreporte"
+                                                            formControlName="statusreporte" checked>
+                                                            Reporté</label>
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                                        <label nz-checkbox name="statusconfirme"
+                                                            formControlName="statusconfirme" checked>
+                                                            Confirmé</label>
+                                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                                        <label nz-checkbox name="statusrejete"
+                                                            formControlName="statusrejete" checked>
+                                                            Rejeté</label>
+
+                                                        <div *ngIf="Admin==true">
+                                                            <label nz-checkbox name="all" formControlName="all" checked>
+                                                                All</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Delai</label>
+                                                    <div class="col-md-10">
+
+                                                        
+                                                        <input   #delaimin class='form-control input-sm'  maxlength="50" formControlName="delaimin" autocomplete="off" >
+                                                        <nz-select  formControlName="periodedelaimin" nzShowSearch nzAllowClear nzPlaceHolder="Select periode">
+                                                            <nz-option nzValue="jour" nzLabel="Jour"></nz-option>
+                                                            <nz-option nzValue="semaine" nzLabel="Semaine"></nz-option>
+                                                            <nz-option nzValue="mois" nzLabel="Mois"></nz-option>
+                                                            <nz-option nzValue="annee" nzLabel="Année"></nz-option>
+                                                        </nz-select>
+                                                        &nbsp; &nbsp; 
+                                                        <input   #delaimax class='form-control input-sm'  maxlength="50" formControlName="delaimax" autocomplete="off" >
+                                                        <nz-select  formControlName="periodedelaimax" nzShowSearch nzAllowClear nzPlaceHolder="Select periode">
+                                                            <nz-option nzValue="jour" nzLabel="Jour"></nz-option>
+                                                            <nz-option nzValue="semaine" nzLabel="Semaine"></nz-option>
+                                                            <nz-option nzValue="mois" nzLabel="Mois"></nz-option>
+                                                            <nz-option nzValue="annee" nzLabel="Année"></nz-option>
+                                                        </nz-select>
+                                                
+                        <input autocomplete="off" #delaimin formControlName="delaimin">
+                        <select formControlName="periodedelaimin">
+                            <option value='jour'>Jour</option>
+                            <option value='semaine'>Semaine</option>
+                            <option value='mois'>Mois</option>
+                            <option value='annee'>Année</option>
+                        </select>
+                        <input autocomplete="off" #delaimax formControlName="delaimax">
+                        <select formControlName="periodedelaimax">
+                            <option value='jour'>Jour</option>
+                            <option value='semaine'>Semaine</option>
+                            <option value='mois'>Mois</option>
+                            <option value='annee'>Année</option>
+                        </select>
+                        
+
+                        
+
+                    </div>
+                </div>
+            -->
+
+
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+
+                        <ng-template #expandedIcon let-active>
+                            <table id="id-bar-filter-table">
+                                <tr>
+                                    <td id="id-bar-filter-td-rotateicon">
+                                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                                            [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                                        <i class='pg-icon md-18'>filter</i> Filtre
+                                    </td>
+                                    <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                                            <input #searchFilterText formControlName="searchFilterText"
+                                                class="form-control input-sm" type="text" autocomplete="off" nz-input
+                                                placeholder="" id="filter" #filter />
+                                        </nz-input-group>
+                                        <ng-template #suffixIconSearch>
+                                            <i class='pg-icon md-18'>search</i>
+                                        </ng-template>
+                                    </td>
+                                    <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                                        <button id="id-bar-filter-btn-first" class='btn btn-default'
+                                            type="submit">Rechercher</button>
+                                        <button type="button" class="btn btn-default" (click)="resetFilter()">
+                                            <span> Réinitialiser </span>
+                                        </button>
+                                        <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                                            RA </label>
+                                    </td>
+                                    <td id="id-bar-filter-last-td">
+                                        <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-template>
+
+                    </form>
+
+
+
+                    <!------------------- Table ----------------------->
+                    <div id="id-div-table">
+                        <!--[nzData]=""-->
+                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                            [nzShowPagination]="false" [nzData]="das">
+                            <thead>
+                                <tr>
+
+                                    <!--
+                                    <td>Etat</td>
+                                    <td (click)="triParReference()" >Reference </td>
+                                    <td (click)="triParDemandeur()" >Demandeur </td>
+                                    <td (click)="triParDelai()" >Delai</td>
+                                    <td (click)="triParDateDeCreation()" >Date de creation</td>
+                                    <td>Details</td>
+                                    <td>Action</td>
+                                    -->
+
+                                    <th nzShowExpand nzWidth="60px"></th>
+                                    <th nzWidth="1%">#</th>
+                                    <th>Etat</th>
+                                    <th>Reference</th>
+                                    <th>Demandeur</th>
+                                    <th>Delai</th>
+                                    <th>Date de creation</th>
+                                    <th>NB Art</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+
+
+
+
+                            <tbody>
+
+                                <!--<ng-container *ngFor="let da of smallTable.data | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">-->
+                                <ng-container
+                                    *ngFor="let da of das | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+
+                                    <tr>
+                                        <!--<span *ngIf="da.status.length>1">v</span>-->
+
+                                        <td nzShowExpand [nzExpand]="expandSet.has(da.da.id)"
+                                            (nzExpandChange)="onExpandChange(da.da.id, $event)"
+                                             
+                                             [ngClass]="da.status.length>1 ? 'colorplus': 'disabled'"
+                                             ></td>
+
+                                        <td align="center">
+                                            <div class="table-firsttd-height">
+                                                <a href="/gmao/achat/da/da/{{da.da.id}}" target="_blank">
+                                                    {{da.da.id}}
+                                                </a>
+                                            </div>
+                                        </td>
+
+
+                                        <td (click)="openStatus(da.da.id)"> {{ conversionStatut(da.da.statut) }}
+                                            <!--<span *ngIf="da.status.length>1">v</span>-->
+                                        </td>
+                                        <td (click)="afficherDa(da.da.id)">{{da.da.ref}}</td>
+                                        <td>{{da.da.user}}</td>
+                                        <td> <!--[1]-->
+                                            <b>
+                                                <ng-container *ngIf="da.da.restededelai<0" ><span style="color:red;">{{da.da.restededelai}}</span></ng-container>
+                                                <ng-container *ngIf="da.da.restededelai>=0">{{da.da.restededelai}}</ng-container>
+                                            </b> / {{da.da.delai}} </td>
+                                        <td>{{da.da.created_at | date:'dd/MM/yy HH:mm '}}</td>
+                                        <td (click)="open(da.da.id)">{{da.detDa.length}}</td>
+
+
+                                        <td>
+                                            <!--<ul class="list-inline m-0">-->
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/achat/da/da/'+da.da.id]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                            class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                                </li>
+                                            <!--</ul>-->
+
+                                            <ng-container *ngIf="daClicked!=da.da.id">
+                                            <!--[2]-->
+                                            <button  aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'confirmer',da.da.id)"
+                                                *ngIf="( (da.da.statut=='encours' || da.da.statut=='reencours' || da.da.statut=='reenvoye') && ResponsableAchat==true )    || ( ( da.da.statut=='enattente' || da.da.statut=='reenattenteParAdmin' ) && Admin==true ) ">Confirmer</button>
+                                            <button  aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'rejeter',da.da.id)"
+                                                *ngIf=" ( ( da.da.statut=='encours' || da.da.statut=='reencours' || da.da.statut=='reenvoye' || da.da.statut=='confirmeParAdmin' ) && ResponsableAchat==true ) || ( ( da.da.statut=='enattente' || da.da.statut=='reenattenteParAdmin') && Admin==true ) ">Rejeter</button>
+                                            <button  aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'reporter',da.da.id)"
+                                                *ngIf=" ( (da.da.statut=='encours' || da.da.statut=='reencours'|| da.da.statut=='reenvoye' || da.da.statut=='confirmeParAdmin' ) && ResponsableAchat==true) || ( ( da.da.statut=='enattente' || da.da.statut=='reenattenteParAdmin' )  && Admin==true) ">Reporter</button>
+                                            <button aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'rereporter',da.da.id)"
+                                                *ngIf=" ( da.da.statut=='reporte'  && ResponsableAchat==true) || ( da.da.statut=='reporteParAdmin' && Admin==true) ">Re-Reporter</button>
+                                            <!--[3]-->
+                                            <button aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'retransferer',da.da.id)"
+                                                *ngIf=" ( da.da.statut=='enattente'  || da.da.statut=='reenattenteParAdmin' ) && Admin==true ">Re-Transferer</button>
+                                            <button aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'transferer',da.da.id)"
+                                                *ngIf=" ( da.da.statut=='encours' || da.da.statut=='reencours'|| da.da.statut=='reenvoye' ) && ResponsableAchat==true ">Transferer</button>
+                                            <button aria-label="" class="btn btn-default btn-xs m-t-10 pm rounded-0" (click)="action(i,'remise',da.da.id)"
+                                                *ngIf=" ( ( da.da.statut=='confirme' || da.da.statut=='reporte' || da.da.statut=='confirmeParAdmin' ) && ResponsableAchat==true ) || ( ( da.da.statut=='confirmeParAdmin' || da.da.statut=='reporteParAdmin') && Admin==true ) ">Remise
+                                                A L'etat En Cours </button>
+
+                                            <ng-container *ngIf="(me.id == da.da.user_id) && ( da.da.statut=='rejete' || da.da.statut=='rejeteParAdmin' )" >
+                                           
+                                            <!--
+                                            <button aria-label="" class="btn btn-default btn-xs m-t-10 pm" [routerLink]="['/gmao/achat/da/add/'+da.da.id]"
+                                                *ngIf="  ( da.da.statut=='rejete' || da.da.statut=='rejeteParAdmin' )   ">Modifier</button>
+                                            -->
+                                                <!--*ngIf=" ( ( da.da.statut=='rejete' || da.da.statut=='rejeteParAdmin' ) && ResponsableAchat==false && Admin==false ) ">Modifier</button>-->
+                                            <!--[4]-->
+
+                                            <!--<ul class="list-inline m-0">-->
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/achat/da/add/'+da.da.id]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                            class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">edit</i></button>
+                                                </li>
+                                            <!--</ul>-->
+
+                                           </ng-container>
+                                        </ng-container>
+                                        <ng-container *ngIf="daClicked==da.da.id">
+                                            <i nz-icon [nzType]="'loading'"></i> 
+                                        </ng-container>
+                                        </td>
+
+
+                                        <!--
+                                    <td>
+                                        <ul class="list-inline m-0">
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/correctif/bon/bon/',data.BonID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                            class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                                </li>
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button [routerLink]="['/gmao/correctif/bon/add/0/',data.BonID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                            class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">edit</i></button>
+                                                </li>
+                                        </ul>
+                                    </td>
+                                -->
+                                    </tr>
+
+                                    <tr [nzExpand]="expandSet.has(da.da.id)">
+                                        <td></td>
+                                        <td colspan="8">
+
+                                          <div class="tab-content" >
+                                            <div class="tab-pane padding-5 sm-no-padding slide-left active" id="tab1">
+                                                <div class="row row-same-height">
+                                                  <div class="col-md-7 b-r b-dashed b-grey sm-b-b">
+                                                    <div class="padding-5 sm-padding-5 ">
+                                                      
+
+                                                        
+                                                        Details : <br>
+                                                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                                                        [nzShowPagination]="false" [nzData]="da.detDa">
+                                                        <thead>
+                                                            <tr>
+                                                                <th nzWidth="1%">#</th>
+                                                                <th>Designation</th>
+                                                                <th>Qte</th>
+                                                                <th>Motif</th>
+                                                                
+                            
+                            
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <ng-container *ngFor="let daArt of da.detDa ;let i=index;">
+                                                            <tr>
+                                                                <td align="center">#</td>
+                                                                <td>
+                                                                    <span [ngbTooltip]="tipContent" ngbTooltip="Tooltip on right"> {{daArt.article[0].des}}</span>
+                                                                   
+                                                                </td>
+                                                                <td>{{daArt.daarticle.qte}} </td>
+                                                                <td>{{daArt.daarticle.motif}}</td>
+                                                            </tr>
+                                                            <!--
+                                                            <tr *ngIf="daArt.daarticle.motif">
+                                                              <td></td>
+                                                              <td colspan="2">{{daArt.daarticle.motif}}</td>
+                                                            </tr>
+                                                            -->
+
+                                                            <ng-template #tipContent>
+                                                                <!--
+                                                                Article : {{daArt.article[0].des}} <br> Code Article :
+                                                                {{daArt.article[0].code_article}} <br> Code a barre :
+                                                                {{daArt.article[0].code_a_barre}} <br>
+                                                                Unité : {{daArt.article[0].unite}} <br> Famille :
+                                                                {{daArt.article[0].famille}} <br> Sous Famille :
+                                                                {{daArt.article[0].sous_famille}} <br>
+                                                                -->
+
+                                                                Stock: {{daArt.article[0].stock}} <br>
+                                                                Fournisseur: {{daArt.article[1].nom}}
+                                                                <!--{{daArt.article[0] | json}}-->
+                                                            </ng-template>
+                            
+                                                            </ng-container>
+                                                            </tbody>
+                                                        </nz-table>
+                                                        <ng-container *ngIf="da.da.remarques">
+                                                        
+                                                        Remarque : <br>
+                                                        {{da.da.remarques }}
+                                                        </ng-container>
+                                                        
+
+<!--
+                                            <ul>
+                                                <li *ngFor="let daArt of da.detDa">
+                                                    <ng-template #tipContent>
+                                                        Article : {{daArt.article[0].des}} <br> Code Article :
+                                                        {{daArt.article[0].code_article}} <br> Code a barre :
+                                                        {{daArt.article[0].code_a_barre}} <br>
+                                                        Unité : {{daArt.article[0].unite}} <br> Famille :
+                                                        {{daArt.article[0].famille}} <br> Sous Famille :
+                                                        {{daArt.article[0].sous_famille}} <br>
+                                                        Fournisseur : {{daArt.article[1].nom}}
+                                                    </ng-template>
+                                                    
+                                                    <span [ngbTooltip]="tipContent" ngbTooltip="Tooltip on right">INFO</span>
+                                                
+                                                    {{daArt.article[0].des}} 
+                                                    {{daArt.daarticle.qte}} 
+                                                    <span *ngIf="daArt.daarticle.motif">
+                                                        motif :
+                                                        {{daArt.daarticle.motif}}
+                                                    </span>
+
+                                                </li>
+                                            </ul>
+                                        -->
+
+
+                                                    </div>
+                                                  </div>
+                                                  <div class="col-md-5">
+                                                    <div class="padding-5 sm-padding-5">
+                                                    
+                                                        <ng-container *ngIf="da.status.length>1 ">
+
+
+                                                            Historique : <br>
+            
+                                                            <div *ngFor="let statut of da.status">
+                                                                - {{ HistoriquePasse(statut.statut) }} par {{statut.user_id.name}}
+                                                                le {{statut.created_at}}
+            
+                                                                <span
+                                                                    *ngIf="  statut.statut=='rejete' || statut.statut=='rejeteParAdmin' ">
+            
+                                                                    <span *ngIf="statut.message">
+                                                                        Cause de refus : {{statut.message}}
+                                                                    </span>
+                                                                    <span *ngIf="!statut.message">
+                                                                        Pas de cause .
+                                                                    </span>
+                                                                </span>
+            
+            
+            
+            
+                                                                <span
+                                                                    *ngIf="statut.statut=='reporte' || statut.statut=='reporteParAdmin' ">
+                                                                    avec une delai de : {{statut.delaidereportation}}
+                                                                </span>
+            
+            
+            
+            
+            
+                                                            </div>
+            
+            
+            
+                                                        </ng-container>
+                                                     
+
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+
+                                            </div>
+
+                                            
+
+                                   
+
+                                           
+                                        </td>
+                                    </tr>
+                                </ng-container>
+
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                    <!--################# Table ####################-->
+
+
+
+
+
+                    <!------------------- Pagination ----------------------->
+
+                    <!--<pagination-controls (pageChange)="p = $event"></pagination-controls>-->
+
+
+
+                    <table id="id-pagination-big-table">
+                        <tr>
+                            <td>
+
+                                <div class="my-pagination">
+                                    <table id="id-pagination-small-table">
+                                        <tr>
+                                            <td>
+                                                <nz-select [(ngModel)]="selectedItemPerPage"
+                                                    (ngModelChange)="incrementsItemsPerPage($event)">
+                                                    <nz-option nzValue="5" nzLabel="5"></nz-option>
+                                                    <nz-option nzValue="10" nzLabel="10"></nz-option>
+                                                    <nz-option nzValue="25" nzLabel="25"></nz-option>
+                                                    <nz-option nzValue="50" nzLabel="50"></nz-option>
+                                                </nz-select>
+                                            </td>
+
+                                            <td>
+                                                <pagination-controls maxSize="10" previousLabel="Précédent"
+                                                    nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;"
+                                                    (pageChange)="getDas($event,null)" id="server">
+                                                </pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                    <!--################# Pagination ####################-->
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+<a [routerLink]="['/login']">Login</a><br>
+Responsable Achat : {{ResponsableAchat}} <br>
+Admin : {{Admin}}
+<br><br>
+
+
+<form [formGroup]="filterForm">
+    ----
+<br>
+
+    En Cours  : <input type="checkbox"  name="statusencours" formControlName="statusencours" checked> |
+    Reporté  : <input type="checkbox"  name="statusreporte" formControlName="statusreporte" checked> |
+    Confirmé  : <input type="checkbox"  name="statusconfirme" formControlName="statusconfirme" checked> |
+    Rejeté  : <input type="checkbox"  name="statusrejete" formControlName="statusrejete" checked> 
+
+    <div *ngIf="Admin==true" > All  : <input type="checkbox"  name="all" formControlName="all"></div>
+<br>
+----<br>
+
+
+
+<input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+<input autocomplete="off" #delaimin formControlName="delaimin">
+<select formControlName="periodedelaimin" >
+    <option value='jour'>Jour</option>
+    <option value='semaine'>Semaine</option>
+    <option value='mois'>Mois</option>
+    <option value='annee'>Année</option>
+</select>
+<input autocomplete="off" #delaimax formControlName="delaimax">
+<select formControlName="periodedelaimax" >
+    <option value='jour' >Jour</option>
+    <option value='semaine'>Semaine</option>
+    <option value='mois'>Mois</option>
+    <option value='annee'>Année</option>
+</select>
+
+<input  #datemin formControlName="datemin" >
+<input type="hidden" #datemax formControlName="datemax" >
+
+
+
+Rechecrche Automatique  : <input type="checkbox"  name="auto" formControlName="auto" checked>
+
+<button (click)="filter()">Search</button>
+<button (click)="resetFilter()">Reset</button>
+
+
+
+</form>
+
+<form [formGroup]="formDate">
+
+<mat-form-field>
+    <input formControlName="minformdate" #dateminmatdeux  matInput  [matDatepicker]="dateminmat" (dateChange)="dateMinFilter($event)" readonly>
+    <mat-datepicker-toggle matSuffix [for]="dateminmat" ></mat-datepicker-toggle>
+    <mat-datepicker #dateminmat  ></mat-datepicker>
+</mat-form-field>
+
+<mat-form-field>
+    <input formControlName="maxformdate"  #datemaxmatdeux matInput [matDatepicker]="datemaxmat" (dateChange)="dateMaxFilter($event)" readonly>
+    <mat-datepicker-toggle matSuffix [for]="datemaxmat" ></mat-datepicker-toggle>
+    <mat-datepicker #datemaxmat  ></mat-datepicker>
+</mat-form-field>
+
+</form>
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--########## Filter-->
+<!--*ngIf="ResponsableAchat==true || Admin==true"-->
+<!-- 1, Reste : {{calculerResteDelai(i,da.da.id)}}-->
+<!--2//encours//reencours//reenvoye//enattente//repporte//confirme/rejete//
+                    reporteParAdmin//rejeteParAdmin//confirmeParAdmin//reenattenteParAdmin-->
+<!-- 3 <button (click)="action(i,'reprise',da.da.id)"    *ngIf=" ( da.da.statut=='enattente'  || da.da.statut=='reenattenteParAdmin' ) && ResponsableAchat==true ">Reprise</button>-->
+<!-- 4 <button *ngIf=" ( ( da.da.statut=='reporteParAdmin' || da.da.statut=='confirmeParAdmin' || da.da.statut=='reporte' ) && ResponsableAchat==true ) || ( ( da.da.statut=='reporteParAdmin' || da.da.statut=='confirmeParAdmin' ) && Admin==true ) " >Remise A L'etat En Cours </button>-->
+
+<!--
+Filtres ... 
+<div *ngIf="das.length==0"> Aucune demande ... </div>
+
+
+<table border='1'>
+    <thead>
+        <td>Etat</td>
+        <td (click)="triParReference()" >Reference </td>
+        <td (click)="triParDemandeur()" >Demandeur </td>
+        <td (click)="triParDelai()" >Delai</td>
+        <td (click)="triParDateDeCreation()" >Date de creation</td>
+        <td>Details</td>
+        <td>Action</td>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let da of das | paginate: { itemsPerPage: 5, currentPage: p };let i=index;" >
+            <tr>
+                <td (click)="openStatus(da.da.id)" > {{ conversionStatut(da.da.statut) }}
+                <span *ngIf="da.status.length>1" >v</span>    
+                </td>
+                <td (click)="afficherDa(da.da.id)">{{da.da.ref}}</td>
+                <td >{{da.da.user}}</td>
+                <td >
+                    [1] 
+                    {{da.da.restededelai}} / {{da.da.delai}} 
+                </td>
+                <td >{{da.da.created_at | date:'dd/MM/yy HH:mm '}}</td>
+                <td (click)="open(da.da.id)" >{{da.detDa.length}} Articles </td>
+                
+                
+                <td >
+                     [2]
+                    <button (click)="action(i,'confirmer',da.da.id)"  *ngIf="( (da.da.statut=='encours' || da.da.statut=='reencours' || da.da.statut=='reenvoye') && ResponsableAchat==true )    || ( ( da.da.statut=='enattente' || da.da.statut=='reenattenteParAdmin' ) && Admin==true ) " >Confirmer</button>
+                    <button (click)="action(i,'rejeter',da.da.id)"    *ngIf=" ( ( da.da.statut=='encours' || da.da.statut=='reencours' || da.da.statut=='reenvoye' || da.da.statut=='confirmeParAdmin' ) && ResponsableAchat==true ) || ( ( da.da.statut=='enattente' || da.da.statut=='reenattenteParAdmin') && Admin==true ) " >Rejeter</button>
+                    <button (click)="action(i,'reporter',da.da.id)"   *ngIf=" ( (da.da.statut=='encours' || da.da.statut=='reencours'|| da.da.statut=='reenvoye' || da.da.statut=='confirmeParAdmin' ) && ResponsableAchat==true) || ( ( da.da.statut=='enattente' || da.da.statut=='reenattenteParAdmin' )  && Admin==true) ">Reporter</button>
+                    <button (click)="action(i,'rereporter',da.da.id)" *ngIf=" ( da.da.statut=='reporte'  && ResponsableAchat==true) || ( da.da.statut=='reporteParAdmin' && Admin==true) ">Re-Reporter</button>
+                     [3]
+                    <button (click)="action(i,'retransferer',da.da.id)"    *ngIf=" ( da.da.statut=='enattente'  || da.da.statut=='reenattenteParAdmin' ) && Admin==true ">Re-Transferer</button>
+                    <button (click)="action(i,'transferer',da.da.id)" *ngIf=" ( da.da.statut=='encours' || da.da.statut=='reencours'|| da.da.statut=='reenvoye' ) && ResponsableAchat==true " >Transferer</button>
+                    <button (click)="action(i,'remise',da.da.id)"     *ngIf=" ( ( da.da.statut=='confirme' || da.da.statut=='reporte' || da.da.statut=='confirmeParAdmin' ) && ResponsableAchat==true ) || ( ( da.da.statut=='confirmeParAdmin' || da.da.statut=='reporteParAdmin') && Admin==true ) " >Remise A L'etat En Cours </button>
+                   
+                    <button  [routerLink]="['/achat/da/add/'+da.da.id]"  *ngIf=" ( ( da.da.statut=='rejete' || da.da.statut=='rejeteParAdmin' ) && ResponsableAchat==false && Admin==false ) " >Modifier</button>
+[4]                
+                </td>
+            </tr>
+    
+            <ng-container *ngIf="da.da.open==1"  >
+             <tr>
+                 <td colspan="7">
+                    
+                    Remarque : {{da.da.remarques }} 
+                    <ul>
+                         
+                        <li  *ngFor="let daArt of da.detDa" >
+                            
+                            <ng-template #tipContent>
+                                        Article : {{daArt.article[0].des}} <br>  Code Article : {{daArt.article[0].code_article}} <br> Code a barre : {{daArt.article[0].code_a_barre}} <br>
+                                        Unité : {{daArt.article[0].unite}} <br> Famille : {{daArt.article[0].famille}} <br> Sous Famille : {{daArt.article[0].sous_famille}} <br>
+                                        Fournisseur : {{daArt.article[1].nom}}
+                            </ng-template>
+                            <span [ngbTooltip]="tipContent" ngbTooltip="Tooltip on right"> INFO </span>
+                            Article : <a routerLink='/' >{{daArt.article[0].des}} </a> , qte : {{daArt.daarticle.qte}} , <span *ngIf="daArt.daarticle.motif">, motif : {{daArt.daarticle.motif}}</span> </li>
+                    </ul>
+                  
+                 </td>
+             </tr>
+              
+            </ng-container>
+
+            <ng-container *ngIf="da.da.openStatus==1 && da.status.length>1 "  >
+                <tr>
+                    <td colspan="7">
+                       
+                        Ce Demande est : 
+
+                       <div *ngFor="let statut of da.status" >
+                        -  {{ HistoriquePasse(statut.statut) }} par {{statut.user_id.name}} le {{statut.created_at}}
+                        
+                        <span *ngIf="  statut.statut=='rejete' || statut.statut=='rejeteParAdmin' ">
+                            
+                            <span *ngIf="statut.message" >
+                                 Cause de refus : {{statut.message}}
+                            </span>
+                            <span *ngIf="!statut.message" >
+                                Pas de cause .
+                            </span>
+                        </span>
+                       
+                           
+
+
+                           <span *ngIf="statut.statut=='reporte' || statut.statut=='reporteParAdmin' " >
+                               avec une delai de : {{statut.delaidereportation}}
+                           </span>
+                           
+
+
+
+                        
+                       </div>
+                       
+                     
+                    </td>
+                </tr>
+                 
+               </ng-container>
+
+
+
+        </ng-container>
+
+    </tbody>
+</table>
+
+<pagination-controls  (pageChange)="p = $event"></pagination-controls>
+
+-->
+
+
+
+<!--
+    <ng-template #tipContent>
+                <div *ngFor="let statut of da.status" >
+                        -  {{statut.statut}} par {{statut.user_id.name}} le {{statut.created_at}} <br>
+                     </div>
+    </ng-template>
+
+                <td [ngbTooltip]="tipContent" ngbTooltip="Tooltip on right" >
+                {{da.da.statut}}
+                </td>
+-->

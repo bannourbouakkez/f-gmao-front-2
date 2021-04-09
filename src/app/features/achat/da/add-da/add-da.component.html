@@ -1,0 +1,420 @@
+
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+<ng-container *ngIf="DaID">
+  <app-breadcrumb *ngIf="breadcrumb2.length>0" [breadcrumbs]="breadcrumb2" [autres]="autres"></app-breadcrumb>
+</ng-container>
+<ng-container *ngIf="!DaID">
+  <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+</ng-container>
+
+
+
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Preventif</a></li>
+  <li class="breadcrumb-item"><a href="#">Intervention</a></li>
+  <li class="breadcrumb-item active" >Ajouter Intervention</li>
+</ol>
+-->
+
+    <!-- START card -->
+    <div class="card">
+<!--
+      <div class="card-header  separator">
+        <div class="card-title">Portlet Three
+        </div>
+      </div>
+-->
+
+<div class="card-header separator">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{AjouterOuModifier(DaID)}} demande d'achat</span></li>
+      </ol>
+</div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <!--
+                        <h3 class="mw-80">Simple but not simpler, create a separate form layout. Best for settings pages.</h3>
+                        <p class="mw-80">Want it to be more Descriptive and User-Friendly, We Made it possible, Use Separated Form Layouts Structure to Presentation your Form Fields.
+                        </p>
+                        <br>
+            -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+<!--     
+        <ng-container *ngIf="(DaID && PageLoaded) && use.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Demande d'intervention est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+-->      
+
+
+            
+  <ng-container *ngIf=" (DaID && PageLoaded) || !DaID">
+  <!--<ng-container *ngIf=" (UseID && PageLoaded && di.exist==1) || !UseID">-->
+  <!--<ng-container>-->
+  
+            <form class="form-horizontal" role="form"
+            #form="ngForm" autocomplete="off" *ngIf="_daService.formData" (ngSubmit)="onSubmit(form)">
+
+   
+
+    
+
+     <div class="form-group row">
+      <label for="name" class="required col-md-5 control-label">Reference</label>
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-4">
+        <div class="input-group date col-md-9 p-1-0" style="padding-right:16%;">
+          <input class='form-control input-sm' type="text" style="width:90px;" name="ref"  #ref="ngModel" [(ngModel)]="_daService.formData.ref"
+          readonly>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label class="col-md-5 required control-label">Delai & Periode</label>
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="input-group date col-md-12 p-1-0">
+
+              <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;">
+                <!--
+                <input class='form-control input-sm' maxlength="4" name="delai" #delai="ngModel" [(ngModel)]="_daService.formData.delai" 
+                 (keypress)="OnlyNumbers($event)" [class.is-invalid]="!isValidDelai && _daService.formData.delai=='' ">
+                -->
+                
+                 <nz-input-number name="delai" [nzMin]="0" [nzStep]="1" [(ngModel)]="_daService.formData.delai"
+                 ></nz-input-number>
+
+
+              </div>
+            </div>
+            <!--<div><label class="error" *ngIf="formErrors.ddr" [innerHTML]="formErrors.ddr"></label>
+            </div>-->
+            <span class="help">Delai</span>
+          </div>
+          <div class="col-md-8 sm-m-t-10 ">
+
+            <nz-select name="periode" nzShowSearch nzAllowClear nzPlaceHolder="Select Periode"
+            [(ngModel)]="_daService.formData.periode">
+            <nz-option nzValue="jour" nzLabel="Jour"></nz-option>
+            <nz-option nzValue="semaine" nzLabel="Semaine"></nz-option>
+            <nz-option nzValue="mois" nzLabel="Mois"></nz-option>
+            <nz-option nzValue="annee" nzLabel="Année"></nz-option>
+          </nz-select>
+         
+            <span class="help">Periode</span>
+          </div>
+        </div>
+
+        <!--
+        <div>
+          <label class="error" *ngIf="formErrors.date" [innerHTML]="formErrors.date"></label>
+        </div>
+      -->
+
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="name" class="col-md-5 control-label">Remarques</label>
+      <div class="col-md-7">
+      <textarea class="form-control" rows="2" maxlength="240"   placeholder=""
+        name="remarques" #remarque="ngModel" [(ngModel)]="_daService.formData.remarques">
+      </textarea>
+
+      </div>
+    </div>
+
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">
+                    Articles
+                </label>
+                <div class="col-md-7">
+                  <div *ngIf="loading">
+                    <i style='margin-left:10px;' nz-icon nzType="loading" class="loading-icon"></i>
+                    </div>
+                  <div *ngIf="!loading" class="input-group  col-md-12 p-1-0">
+                      <table class="pull-left no-margin p-t-5 p-b-5 fs-13" style="width: 100%;">
+                        <ng-container *ngFor="let daarticle of _daService.daarticles;let i=index;" style="width:100%;">
+                          <tr>
+                            <td>
+                              <span> #  {{daarticle.ArticleID}}  </span>
+                            </td>
+                            <td style="text-align: left;" width="55%">
+                            {{daarticle.des}} 
+                            </td>
+                            <td width="20%" style="text-align: right;" align="right">
+                              {{daarticle.qte}} <span *ngIf="daarticle.unite!='unitaire'">{{daarticle.unite}}</span>
+                            </td>
+                            <td style="padding:0px; margin:0px; padding-bottom:3px;" width="12%">
+                              <div style="width:100%;">
+                                <ul class="list-inline m-0" style="float:right;">
+
+                                      <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                        <button class="btn btn-default btn-xs rounded-0" type="button"
+                                          data-toggle="tooltip" data-placement="top" title="modifier"
+                                          *ngIf="_daService.daarticles.length>0"
+                                          (click)="AddOrEditDaArticle(i,_daService.formData.id)">
+                                          <i class="pg-icon md-18"
+                                            style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                                        </button>
+                                      </li>
+
+                                      <ng-container *ngIf="DaID>0 && _daService.daarticles.length>1">
+                                        <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                          <button class="btn btn-default btn-xs rounded-0" type="button"
+                                            data-toggle="tooltip" data-placement="top" title="reset"
+                                            (click)="onDeleteDaArticle(daarticle.DaArticleID,i)">
+                                            <i class="pg-icon md-18"
+                                              style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                          </button>
+                                        </li>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="DaID==0">
+                                          <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                            <button class="btn btn-default btn-xs rounded-0" type="button"
+                                              data-toggle="tooltip" data-placement="top" title="reset"
+                                              
+                                              (click)="onDeleteDaArticle(daarticle.DaArticleID,i)">
+                                              <i class="pg-icon md-18"
+                                                style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                            </button>
+                                          </li>
+                                        </ng-container>
+                                </ul>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="5">
+                            {{daarticle.motif}}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" style="padding:0px;">
+                              <div class="b-b b-grey" style="width:100%;">
+                                <div class="clearfix"></div>
+                              </div>
+                            </td>
+                          </tr>
+                        </ng-container>
+                      </table>
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item" style="padding:0px;margin:0px;">
+                          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                            data-placement="top" title="ajouter"
+                            (click)="AddOrEditDaArticle(null,_daService.formData.id)">
+                            <i class="pg-icon md-18"
+                              style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                          </button>
+                        </li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+
+      
+
+
+
+
+
+
+  
+            
+
+
+
+
+
+           
+
+
+
+              
+              
+              <br>
+              <ng-container>
+              <div class="row">
+
+                <div class="col-md-6">
+
+                
+                </div>
+                <div class="col-md-6">
+                  <!-- (click)="submit()"
+                  [ngClass]="this.validateForm() && this._daService.daarticles>0 ? 'class': 'disabled'"-->
+                  <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    type="submit"
+                    [ngClass]="this.validateForm() ? 'class': 'disabled'" > 
+                    {{AjouterOuModifier(DaID)}}
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+              
+                </div>
+              </div>
+
+            </ng-container>
+
+            </form>
+</ng-container> 
+
+
+
+<ng-container *ngIf="DaID && !PageLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+  
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+
+<!--
+<form #form="ngForm" autocomplete="off" *ngIf="_daService.formData" (ngSubmit)="onSubmit(form)">
+
+  <div class="form-row">
+
+
+    <div class="form-group">
+      <label>Reference</label>
+      <div>
+        <input maxlength="10" name="ref" class="form-control" #ref="ngModel" [(ngModel)]="_daService.formData.ref"
+          readonly>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Delai</label>
+      <div>
+        <input maxlength="4" name="delai" #delai="ngModel" [(ngModel)]="_daService.formData.delai" class="form-control"
+          (keypress)="OnlyNumbers($event)" [class.is-invalid]="!isValidDelai && _daService.formData.delai=='' ">
+      </div>
+      <small class="help-block"></small>
+    </div>
+
+    <div class="form-group">
+      <label>Periode</label>
+      <div>
+        <select #idperiode name="periode" #periode="ngModel" [(ngModel)]="_daService.formData.periode">
+          <option value="jour" selected="true">Jour</option>
+          <option value="semaine">Semaine</option>
+          <option value="mois">Mois</option>
+          <option value="annee">Annee</option>
+        </select>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="form-group">
+    <label>Remarques</label>
+    <div>
+      <input maxlength="240" name="remarques" #remarque="ngModel" [(ngModel)]="_daService.formData.remarques"
+        class="form-control">
+    </div>
+    <small class="help-block"></small>
+  </div>
+
+
+  <button type="submit">Submit</button>
+
+  <form>
+
+    <table class="table table-borderless">
+      <thead class="thead-light">
+        <th>Article</th>
+        <th>Quantité</th>
+        <th>Motif</th>
+
+        <th>
+          <a class="btn btn-sm btn-success text-white" (click)="AddOrEditDaArticle(null,_daService.formData.id)"><i
+              class="fa fa-plus"></i> Ajouter un article</a>
+        </th>
+      </thead>
+
+      <tbody>
+        <tr *ngIf="_daService.daarticles.length==0" [class.text-danger]="!isValid && _daService.daarticles.length==0">
+          <td class="font-italic text-center" colspan="4">
+            n ya pas d'articles selectione dans cet demande d'achat
+          </td>
+        </tr>
+
+        <tr *ngFor="let daarticle of _daService.daarticles;let i=index;">
+          <td>{{daarticle.des}}</td>
+          <td>{{daarticle.qte}} <span *ngIf="daarticle.unite!='unitaire'">{{daarticle.unite}}</span></td>
+          <td>{{daarticle.motif}} </td>
+
+          <td>
+            <a class="btn btn-sm btn-info text-white" (click)="AddOrEditDaArticle(i,_daService.formData.id)"><i
+                class="fa fa-pencil">Modifier</i></a>
+            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteDaArticle(daarticle.DaArticleID,i)"><i
+                class="fa fa-trash">Delete</i></a>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+-->

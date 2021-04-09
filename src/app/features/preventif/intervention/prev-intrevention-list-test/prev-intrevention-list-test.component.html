@@ -1,0 +1,212 @@
+
+<!--
+<form [formGroup]="filterForm">
+    
+    Date Min:
+    <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="datemin" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+    Date Max:
+    <input type="date"  class="inputDate"  [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="datemax" readonly>
+    <owl-date-time [pickerType]="'calendar'" #dt4></owl-date-time>
+    
+<br>
+<input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+
+<mat-form-field>
+    <mat-select  formControlName="type"   multiple> 
+      <mat-option value='mecanique' >Mecanique</mat-option>
+      <mat-option value='electrique'>Electrique</mat-option>
+      <mat-option value='graissage'>Graissage</mat-option>
+      <mat-option value='hydrolique'>Hydrolique</mat-option>
+      <mat-option value='pneumatique'>Pneumatique</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<mat-form-field>
+     <mat-select  formControlName="parametrage"   multiple> 
+         <mat-option value='planification' >Planification</mat-option>
+         <mat-option value='execution'>Execution</mat-option>
+         <mat-option value='cloture'>Cloture</mat-option>
+     </mat-select>
+
+ </mat-form-field>
+
+
+<br>
+<app-equi-node-select-multi  [inputnodes]="nodes" (emit)="ReceptNodes($event)" ></app-equi-node-select-multi>
+
+<br>
+<button (click)="filter()">Search</button>
+<button (click)="resetFilter()">Reset</button>
+
+
+
+</form>
+
+Rechecrche Automatique  : <input type="checkbox"  name="rechercheAuto" [formControl]="rechercheAuto" checked>
+-->
+
+
+
+
+
+
+
+<!--
+    [nzLabel]="electrique"[nzValue]="electrique" [nzHide]="!isNotSelected('electrique')"
+                          [nzLabel]="graissage"[nzValue]="graissage" [nzHide]="!isNotSelected('graissage')"
+                          [nzLabel]="hydrolique"[nzValue]="hydrolique" [nzHide]="!isNotSelected('hydrolique')"
+                          [nzLabel]="pneumatique"[nzValue]="pneumatique" [nzHide]="!isNotSelected('pneumatique')"
+                          [nzLabel]="plus"[nzValue]="plus" [nzHide]="!isNotSelected('plus')"
+-->
+
+
+
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+    
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [home]="home"></app-breadcrumb>
+    
+    <div class="card">
+    <div class="card-header separator">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><span class='breadcrumb-title'>Ajouter Intervention</span></li>
+          </ol>
+    </div>
+    <div class="card-body">
+    <div class="row">
+
+
+<!------------- Filter ----------------->
+
+<form [formGroup]="filterForm"  (ngSubmit)="filter()" style="padding-bottom:0px;margin-bottom:0px;" >
+              <nz-collapse [nzBordered]="true"  >
+                <nz-collapse-panel   [nzExpandedIcon]="expandedIcon" nzHeader="" [nzActive]="false" >
+
+        <nz-select  formControlName="type" nzMode="multiple" nzPlaceHolder="" nzAllowClear>
+            <nz-option nzLabel="mecanique" nzValue="mecanique" [nzHide]="false" ></nz-option>
+            <nz-option nzLabel="electrique" nzValue="electrique" [nzHide]="false" ></nz-option>
+            <nz-option nzLabel="graissage" nzValue="graissage" [nzHide]="false" ></nz-option>
+            <nz-option nzLabel="hydrolique" nzValue="hydrolique" [nzHide]="false" ></nz-option>
+            <nz-option nzLabel="pneumatique" nzValue="pneumatique" [nzHide]="false" ></nz-option>
+            </nz-select>
+  
+    
+            <nz-select  formControlName="parametrage" nzMode="multiple" nzPlaceHolder="" nzAllowClear>
+                <nz-option nzLabel="planification" nzValue="planification" [nzHide]="false" ></nz-option>
+                <nz-option nzLabel="execution" nzValue="execution" [nzHide]="false" ></nz-option>
+                <nz-option nzLabel="cloture" nzValue="cloture" [nzHide]="false" ></nz-option>
+            </nz-select>
+          
+       
+          
+            <app-equi-node-select-multi  [inputnodes]="nodes" (emit)="ReceptNodes($event)" ></app-equi-node-select-multi>
+
+                </nz-collapse-panel>
+            </nz-collapse>
+            
+
+            <ng-template #expandedIcon let-active>
+            
+                  <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : -90"></i>
+                  <i class='pg-icon md-18'>filter</i> Filtre
+              
+                <nz-input-group [nzSuffix]="suffixIconSearch" >
+                  <input #searchFilterText formControlName="searchFilterText"  class="form-control input-sm" type="text" autocomplete="off" nz-input placeholder="" id="filter" #filter  />
+                </nz-input-group>
+                
+                <ng-template #suffixIconSearch>
+                  <i class='pg-icon md-18'>search</i>
+                </ng-template>
+               
+
+                   <button style="margin-right:5px; margin-left:10px;" class='btn btn-default' type="submit">Search</button>
+
+                   <button style="margin-right:5px;" type="button" class="btn btn-default" (click)="resetFilter()">
+                       <span> Reset </span>
+                       <i class='pg-icon md-18'>refresh_alt1</i>
+                    </button>
+
+                    <label  nz-checkbox name="rechercheAuto" style="margin-right:10px;" [formControl]="rechercheAuto" > R.A </label>
+           
+            </ng-template>
+</form>
+
+
+
+
+
+
+
+
+    
+ </div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+<table border='1'>
+
+  <thead>
+      <td>N°</td>
+      <td>type</td>
+     
+  </thead>
+  <tbody>
+      <ng-container *ngFor="let intervention of interventions | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+          <tr *ngIf="true">
+           <td>
+              
+                  {{intervention.InterventionID}}
+              
+           </td>
+         
+           <td>{{intervention.type}}</td>
+  
+           
+          </tr>
+      </ng-container>
+  
+      <tr><td colspan='20'>
+  
+          <div  class="my-pagination">
+              <table border='0'><tr style="vertical-align:top;">
+                <td>
+                 <select (change)="incrementsItemsPerPage($event)">
+                     <option [value]="5" selected>5</option>
+                     <option [value]="10">10</option>
+                     <option [value]="15">15</option>
+                     <option [value]="20">20</option>
+                     <option [value]="25">25</option>
+                 </select>
+             </td><td width='30px' align="center" >
+                 <span *ngIf="loadingFilter" >...</span>
+             </td><td align="left" >
+             
+
+             </td></tr></table>  
+         </div>
+  
+      </td></tr>
+      
+     
+  </tbody>
+  
+  </table>
+
+  
+
+<pagination-controls
+maxSize="10"
+previousLabel="&#60;"
+nextLabel="&#62;"
+(pageChange)="getInterventions($event)" id="server">
+</pagination-controls>
+
+
+
+

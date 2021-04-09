@@ -1,0 +1,18 @@
+
+<!--
+<span>
+<span class="select-pure__selected-label">{{name}} 
+    <img *ngIf="x" (click)="Action()" width='15px' heigth='15px' src="/assets/img/icon.svg" data-value="name">
+</span>
+</span>
+-->
+
+
+<span class="tag label label-default" style="margin:0px; padding:4px; font-size:12px; margin-right:3px;" >
+    {{name}} 
+    <span *ngIf="x" (click)="Action()" data-role="remove">
+        <i  style='position:relative;top:5px;cursor: pointer;' class="pg-icon md-18">close</i>
+    </span>
+</span>
+
+

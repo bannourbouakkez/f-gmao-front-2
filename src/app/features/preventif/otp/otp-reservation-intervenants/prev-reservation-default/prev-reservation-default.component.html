@@ -1,0 +1,144 @@
+
+
+<!--
+<div *ngIf="zabs.length>0">
+    <div *ngFor="let zab of zabs">
+        {{zab | json }} --- <br>
+    </div>
+    <br> <span (click)="OpenPrevReservation()">[edit]</span>
+</div>
+ 
+<div *ngIf="zabs.length==0">
+    <br> <span (click)="OpenPrevReservation()">[+]</span>
+</div>
+-->
+
+<!--
+<div *ngIf="resIntService.aff_reservedintervenants.length>0">
+    <div *ngFor="let zab of resIntService.aff_reservedintervenants">
+        {{zab | json }} --- <br>
+    </div>
+    <br> <span (click)="OpenPrevReservation()">[edit]</span>
+</div>
+ 
+<div *ngIf="resIntService.aff_reservedintervenants.length==0">
+    <br> <span (click)="OpenPrevReservation()">[+]</span>
+</div>
+-->
+
+<!--
+{{resIntService.aff_zok | json }}
+<br> <span (click)="OpenPrevReservation()">[+]</span>
+-->
+
+
+
+
+
+
+<!--
+<div *ngIf="resIntService.aff_zok.length>0">
+    <div *ngFor="let zab of resIntService.aff_zok">
+        {{zab.name | json }} --- <br>
+    </div>
+    <br> <span (click)="OpenPrevReservation()">[edit]</span>
+    <span  (click)="viderIntervenantsReserved()" >[X]</span>
+
+</div>
+
+
+
+<br>
+
+ 
+<div *ngIf="resIntService.aff_zok.length==0">
+    <br> <span (click)="OpenPrevReservation()">[+]</span>
+</div>
+
+<button (click)="afficheraff_zok()">afficheraff_zok</button>
+
+-->
+
+
+
+
+
+
+
+<div style="width:100%;">
+
+<ng-container *ngIf="resIntService.aff_zok.length>0">
+                            
+                            
+    <div *ngFor="let zab of resIntService.aff_zok" style="width:100%;" >
+
+      <div class="row" style="width:100%;">
+        <div class="b-b b-grey" style="width:100%;" >
+          <p class="pull-left no-margin p-t-5 p-b-5 fs-13">{{zab.name}}</p>
+          <p class="pull-right no-margin p-t-5 p-b-5 fs-13">{{affichageProHM(CalculerNbMinBetweenTwoDate(zab.date1,zab.time1,zab.date2,zab.time2))}}</p>
+          <br>
+          <p class="pull-left no-margin p-t-5 p-b-5 fs-13">{{JustDateString(zab.date1) | date:'dd/MM/yyyy'}} {{JustTimeString(zab.time1)}} &nbsp; - &nbsp;  {{JustDateString(zab.date2) | date:'dd/MM/yyyy'}} {{JustTimeString(zab.time2)}} </p>
+          <div class="clearfix"></div>
+        </div>
+      </div> 
+      
+    </div>
+
+   
+  </ng-container>
+
+  <ul class="list-inline m-0" *ngIf="resIntService.aff_zok.length==0">
+    <li class="list-inline-item" style="padding:0px;margin:0px;">
+  <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+  data-placement="top" title="ajouter"
+  *ngIf="resIntService.aff_zok.length==0" (click)="OpenPrevReservation()"
+  >
+  <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+</button>
+</li>
+</ul>
+
+
+
+  <div style="width:100%;" *ngIf="resIntService.aff_zok.length>0" >
+    <ul class="list-inline m-0" style="float:right;">
+
+ <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+          data-placement="top" title="modifier"
+          *ngIf="resIntService.aff_zok.length>0" (click)="OpenPrevReservation()"
+        >
+          <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+        </button>
+      </li>
+      <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+          data-placement="top" title="reset"
+          *ngIf="resIntService.aff_zok.length>0" (click)="viderIntervenantsReserved()"
+        >
+          <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+          </button>
+      </li>
+
+    </ul>
+  </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,396 @@
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+    <div [ngClass]="isData ? 'big-container-list':'big-container'">
+      <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+    
+        <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres" [home]="home"></app-breadcrumb>
+    
+        <div [ngClass]="isData ? '': 'card'">
+          <div class="card-header" *ngIf="!isData">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+            </ol>
+          </div>
+    
+    
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12">
+    
+    
+      <!--
+      {{ bsm | json }}
+      {{ response_bsm | json }}
+      -->
+            
+      <ng-container *ngIf="loaded">
+            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+              <div class="card-header separator">
+                <div class="card-title">
+                  <span class="my-specific-big-title">
+                  #
+                  {{Facture.FactureID}}
+                </span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    
+    
+                <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+    
+                  <div class="row">
+                   
+    
+    
+                  <div class="col-5">
+    
+                      <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label">
+                            <p class="hint-text p-t-0 fs-12">Fournisseur</p>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">
+                                {{nom}}
+                              </span>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                        
+                      <div class="form-group row">
+                        <label for="name" class="col-md-4 control-label">
+                          <p class="hint-text p-t-0 fs-12">Bons</p>
+                        </label>
+                        <div class="col-md-8">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">
+                                
+                                                    
+
+<ng-container *ngFor="let num of BonsIds ;let i=index;">                                             
+<span class="tag label label-default" style="margin:0px; padding:4px; font-size:12px; margin-right:3px;" >
+    <span style="cursor:pointer;"(click)="openBon(num)">
+      {{num}} 
+    </span>
+    <!--<span  (click)="Decocher(item)" data-role="remove">
+       <i  style='position:relative;top:5px;cursor: pointer;' class="pg-icon md-18">close</i>
+    </span>-->
+</span>
+</ng-container>
+
+
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+                       
+                    
+                     
+                    
+                  </div>
+    
+                  
+                  <div class="col-5 offset-1">
+    
+    
+                    <div class="form-group row">
+    
+                      <label for="name" class="col-md-4 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Créé le</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{Facture.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+    
+                    <div class="form-group row">
+    
+                      <label for="name" class="col-md-4 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Créé par</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">?
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+    
+                    <div class="clearfix"></div>
+    
+                  </div>
+    
+    
+    
+                  </div>
+    
+          
+    
+                </form>
+    
+    
+    
+    
+              </div>
+            </div>
+    
+      
+        
+            
+          
+          <br> 
+                  <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">Facture</span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+    
+                    
+    
+                      <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                
+      <!---------------- articles Table -->
+      <b>
+      <div id="id-div-table">
+
+        <nz-table #smallTable nzSize="small" [nzFrontPagination]="false"
+            [nzShowPagination]="false" [nzData]="['']" [nzBordered]="true">
+            <thead>
+                <tr style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;" align="center">
+
+    <th nzWidth="1%">#</th>
+    <th>Designation</th>
+    <th>TT Qte</th>
+    <th>Det Qte Prix</th>
+    <th>Prix HT</th>
+    
+                </tr>
+            </thead>
+            <tbody >
+                <ng-container *ngFor="let article of articles;let i=index;">
+
+                    <!--[ngClass]="!(a.formControl.value>0) ? 'class': 'disactive-tr'"
+[ngClass]="(a.formControl.value==0) ? 'class': 'refused-tr'"
+-->
+
+                    <!--[ngClass]="{
+'active-tr':isNumber(a.formControl.value) && a.formControl.value>0,
+'refused-tr':isNumber(a.formControl.value) && a.formControl.value==0,
+'':!isNumber(a.formControl.value)
+}"-->
+                    <!--align="center"-->
+                    <tr  style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">  
+
+
+     <td>{{article.ArticleID}} </td>
+     <td> {{article.des}} </td>
+     <td> {{roundMath(article.TTQteBon)}} </td>
+     <td>
+     <div *ngFor="let qteprix of article.ArrayQtePrix">
+        <div>{{qteprix.QteBon}} * {{qteprix.PrixHT}} = {{qteprix.QteBon*qteprix.PrixHT}}</div>
+     </div>
+    </td>
+    <td>{{ CalculerTT(article.ArrayQtePrix) }}</td>
+                    
+        </tr>
+        </ng-container>
+        <tr>
+            <td colspan="4">
+
+            </td>
+            <td>TT</td>
+        </tr>
+        <tr>
+            <td colspan="4"></td>
+            <td>{{ totale() }}</td>
+           
+        </tr>
+        
+        
+        </tbody>
+        </nz-table>
+        
+        
+
+
+    </div>
+    </b>
+      <!--############### articles Table -->
+      
+    
+      
+                                  
+                      </form>
+    
+                      <br>
+                            <div class="row" style="vertical-align: top;">
+                                <div class="col-md-2" style="vertical-align: top;">
+                                    <ul class="list-inline m-0">
+                                        <li class="list-inline-item"
+                                            style="padding:0px;margin:0px;margin-right:4px;">
+                                            <button (click)="openDialog()"
+                                                class="btn btn-default btn-xs rounded-0" type="button"
+                                                data-toggle="tooltip" data-placement="top" title="Complet">
+                                                <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">printer</i></button>
+                                        </li>
+                                      </ul>
+                                  </div>
+                            </div>
+
+                     
+    
+                    </div>
+                  </div>
+<!--
+<button (click)="suprimerFacture()" *ngIf="response && Facture.exist==1" >Suprimer</button>
+<button (click)="restaurerFacture()" *ngIf="response && canRestaured==true && Facture.exist==0" >Restaurer</button>
+-->
+
+
+<br>
+
+
+                 <ng-container>
+                  <br>
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+
+                      <ng-container *ngIf="response && Facture.exist==1">
+                      <button
+                      nz-popconfirm nzTitle="Vous etes sure a supprimer le facture ?" (nzOnConfirm)="suprimerFacture()" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                      style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                        <span>Supprimer</span>
+                        <!--<i class="pg-icon md-18">trash_alt</i>-->
+                        <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                      </button>
+                    </ng-container>
+
+                      <ng-container *ngIf="response && canRestaured==true && Facture.exist==0">
+                      <button
+                      (click)="restaurerFacture()"
+                      style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                        <span>Restaurer</span>
+                        <!--<i class="pg-icon md-18"></i>-->
+                        <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+
+                      </button>
+
+                    </ng-container>
+
+                    </div>
+                  </div>
+                </ng-container>
+
+                
+               
+    </ng-container>
+    
+    
+    <ng-container *ngIf="!loaded">
+      <br>
+      <div class="center-loading-box">
+       <!--
+          <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+         -->
+          <div class="progress-circle-indeterminate m-t-45"></div>
+      </div>
+      <br><br>
+     </ng-container>
+    
+    
+    
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    
+    
+    </div>
+    
+    </div>
+
+
+    <ng-template #iconTpl>
+        <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+        <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+    </ng-template>
+
+<!--<div *ngIf="result.FournisseurID>0 && result.nom">-->
+<!--
+{{result |json}}
+
+    <div>
+    {{FournisseurID}},{{nom}}
+</div>
+     
+<div>
+    Numero Bons  : 
+    <span *ngFor="let num of BonsIds ;let i=index;">
+       {{num}} , 
+    </span>
+</div>
+      
+
+<div *ngIf="articles.length>0">
+<table border='1'>
+    <thead>
+    <td></td>
+    <td>N° Article</td>
+    <td>Designation</td>
+    <td>Qte</td>
+    <td>Det Qte Prix</td>
+    <td>Prix HT</td>
+
+    </thead>
+    
+    <ng-container  *ngFor="let article of articles;let i=index;">
+      <tr>
+
+     <td> {{i}} </td>
+     <td>{{article.ArticleID}} </td>
+     <td> {{article.des}} </td>
+     <td> {{roundMath(article.TTQteBon)}} </td>
+     <td>
+
+     <div *ngFor="let qteprix of article.ArrayQtePrix">
+        <div>{{qteprix.QteBon}} * {{qteprix.PrixHT}}</div>
+     </div>
+
+    </td>
+    <td>{{ CalculerTT(article.ArrayQtePrix) }}</td>
+      
+    </tr>
+
+    </ng-container>
+
+    <tr>
+        <td colspan='6'>
+            Totale : {{ totale() }}
+        </td>
+    </tr>
+</table>
+
+<button (click)="openDialog()">Imprimer</button>
+<button (click)="suprimerFacture()" *ngIf="response && Facture.exist==1" >Suprimer</button>
+<button (click)="restaurerFacture()" *ngIf="response && canRestaured==true && Facture.exist==0" >Restaurer</button>
+
+</div>
+
+-->

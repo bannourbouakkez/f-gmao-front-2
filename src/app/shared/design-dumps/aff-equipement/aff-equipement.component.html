@@ -1,0 +1,50 @@
+
+
+<!--
+<span *ngFor="let niveau of niveaux; let i=index;">
+
+    <span class="small-text no-margin">
+
+      <span style="color:blue;" *ngIf="i>=niveaux.length-1"><b>{{niveau.equipement}}</b></span>
+      <span *ngIf="i<niveaux.length-1">{{niveau.equipement}}</span>
+
+    </span>
+    
+    <ng-container *ngIf="i<niveaux.length-1"> 
+      <i style="position:relative;top:4px;" class="pg-icon md-18">chevron_right</i>
+    </ng-container>
+    <br *ngIf="type=='verticale'">
+    
+ 
+  </span>
+-->
+  
+  <nz-collapse [nzBordered]="true">
+    <nz-collapse-panel [nzHeader]="niveaux[niveaux.length-1].equipement" [nzActive]="false">
+     
+      
+<span *ngFor="let niveau of niveaux; let i=index;">
+
+  <span class="small-text no-margin">
+
+    <span  *ngIf="i>=niveaux.length-1"><b>{{niveau.equipement}}</b></span>
+    <span *ngIf="i<niveaux.length-1">{{niveau.equipement}}</span>
+
+  </span>
+  
+  <ng-container *ngIf="i<niveaux.length-1"> 
+    <i style="position:relative;top:4px;" class="pg-icon md-18">chevron_right</i>
+  </ng-container>
+  <br *ngIf="type=='verticale'">
+  
+
+</span>
+
+
+    </nz-collapse-panel>
+  </nz-collapse>
+  
+
+
+
+

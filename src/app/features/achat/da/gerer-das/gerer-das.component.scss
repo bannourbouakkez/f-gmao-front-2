@@ -1,0 +1,27 @@
+@import './../../../../../assets/my-styles/pagination-complet.scss';
+
+textarea{
+    font-size: 14px;
+  }
+
+
+  nz-divider {
+    margin: 4px 0;
+  }
+  
+  .add-item {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+
+  .pm {
+    margin:0px;
+    padding:2px;
+    margin-right: 4px;
+  }
+
+  .colorplus{
+    color:purple;
+    font-weight:bold;
+  }

@@ -1,0 +1,264 @@
+<div class='big-container-list'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div class="card">
+      <div id="card-header-liste" class="card-header separator">
+        <ol id="breadcrumb-liste" class="breadcrumb">
+          <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+              class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+      <div id="card-body-liste" class="card-body">
+        <div class="row">
+
+
+          <!------------- Filter ----------------->
+          <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+            <nz-collapse [nzBordered]="true">
+              <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader="" [nzActive]="false">
+
+
+                <table id="id-table-filter">
+                  <tr>
+                    <td id="id-table-filter-first-td"></td>
+                    <td>
+
+                      <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form" autocomplete="off">
+                        <!------ Contenu filter ------->
+                        <div class="form-group row">
+                          <label for="fname" class="col-md-2 control-label" aria-required="true">Type</label>
+                          <div class="col-md-10">
+
+                            <nz-select formControlName="type" nzMode="multiple" nzPlaceHolder="" nzAllowClear>
+                              <nz-option nzLabel="mecanique" nzValue="mecanique" [nzHide]="false"></nz-option>
+                              <nz-option nzLabel="electrique" nzValue="electrique" [nzHide]="false"></nz-option>
+                              <nz-option nzLabel="graissage" nzValue="graissage" [nzHide]="false"></nz-option>
+                              <nz-option nzLabel="hydrolique" nzValue="hydrolique" [nzHide]="false"></nz-option>
+                              <nz-option nzLabel="pneumatique" nzValue="pneumatique" [nzHide]="false"></nz-option>
+                            </nz-select>
+
+                          </div>
+                        </div>
+
+
+
+                        <div class="form-group row">
+                          <label class="col-md-2 control-label">Parametrage</label>
+                          <div class="col-md-10 d-flex align-items-center">
+
+                            <!--<div class="form-check form-check-inline success m-b-0">-->
+                            <nz-select formControlName="parametrage" nzMode="multiple" nzPlaceHolder="" nzAllowClear>
+                              <nz-option nzLabel="planification" nzValue="planification" [nzHide]="false"></nz-option>
+                              <nz-option nzLabel="execution" nzValue="execution" [nzHide]="false"></nz-option>
+                              <nz-option nzLabel="cloture" nzValue="cloture" [nzHide]="false"></nz-option>
+                            </nz-select>
+                            <!--</div>-->
+
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label class="col-md-2 control-label">Equipement</label>
+                          <div class="col-md-10">
+
+                            <app-equi-node-select-multi [inputnodes]="nodes" (emit)="ReceptNodes($event)">
+                            </app-equi-node-select-multi>
+
+                          </div>
+
+                        </div>
+
+                        <!--##### Contenu filter #####-->
+                      </div>
+
+                    </td>
+                  </tr>
+                </table>
+
+
+              </nz-collapse-panel>
+            </nz-collapse>
+
+
+            <ng-template #expandedIcon let-active>
+              <table id="id-bar-filter-table">
+                <tr>
+                  <td id="id-bar-filter-td-rotateicon">
+                    <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                      [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                    <i class='pg-icon md-18'>filter</i> Filtre
+                  </td>
+                  <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                    <nz-input-group [nzSuffix]="suffixIconSearch">
+                      <input #searchFilterText formControlName="searchFilterText" class="form-control input-sm"
+                        type="text" autocomplete="off" nz-input placeholder="" id="filter" #filter />
+                    </nz-input-group>
+                    <ng-template #suffixIconSearch>
+                      <i class='pg-icon md-18'>search</i>
+                    </ng-template>
+                  </td>
+                  <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                    <button id="id-bar-filter-btn-first" class='btn btn-default' type="submit">Rechercher</button>
+                    <button type="button" class="btn btn-default" (click)="resetFilter()">
+                      <span> Réinitialiser </span>
+                      <!--<i class='pg-icon md-18'>refresh_alt1</i>-->
+                    </button>
+                    <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                      RA </label>
+                  </td>
+                  <td id="id-bar-filter-last-td">
+                    <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                  </td>
+                </tr>
+              </table>
+            </ng-template>
+
+          </form>
+          <!--################# Filter ####################-->
+
+
+
+          <!------------------- Table ----------------------->
+          <div id="id-div-table">
+
+            <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false" [nzShowPagination]="false"
+              [nzData]="interventions">
+              <thead>
+                <tr>
+                  <th nzWidth="2%">
+                    <button [routerLink]="['/gmao/preventif/intervention/addoredit']" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                      data-placement="top" title="afficher">
+                      <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                    </button>
+
+                  </th>
+                  <th nzWidth="13%">Créé le</th>
+                  <th nzWidth="15%">Créé par</th>
+                  <th nzWidth="20%">Tache</th>
+                  <th nzWidth="20%">Equipement</th>
+                  <th nzWidth="10%">Parametrage</th>
+                  <th nzWidth="10%">Type</th>
+                  <th nzWidth="10%">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let data of smallTable.data | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+                  <td align="center">
+                   
+                      <a href="gmao/preventif/intervention/intervention/{{data.InterventionID}}" target="_blank">
+                        {{ data.InterventionID }}
+                      </a>
+             
+                  </td>
+                  <td>{{ data.created_at | date:'dd/MM/yy HH:mm'}}</td>
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.tache }}</td>
+                  <td>{{ data.equipement }}</td>
+                  <td>{{ data.parametrage }}</td>
+                  <td>{{ data.type }}</td>
+                  <td>
+
+
+                   <!-- {{i}}  (click)="deleteIntervention(data.InterventionID,i)" -->
+                    <ul class="list-inline m-0">
+                      <!--<a href="/gmao/preventif/intervention/intervention/{{data.InterventionID}}" target="_blank">-->
+                      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                        <button [routerLink]="['/gmao/preventif/intervention/intervention/',data.InterventionID]" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="afficher"> <i class="pg-icon md-18"
+                            style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                      </li>
+                      <!--</a>-->
+
+                      <!--<a href="/gmao/preventif/intervention/addoredit/{{data.InterventionID}}">-->
+                      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                        <button [routerLink]="['/gmao/preventif/intervention/addoredit/',data.InterventionID]" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="modifier"><i class="pg-icon md-18"
+                            style="width:10px;height:10px;position:relative;top:1px;">edit</i></button>
+                      </li>
+                      <!--</a>-->
+
+                      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                        <button nz-popconfirm nzTitle="Vous etes sure a supprimer l'intervention ?" (nzOnConfirm)="deleteIntervention(data.InterventionID,i)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+
+                         class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                          data-placement="top" title="supprimer"><i class="pg-icon md-18"
+                            style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i></button>
+                      </li>
+
+                    </ul>
+
+
+
+                  </td>
+
+                </tr>
+              </tbody>
+            </nz-table>
+
+          </div>
+          <!--################# Table ####################-->
+
+
+
+
+
+          <!------------------- Pagination ----------------------->
+          <table id="id-pagination-big-table">
+            <tr>
+              <td>
+
+                <div class="my-pagination">
+                  <table id="id-pagination-small-table">
+                    <tr>
+                      <td>
+                        <nz-select [(ngModel)]="selectedItemPerPage" (ngModelChange)="incrementsItemsPerPage($event)">
+                          <nz-option nzValue="5" nzLabel="5"></nz-option>
+                          <nz-option nzValue="10" nzLabel="10"></nz-option>
+                          <nz-option nzValue="25" nzLabel="25"></nz-option>
+                          <nz-option nzValue="50" nzLabel="50"></nz-option>
+                        </nz-select>
+                      </td>
+
+                      <td>
+                        <pagination-controls maxSize="10" previousLabel="Précédent"
+                          nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;" (pageChange)="getInterventions($event)"
+                          id="server">
+                        </pagination-controls>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+              </td>
+            </tr>
+          </table>
+          <!--################# Pagination ####################-->
+
+
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #iconTpl>
+  <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+  <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>
+

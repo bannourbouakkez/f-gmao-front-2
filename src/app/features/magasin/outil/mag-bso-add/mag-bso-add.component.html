@@ -1,0 +1,603 @@
+
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+<ng-container *ngIf="UseID">
+  <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb2" [autres]="autres"></app-breadcrumb>
+</ng-container>
+<ng-container *ngIf="!UseID">
+  <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+</ng-container>
+
+
+
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Preventif</a></li>
+  <li class="breadcrumb-item"><a href="#">Intervention</a></li>
+  <li class="breadcrumb-item active" >Ajouter Intervention</li>
+</ol>
+-->
+
+    <!-- START card -->
+    <div class="card">
+<!--
+      <div class="card-header  separator">
+        <div class="card-title">Portlet Three
+        </div>
+      </div>
+-->
+
+<div class="card-header separator">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{AjouterOuModifier(UseID)}} Utilisation</span></li>
+      </ol>
+</div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+            <!--
+                        <h3 class="mw-80">Simple but not simpler, create a separate form layout. Best for settings pages.</h3>
+                        <p class="mw-80">Want it to be more Descriptive and User-Friendly, We Made it possible, Use Separated Form Layouts Structure to Presentation your Form Fields.
+                        </p>
+                        <br>
+            -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              
+
+
+
+
+
+
+
+
+        <!--
+        <ng-container *ngIf="(UseID && PageLoaded) && use.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Demande d'intervention est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+      -->
+
+
+            
+  <ng-container *ngIf=" (UseID && PageLoaded) || !UseID">
+  <!--<ng-container *ngIf=" (UseID && PageLoaded && di.exist==1) || !UseID">-->
+  <!--<ng-container>-->
+  
+            <form [formGroup]="UseForm" (ngSubmit)="onSubmit()" class="form-horizontal" role="form" autocomplete="off">
+
+              <input type="hidden" formControlName="UseID" >
+              <input type="hidden" formControlName="user_id" >
+              <input type="hidden" formControlName="datetime" >
+              <input type="hidden" formControlName="bso_id" >
+              <input type="hidden" formControlName="date_cloture" >
+              <input type="hidden" formControlName="isOpened" >
+              <input type="hidden" formControlName="NbDeModif" >
+              <input type="hidden" formControlName="exist" >
+              <input type="hidden" formControlName="created_at" >
+              <input type="hidden" formControlName="updated_at" >
+
+
+
+             
+
+    <div class="form-group row">
+      <label class="col-md-5 required control-label">Date & Heure</label>
+      <div class="col-md-7">
+        <div class="row">
+          <div class="col-md-6">
+
+
+            <div class="input-group date col-md-12 p-1-0">
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+                formControlName="date" readonly>
+              <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">calendar</i>
+                  </i>
+                </span>
+
+              </div>
+            
+            </div>
+
+            <!--<div><label class="error" *ngIf="formErrors.ddr" [innerHTML]="formErrors.ddr"></label>
+            </div>-->
+
+            <span class="help">Date</span>
+          </div>
+          <div class="col-md-6 sm-m-t-10 ">
+
+            <!--
+            <label>
+              Time
+              <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+              <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+            </label>
+            -->
+
+            <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;">
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" #time 
+              formControlName="time"  readonly>
+              <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">time</i>
+                  </i>
+                </span>
+              </div>
+            </div>
+
+
+            <span class="help">Heure</span>
+          </div>
+        </div>
+
+        <!--
+        <div>
+          <label class="error" *ngIf="formErrors.date" [innerHTML]="formErrors.date"></label>
+        </div>
+        <div>
+          <label class="error" *ngIf="formErrors.time" [innerHTML]="formErrors.time"></label>
+        </div>
+      -->
+
+      </div>
+    </div>
+
+
+
+
+    
+    <div class="form-group row">
+      <label for="fname" class="required col-md-5 control-label">Intervenant</label>
+      <div class="col-md-7">
+
+        <div class="input-group date p-1-0">
+
+          <nz-select formControlName="intervenant_id" nzShowSearch nzAllowClear nzPlaceHolder="Select Intervenant"
+          [nzDisabled]="intervenants.length==0">
+          <!--<nz-option *ngFor="let i of intervenants" [nzValue]="i.IntervenantID" [nzLabel]="i.name">-->
+          <nz-option *ngFor="let i of intervenants" [nzValue]="i.IntervenantID" [nzLabel]="i.name">
+          </nz-option>
+          </nz-select>
+
+        </div>
+
+        <!--
+        <div>
+          <label class="error" *ngIf="formErrors.intervenant_id" [innerHTML]="formErrors.intervenant_id"></label>
+        </div>
+        -->
+      
+        
+        <!--
+<span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+            Framework to download and process.</span>
+-->
+      </div>
+    </div>
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Equipement</label>
+                <div class="col-md-7">
+
+
+                  <!--
+                  <div *ngIf="DiID>0">
+
+                    <ng-container *ngIf="di.statut=='enAttente' || ( di.statut=='planifie' && plan && plan.isExecuted==0 ) ">
+                    <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                    </ng-container>
+
+                    <ng-container *ngIf="di.statut=='enCours'">
+                    <app-aff-equipement *ngIf="niveaux.length>0" [niveaux]="niveaux" type="verticale" >
+                    </app-aff-equipement>
+                    </ng-container>
+
+                  </div>
+                
+                  <div *ngIf="!(DiID>0)">
+                    <app-equi-node-select  (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                  </div>
+                  -->
+
+
+                  <div *ngIf="UseID>0">
+                    <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                  </div>
+                
+                  <div *ngIf="!(UseID>0)">
+                    <app-equi-node-select  (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+                  </div>
+
+
+                  
+
+
+
+                </div>
+              </div>
+
+
+
+              <div class="form-group row">
+
+
+                <label for="name" class="required col-md-5 control-label">
+                  <!--<p class="hint-text p-t-0 fs-12">-->
+                    Outillage
+                  <!--</p>-->
+                </label>
+                <div class="col-md-7">
+                  <div *ngIf="loading">
+                    <!--<div class="input-group  col-md-12 p-1-0">-->
+                    <i style='margin-left:10px;' nz-icon nzType="loading" class="loading-icon"></i>
+                    </div>
+                  <!--</div>-->
+                  <div *ngIf="!loading" class="input-group  col-md-12 p-1-0">
+
+
+
+
+                    <!--
+<div *ngFor="let bsm of bsms">
+<span> N°:{{bsm.BsmID}} </span>
+<span>{{bsm.statut}}</span>
+
+<span> <a target="_blank" href="/correctif/bsm/bsm/{{bsm.BsmID}}/2">(A)</a></span>
+<ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+<span *ngIf="bsm.statut=='enAttente'" (click)="AddOrEditBsm(OtpID,bsm.BsmID)"> (M) </span>
+<span *ngIf="bsm.statut=='enAttente' " (click)="deleteBsm(bsm.BsmID)"> (X) </span>
+</ng-container>
+
+</div>
+
+<ng-container *ngIf="otp.statut=='enCours'">
+<ng-container *ngIf="monid==otp.user_id || isPosts(['Admin','Methode']) ">
+<span (click)="AddOrEditBsm(OtpID,null)">[+]</span>
+</ng-container>
+</ng-container>
+
+-->
+
+
+                    <!--<ng-container *ngIf="otp.statut=='enCours' || otp.statut=='ferme' ">-->
+                      <table class="pull-left no-margin p-t-5 p-b-5 fs-13" style="width: 100%;">
+
+                        <ng-container *ngFor="let daarticle of bsooService.bsoarticles;let i=index;" style="width:100%;">
+
+
+                          <tr>
+                            <td>
+                              <span> # {{daarticle.outil_id}} </span>
+                            </td>
+                            <td style="text-align: left;" width="55%">
+                              <!--
+                              <div class="div-statuts-smaller">
+                                <div *ngIf="bsm.statut=='enAttente'" class="label"
+                                  style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                                <div *ngIf="bsm.statut=='accepted'" class="label label-success"
+                                  style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                                <div *ngIf="bsm.statut=='refused'" class="label label-danger"
+                                  style="padding:4px; padding-top:5px;">{{bsm.statut}}</div>
+                              </div>
+                            -->
+                           
+                            {{daarticle.des}}
+
+
+                            </td>
+                            <td width="20%" style="text-align: right;" align="right">
+                              {{daarticle.estimation}} {{daarticle.periode}}(s)
+                            </td>
+                           
+                            <td style="padding:0px; margin:0px; padding-bottom:3px;" width="12%">
+
+
+                              <div style="width:100%;">
+                                <ul class="list-inline m-0" style="float:right;">
+
+                                      <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                        <button class="btn btn-default btn-xs rounded-0" type="button"
+                                          data-toggle="tooltip" data-placement="top" title="modifier"
+                                          *ngIf="bsooService.bsoarticles.length>0"
+                                          (click)="AddOrEditDaArticle(i,bsooService.formData.BsoID)">
+                                          <i class="pg-icon md-18"
+                                            style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+                                        </button>
+                                      </li>
+
+
+
+                                      <ng-container *ngIf="UseID>0 && bsooService.bsoarticles.length>1">
+                                        <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                          <button class="btn btn-default btn-xs rounded-0" type="button"
+                                            data-toggle="tooltip" data-placement="top" title="reset"
+                                            
+                                            (click)="onDeleteBsoArticle(daarticle.BsoDetID,i)">
+                                            <i class="pg-icon md-18"
+                                              style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                          </button>
+                                        </li>
+                                        </ng-container>
+
+                                        <ng-container *ngIf="UseID==0">
+                                          <li class="list-inline-item" style="padding:0px;margin:0px;margin-left:4px;">
+                                            <button class="btn btn-default btn-xs rounded-0" type="button"
+                                              data-toggle="tooltip" data-placement="top" title="reset"
+                                              
+                                              (click)="onDeleteBsoArticle(daarticle.BsoDetID,i)">
+                                              <i class="pg-icon md-18"
+                                                style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+                                            </button>
+                                          </li>
+                                        </ng-container>
+
+
+
+
+                                </ul>
+                              </div>
+
+
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" style="padding:0px;">
+                              <div class="b-b b-grey" style="width:100%;">
+                                <div class="clearfix"></div>
+                              </div>
+                            </td>
+                          </tr>
+
+
+                        </ng-container>
+                      </table>
+
+
+                      <ul class="list-inline m-0">
+                        <li class="list-inline-item" style="padding:0px;margin:0px;">
+                          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                            data-placement="top" title="ajouter"
+                            (click)="AddOrEditDaArticle(null,bsooService.formData.BsoID)">
+                            <i class="pg-icon md-18"
+                              style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                          </button>
+                        </li>
+                      </ul>
+<!--
+                      <ul class="list-inline m-0" *ngIf="bsooService.bsoarticles.length==0">
+                        <li class="list-inline-item" style="padding:0px;margin:0px;">
+                          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                            data-placement="top" title="ajouter" *ngIf="bsooService.bsoarticles.length==0"
+                            (click)="AddOrEditDaArticle(null,bsooService.formData.BsoID)">
+                            <i class="pg-icon md-18"
+                              style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                          </button>
+                        </li>
+                      </ul>
+                    -->
+
+                    <!--</ng-container>-->
+
+
+                   
+
+                  </div>
+                </div>
+              </div>
+
+
+
+
+
+
+
+  
+            
+
+
+
+
+
+           
+
+
+
+              <!--(InterventionID && PageInterventionLoaded && intervention.exist==1) || !InterventionID-->
+              
+              
+              <br>
+              <!--<ng-container *ngIf="!InterventionID || ( isModifiable && InterventionID && PageInterventionLoaded) ">-->
+              <ng-container>
+              <div class="row">
+
+                <div class="col-md-6">
+
+                
+                </div>
+                <div class="col-md-6">
+                  <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="UseForm.valid && bsooService.bsoarticles.length>0 ? 'class': 'disabled'" type="button" (click)="submit()" >{{AjouterOuModifier(UseID)}}
+
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+              
+                </div>
+              </div>
+
+            </ng-container>
+
+            </form>
+</ng-container> 
+
+
+
+<ng-container *ngIf="UseID && !PageLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+  
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+
+
+<!--
+
+<form [formGroup]="UseForm">
+    
+    <input type="hidden" formControlName="UseID" >
+    <input type="hidden" formControlName="user_id" >
+    <input type="hidden" formControlName="datetime" >
+    <input type="hidden" formControlName="bso_id" >
+    <input type="hidden" formControlName="date_cloture" >
+    <input type="hidden" formControlName="isOpened" >
+    <input type="hidden" formControlName="NbDeModif" >
+    <input type="hidden" formControlName="exist" >
+    <input type="hidden" formControlName="created_at" >
+    <input type="hidden" formControlName="updated_at" >
+    
+    <label>
+        Date
+        <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date" readonly>
+        <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+    </label>
+    
+    <label>
+        Time
+        <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+        <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+    </label>
+    
+  
+  <div *ngIf="UseID>0">
+    <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+  </div>
+
+  <div *ngIf="!(UseID>0)">
+    <app-equi-node-select  (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+  </div>
+
+Intervenant :  
+<ng-container *ngIf="intervenants.length==0" >...</ng-container>
+<ng-container *ngIf="intervenants.length>0">
+  <select formControlName="intervenant_id" >
+        <option value=''></option>
+        <option *ngFor="let i of intervenants;" [value]="i.IntervenantID">
+         {{i.name}}
+        </option>
+  </select>
+
+</ng-container>
+
+
+</form>
+-->
+<!--<button (click)="console()">Envoyer</button>-->
+
+
+
+
+
+<!--
+<table class="table table-borderless">
+  <thead class="thead-light">
+    <th>Outil</th>
+    <th>Estimation</th>
+    <th>Periode</th>
+  
+    <th>
+      <a class="btn btn-sm btn-success text-white" (click)="AddOrEditDaArticle(null,bsooService.formData.BsoID)"><i class="fa fa-plus"></i> Ajouter un Outil</a>
+    </th>
+  </thead>
+
+  <tbody>
+    <t r *ngIf=" ! ( UseForm.get('bso_id').value > 0 ) && bsooService.bsoarticles.length==0 && load==true" [class.text-danger]="!isValid && bsooService.bsoarticles.length==0">
+      <td class="font-italic text-center" colspan="4">
+
+        n ya pas d'articles selectioné           
+
+      </td>
+    </tr>
+    <tr *ngIf="loading" >
+      <td>
+        <ng-container> Loading ... </ng-container>
+      </td>
+    </tr>
+
+    <tr *ngFor="let daarticle of bsooService.bsoarticles;let i=index;">
+      <td>{{daarticle.des}}</td> 
+      <td>{{daarticle.estimation}} </td>
+      <td>{{daarticle.periode}} </td>
+      <td>
+        <a class="btn btn-sm btn-info text-white" (click)="AddOrEditDaArticle(i,bsooService.formData.BsoID)"><i class="fa fa-pencil">Modifier</i></a>
+        
+       <ng-container *ngIf="UseID>0 && bsooService.bsoarticles.length>1">
+         <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBsoArticle(daarticle.BsoDetID,i)"><i class="fa fa-trash">Delete</i></a>
+       </ng-container>
+       <ng-container *ngIf="UseID==0">
+        <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBsoArticle(daarticle.BsoDetID,i)"><i class="fa fa-trash">Delete</i></a>
+      </ng-container>
+      
+      </td>
+    </tr>
+  </tbody>
+
+</table>
+-->
+<!--
+<button type="submit" (click)="submit()" > Submit </button>
+-->
+
+
+
+

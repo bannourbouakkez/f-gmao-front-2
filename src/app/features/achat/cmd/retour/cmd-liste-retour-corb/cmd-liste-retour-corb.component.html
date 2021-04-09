@@ -1,0 +1,29 @@
+
+
+    <ul class="meal-list">
+        <li *ngFor="let meal of asyncMeals | async | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total }">
+            {{ meal.des }}
+        </li>
+    </ul>
+
+
+<div  class="my-pagination">
+     <table border='0'><tr style="vertical-align:top;"><td>
+        <select (change)="incrementsItemsPerPage($event)">
+            <option [value]="5">5</option>
+            <option [value]="10" selected>10</option>
+            <option [value]="15">15</option>
+            <option [value]="20">20</option>
+            <option [value]="25">25</option>
+        </select>
+    </td><td width='30px' align="center" >
+        <span *ngIf="loading" >...</span>
+    </td><td align="left" >
+      <pagination-controls
+                      maxSize="10"
+                      previousLabel="Precedent"
+                      nextLabel="Suivant"
+                     (pageChange)="getPage($event)" id="server">
+      </pagination-controls>
+    </td></tr></table>  
+</div>

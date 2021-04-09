@@ -1,0 +1,572 @@
+
+<div  [ngClass]="data ? 'overflowdialog': ''"> 
+
+<div [ngClass]="data ? '': 'big-container-list'">
+  <div [ngClass]="data ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0 && !data" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div [ngClass]="data ? '': 'card'">
+      <div class="card-header" *ngIf="!data">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+
+            <!--
+            <div *ngIf="InterventionID">
+              {{intervention | json }}
+
+
+              <br>
+              Equipement :
+              <span *ngFor="let niveau of niveaux; let i=index;">
+                {{niveau.equipement}}
+                <ng-container *ngIf="i<niveaux.length-1"> > </ng-container>
+              </span>
+
+              <br>
+
+            </div>
+            -->
+
+
+        <ng-container *ngIf="DiID && di.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Demande d'intervention est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+
+
+        <ng-container *ngIf="DiID && di.exist==1">   
+        <div class="card card-default" >
+          <div class="card-header separator">
+            <div class="card-title">
+              <span class="my-specific-big-title"># {{di.DiID}}</span>
+            </div>
+          </div>
+          <div class="card-body">
+
+
+
+            <form class="form-horizontal">
+
+
+              <div class="row">
+               
+
+
+              <div class="col-6">
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Statut</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.statut}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <ng-container *ngIf="OtID" >
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">N° OT</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">
+                      
+                        <span class="fast-url" [routerLink]="['/gmao/correctif/ot/ot/',OtID]" >  {{OtID}}</span>
+
+                      </span>
+                      
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+               </ng-container>
+
+                
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Date</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.datetime | date:'dd/MM/yyyy HH:mm'}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label">
+                    <p class="hint-text p-t-0 fs-12">Equipement</p>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label" style="width:100%;">
+
+
+                    <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                    </app-aff-equipement>
+                      
+
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+              
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Anomalie</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.anomalie}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Type</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.type}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Degre</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.degre}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Description</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.description}}</span>
+                      </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+
+              
+
+
+
+
+              </div>
+
+              
+              <div class="col-4 offset-1">
+
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé le</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Createur</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.name}}</span>
+                        </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label">
+                    <span class="hint-text p-t-0 fs-12">Demandeur</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label"> <span class="font-affichage-contenu">{{di.demandeur}}</span></label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Recepteur</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{di.recepteur}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                 
+               
+
+
+
+              </div>
+
+
+
+              </div>
+
+              <ng-container *ngIf="di.PlanID">
+                <!--<div class="card-body">-->
+
+                  <br><br>
+                 
+
+                  <form class="form-horizontal">
+                    <span class="my-specific-title">Planification</span>
+                    <div class="form-group row">
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                  <div class="row">
+                    <div class="col-6">
+      
+                      <ng-container *ngIf="di.PlanID">
+      
+                      
+                        
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">Date planification</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.datetime  | date:'dd/MM/yyyy HH:mm' }}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+      
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">Type planification</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.type}}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+      
+                        
+      
+                      </ng-container>
+      
+                    </div>
+                    <div class="col-4 offset-1">
+                      
+                      <ng-container *ngIf="di.PlanID">
+      
+                     
+                        
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">Crée le </span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.created_at  | date:'dd/MM/yyyy HH:mm' }}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+      
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">Créé par</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.name}}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+      
+                        <ng-container *ngIf="plan.NbDeModif>0">
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">Derniere modification</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.last_modif | date:'dd/MM/yyyy HH:mm' }}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+      
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">Modifiée par</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.modifieur }}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+      
+                        <div class="form-group row">
+                          <label for="name" class="col-md-4 control-label" >
+                            <span class="hint-text p-t-0 fs-12">NB modification</span>
+                          </label>
+                          <div class="col-md-8">
+                            <label class="control-label">
+                              <span class="font-affichage-contenu">{{plan.NbDeModif }}</span>
+                              </label>
+                          </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        </ng-container>
+      
+                        
+      
+                      </ng-container>
+      
+                    </div>
+                  </div>
+                 </form>
+                <!--</div>-->
+                 </ng-container>
+
+              <ng-container *ngIf="!data">
+                <br>
+                <div class="row">
+                  <div class="col-md-11">
+                    <app-test-upload-files InputType="affichage" [InputID]="DiID" [InputDossierID]="di.dossier_id"  [InputGetFiles]="GetFiles"></app-test-upload-files>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="!data">
+              <br><br>
+
+              <ng-container *ngIf="di.statut=='enAttente' || ( di.statut=='planifie' && di.PlanID && plan.isExecuted==0 )">
+                <div class="row">
+                  <div class="col-md-9">
+                  </div>
+                  <div class="col-md-2">
+                    <button [routerLink]="['/gmao/correctif/ot/add/',DiID]" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                      <span>executer</span>
+                      <i class="pg-icon md-18">flash</i>
+                    </button>
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container *ngIf="di.statut=='enAttente' || ( di.statut=='planifie' && di.PlanID && plan.isExecuted==0 ) ">
+              <div class="row">
+                <div class="col-md-7">
+                </div>
+               
+                <div class="col-md-2">
+                  <button [routerLink]="['/gmao/correctif/di/add/',di.DiID]" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>Modifier</span>
+                    <i class="pg-icon md-18">edit</i>
+                  </button>
+                </div>
+
+                
+                <div class="col-md-2">
+                  <button style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left" 
+                  nz-popconfirm nzTitle="Vous etes sure a supprimer la demande d'intervention ?" (nzOnConfirm)="deleteDi(di.DiID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="top" [nzIcon]="iconTpl"
+                  >
+                    <span>Supprimer</span>
+                    <i class="pg-icon md-18" *ngIf="!LoadingReactBtn1">trash_alt</i>
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+                </div>
+
+              </div>
+
+             
+              
+              <ng-container *ngIf="di.statut=='planifie'">
+
+                <div class="row">
+                  <div class="col-md-7">
+                  </div>
+                  <div class="col-md-2">
+                    <button  (click)="planifierDi(di.PlanID,di.DiID)" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                      <span>Planifier</span>
+                      <i class="pg-icon md-18">calendar</i>
+                    </button>
+                  </div>
+                  <div class="col-md-2">
+                    <button  (click)="deplanifierDi(di.PlanID)" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                      <span>Annuler Planification</span>
+                      <i class="pg-icon md-18" style="text-decoration:line-through;text-decoration-color:red;">calendar</i>
+                    </button>
+                  </div>
+                </div>
+
+              </ng-container>
+
+              <ng-container *ngIf="di.statut!='planifie'">
+
+                <div class="row">
+                  <div class="col-md-9">
+                  </div>
+                  <div class="col-md-2">
+                    <button  (click)="planifierDi(di.PlanID,di.DiID)" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                      <span>Planifier</span>
+                      <i class="pg-icon md-18">calendar</i>
+                    </button>
+                  </div>
+                </div>
+
+              </ng-container>
+
+
+              
+
+              
+
+              </ng-container>
+
+            <ng-container *ngIf="di.statut=='enCours' || di.statut=='ferme' || ( di.statut=='planifie' && di.PlanID && plan.isExecuted==1 )">
+              <div class="row">
+                <div class="col-md-9">
+                </div>
+               
+                <div class="col-md-2">
+                  <button [routerLink]="['/gmao/correctif/di/add/',di.DiID]" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>Modifier</span>
+                    <i class="pg-icon md-18">edit</i>
+                  </button>
+                </div>
+
+              </div>
+            </ng-container>
+
+
+            </ng-container>
+
+
+
+
+
+<!--
+<br>
+[mazel zeda l'affichage mte3 tsawer ba3d ma na3mlélha el component mte3ha ]
+-->           
+
+
+              
+
+
+            </form>
+
+
+
+
+          </div>
+        
+
+        </div>
+        </ng-container>   
+
+
+
+
+        <ng-container *ngIf="!(DiID>0)">
+          <br><br><br>
+          <div class="center-loading-box">
+           <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+          </div>
+          <br><br><br><br>
+        </ng-container>
+        
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+</div>
+
+<ng-template #iconTpl>
+  <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+  <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+</ng-template>
+
+
+
+
+
+
+
+
+<!--
+<ng-container *ngIf="DiID>0">
+  {{di | json}}
+<br>
+[najjim nzid lien mte3 el planification hawka 3andi el id walla naffichi el componennt plan]
+<br>
+[mazel zeda l'affichage mte3 tsawer ba3d ma na3mlélha el component mte3ha ]
+</ng-container>
+-->

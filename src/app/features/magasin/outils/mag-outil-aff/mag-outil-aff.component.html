@@ -1,0 +1,14 @@
+<p>mag-outil-aff works!</p>
+
+<div *ngIf="outil && outil.OutilID>0">
+ {{outil | json }}
+
+ <br>
+ {{ListeUtilisations | json }}
+
+ <div *ngIf="outil.exist==1">
+  <button (click)="deleteOutil()">Delete</button>
+ </div>
+</div>
+
+

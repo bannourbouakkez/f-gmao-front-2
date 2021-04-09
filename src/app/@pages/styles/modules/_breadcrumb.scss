@@ -1,0 +1,162 @@
+/* Breadcrumbs
+------------------------------------
+*/
+.breadcrumb {
+  font-family: $secondary-font-family;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  box-shadow: none;
+  background-color: transparent;
+  padding: 15px 0;
+  margin: 0;
+  border: none;
+  text-transform: uppercase;
+  
+  &.breadcrumb-alt {
+    padding: 8px 0;
+    text-transform: none;
+    a {
+      letter-spacing: normal;
+      color: $color-contrast-medium;
+      font-size: 12px !important;
+    }
+  
+    & > .breadcrumb-item.active {
+      letter-spacing: normal;
+      color: $color-contrast-high;
+      font-size: 12px !important;
+    }
+  }
+  
+  a {
+    margin-left: 0px;
+    margin-right: 4px; // lespace elli bin el kélmét loulénin 3ala ymin kol kilma 
+    font-size: 10px !important; // kobr el kélmét loulénin 
+    letter-spacing: 0.06em;
+    font-weight: 500;
+    color: $color-contrast-high;
+  }
+
+  
+  .breadcrumb-item {
+    @include float(left);
+    @include padding-left(2px);
+  }
+  & > .breadcrumb-item {
+    & + .breadcrumb-item {
+      
+      &:before {
+        
+        //color: $color-contrast-high;
+        font-family: 'pages-icon';
+        //content: '\003e';
+        content: '\e988';
+        //content: "<i class='pg-icon md-18'>chevron_right<i/>";
+        font-size: 12px; // kobr el >
+        font-weight: 500;
+      }
+    }
+
+    &.active {
+       
+      display: flex;
+      align-items: center;
+      //font-weight: 500;
+      color: $color-primary-dark;
+      //margin-left: 0px;
+      //margin-right: 5px;
+      font-size: 11px !important; // kobr el kilma le5ra
+      letter-spacing: 0.06em;
+      
+      &:before {
+        @include padding-right(5px); // bo3d el kilma le5ra 3alli 9balha 
+      }
+      
+    }
+  }
+
+  
+}
+
+
+
+
+
+.table-select-tree{
+	  
+  // border: 3px dashed gray; //$color-contrast-low;
+//table-layout: fixed;
+//width:100%;
+table-layout: fixed;
+width: 100%; 
+
+border-radius: 4px;
+border: 1px dashed  #8d8d8d;//$color-contrast-low;
+//width:100%;
+//height: 20px;
+//display:block;
+//display: inline-block;
+
+
+background-color: $color-contrast-lowest;
+text-align: left;
+//cursor: pointer;
+-webkit-transition: border-color 0.3s ease;
+transition: border-color 0.3s ease;
+//display: inline-flex;
+//vertical-align: top;
+//margin: 5px;
+
+
+}
+
+.table-select-tree:hover {
+// border-color:#5cb0ff;
+// background-color:#fafafa;
+}
+
+.table-select-tree:hover>tr>td>i {
+  //color:#3f9af0;
+}
+
+
+
+
+.table-select-tree-multi{
+	  
+  // border: 3px dashed gray; //$color-contrast-low;
+//table-layout: fixed;
+//width:100%;
+table-layout: fixed;
+width: 100%; 
+
+border-radius: 4px;
+border: 1px dashed  #8d8d8d;//$color-contrast-low;
+//width:100%;
+//height: 20px;
+//display:block;
+//display: inline-block;
+
+
+background-color: $color-contrast-lowest;
+text-align: left;
+//cursor: pointer;
+-webkit-transition: border-color 0.3s ease;
+transition: border-color 0.3s ease;
+//display: inline-flex;
+//vertical-align: top;
+//margin: 5px;
+
+
+}
+
+.td-table-select-tree-multi:hover {
+border-color:#5cb0ff;
+background-color:#fafafad8;
+cursor: pointer;
+}
+.td-table-select-tree-multi:hover>i {
+   color:#3f9af0;
+}
+

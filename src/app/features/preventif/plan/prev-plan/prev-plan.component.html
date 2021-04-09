@@ -1,0 +1,411 @@
+<div [ngClass]="data ? '': 'big-container-list'" >
+    <div  [ngClass]="data ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+  
+      <app-breadcrumb *ngIf="breadcrumb.length>0 && !data" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+  
+      <div [ngClass]="data ? '': 'card'" >
+        <div class="card-header separator" *ngIf="!data">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+          </ol>
+        </div>
+  
+    <ng-container *ngIf="InterventionID && intervention.exist==0">
+          <br><br><br>
+          <div class="center-box" >
+             L'Intervention de cet Planification est supprimé .
+          </div>
+          <br><br><br><br><br>
+    </ng-container>
+
+        <ng-container *ngIf="InterventionID && intervention.exist==1">
+
+
+  
+        <div class="card-body"  style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+          <br>
+  
+          
+          <div class="card card-default" style="border:1px solid gray; margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="card-header  separator">
+              <div class="card-title">
+                <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+                Intervention
+              </div>
+            </div>
+            <div class="card-body">
+  
+  
+              
+              <form class="form-horizontal">
+                <div class="row">
+                  <div class="col-5">
+  
+                    <div class="form-group row">
+  
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">#</span>
+                      </label>
+                      <div class="col-md-8"> 
+                        <label class="control-label">         
+                          <span class="font-affichage-contenu">
+                            <span class="fast-url" [routerLink]="['/gmao/preventif/intervention/intervention/',intervention.InterventionID]" >{{intervention.InterventionID}}</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Equipement</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label" style="width:100%">
+                          <span class="font-affichage-contenu">
+                            <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                            </app-aff-equipement>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Tache</span>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.tache}}</span></label>
+                      </div>
+                    </div>
+  
+                    <div class="clearfix"></div>
+  
+                  </div>
+  
+  
+                  <div class="col-2 offset-1">
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Type</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.type}}</span></label>
+                      </div>
+                    </div>
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Parametrage</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.parametrage}}</span></label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+  
+                  </div>
+  
+  
+                  <div class="col-2 offset-1">
+  
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label">
+                        <span class="hint-text p-t-0 fs-12">Frequence</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label"><span class="font-affichage-contenu">
+                          {{intervention.frequence}}
+                        </span></label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    
+  
+                  </div>
+  
+  
+                </div>
+              </form>
+            
+  
+            </div>
+          </div>
+  
+
+
+  </div>
+  
+  
+
+  <div class="card-body">
+
+    
+         <div class="card card-default">
+            <div class="card-header  separator">
+              <div class="card-title">
+                <span class="my-specific-big-title"># {{intervention.InterventionID}}</span>
+
+              </div>
+            </div>
+            <div class="card-body">
+
+                 
+
+            <form class="form-horizontal">
+
+
+                <div class="row">
+                 
+  
+  
+                <div class="col-5">
+  
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <p class="hint-text p-t-0 fs-12">DDR</p>
+                    </label>
+                    <div class="col-md-6">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">{{intervention.ddr | date:'dd/MM/yyyy'}}</span>
+                              </label>
+                    </div>
+                  </div>
+  
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Prochain Plan</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"> <span class="font-affichage-contenu">{{intervention.date_resultat | date:'dd/MM/yyyy'}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                
+  
+                </div>
+  
+                
+                <div class="col-5 offset-1">
+  
+  
+            
+        
+                  <ng-container *ngIf="intervention.decalage">
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Reportation (j)</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">
+                            
+                            <span *ngIf="intervention.decalage>0">+</span>{{intervention.decalage}}
+
+                          </span>
+                          </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    </ng-container>
+
+                      <ng-container *ngIf="intervention.lastOtp">
+                      <div class="form-group row">
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Derniere OT #</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">
+                              
+                              <span class="fast-url" [routerLink]="['/gmao/preventif/otp/otp/',intervention.lastOtp]" >{{intervention.lastOtp}}</span>
+
+                            </span>
+                            </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      </ng-container>
+                   
+  
+  
+                </div>
+  
+  
+  
+                </div>
+
+                <ng-container *ngIf="!data">
+
+                  <br>
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    
+                    <div class="col-md-2">
+                      <!--<a href="gmao/preventif/bonp/add/0/{{BonpID}}">-->
+                        <button [routerLink]="['/gmao/preventif/otp/add/',InterventionID,'0']" style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                          <span>Executer</span>
+                          <i class="pg-icon md-18">flash</i>
+                        </button>
+                        <!--</a>-->
+                      </div>
+                    </div>
+                    
+                  </ng-container>
+
+  
+              </form>
+
+            </div>
+        </div>
+
+    
+    
+  
+    
+<!--     
+    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;" >
+        <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;" >
+          <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+              <div class="card-header separator">
+                <div class="card-title"> 
+                  <span class="my-specific-card-title">
+                    # {{intervention.InterventionID}}
+                  </span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+                
+
+            <form class="form-horizontal">
+
+
+                <div class="row">
+                 
+  
+  
+                <div class="col-5">
+  
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <p class="hint-text p-t-0 fs-12">DDR</p>
+                    </label>
+                    <div class="col-md-6">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">{{intervention.ddr}}</span>
+                              </label>
+                    </div>
+                  </div>
+  
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Prochain Plan</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"> <span class="font-affichage-contenu">{{intervention.date_resultat}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                 
+                </div>
+  
+                
+                <div class="col-5 offset-1">
+  
+  
+            
+        
+      
+                      <ng-container *ngIf="intervention.lastOtp">
+                      <div class="form-group row">
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Derniere OT ID</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{intervention.lastOtp}}</span>
+                            </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+                      </ng-container>
+                   
+  
+  
+                </div>
+  
+  
+  
+                </div>
+  
+                
+             
+  
+              </form>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    -->     
+
+  </div>
+  
+
+        </ng-container>
+
+        <ng-container *ngIf="!(InterventionID>0)">
+          <br><br><br>
+          <div class="center-loading-box">
+           
+          <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+
+          </div>
+          <br><br><br><br>
+        </ng-container>
+
+        <!--
+        <ng-container *ngIf="data">
+          <div class="x-close-btn" >
+          <ul class="list-inline m-0" style="float:right;">
+            <li class="list-inline-item"
+              style="padding:0px;margin:0px;margin-left:4px;">
+                <button class="btn btn-default btn-xs rounded-0" type="button"
+                  data-toggle="tooltip" data-placement="top" title="ferme" [mat-dialog-close]>
+                  <i class="pg-icon md-18"
+                    style="width:10px;height:10px;position:relative;top:1px;">close_lg</i>
+                </button>
+            </li>
+          </ul>
+        </div>
+        </ng-container>
+        -->
+
+
+      </div>
+    </div>
+  </div>
+
+
+

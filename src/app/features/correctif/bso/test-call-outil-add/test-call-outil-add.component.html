@@ -1,0 +1,10 @@
+
+<div *ngFor="let bso of bsos">
+    <span> N°:{{bso.BsoID}} </span>
+    <span>{{bso.statut}}</span>
+    <span (click)="AfficherBso(bso.BsoID)"> <a target="_blank" href="/correctif/bso/bso/{{bso.BsoID}}" >(A)</a></span>
+    <span *ngIf="bso.statut=='ouvert'" (click)="AddOrEditBso(OtID,bso.BsoID)"> (M) </span>
+    <span *ngIf="bso.statut=='ouvert' " (click)="DeleteBso(bso.BsoID)"> (X) </span>
+</div>
+
+<span (click)="AddOrEditBso(OtID,null)">[+]</span>

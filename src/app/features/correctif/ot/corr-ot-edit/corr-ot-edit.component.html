@@ -1,0 +1,691 @@
+<div [ngClass]="data ? '': 'big-container-list'" >
+  <div  [ngClass]="data ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0 && !data" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div [ngClass]="data ? '': 'card'" >
+      <div class="card-header separator" *ngIf="!data">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+              class='breadcrumb-title'><ng-container *ngIf="breadcrumb.length>0">{{lastbreadcrumb()}}</ng-container></span></li>
+        </ol>
+      </div>
+
+
+  <!--
+  <ng-container *ngIf="InterventionID && intervention.exist==0">
+        <br><br><br>
+        <div class="center-box" >
+           L'Intervention de cet Planification est supprimé .
+        </div>
+        <br><br><br><br><br>
+  </ng-container>
+-->
+      <ng-container *ngIf="demandeur">
+
+
+
+      <div class="card-body"  style="margin-bottom: 0px;padding-bottom: 0px;">
+
+        <br>
+
+        
+        <div class="card card-default" style="border:1px solid gray; margin-bottom: 0px;padding-bottom: 0px;">
+          <div class="card-header  separator">
+            <div class="card-title">
+              <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+              Demande d'intervention
+            </div>
+          </div>
+          <div class="card-body">
+
+
+            
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="col-4">
+
+                  <div class="form-group row">
+
+                    <label for="name" class="col-md-3 control-label">
+                      <span class="hint-text p-t-0 fs-12">#</span>
+                    </label>
+                    <div class="col-md-9"> 
+                      <label class="control-label">         
+                        <span class="font-affichage-contenu">
+                          <span class="fast-url" [routerLink]="['/gmao/correctif/di/di/',di.DiID]" >{{di.DiID}}</span>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">
+                      <span class="hint-text p-t-0 fs-12">Equipement</span>
+                    </label>
+                    <div class="col-md-9">
+                      <label class="control-label" style="width:100%">
+                        <span class="font-affichage-contenu">
+                          <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                          </app-aff-equipement>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">
+                      <span class="hint-text p-t-0 fs-12">Anomalie</span>
+                    </label>
+                    <div class="col-md-9">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{di.anomalie}}</span></label>
+                    </div>
+                  </div>
+
+                  <div class="clearfix"></div>
+
+                </div>
+
+
+                <div class="col-3 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Date</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{di.datetime | date:'dd/MM/yy HH:mm'}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Demandeur</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{demandeur.name}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Recepteur</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{recepteur.name}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+
+
+                  
+                 
+
+                </div>
+
+
+                <div class="col-2 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-5 control-label">
+                      <span class="hint-text p-t-0 fs-12">Type</span>
+                    </label>
+                    <div class="col-md-7">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{di.type}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-5 control-label">
+                      <span class="hint-text p-t-0 fs-12">Degre</span>
+                    </label>
+                    <div class="col-md-7">
+                      <label class="control-label"><span class="font-affichage-contenu">
+                        {{di.degre}}
+                      </span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  
+                  
+
+                </div>
+
+
+              </div>
+            </form>
+          
+
+          </div>
+        </div>
+
+
+
+</div>
+
+
+
+<div class="card-body">
+
+  
+       <div class="card card-default">
+         <!--
+          <div class="card-header  separator">
+            <div class="card-title">
+               Formulaire
+            </div>
+          </div>
+        -->
+          <div class="card-body">
+
+               
+<div class="rows">
+  <div class="col-md-7">
+
+           
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-horizontal" role="form" autocomplete="off">
+
+
+      <input type="hidden" formControlName="OtID" >
+      <input type="hidden" formControlName="user_id" >
+      <input type="hidden" formControlName="di_id" >
+      <input type="hidden" formControlName="tache_id" >
+      <input type="hidden" formControlName="datetime" >
+      <input type="hidden" formControlName="date_execution" >
+      
+
+      <input type="hidden" formControlName="last_modif" >
+      <input type="hidden" formControlName="modifieur_user_id" >
+      <input type="hidden" formControlName="NbDeModif" >
+
+      <input type="hidden" formControlName="statut" >
+      <input type="hidden" formControlName="created_at" >
+      <input type="hidden" formControlName="updated_at" >
+
+
+
+
+     
+
+<div class="form-group row">
+<label class="col-md-5 required control-label">Date & Heure</label>
+<div class="col-md-7">
+<div class="row">
+  <div class="col-md-6">
+
+
+    <div class="input-group date col-md-12 p-1-0">
+      <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"
+        formControlName="date" readonly>
+      <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+      <div class="input-group-append">
+        <span class="input-group-text">
+          <i class='icon-container'>
+            <i class="pg-icon">calendar</i>
+          </i>
+        </span>
+
+      </div>
+    
+    </div>
+
+    <!--<div><label class="error" *ngIf="formErrors.ddr" [innerHTML]="formErrors.ddr"></label>
+    </div>-->
+
+    <span class="help">Date</span>
+  </div>
+  <div class="col-md-6 sm-m-t-10 ">
+
+    <!--
+    <label>
+      Time
+      <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+      <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+    </label>
+    -->
+
+    <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;">
+      <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" #time 
+      formControlName="time"  readonly>
+      <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+      <div class="input-group-append">
+        <span class="input-group-text">
+          <i class='icon-container'>
+            <i class="pg-icon">time</i>
+          </i>
+        </span>
+      </div>
+    </div>
+
+
+    <span class="help">Heure</span>
+  </div>
+</div>
+
+<!--
+<div>
+  <label class="error" *ngIf="formErrors.date" [innerHTML]="formErrors.date"></label>
+</div>
+<div>
+  <label class="error" *ngIf="formErrors.time" [innerHTML]="formErrors.time"></label>
+</div>
+-->
+
+</div>
+</div>
+
+
+
+<div class="form-group row">
+<label for="fname" class="required col-md-5 control-label">Tache</label>
+<div class="col-md-7">
+
+<div class="input-group date p-1-0">
+
+  
+  <nz-select formControlName="tache_id" nzShowSearch nzAllowClear nzPlaceHolder="Select tache"
+  [nzDisabled]="taches.length==0"  [nzDropdownRender]="render" >
+  <nz-option *ngFor="let tache of taches" [nzValue]="tache.TacheID" [nzLabel]="tache.tache">
+  </nz-option>
+  </nz-select>
+  <ng-template #render>
+    <nz-divider></nz-divider>
+    <div *ngIf="EquipementID>0" (click)="openDialogAddTache(EquipementID)" class="add-item">
+      <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+      Ajouter tache
+  </div>
+  </ng-template>
+
+
+
+  
+
+
+
+
+
+</div>
+<!--
+<div>
+  <label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label>
+</div>
+-->
+
+
+<!--
+<span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+    Framework to download and process.</span>
+-->
+</div>
+</div>
+
+<div class="clearfix"></div>
+
+</form>
+
+<form class="form-horizontal" role="form" autocomplete="off">
+
+<div class="form-group row" >
+
+<label for="fname" class="col-md-5 control-label">Intervenants</label>
+<div class="col-md-7">
+
+<div class="input-group date  p-1-0">
+
+  <!--
+  <nz-select formControlName="type" nzShowSearch nzAllowClear nzPlaceHolder="Select type">
+    <nz-option nzLabel="mecanique" nzValue="mecanique"></nz-option>
+    <nz-option nzLabel="electrique" nzValue="electrique"></nz-option>
+    <nz-option nzLabel="graissage" nzValue="graissage"></nz-option>
+    <nz-option nzLabel="hydrolique" nzValue="hydrolique"></nz-option>
+    <nz-option nzLabel="pneumatique" nzValue="pneumatique"></nz-option>
+    <nz-option nzLabel="plus" nzValue="plus"></nz-option>
+  </nz-select>
+-->
+
+<!--
+<nz-select formControlName="recepteur_user_id" nzShowSearch nzAllowClear nzPlaceHolder="Select recepteur"
+[nzDisabled]="recepteurs.length==0">
+<nz-option *ngFor="let recepteur of recepteurs" [nzValue]="recepteur.id" [nzLabel]="recepteur.name">
+</nz-option>
+</nz-select>
+-->
+
+<!--
+<mat-form-field>
+<mat-select [formControl]="bankMultiCtrl"  [multiple]="true" #multiSelect>
+<ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+<mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+{{bank.name}}
+</mat-option>
+</mat-select>
+</mat-form-field>
+-->
+
+<!--[(ngModel)]="listOfTagOptions"-->
+<!--
+<nz-select nzMode="tags" nzPlaceHolder="Select intervenants" name="rien" [(ngModel)]="intervenantsIDs">
+<nz-option *ngFor="let option of intervenants" [nzLabel]="option.name" [nzValue]="option.IntervenantID"></nz-option>
+</nz-select>
+-->
+
+<!--
+<ng-container *ngIf="intervenants.length>0">
+<nz-select   [(ngModel)]="intervenantsIDs"  nzMode="multiple" nzPlaceHolder="Please select" formControlName="intervenants" >
+<nz-option *ngFor="let option of intervenants" [nzLabel]="option.name" [nzValue]="option.IntervenantID"></nz-option>
+</nz-select>
+</ng-container>
+-->
+
+
+<ng-container *ngIf="intervenants.length>0">
+<nz-select   [(ngModel)]="intervenantsIDs"  nzMode="multiple" nzPlaceHolder="Select intervenants"  name="first" nzAllowClear="true">
+<nz-option *ngFor="let option of intervenants" [nzLabel]="option.name" [nzValue]="option.IntervenantID"></nz-option>
+</nz-select>
+</ng-container>
+
+</div>
+<!--
+<div>
+  <label class="error" *ngIf="formErrors.recepteur_user_id" [innerHTML]="formErrors.recepteur_user_id"></label>
+</div>
+-->
+
+
+<!--
+<span class="help">The URL to your SAML Metadata XML file. It must be publicly accessible for Pages
+    Framework to download and process.</span>
+-->
+</div>
+
+<!--<div class="clearfix"></div>-->
+</div>
+</form>
+
+
+
+      <br>
+      <ng-container>
+      <div class="row">
+
+        <div class="col-md-6">
+
+        
+        </div>
+        <div class="col-md-6">
+          <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+            [ngClass]="form.valid ? 'class': 'disabled'" type="button" (click)="submit()" >
+            Modifier OT
+            <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+          </button>
+      
+        </div>
+      </div>
+
+    </ng-container>
+
+
+
+
+  </div>
+</div>
+  
+
+
+
+
+          </div>
+      </div>
+
+  
+  
+
+  
+<!--     
+  <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;" >
+      <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;" >
+        <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+          <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+            <div class="card-header separator">
+              <div class="card-title"> 
+                <span class="my-specific-card-title">
+                  # {{intervention.InterventionID}}
+                </span>
+              </div>
+            </div>
+            <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+              
+
+          <form class="form-horizontal">
+
+
+              <div class="row">
+               
+
+
+              <div class="col-5">
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-6 control-label">
+                    <p class="hint-text p-t-0 fs-12">DDR</p>
+                  </label>
+                  <div class="col-md-6">
+                      <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.ddr}}</span>
+                            </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-6 control-label">
+                    <span class="hint-text p-t-0 fs-12">Prochain Plan</span>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label"> <span class="font-affichage-contenu">{{intervention.date_resultat}}</span></label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+               
+              </div>
+
+              
+              <div class="col-5 offset-1">
+
+
+          
+      
+    
+                    <ng-container *ngIf="intervention.lastOtp">
+                    <div class="form-group row">
+                      <label for="name" class="col-md-6 control-label" >
+                        <span class="hint-text p-t-0 fs-12">Derniere OT ID</span>
+                      </label>
+                      <div class="col-md-6">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">{{intervention.lastOtp}}</span>
+                          </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    </ng-container>
+                 
+
+
+              </div>
+
+
+
+              </div>
+
+              
+           
+
+            </form>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  -->     
+
+</div>
+
+
+      </ng-container>
+
+      <ng-container *ngIf="!demandeur">
+        <br><br><br>
+        <div class="center-loading-box">
+         
+        <!--
+         <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+        -->
+         <div class="progress-circle-indeterminate m-t-45"></div>
+
+        </div>
+        <br><br><br><br>
+      </ng-container>
+
+      <!--
+      <ng-container *ngIf="data">
+        <div class="x-close-btn" >
+        <ul class="list-inline m-0" style="float:right;">
+          <li class="list-inline-item"
+            style="padding:0px;margin:0px;margin-left:4px;">
+              <button class="btn btn-default btn-xs rounded-0" type="button"
+                data-toggle="tooltip" data-placement="top" title="ferme" [mat-dialog-close]>
+                <i class="pg-icon md-18"
+                  style="width:10px;height:10px;position:relative;top:1px;">close_lg</i>
+              </button>
+          </li>
+        </ul>
+      </div>
+      </ng-container>
+      -->
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+<!--
+<ng-container *ngIf="demandeur">
+    demandeur : {{demandeur.name}}
+    fonction : {{demandeur.fonctions}}
+</ng-container> 
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        
+        <input type="hidden" formControlName="OtID" >
+        <input type="hidden" formControlName="user_id" >
+        <input type="hidden" formControlName="di_id" >
+        <input type="hidden" formControlName="tache_id" >
+        <input type="hidden" formControlName="datetime" >
+        <input type="hidden" formControlName="date_execution" >
+        
+
+        <input type="hidden" formControlName="last_modif" >
+        <input type="hidden" formControlName="modifieur_user_id" >
+        <input type="hidden" formControlName="NbDeModif" >
+
+        <input type="hidden" formControlName="statut" >
+        <input type="hidden" formControlName="created_at" >
+        <input type="hidden" formControlName="updated_at" >
+
+        <label>
+            Date
+            <input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" formControlName="date" readonly>
+            <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+        </label>
+        
+        <label>
+            Time
+            <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" formControlName="time" readonly>
+            <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+        </label>
+-->       
+    <!--
+      <div *ngIf="DiID>0">
+        <app-equi-node-select *ngIf="EquipementID>0" (emit)="ReceptNode($event)" [InpuEquipementID]="InpuEquipementID" [InpuName]="InpuName"></app-equi-node-select>
+      </div>
+    -->
+     
+<!--  
+  <br>
+  <span *ngIf="DiID>0">
+        <span *ngFor="let niveau of niveaus;let i=index;"> 
+            {{niveau.equipement}} 
+            <ng-container *ngIf="i<niveaus.length-1"> > </ng-container>
+        </span>
+      
+  </span>
+
+    
+        Tache :  <select formControlName="tache_id" >
+          <option [value]=''></option>
+            <option *ngFor="let tache of taches" [value]="tache.TacheID">{{tache.tache}}</option>
+        </select> 
+        
+        <span *ngIf="EquipementID>0" (click)="openDialogAddTache(EquipementID)">[+]</span>
+      -->      
+        <!--
+        <mat-form-field>
+            <mat-select name="AnomalieID" formControlName="anomalie_id" >
+              <mat-option>
+                <ngx-mat-select-search  [formControl]="bankServerSideFilteringCtrl" [searching]="searching"  placeholderLabel="Chercher Anomalie..."  noEntriesFoundLabel="'Aucune Anomalie'" ></ngx-mat-select-search>
+              </mat-option>
+                <mat-option *ngFor="let bank of anomalies" [value]="bank.AnomalieID">
+                {{bank.anomalie}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        -->
+<!--
+<br> 
+        <mat-form-field>
+          <mat-select [formControl]="bankMultiCtrl"  [multiple]="true" #multiSelect>
+            <ngx-mat-select-search [formControl]="bankMultiFilterCtrl"></ngx-mat-select-search>
+            <mat-option *ngFor="let bank of filteredBanksMulti | async" [value]="bank">
+              {{bank.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      [ 
+      <ng-container *ngFor="let bank of bankMultiCtrl?.value">
+        - {{bank.name}} 
+      </ng-container>
+      ]
+    
+      
+    
+     </form>
+    
+     <button (click)="submit()">Envoyer</button>
+    -->
+    

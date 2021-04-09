@@ -1,0 +1,242 @@
+<div class='big-container-list'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div class="card">
+      <div class="card-header separator">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span id="id-breadcrumb-title" class='breadcrumb-title'>
+              <ng-container *ngIf="breadcrumb.length>0">{{lastbreadcrumb()}}</ng-container>
+            </span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+
+
+        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+          <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;">
+                <div class="card-header separator">
+                  <div class="card-title">
+                    <span class="my-specific-card-title">Commandes</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                 
+                  <ng-container *ngIf="!pageLoaded" >
+                      <br><br>
+                      <div class="center-loading-box">
+                         <div class="progress-circle-indeterminate m-t-45"></div>
+                      </div>
+                      <br><br><br>
+                  </ng-container>
+
+                  <br>
+                  <div *ngIf="pageLoaded && fournisseurs.length>0">
+                    <form [formGroup]="fournisseurForm">
+                    <nz-select formControlName="fournisseur" (ngModelChange)="selectFournisseur($event)" nzPlaceHolder="Select Fournisseur">
+                      <!--<nz-option nzValue="0" nzLabel="Select" selected></nz-option> nzLabel="{{f.count}} {{f.nom}}"-->
+                      <nz-option *ngFor="let f of fournisseurs;" [nzValue]="f.id" nzLabel="{{f.nom}} &nbsp;&nbsp; [ {{f.count}} ] "
+                      ></nz-option>
+                    </nz-select>
+                    </form>
+                  </div>
+
+
+                  <div *ngIf="pageLoaded && fournisseurs.length==0">
+                    
+                    <p class="hint-text p-t-0 fs-12">
+                      Acune demande confirmé .
+                    </p>
+
+                  </div>
+
+                  <form #form="ngForm" (ngSubmit)="submit(form)">
+                    <!--------------------PDR Table -->
+                    <ng-container *ngIf="articlesLoad" > <i nz-icon [nzType]="'loading'"></i> </ng-container>
+
+                    <ng-container *ngIf="!articlesLoad && articles.length>0">
+
+                      <div id="id-div-table">
+
+                        <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                          [nzData]="['']">
+                          <thead>
+                            <tr>
+
+                              <th>Reference</th>
+                              <th>Demandeur</th>
+                              <th>Article</th>
+                              <th>Motif</th>
+                              <th>Delai Restant</th>
+                              <th>Qte Démandé</th>
+                              <th>Qte A Commandé</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <ng-container *ngFor="let a of articles;let i=index;">
+
+                              <!--[ngClass]="!(a.formControl.value>0) ? 'class': 'disactive-tr'"
+                                  [ngClass]="(a.formControl.value==0) ? 'class': 'refused-tr'"
+                              -->
+                              <tr
+                              [ngClass]="{
+                                'active-tr':isNumber(a.formControl.value) && a.formControl.value>0,
+                                'refused-tr':isNumber(a.formControl.value) && a.formControl.value==0,
+                                '':!isNumber(a.formControl.value)
+                              }"
+                              >
+
+                                <td>{{a.ref}}</td>
+                                <td>{{a.name}}</td>
+                                <td>{{a.des}}</td>
+                                <td>{{a.motif}}</td>
+                                <td>{{calculerResteDelai(i)}}</td>
+                                <td>{{roundMath(a.qte)}}</td>
+
+                                <td style="padding-top:0px; margin-top:0px;padding-bottom:0px; margin-bottom:0px;">
+
+                                  <nz-input-number [nzAutoFocus]="false" [formControl]="a.formControl" [nzMin]="0"
+                                    [nzMax]="a.qte" [nzStep]="1">
+                                  </nz-input-number>
+
+                                </td>
+                              </tr>
+                              <tr *ngIf="a.motif">
+                                <td colspan="7"> {{a.motif}} </td>
+                              </tr>
+                            </ng-container>
+
+                          </tbody>
+                        </nz-table>
+
+                      </div>
+
+                    </ng-container>
+                  </form>
+
+
+                
+
+                  <!--################## PDR table-->
+
+                <ng-container *ngIf="!articlesLoad && articles.length>0">
+                <br>
+                <div class="row" style="vertical-align: top;">
+                  <div class="col-md-1" style="vertical-align: top;">
+                    <ul class="list-inline m-0">
+                      <li class="list-inline-item"
+                          style="padding:0px;margin:0px;margin-right:4px;" >
+                          <button (click)="viderAll()"
+                              class="btn btn-default btn-xs rounded-0" type="button"
+                              data-toggle="tooltip" data-placement="top" title="Complet"> <i class="pg-icon md-18"
+                              style="width:10px;height:10px;position:relative;top:1px;">dislike</i></button>
+                      </li>
+                      <li class="list-inline-item" 
+                          style="padding:0px;margin:0px;margin-right:4px;" >
+                          <button (click)="CompletAll()"
+                              class="btn btn-default btn-xs rounded-0" type="button"
+                              data-toggle="tooltip" data-placement="top" title="Complet"> <i class="pg-icon md-18"
+                              style="width:10px;height:10px;position:relative;top:1px;">like</i></button>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="col-md-9">
+                  </div>
+                  <div class="col-md-2">
+                    <!--isAllCompletedIncludeTache(à-->
+                    <button aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                      [ngClass]="true ? 'class': 'disabled'" 
+                      (click)="submit(form)">Commander
+                      <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                    </button>
+                  </div>
+                </div>
+               </ng-container>
+
+
+
+
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--<input name="name-{{a.ArticleID}}" [formControl]="a.formControl" [placeholder]="a.ArticleID" />-->
+<!--
+<div *ngIf="fournisseurs.length>0">
+<select (change)="selectFournisseur($event.target)">
+  <option value="0" selected>Select</option>
+  <option *ngFor="let f of fournisseurs;let i=index;" [value]="f.id">{{f.nom}} : {{f.count}}</option>
+</select>
+</div>
+<div *ngIf="fournisseurs.length==0">
+  Acune demande confirme
+</div>
+
+
+<form #form="ngForm" (ngSubmit)="submit(form)">
+
+<table *ngIf="articles.length>0" border="1">
+<thead>
+<td>Ref</td>
+<td>Demandeur</td>
+<td>Article</td>
+<td>Reste Delai</td>
+<td>Qte Demandé</td>
+<td>Qte A commandé</td>
+</thead>
+<tbody>
+<ng-container *ngFor="let a of articles;let i=index;">
+<tr>
+  <td>{{a.ref}}</td>
+  <td>{{a.name}}</td>
+  <td>{{a.des}}</td>
+  <td>{{calculerResteDelai(i)}}</td>
+  <td>{{roundMath(a.qte)}}</td>
+ 
+
+<td>
+
+<mat-form-field class="matInput-number">
+    <input  [class.input-error]="(a.formControl.value > roundMath(a.qte) ) || ( a.formControl.value < 0 )"
+    matInput autocomplete="off" [formControl]="a.formControl" type="number" 
+    min="0" [max]="a.qte">
+ <mat-error *ngIf="1==2">Erreur</mat-error>
+</mat-form-field>
+
+</td>
+</tr>
+<tr *ngIf="a.motif">
+  <td colspan="7"> {{a.motif}} </td>
+</tr>
+
+</ng-container>
+</tbody>
+</table>
+</form>
+
+<div *ngIf="articles.length>0" >
+<button (click)="submit(form)">submit</button>
+<button (click)="CompletAll()">Complet</button>
+<button (click)="viderAll()">vider all </button>
+</div>
+-->

@@ -1,0 +1,35 @@
+
+<div class="row">
+<div class="col-md-7">
+<ol class="breadcrumb" *ngIf="breadcrumbs.length>0">
+    <ng-container *ngFor="let item of breadcrumbs;let i=index;">
+        <li *ngIf="i<breadcrumbs.length-1" class="breadcrumb-item"><a (click)="navigate(item.url)">{{item.title}}</a></li>
+        <li *ngIf="i==breadcrumbs.length-1" class="breadcrumb-item active" >{{item.title}}</li>
+    </ng-container>
+</ol>
+</div>
+<div class="col-md-5">
+<div style="float:right; padding:20px; padding-right:8px; font-size: 12px;font-weight: 500;">
+    <ng-container *ngFor="let item of autres;let i=index;">
+        <!--
+        <li *ngIf="i<breadcrumbs.length-1" class="breadcrumb-item"><a (click)="navigate(item.url)">{{item.title}}</a></li>
+        <li *ngIf="i==breadcrumbs.length-1" class="breadcrumb-item active" >{{item.title}}</li>
+        -->
+
+        <ng-container *ngIf="item.title!='calendrier'"> 
+        <a (click)="navigate(item.url)" style="text-decoration: underline;">{{item.title}}</a>
+        </ng-container>
+        <ng-container *ngIf="item.title=='calendrier'">
+            
+            <i (click)="navigate(item.url)" class="pg-icon md-18" style="position:relative;top:5px; cursor:pointer;" >calendar</i>
+
+                            <!--style="width:10px;height:10px; position:relative;top:1px;-->
+        </ng-container>
+
+        <ng-container *ngIf="i<autres.length-1"> <span style="padding-left:5px; padding-right:5px;"> &#124;	 </span> </ng-container>
+
+    </ng-container>
+
+</div>
+</div>
+</div>

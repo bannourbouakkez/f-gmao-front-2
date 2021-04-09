@@ -1,0 +1,521 @@
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+
+<div [ngClass]="isData ? 'big-container-list':'big-container'">
+
+
+
+    <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+
+
+
+        <div [ngClass]="isData ? '': 'card'">
+
+            <div class="card-header separator" *ngIf="!isData">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active"><span class='breadcrumb-title'>Envoyer</span></li>
+                </ol>
+            </div>
+
+
+            <div class="card-body">
+
+                <ng-container *ngIf="loaded">
+
+
+                    <div class="card card-default" style="border:1px solid gray;">
+                        <div class="card-header  separator">
+                            <div class="card-title">
+                                <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i>
+                                
+                                <ng-container *ngIf="bso.ot_id>0">
+                                    Bso
+                                </ng-container>
+                                <ng-container *ngIf="!(bso.ot_id>0)">
+                                    Bso ( Utilisation ) 
+                                </ng-container>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+
+
+
+
+                         
+                            
+<ng-container *ngIf="bso.ot_id>0">
+                            <form class="form-horizontal">
+                                <div class="row">
+                                    <div class="col-5">
+
+                                        <div class="form-group row">
+
+                                            <label for="name" class="col-md-4 control-label">
+                                                <span class="hint-text p-t-0 fs-12">#</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label">
+                                                    <span class="font-affichage-contenu">
+
+                                                   
+                                                        <span class="fast-url" [routerLink]="['/gmao/magasin/bso/aff/',bso.BsoID,isCorrectifOuPreventif(bso.isCorrectif)]">
+                                                            {{PouC(isCorrectif)}}{{bso.BsoID}}
+                                                        </span>
+
+                                                       
+
+                                                        
+
+                                                        <!--
+                                                        <ng-container *ngIf="bso.ot_id>0">
+                                                        <span class="fast-url" [routerLink]="['/gmao/correctif/bso/bso/',bso.BsoID,isRetourCoP(isCorrectif)]">
+                                                            {{PouC(isCorrectif)}}{{bso.BsoID}}
+                                                        </span>
+                                                        </ng-container>
+
+                                                        <ng-container *ngIf="!(bso.ot_id>0)">
+                                                            <span class="fast-url" [routerLink]="['/gmao/magasin/outil/use/',bso.UseID]">
+                                                                {{bso.UseID}}
+                                                            </span>
+                                                        </ng-container>
+                                                       -->
+
+
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                     
+                                        <div class="form-group row">
+
+                                            <label for="name" class="col-md-4 control-label">
+                                                <span class="hint-text p-t-0 fs-12">N° OT</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label">
+                                                    <span class="font-affichage-contenu">
+                                                         {{bso.ot_id}}
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+                                        
+
+
+                                    </div>
+                                    
+                                    
+                                    <div class="col-5 offset-1">
+
+                                        <div class="form-group row">
+
+                                            <label for="name" class="col-md-4 control-label">
+                                                <span class="hint-text p-t-0 fs-12">Créé par</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label">
+                                                    <span class="font-affichage-contenu">
+                                                         {{bso.name}}
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="form-group row">
+
+                                            <label for="name" class="col-md-4 control-label">
+                                                <span class="hint-text p-t-0 fs-12">Créé le</span>
+                                            </label>
+                                            <div class="col-md-8">
+                                                <label class="control-label">
+                                                    <span class="font-affichage-contenu">
+                                                       {{bso.created_at | date:'dd/MM/yy HH:mm'}}
+                                                    </span>
+                                                </label>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                
+
+                                </div>
+                            </form>
+</ng-container>
+
+
+<ng-container *ngIf="!(bso.ot_id>0)">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-5">
+
+                <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">#</span>
+                    </label>
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">
+
+                           
+                                <!--<span class="fast-url" [routerLink]="['/gmao/magasin/outil/use/',UseID]">
+                                    {{UseID}}
+                                     {{use.bso_id}}
+                                </span>
+                                -->
+                                {{use.bso_id}}
+
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+
+             
+                <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">N° Utilisation</span>
+                    </label>
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">
+                                <span class="fast-url" [routerLink]="['/gmao/magasin/outil/use/',UseID]">
+                                 {{use.UseID}}
+                                 </span>
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Intervenant</span>
+                    </label>
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">
+                                 {{use.intervenant}}
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Date</span>
+                    </label>
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">
+                                 {{use.datetime | date:'dd/MM/yy HH:mm'}}
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+                
+
+
+            </div>
+            
+            
+            <div class="col-5 offset-1">
+
+                <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Créé par</span>
+                    </label>
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">
+                                 {{use.name}}
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                        <span class="hint-text p-t-0 fs-12">Créé le</span>
+                    </label>
+                    <div class="col-md-8">
+                        <label class="control-label">
+                            <span class="font-affichage-contenu">
+                               {{use.created_at | date:'dd/MM/yy HH:mm'}}
+                            </span>
+                        </label>
+                    </div>
+
+                </div>
+
+
+            </div>
+        
+
+        </div>
+    </form>
+</ng-container>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+
+                            <br>
+                            <ng-container>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                       <!--<ng-container *ngIf="bso_det.length>0">-->
+
+                                            <div id="id-div-table">
+
+                                                <nz-table #smallTable nzSize="small" [nzFrontPagination]="false"
+                                                    [nzShowPagination]="false" [nzData]="['']">
+                                                    <thead>
+                                                        <tr>
+
+                                                            <th>
+                                                                <ng-container  *ngIf="loading">
+                                                                    <i nz-icon nzType="loading" class="loading-icon"></i>
+                                                                </ng-container>
+                                                                <ng-container  *ngIf="!loading">
+                                                                    #
+                                                                </ng-container>
+
+                                                                
+
+                                                            </th>
+            <th> Designation </th>
+            <!--
+            <th *ngIf=" bso && bso.statut=='repondu' " > ? </th>
+            <th *ngIf=" bso && bso.statut=='repondu' " > ? </th>
+            -->
+            <th>Action</th>
+
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                        <ng-container *ngIf="bso && bso.statut=='repondu' " >
+                                                            <ng-container *ngFor="let a of combined; let i=index;">
+                                                              <tr>
+                                                                  <td>
+                                                                    <span *ngIf="a.response.reponse" class="label label-success"
+                                                                    >{{a.bso.outil_id}}</span>
+                                                                <span *ngIf="!a.response.reponse" class="label label-danger"
+                                                                    >{{a.bso.outil_id}}</span>
+                                                                  </td>
+
+                                                                  <td>{{a.bso.des}}</td>
+                                                                 
+                                                                  <td>
+
+                                                                      <div *ngIf="a.response.reponse" >
+                                              
+                                                                          <div *ngIf="a.bso.statut=='termine'" >
+                                                                            
+                                                                              <div class="div-statuts">
+                                                                                <div class="label label-info"
+                                                                                    style="padding:5px;">Terminé</div>
+                                                                            </div>
+
+                                                                          </div>
+
+                                                                          <div *ngIf="a.bso.statut!='termine'" >
+
+                                                                          <button *ngIf="!LoadingReactBtn1" (click)="termineUtilisation(a.bso.BsoDetID)" class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> 
+                                                        <span>Terminé &nbsp;</span>
+
+                                                        <i *ngIf="absobsodetid!=a.bso.BsoDetID"
+                                                            class="pg-icon md-18"
+                                                            style="height:10px;position:relative;top:1px;">refresh_alt1</i>
+
+                                                            <i *ngIf="absobsodetid==a.bso.BsoDetID" nz-icon [nzType]="'loading'"></i>
+
+                                                    </button>
+
+                                                                          </div>
+                                              
+                                                                      </div>
+                                                                  </td>
+                                              
+                                                              </tr>
+                                                           </ng-container>
+                                                         </ng-container>
+
+                                                    </tbody>
+                                                </nz-table>
+
+                                            </div>
+<br>
+Message :
+<br>
+                                            <div class="row">
+
+                                                <div class="col-md-12">
+                                                    
+
+                                                    <div *ngIf=" bso && bso.statut=='repondu' && bso.ot_id!=null ">
+                                                        
+                                                        {{ response_bso.message }}
+
+                                                    </div>
+
+
+                                                </div>
+
+                                             </div>
+
+
+                                            <br>
+                                        <!--</ng-container>-->
+                                    </div>
+
+
+
+
+
+                                </div>
+                                
+<br>
+  <div class="row">
+                <div class="col-md-9">
+                </div>
+                
+
+                <div class="col-md-3">
+                
+                <button   style="width:100%;" aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="true ? 'class': 'disabled'" (click)="terminerTous()" > Termine tous
+  
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                </button>
+            
+  
+                </div>
+  
+            
+
+
+</div>
+
+              </ng-container>
+
+              
+  
+  
+  
+  
+  
+  
+  <ng-container *ngIf="!loaded">
+    <br><br><br>
+    <div class="center-loading-box">
+    
+             <div class="progress-circle-indeterminate m-t-45"></div>
+    </div>
+    <br><br><br><br>
+  </ng-container>
+  
+  
+            </div>
+          </div>
+          
+  </ng-container>
+  
+
+  <ng-container *ngIf="!loaded">
+    <br>
+    <div class="center-loading-box">
+     <!--
+        <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+       -->
+        <div class="progress-circle-indeterminate m-t-45"></div>
+    </div>
+    <br><br>
+   </ng-container>
+   
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  </div>
+
+</div>
+
+<!--
+<div *ngIf="loaded">
+    {{ bso | json }}
+    {{ response_bso | json }}
+    <span *ngIf="loading">Looading ... </span>
+    <table>
+        <thead>
+            <th>N° Outil</th>
+            <th> Des </th>
+            <th *ngIf=" bso && bso.statut=='repondu' " > ? </th>
+        </thead>
+    
+        <tbody>
+    
+            <ng-container *ngIf="bso && bso.statut=='repondu' " >
+              <ng-container *ngFor="let a of combined; let i=index;">
+                <tr>
+                    <td>{{a.bso.outil_id}}</td>
+                    <td>{{a.bso.des}}</td>
+                    <td>{{a.response.reponse}}</td>
+                    <td>
+                        <div *ngIf="a.response.reponse" >
+
+                            <div *ngIf="a.bso.statut=='termine'" >
+                                (Terminé) 
+                            </div>
+                            <div *ngIf="a.bso.statut!='termine'" >
+                            <button (click)="termineUtilisation(a.bso.BsoDetID)" >Termine</button>
+                            </div>
+
+                        </div>
+                    </td>
+
+                </tr>
+             </ng-container>
+           </ng-container>
+    
+        </tbody>
+    
+    </table>
+    
+    <div *ngIf=" bso && bso.statut=='repondu' && bso.ot_id!=null ">
+      Message : 
+      {{ response_bso.message }}
+    </div>
+
+    <button (click)="terminerTous()">Terminer Tous</button>
+    
+</div>
+-->

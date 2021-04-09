@@ -1,0 +1,373 @@
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+
+        <ng-container *ngIf="!corbeille">
+            <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+        </ng-container>
+        <ng-container *ngIf="corbeille">
+            <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb2" [autres]="autres2"></app-breadcrumb>
+        </ng-container>
+
+        <!--<app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>-->
+
+        <div class="card">
+            <div id="card-header-liste" class="card-header separator">
+                <ol id="breadcrumb-liste" class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                            class='breadcrumb-title'>
+                            {{lastbreadcrumb()}}
+                            {{isCorbeille(corbeille)}}
+
+                            </span></li>
+                </ol>
+            </div>
+
+            <div id="card-body-liste" class="card-body">
+                <div class="row">
+
+
+                    <!------------- Filter ----------------->
+                    <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+                        <nz-collapse [nzBordered]="true">
+                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader=""
+                                [nzActive]="false">
+
+
+                                <table id="id-table-filter">
+                                    <tr>
+                                        <td id="id-table-filter-first-td"></td>
+                                        <td>
+
+                                            <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form"
+                                                autocomplete="off">
+                                                <!------ Contenu filter ------->
+
+                                                <ng-container *ngIf="!corbeille">
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Statut</label>
+                                                    <div class="col-md-10">
+
+                                                       
+                                                        <label nz-checkbox name="ouvert" formControlName="Opened" checked>
+                                                        Ouvert </label>
+                                                        &nbsp;  &nbsp;   &nbsp;   &nbsp; 
+                                                        <label nz-checkbox name="ferme" formControlName="NonOpened" checked>
+                                                        Ferme </label>
+
+
+                                                    </div>
+                                                </div>
+
+
+                                               </ng-container>
+                                               <ng-container *ngIf="corbeille">
+                                                <div class="form-group row"  style="display:none;">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                    aria-required="true">Statut</label>
+                                                <div class="col-md-10">
+
+                                                   
+                                                    <label nz-checkbox name="ouvert" formControlName="Opened" checked>
+                                                    Ouvert </label>
+                                                    &nbsp;  &nbsp;   &nbsp;   &nbsp; 
+                                                    <label nz-checkbox name="ferme" formControlName="NonOpened" checked>
+                                                    Ferme </label>
+
+
+                                                </div>
+                                                </div>
+                                               </ng-container>
+
+                                               <input type="hidden"  #datemin formControlName="datemin" >
+                                               <input type="hidden"  #datemax formControlName="datemax" >
+
+
+
+                                                <!--##### Contenu filter #####-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+
+                        <ng-template #expandedIcon let-active>
+                            <table id="id-bar-filter-table">
+                                <tr>
+                                    <td id="id-bar-filter-td-rotateicon">
+                                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                                            [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                                        <i class='pg-icon md-18'>filter</i> Filtre
+                                    </td>
+                                    <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                                            <input #searchFilterText formControlName="searchFilterText"
+                                                class="form-control input-sm" type="text" autocomplete="off" nz-input
+                                                placeholder="" id="filter" #filter />
+                                        </nz-input-group>
+                                        <ng-template #suffixIconSearch>
+                                            <i class='pg-icon md-18'>search</i>
+                                        </ng-template>
+                                    </td>
+                                    <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                                        <button id="id-bar-filter-btn-first" class='btn btn-default'
+                                            type="submit">Rechercher</button>
+                                        <button type="button" class="btn btn-default" (click)="resetFilter()">
+                                            <span> Réinitialiser </span>
+                                            <!--<i class='pg-icon md-18'>refresh_alt1</i>-->
+                                        </button>
+                                        <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                                            RA </label>
+                                    </td>
+                                    <td id="id-bar-filter-last-td">
+                                        <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-template>
+
+                    </form>
+                    <!--################# Filter ####################-->
+
+
+
+                    <!------------------- Table ----------------------->
+                    <div id="id-div-table">
+
+                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                            [nzShowPagination]="false" [nzData]="uses">
+                            <thead>
+                                <tr>
+                                    
+                                    <div *ngFor="let use of uses | paginate: { itemsPerPage: 10, currentPage: p };let i=index;">
+                                        <div [routerLink]="['/magasin/outils/utilisation/'+use.UseID]" >
+                                            N° Utilisation: {{use.UseID}},
+                                            Intervenant : {{use.name}},
+                                            Outil : {{use.des}},
+                                            isOpened : {{use.isOpened}},
+                                            Date : {{use.created_at}}
+                                        </div>
+                                    </div>
+
+                                    <th nzWidth="2%">
+
+                                        <button [routerLink]="['/gmao/magasin/outil/adduse']" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                        data-placement="top" title="Ajouter">
+                                        <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+                                        </button>
+
+                                    </th>
+                                    <th>Intervenant</th>
+                                    <th>Outil</th>
+                                    <th>Statut</th>
+                                    <th>Creation</th>
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+
+
+
+
+
+                            <tbody>
+                               
+                                <ng-container *ngFor="let use of smallTable.data | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+                                <tr>
+                                    
+                                     <td align="center">
+                                        <div class="table-firsttd-height">
+                                            <a href="gmao/magasin/outils/utilisation/use.UseID" target="_blank">
+                                                {{use.UseID}}
+                                            </a>
+                                        </div>
+                                    </td>
+
+                                    <td>{{use.name}}</td>
+                                    <td>{{use.des}}</td>
+                                    <td>
+                                       
+                                        <div class="div-statuts">
+                                            <div *ngIf="outil.isOpened==1" class="label label-danger"
+                                            style="padding:5px;">{{use.isOpened}}</div>
+                                            <div *ngIf="outil.isOpened==0" class="label label-success"
+                                            style="padding:5px;">{{use.isOpened}}</div>
+                                         </div>
+                                    </td>
+                                    <td>{{use.created_at | date:'dd/MM/yyyy HH:mm'}} </td>
+                                   
+
+                                        <td>
+                                            <ul class="list-inline m-0">
+
+                                            <!--<ng-container *ngIf="isPosts(['ResponsableMagasin','Admin','Methode']) ">-->
+                                            
+                                                <!--
+
+                                             <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                                                <button [routerLink]="['/gmao/magasin/outils/outil/',outil.OutilID]" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                  data-placement="top" title="Afficher"> <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                              </li>
+
+                                            <ng-container *ngIf="!corbeille">
+
+                                             <li class="list-inline-item"
+                                             style="padding:0px;margin:0px;margin-right:4px;">
+                                             <button [routerLink]="['/gmao/magasin/outils/addoredit/',outil.OutilID]" class="btn btn-default btn-xs rounded-0" type="button"
+                                                 data-toggle="tooltip" data-placement="top" title="Modifier"> <i
+                                                     class="pg-icon md-18"
+                                                     style="width:10px;height:10px;position:relative;top:1px;">edit</i></button>
+                                             </li>
+
+                                          
+
+                                                <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button nz-popconfirm nzTitle="Vous etes sure a supprimer l'outil ?" (nzOnConfirm)="deleteOutil(outil.OutilID)" nzOkText="Confirmer" nzCancelText="Annuler"   nzPopconfirmPlacement="leftTop" [nzIcon]="iconTpl"
+                            
+                                                     class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                      data-placement="top" title="Supprimer"><i class="pg-icon md-18"
+                                                        style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i></button>
+                                                </li>
+
+                                            </ng-container>
+                                               
+                                        -->
+                                           
+                            
+                                            <!--</ng-container>-->
+                                            
+
+                            
+                                            
+                                          </ul>
+                                         </td>
+                                </tr>
+                          
+                        </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                    <!--################# Table ####################-->
+
+
+
+
+
+                    <!------------------- Pagination ----------------------->
+                    
+                    <table id="id-pagination-big-table">
+                        <tr>
+                            <td>
+
+                                <div class="my-pagination">
+                                    <table id="id-pagination-small-table">
+                                        <tr>
+                                            <td>
+                                                <nz-select [(ngModel)]="selectedItemPerPage"
+                                                    (ngModelChange)="incrementsItemsPerPage($event)">
+                                                    <nz-option nzValue="5" nzLabel="5"></nz-option>
+                                                    <nz-option nzValue="10" nzLabel="10"></nz-option>
+                                                    <nz-option nzValue="25" nzLabel="25"></nz-option>
+                                                    <nz-option nzValue="50" nzLabel="50"></nz-option>
+                                                </nz-select>
+                                            </td>
+
+                                            <td>
+                                                <pagination-controls maxSize="10" previousLabel="Précédent"
+                                                    nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;"
+                                                    (pageChange)="getUses($event,corbeille)" id="server">
+                                                </pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                    
+                    <!--################# Pagination ####################-->
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #iconTpl>
+    <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+    <i nz-icon nzType="exclamation-circle" nzTheme="outline"  style="color: red;"></i>
+  </ng-template>
+  
+
+
+
+
+<!-- =========> Filter -->
+<!--
+<form [formGroup]="filterForm">
+
+    <br>
+        Ouvert  : <input type="checkbox"  name="ouvert" formControlName="Opened" checked>
+        Ferme  : <input type="checkbox"  name="ferme" formControlName="NonOpened" checked>
+    <br>
+
+    <input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+    <input type="hidden"  #datemin formControlName="datemin" >
+    <input type="hidden"  #datemax formControlName="datemax" >
+    Rechecrche Automatique  : <input type="checkbox"  name="auto" formControlName="auto" checked>
+    <button (click)="filter()">Search</button>
+    <button (click)="resetFilter()">Reset</button>
+    </form>
+    
+    <form [formGroup]="formDate">
+    
+    <mat-form-field>
+        <input formControlName="minformdate" #dateminmatdeux  matInput  [matDatepicker]="dateminmat" (dateChange)="dateMinFilter($event)" readonly>
+        <mat-datepicker-toggle matSuffix [for]="dateminmat" ></mat-datepicker-toggle>
+        <mat-datepicker #dateminmat  ></mat-datepicker> 
+    </mat-form-field>
+
+    <mat-form-field>
+        <input formControlName="maxformdate"  #datemaxmatdeux matInput [matDatepicker]="datemaxmat" (dateChange)="dateMaxFilter($event)" readonly>
+        <mat-datepicker-toggle matSuffix [for]="datemaxmat" ></mat-datepicker-toggle>
+        <mat-datepicker #datemaxmat  ></mat-datepicker> 
+    </mat-form-field>
+    
+</form>
+    
+
+
+<div *ngFor="let use of uses | paginate: { itemsPerPage: 10, currentPage: p };let i=index;">
+    <div [routerLink]="['/magasin/outils/utilisation/'+use.UseID]" >
+        N° Utilisation: {{use.UseID}},
+        Intervenant : {{use.name}},
+        Outil : {{use.des}},
+        isOpened : {{use.isOpened}},
+        Date : {{use.created_at}}
+    </div>
+</div>
+<pagination-controls  (pageChange)="p = $event"> </pagination-controls>
+-->
+

@@ -1,0 +1,680 @@
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+<app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Preventif</a></li>
+  <li class="breadcrumb-item"><a href="#">Intervention</a></li>
+  <li class="breadcrumb-item active" >Ajouter Intervention</li>
+</ol>
+-->
+
+    <!-- START card -->
+    <div class="card">
+<!--
+      <div class="card-header  separator">
+        <div class="card-title">Portlet Three
+        </div>
+      </div>
+-->
+
+<div class="card-header separator">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>Ajouter sous famille</span></li>
+      </ol>
+</div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+            <!--
+                        <h3 class="mw-80">Simple but not simpler, create a separate form layout. Best for settings pages.</h3>
+                        <p class="mw-80">Want it to be more Descriptive and User-Friendly, We Made it possible, Use Separated Form Layouts Structure to Presentation your Form Fields.
+                        </p>
+                        <br>
+            -->
+
+<!--
+        <ng-container *ngIf="(ArticeleID && PageLoaded) && article.exist==0">
+              <br><br><br>
+              <div class="center-box" >
+                 Article est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+-->        
+
+        
+<!--
+        <ng-container *ngIf="!isModifiable && InterventionID && PageInterventionLoaded">
+          <div class="alert alert-danger" role="alert">
+            <button aria-label="" class="close" data-dismiss="alert"></button>
+            Vous pouvez pas modifiée cette intrevention maintenant car elle est reliée avec un OT déja en cours .
+          </div>
+        </ng-container>
+-->     
+            
+    <!--<ng-container *ngIf="(ArticeleID && PageLoaded && article.exist==1) || !ArticeleID">-->
+    <ng-container>
+    <!--<ng-container>-->
+  <!--<ng-container>-->
+
+
+            <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal" role="form" autocomplete="off">
+
+             
+              <div class="form-group row">
+                <label for="fname" class=" required col-md-5 control-label">Famille</label>
+                <div class="col-md-7">
+                  <div class="row">
+                    <div class="col-md-8">
+                  <!--<div class="input-group date col-md-9 p-1-0">-->
+                    <nz-select *ngIf="familles.length>0" formControlName="famille_id" nzShowSearch nzAllowClear nzPlaceHolder="Select Famille"
+                       >
+                      <nz-option nzValue="" nzLabel="Select ..."></nz-option>
+                    <nz-option *ngFor="let f of familles" [nzValue]="f.FamilleID" [nzLabel]="f.famille">
+                    </nz-option>
+                    </nz-select>
+                    </div>
+                    <div class="col-md-4">
+</div>
+                  <!--</div>-->
+                  <div><label class="error" *ngIf="!form.controls['famille_id'].valid" innerHTML="famille Obligatoire ."></label></div>
+                </div>
+                </div>
+              </div>
+
+          
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Designation</label>
+                <div class="col-md-7">
+                  <div class="row" style="padding-right:2%;">
+                    <div class="col-md-8">
+                  <!--<div class="input-group date col-md-9 p-1-0">-->
+                    <input  class='form-control input-sm'  maxlength="50" formControlName="name" >
+                  <!--</div>-->
+                    </div>
+                    </div>
+                </div>
+              </div>
+
+        
+             
+        
+          <!--
+            <button  aria-label="" class="btn"
+              [ngClass]="true ? 'class': 'disabled'" type="button" (click)="addNewField()" >Nouveau Champs
+            </button>
+          -->
+
+       
+          <div class="form-group row">
+            <div class="col-md-1"></div>
+            <div class="col-md-11">
+              
+
+          <div formArrayName="fields">
+              
+            <table border='0' width="100%;" style="border-spacing:0 15px;">
+
+
+              <ng-container class="container user-container"  *ngFor="let user of form.controls.fields.controls; let i = index" formGroupName="{{i}}">
+          <tr style="border-bottom:1px solid gray;">
+          <td>
+                  
+                  <div class="form-group row">
+                    <!--<div class="col-md-1"></div>-->
+                    <label for="name" class="col-md-3 control-label">
+                      <!--{{user.get('typeField').value}}-->
+                      <input  class='form-control input-sm'  maxlength="10" type="hidden" formControlName="typeField" placeholder="typeField">
+                      
+                      <!--<br><br>-->
+                      <div style="">
+                      <ng-container *ngIf="user.get('typeField').value=='radiobutton'">
+                        <nz-radio-group>
+                          <label nz-radio nzValue="A">A</label>
+                          <label nz-radio nzValue="B">B</label>
+                        </nz-radio-group>
+                      </ng-container>
+                      
+                      <ng-container *ngIf="user.get('typeField').value=='select'">
+                        <div class="row">
+                          <div class="col-md-7">
+                        <nz-select  nzPlaceHolder="Select">
+                          <nz-option nzValue="A" nzLabel="A"></nz-option>
+                          <nz-option nzValue="B" nzLabel="B"></nz-option>
+                        </nz-select>
+                        </div>
+                      </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="user.get('typeField').value=='text'">
+                        <div class="row">
+                          <div class="col-md-7">
+                            <input class='form-control input-sm' type="text" value="text">
+                         <!--
+                        <input class='form-control input-sm' type="text" style="width:90px;" value="text">
+                       <br>
+                        <nz-input-number [nzMin]="0" [nzStep]="1"></nz-input-number>
+                        -->
+                      
+                      </div>
+                        </div>
+                      </ng-container>
+
+                      <ng-container *ngIf="user.get('typeField').value=='checkbox'">
+                        <label nz-checkbox name="A">A</label> 
+                        <!--<label nz-checkbox name="B">B</label>-->
+                      </ng-container>
+                      
+                    </div>
+
+                    </label>
+
+                  
+
+
+                    <div class="col-md-9">
+                      
+                      <div class="form-group row">
+                        <label for="name" class="required col-md-3 control-label">Nom</label>
+                        <div class="col-md-9">
+                          <div class="input-group date col-md-12 p-1-0">
+                            <input  class='form-control input-sm'  maxlength="50" formControlName="name" placeholder="nom" >
+                          </div>
+                          <!--<div>-->
+                            <label class="error" *ngIf="!user.controls['name'].valid" >Nom obligatoire & Lettres miniscules</label>
+                          <!--</div>-->
+                        </div>
+                      </div>
+                    
+<!--
+                      <div>
+                        Name : 
+                        <input formControlName="name" placeholder="name">
+                        <span *ngIf="!user.controls['name'].valid"> Name obligatoire && que des lettre miniscules </span>
+            
+                    </div>
+                  -->
+
+                  <div class="form-group row">
+                    <label for="name" class="required col-md-3 control-label">Label</label>
+                    <div class="col-md-9">
+                      <div class="input-group date col-md-12 p-1-0">
+                        <input  class='form-control input-sm'  maxlength="50" formControlName="label" placeholder="label" >
+                      </div>
+                      <div><label class="error" *ngIf="!user.controls['label'].valid" > Label obligatoire .</label></div>
+                    </div>
+                  </div>
+
+                 
+                  <ng-container *ngIf="user.get('typeField').value=='text'">
+                  <div class="form-group row" >
+                    <label for="name" class="required col-md-3 control-label">Type</label>
+                    <div class="col-md-9">
+                      <nz-select formControlName="type"  nzPlaceHolder="Select Type">
+                        <nz-option nzValue="string" nzLabel="Chaine de caracteres"></nz-option>
+                        <nz-option nzValue="number" nzLabel="Nombre"></nz-option>
+                      </nz-select>
+                    </div>
+                  </div>
+                 </ng-container>
+                
+
+                 
+                 <ng-container *ngIf="user.get('typeField').value=='text' || user.get('typeField').value=='select'">
+                  <div class="form-group row">
+                   <label for="name" class="col-md-3 control-label">Obligatoire ?</label>
+                   <div class="col-md-9">
+                     <div style="margin-top:4px;">
+                     <label nz-checkbox formControlName="required">
+                       Obligatoire </label>
+                     </div>
+
+                   </div>
+                 </div>
+                 </ng-container>
+ 
+                 <ng-container *ngIf="user.get('typeField').value=='select'">
+                   <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">Vide ?</label>
+                    <div class="col-md-9">
+                      <div style="margin-top:4px;">
+                      <label nz-checkbox formControlName="vide">
+                        Vide </label>
+                      </div>
+                    </div>
+                  </div>
+                  </ng-container>
+
+                 <!--
+                  <div  *ngIf="user.get('typeField').value=='text' || user.get('typeField').value=='select'" >
+                      Required
+                      <input type='checkbox' formControlName="required" placeholder="required">
+                  </div>
+          
+                  <div  *ngIf="user.get('typeField').value=='select'" >
+                    Valeur Vide 
+                    <input type='checkbox' formControlName="vide">
+                </div>
+              -->
+              
+                  
+                  <!--
+                  <div class="col-4 text-right">
+                    <button *ngIf="form.controls.fields.controls.length > 1" type="button" (click)="deleteUser(i)">Delete</button>
+                  </div>
+                  -->
+          
+          <div *ngIf="user.get('typeField').value!='text'" >
+          
+                <!--
+                <div class="row mt-3">
+                  <div class="col-8">
+                    Valeurs
+                  </div>
+          
+                </div>
+              -->
+
+                  <div class="form-group row" >
+                    <label for="name" class="required col-md-3 control-label">Valeurs</label>
+                    <div class="col-md-9">
+                      
+   
+                      <table border='0' width="100%;" style="width:100%;">
+                        <tr>
+                          <td>
+                            <div class="row">
+                               <div class="col-md-5">
+                                 <label class="help">Valeur</label>
+                               </div>
+                               <div class="col-md-5">
+                                 <label class="help">Par Default</label>
+                               </div>
+                               <div class="col-md-2">
+                                 <label class="help"></label>
+                               </div>
+                            
+                            </div>
+                         </td>
+                        </tr>
+
+                        <ng-container class="row" formArrayName="phones">
+                          <ng-container  *ngFor="let phone of user.controls.phones.controls; let j = index" formGroupName="{{j}}">
+                          <tr>
+       
+        <td>
+                            <div class="form-group row">
+                              <!--<label for="name" class="required col-md-3 control-label">Valeur</label>-->
+                              <div class="col-md-5">
+                                <div class="input-group date col-md-12 p-1-0">
+                                  <input  class='form-control input-sm'  maxlength="50" formControlName="value" >
+                                </div>
+                                <div><label class="error" *ngIf="!phone.controls['value'].valid" >Value obligatoire .</label></div>
+                              </div>
+
+                              <div class="col-md-5">
+                                <label nz-checkbox formControlName="default">
+                                  <!--Default--> </label>
+                              </div>
+
+                              <ng-container *ngIf="user.controls.phones.controls.length > 1">
+                                  <div class="col-md-2">
+                                  
+                                    <ul class="list-inline m-0">
+                                      <li class="list-inline-item"
+                                          style="padding:0px;margin:0px;margin-right:4px;">
+                                          <button
+                                          type="button" 
+                                          (click)="deletePhone(i,j)"
+                                              class="btn btn-default btn-xs rounded-0" type="button"
+                                              data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                  class="pg-icon md-18"
+                                                  style="width:10px;height:10px;position:relative;top:1px;color:red;">close</i></button>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </ng-container> 
+
+
+                            </div>
+                            
+                           
+                           </td>
+        
+                  <!--       
+                  <td>
+                                  <input formControlName="value" placeholder="value">
+                                  <span *ngIf="!phone.controls['value'].valid"> value obligatoire </span>
+                  
+                  </td>
+                  <td>
+                                  <input type='checkbox' formControlName="default" placeholder="default">
+                  </td>
+                  <td>
+                                  <button *ngIf="user.controls.phones.controls.length > 1" type="button" (click)="deletePhone(i,j)">Delete</button>
+                  </td>      
+                -->
+                          </tr>
+                        </ng-container>
+                        <tr>
+                        <div class="row">
+                          <div class="col-md-10">
+                          </div>
+                          <div class="col-md-2">
+
+                            <ng-container *ngIf="user.get('typeField').value!='checkbox'">
+                              <div class="col-md-2">
+                              
+                                <ul class="list-inline m-0">
+                                  <li class="list-inline-item"
+                                      style="padding:0px;margin:0px;margin-right:4px;">
+                                      <button
+                                      type="button" 
+                                      (click)="addPhone(i)"
+                                          class="btn btn-default btn-xs rounded-0" type="button"
+                                          data-toggle="tooltip" data-placement="top" title="Ajouter"> <i
+                                              class="pg-icon md-18"
+                                              style="width:10px;height:10px;position:relative;top:1px;">add</i></button>
+                                  </li>
+                                </ul>
+                              </div>
+                            </ng-container> 
+
+                          </div>
+                        </div>
+                        </tr>
+                        </ng-container>
+                  </table>
+          
+          
+        </div>
+      </div>
+          
+
+
+
+
+          </div>
+          
+
+        </div>
+      </div>
+          </td>
+          <td style="vertical-align: top;" align='right'>
+
+            <!--<div class="col-4 text-right">-->
+              <!--<button *ngIf="form.controls.fields.controls.length > 1" type="button" (click)="deleteUser(i)">Delete</button>-->
+            <!--</div>-->
+
+            <ng-container *ngIf="form.controls.fields.controls.length > 1">
+             
+                <div style="margin-top:7px;">
+                <ul class="list-inline m-0">
+                  <li class="list-inline-item"
+                      style="padding:0px;margin:0px;margin-right:4px;">
+                      <button
+                      type="button" 
+                      (click)="deleteUser(i)"                          class="btn btn-default btn-xs rounded-0" type="button"
+                          data-toggle="tooltip" data-placement="top" title="Ajouter"> <i
+                              class="pg-icon md-18"
+                              style="width:10px;height:10px;position:relative;top:1px;color:red;">close_lg</i></button>
+                  </li>
+                </ul>
+              </div>
+             
+            </ng-container> 
+
+
+          </td> 
+          </tr>
+          
+          <!--
+          <tr>
+              <div class="col-4 text-right">
+                  <button *ngIf="form.controls.fields.controls.length > 1" type="button" (click)="deleteUser(i)">Delete</button>
+                </div>
+           </tr>
+          -->
+
+          </ng-container>
+          
+          </table>  
+        </div>
+      </div></div>
+
+      <div class="form-group row">
+        <label for="fname" class=" required col-md-5 control-label">Champs</label>
+        <div class="col-md-7">
+          <div class="row">
+
+            <div class="col-md-8">
+          <!--<div class="input-group date col-md-9 p-1-0">-->
+            <nz-select formControlName="SelecttypeField" nzShowSearch nzAllowClear nzPlaceHolder="Select Champs"
+              (ngModelChange)="SelecttypeField($event)" >
+              <nz-option nzValue="text" nzLabel="Text/Nombre"></nz-option>
+              <nz-option nzValue="select" nzLabel="Select"></nz-option>
+              <nz-option nzValue="radiobutton" nzLabel="Radio"></nz-option>
+              <nz-option nzValue="checkbox" nzLabel="Check Box"></nz-option>
+            </nz-select>
+            <!--</div>-->
+          </div>
+            <div class="col-md-4">
+    <button  aria-label="" class="btn" style="margin-top:3px;"  
+      [ngClass]="true ? 'class': 'disabled'" type="button" (click)="addNewField()" >Nouveau
+      &nbsp;&nbsp; <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">add</i>
+    </button>
+</div>
+          
+          <!--<div><label class="error" *ngIf="!form.controls['famille_id'].valid" innerHTML="famille Obligatoire ."></label></div>-->
+        
+        </div>
+        </div>
+      </div>
+
+<br>
+         <ng-container>
+        <div class="row">
+
+          <div class="col-md-6">
+
+          
+          </div>
+          <div class="col-md-6">
+            <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+              [ngClass]="ValidateFamilleForm() ? 'class': 'disabled'" type="button" (click)="onSubmit(form.value)" >Envoyer
+              <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+            </button>
+        
+          </div>
+        </div>
+
+      </ng-container>
+
+
+            </form>
+
+            <!--<button (click)="onSubmit(form.value)" > Envoyer </button>-->
+
+
+</ng-container> 
+
+
+<!--
+<ng-container *ngIf="ArticeleID && !PageLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+  
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+-->
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+
+
+
+<!--
+<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" class="form-horizontal">
+
+    Familles : <select *ngIf="familles.length>0" formControlName="famille_id" >
+        <option value=''>select</option>
+        <option *ngFor="let f of familles" [value]="f.FamilleID" > {{f.famille}} </option>
+       </select>
+       <span *ngIf="!form.controls['famille_id'].valid"> famille obligatoire </span>
+       <br>
+  
+  Nom De Sous Familles : <input formControlName='name'>
+  <span *ngIf="!form.controls['name'].valid"> Name Obligatoire </span>
+  <br>
+
+  <select formControlName='SelecttypeField' (change)="SelecttypeField($event.target)">
+    <option value="text">Input Text</option>
+    <option value="select"> Select Options</option>
+    <option value="radiobutton"> Radio Buttons</option>
+    <option value="checkbox"> CheckBoxs </option>
+  </select>
+
+  
+  <button type='button' (click)="addNewField()">New Field</button>
+
+
+  <div formArrayName="fields">
+
+
+<table border='2'>
+
+
+    <ng-container class="container user-container"  *ngFor="let user of form.controls.fields.controls; let i = index" formGroupName="{{i}}">
+<tr>
+<td>
+    Field : {{user.get('typeField').value}}  <br>
+        <input type='hidden' formControlName="typeField" placeholder="typeField">
+       
+
+        <div class="col-8">
+            Name : 
+            <input formControlName="name" placeholder="name">
+            <span *ngIf="!user.controls['name'].valid"> Name obligatoire && que des lettre miniscules </span>
+
+        </div>
+
+        <div class="col-8">
+            Label : 
+            <input formControlName="label" placeholder="label">
+            <span *ngIf="!user.controls['label'].valid"> Label obligatoire </span>
+        </div>
+
+
+      
+
+        <div class="col-8" *ngIf="user.get('typeField').value=='text'" >
+          Type
+          <select formControlName="type">
+           <option value="string" >Chaine De Caracteres</option>
+           <option value="number" >Nombre</option>
+          </select>
+
+        </div>
+
+        <div class="col-8" *ngIf="user.get('typeField').value=='text' || user.get('typeField').value=='select'" >
+            Required
+            <input type='checkbox' formControlName="required" placeholder="required">
+        </div>
+
+        <div class="col-8" *ngIf="user.get('typeField').value=='select'" >
+          Valeur Vide 
+          <input type='checkbox' formControlName="vide">
+      </div>
+    -->
+        
+        <!--
+        <div class="col-4 text-right">
+          <button *ngIf="form.controls.fields.controls.length > 1" type="button" (click)="deleteUser(i)">Delete</button>
+        </div>
+        -->
+<!--  
+<div *ngIf="user.get('typeField').value!='text'" >
+
+
+      <div class="row mt-3">
+        <div class="col-8">
+          Valeurs
+        </div>
+
+      </div>
+<table border='1'>
+
+      <div class="row" formArrayName="phones">
+        <div class="col-6" *ngFor="let phone of user.controls.phones.controls; let j = index" formGroupName="{{j}}">
+        <tr>
+           
+<td>
+                <input formControlName="value" placeholder="value">
+                <span *ngIf="!phone.controls['value'].valid"> value obligatoire </span>
+
+</td>
+<td>
+                <input type='checkbox' formControlName="default" placeholder="default">
+</td>
+<td>
+                <button *ngIf="user.controls.phones.controls.length > 1" type="button" (click)="deletePhone(i,j)">Delete</button>
+</td>      
+ 
+        </tr>
+        </div>
+        <div class="col-6 text-center" *ngIf="user.get('typeField').value!='checkbox'">
+          <button type="button" (click)="addPhone(i)">Add New</button>
+        </div>
+      </div>
+</table>
+
+
+
+</div>
+
+</td>
+</tr>
+
+<tr>
+    <div class="col-4 text-right">
+        <button *ngIf="form.controls.fields.controls.length > 1" type="button" (click)="deleteUser(i)">Delete</button>
+      </div>
+ </tr>
+</ng-container>
+
+</table>  
+
+
+
+  </div>
+
+      
+
+
+</form>
+
+<button (click)="onSubmit(form.value)" > Envoyer </button>
+-->
+<!--<button type="button" (click)="addUser()">New User</button>-->

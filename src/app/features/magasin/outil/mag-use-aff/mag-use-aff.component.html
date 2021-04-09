@@ -1,0 +1,48 @@
+
+a bon !! 
+<div *ngIf="loaded">
+    {{ use | json }}
+    {{ bso | json }}
+    {{ response_bso | json }}
+    <table>
+        <thead>
+            <td>N° Outil</td>
+            <td> Des </td>
+            <td *ngIf=" bso.statut=='repondu' || bso.statut=='ferme'" > ? </td>
+            <td *ngIf=" bso.statut=='repondu' || bso.statut=='ferme' " > Termine </td>
+        </thead>
+    
+        <tbody>
+    
+            <ng-container *ngIf="bso.statut=='repondu' || bso.statut=='ferme' " >
+              <ng-container *ngFor="let a of combined; let i=index;">
+                <tr>
+                    <td>{{a.bso.outil_id}}</td>
+                    <td>{{a.bso.des}}</td>
+                    <td>{{a.response.reponse}}</td>
+                    <td *ngIf="a.response.reponse==1" >{{a.bso.statut}}</td>
+                </tr>
+             </ng-container>
+           </ng-container>
+    
+        
+        </tbody>
+    
+    </table>
+    
+
+  
+    <!--<a *ngIf="bso.statut=='repondu'" href="/magasin/bso/gerer/{{bso.BsoID}}">Gerer</a>-->
+
+    <ng-container *ngIf="bso.statut=='repondu'">
+    <button 
+    (click)="openGererBso()" 
+    style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+      <span>
+              Gerer
+      </span>
+      <i class="pg-icon md-18">note</i>
+    </button>
+</ng-container>
+
+    </div>

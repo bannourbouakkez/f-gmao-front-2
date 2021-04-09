@@ -1,0 +1,67 @@
+<p>appercu-impression-facture works!</p>
+
+<input type='checkbox' checked (change)="checkbox()"> Afficher les numeros des Bons
+<input type='checkbox' checked (change)="checkboxFournisseur()"> Afficher le nom de fournisseur 
+
+<mat-dialog-content #span>
+
+
+    
+    <div  *ngIf="affFournisseur==true" >
+    {{fournisseur}}
+    </div>
+    
+    <div *ngIf="numBons==1">
+        Numero Bons  : 
+        <span *ngFor="let num of numBonsArr;let i=index;">
+           {{num}} , 
+        </span>
+    </div>
+   
+<table border='1'>
+    <thead>
+    <td></td>
+    <td>N° Article</td>
+    <td>Designation</td>
+    <td>Qte</td>
+    <td>Det Qte Prix</td>
+    <td>Prix HT</td>
+
+    </thead>
+    
+    <ng-container  *ngFor="let article of articles;let i=index;">
+      <tr>
+
+     <td> {{i}} </td>
+     <td>{{article.ArticleID}} </td>
+     <td> {{article.des}} </td>
+     <td> {{roundMath(article.TTQteBon)}} </td>
+     <td>
+
+     <div *ngFor="let qteprix of article.ArrayQtePrix">
+        <div>{{qteprix.QteBon}} * {{qteprix.PrixHT}}</div>
+     </div>
+
+    </td>
+    <td>{{ CalculerTT(article.ArrayQtePrix) }}</td>
+      
+    </tr>
+
+    </ng-container>
+
+    <tr>
+        <td colspan='6'>
+            Totale : {{ totale() }}
+        </td>
+    </tr>
+</table>
+    
+
+   
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button *ngIf="source=='CmdFacAddFactureComponent'" mat-button tabindex="1" (click)="AfficherFacture()">Afficher</button>
+    <button mat-button tabindex="1" (click)="downloadPDF()">Iprimer</button>
+    <button mat-button mat-dialog-close tabindex="-1">Cancel</button>
+</mat-dialog-actions>

@@ -1,0 +1,10 @@
+<p>founisseur-secteurs works!</p>
+
+
+<ul>
+    <li *ngFor="let secteur of secteurs;let i=index;">
+     {{i+1}} {{secteur.secteur}} <button (click)="edit(secteur.id)">modifier</button><button (click)="delete(secteur.id,i)">supprimer</button>
+    </li>
+</ul>
+
+<button [routerLink]="['/achat/secteurs/addoredit']">Ajouter un secteur</button>

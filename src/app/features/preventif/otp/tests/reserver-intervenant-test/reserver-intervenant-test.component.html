@@ -1,0 +1,18 @@
+
+
+
+IntReservationID:{{IntReservationID}}
+<br> --- <br>
+<app-prev-reservation-default  *ngIf="loaded" 
+[Input_IntReservationID]="IntReservationID" 
+[Input_OtpID]="OtpID"
+[Input_DateTimeOTp]="DateTimeOTp" 
+[Input_reservedintervenants]="local_2_reservedintervenants" 
+[Input_DontSend]="false"
+
+(action)="getIntReservationID($event)"
+
+>
+</app-prev-reservation-default>
+
+<button (click)="submit()">Submit</button>

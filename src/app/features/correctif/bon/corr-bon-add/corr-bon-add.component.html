@@ -1,0 +1,616 @@
+
+<div class='big-container-list'>
+  <div class="col-md-11 col-xlg-6">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+    <div class="card">
+      <div class="card-header separator">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+              class='breadcrumb-title'><ng-container *ngIf="breadcrumb.length>0">{{lastbreadcrumb()}}</ng-container>
+              </span></li>
+        </ol>
+      </div>
+
+      <ng-container *ngIf="OtID>0 || BonID>0">
+
+      <div class="card-body" >
+
+        <br>
+
+        
+        <div class="card card-default" style="border:1px solid gray;" >
+          <div class="card-header  separator">
+            <div class="card-title">
+              <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+              OT
+            </div>
+          </div>
+          <div class="card-body" >
+
+
+
+            <form class="form-horizontal" >
+              <div class="row">
+                <div class="col-2">
+
+                  <div class="form-group row">
+
+                    <label for="name" class="col-md-8 control-label">
+                      <span class="hint-text p-t-0 fs-12">#</span>
+                    </label>
+                    <div class="col-md-4">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">
+                       
+                          <span class="fast-url" [routerLink]="['/gmao/correctif/ot/ot/',ot.OtID]" >{{ot.OtID}}</span>
+
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-8 control-label">
+                      <span class="hint-text p-t-0 fs-12">N° DI</span>
+                    </label>
+                    <div class="col-md-4">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">
+                       
+                          <span class="fast-url" [routerLink]="['/gmao/correctif/di/di/',ot.di_id]" >{{ot.di_id}}</span>
+
+                        </span>
+
+
+
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+
+                 
+
+
+                </div>
+
+
+                <div class="col-3 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Date</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{ot.datetime | date:'dd/MM/yyyy'}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+
+                 
+
+                </div>
+
+
+
+                <div class="col-4 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">
+                      <span class="hint-text p-t-0 fs-12">Equipement</span>
+                    </label>
+                    <div class="col-md-9">
+                      <label class="control-label" style="width:100%;">
+                        <span class="font-affichage-contenu">
+                          <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                          </app-aff-equipement>
+                        </span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">
+                      <span class="hint-text p-t-0 fs-12">Anomalie</span>
+                    </label>
+                    <div class="col-md-9">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{ot.anomalie}}</span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-3 control-label">
+                      <span class="hint-text p-t-0 fs-12">Tache</span>
+                    </label>
+                    <div class="col-md-9">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{ot.tache}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+
+
+                </div>
+              
+
+              </div>
+            </form>
+
+          </div>
+        </div>
+
+      </div>
+
+
+     
+
+        
+      <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;" >
+        <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;" >
+          <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+              <div class="card-header separator">
+                <div class="card-title"> 
+                  <span class="my-specific-card-title">Intervenants</span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                   <!-------- Table intervenants -->
+                   
+<div id="id-div-table">
+
+  <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+    [nzData]="['']">
+    <thead>
+      <tr>
+
+        <th nzWidth="18%">Intervenant</th>
+        <th nzWidth="11%">Du</th>
+        <th nzWidth="11%">A</th>
+        <th nzWidth="8%">Durée</th>
+        <th nzWidth="28%">Tache</th>
+        <th nzWidth="16%">Description</th>
+        <th nzWidth="8%">
+
+
+<!------------------------------------------------------------------------------ kénét BonID-->
+<button class="btn btn-default btn-block" (click)="AddOrEditBonIntervenant(null,BonID)">
+<i class="pg-icon md-18" style="width:28px;height:10px;position:relative;top:1px;">add</i>
+</button>
+
+         
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="false">
+        <td class="font-italic text-center" colspan="4">
+          n ya pas aucun intervenant  
+        </td>
+      </tr>
+      <tr *ngIf="loading" >
+        <td>
+          <ng-container> Loading ... </ng-container>
+        </td>
+      </tr>
+
+<tr *ngFor="let bonintervenant of corrBonService.bonintervenants;let i=index;">
+  
+  <td>{{bonintervenant.name}}</td> 
+  <td>{{JustDateString(bonintervenant.date1) | date:'dd/MM'}} {{JustTimeString(bonintervenant.time1)}}</td>
+  <td>{{JustDateString(bonintervenant.date2) | date:'dd/MM'}} {{JustTimeString(bonintervenant.time2)}}</td>
+  <td>{{affichageProHM(CalculerNbMinBetweenTwoDate4(bonintervenant.date1,bonintervenant.time1,bonintervenant.date2,bonintervenant.time2))}}</td>
+  <td>{{bonintervenant.tache}}</td>
+  <td>{{bonintervenant.description}}</td>
+
+  <td>
+
+    <ul class="list-inline m-0">
+
+      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+          data-placement="top" title="modifier"
+          (click)="AddOrEditBonIntervenant(i,BonID)">
+          <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+        </button>
+      </li>
+
+
+  
+      <ng-container *ngIf="BonID>0 && corrBonService.bonintervenants.length>1">
+      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+          data-placement="top" title="supprimer"
+          (click)="onDeleteBonIntervenant(bonintervenant.BonIntervenantID,i)">
+          <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+          </button>
+      </li>
+      </ng-container>
+
+      <!------------------ kénét BonID-->
+      <ng-container *ngIf="BonID==0">
+        <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+            data-placement="top" title="supprimer"
+            (click)="onDeleteBonIntervenant(bonintervenant.BonIntervenantID,i)">
+            <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+            </button>
+        </li>
+      </ng-container>
+
+
+
+    </ul>
+    
+   </td>
+</tr>
+    </tbody>
+  </nz-table>
+
+</div>
+
+                   <!--###### Table intervenants -->
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+      <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;" >
+        <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;" >
+          <div class="col-md-12" style="margin-bottom: 0px;padding-bottom: 0px;">
+            <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+              <div class="card-header separator">
+                <div class="card-title"> 
+                  <span class="my-specific-card-title">PDR</span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                   <ng-container *ngIf="articles.length>0">
+
+    <!--          
+     <table>
+      <thead>
+        <td>N°</td>
+        <td>Des</td>
+        <td>Qte D</td>
+        <td>Qte A</td>
+        <td>Qte U</td>
+        <td>Qte R</td>
+      </thead>
+      <tbody>
+       <ng-container  *ngFor="let article of articles;let i=index;">
+         <tr>
+         <td>{{article.article_id}}</td>
+         <td>{{article.des}}</td>
+         <td>{{article.qted}}</td>
+         <td>{{article.qtea}}</td>
+         <td>
+           <mat-form-field class="matInput-number" *ngIf="article.qtea>0">
+             <input  [class.input-error]="(article.formControl.value > roundMath(article.qtea)) || ( article.formControl.value < 0 )"
+             matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+             [min]="0" [max]="roundMath(article.qtea-article.qter)">
+          <mat-error *ngIf="1==2">Erreur</mat-error>
+         </mat-form-field>
+         </td>
+         <td>
+          {{ roundMath(article.qtea - article.formControl.value) }} [{{ roundMath(article.qter) }}]
+         </td>
+       </tr>
+       </ng-container>
+          
+      </tbody>
+    </table>
+   -->    
+
+    <!--------------------PDR Table -->
+
+    <div id="id-div-table">
+
+      <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+        [nzData]="['']">
+        <thead>
+          <tr>
+    
+            <th>ArticleID</th>
+            <th>Desnignation</th>
+            <th>Qte Demandé</th>
+            <th>Qte Accepté</th>
+            <th>Qte Utilisé</th>
+            <th>Qte Rétourné</th>
+            <th>Déja Rétourné</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          
+    <tr *ngFor="let article of articles;let i=index;">
+      
+         <td>{{article.article_id}}</td>
+         <td>{{article.des}}</td>
+         <td>{{article.qted}}</td> 
+         <td>{{article.qtea}}</td>
+
+         <td>
+          <ng-container *ngIf="article.qtea>0">
+            <nz-input-number  [nzAutoFocus]="false"
+             
+            [class.nz-input-error]="(article.formControl.value > roundMath(article.qtea)) || ( article.formControl.value < 0 )"
+            [formControl]="article.formControl" [nzMin]="0" [nzMax]="roundMath(article.qtea-article.qter)" 
+            [nzStep]="1">
+            </nz-input-number>
+          </ng-container>
+          <!--    
+          <mat-form-field class="matInput-number" *ngIf="article.qtea>0">
+            <input  [class.input-error]="(article.formControl.value > roundMath(article.qtea)) || ( article.formControl.value < 0 )"
+            matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+            [min]="0" [max]="roundMath(article.qtea-article.qter)">
+         <mat-error *ngIf="1==2">Erreur</mat-error>
+        </mat-form-field>
+        -->     
+
+        </td>
+        <td>
+         {{ roundMath(article.qtea - article.formControl.value) }} 
+        </td>
+        <td>
+          {{ roundMath(article.qter) }}
+        </td>
+    
+     
+    </tr>
+        </tbody>
+      </nz-table>
+    
+    </div>
+
+    
+    
+    <!--################## PDR table-->
+
+                   </ng-container>
+
+                   <ng-container *ngIf="articles.length==0">
+                    <p class="hint-text p-t-0 fs-12">Il n y'a pas des pieces de rechange utilisées .</p>
+
+                   </ng-container>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;" >
+        <div class="row" style="margin-bottom: 0px;padding-bottom: 0px;" >
+          <div class="col-md-12">
+            <div class="card card-default"  >
+              <div class="card-header separator">
+                <div class="card-title">
+                  <span class="my-specific-card-title">Rapport</span>
+                </div>
+              </div>
+              <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+              
+              
+                <br>
+                <div class="form-group row">
+                  <label for="name" class="col-md-2 control-label">Rapport</label>
+                  <div class="col-md-5">
+                    <textarea  name="Rapport" #Rapport="ngModel" [(ngModel)]="corrBonService.formData.Rapport"
+                     class="form-control" rows="4" id="name"
+                     placeholder=""></textarea>
+
+
+                  </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-md-5">
+                  </div>
+
+                  <div class="col-md-2">
+                    <!--isAllCompletedIncludeTache(à-->
+                    <button aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                      [ngClass]="corrBonService.bonintervenants.length>0 && corrBonService.isAllCompleted() && isArticlesLogique() ? 'class': 'disabled'" 
+                      (click)="Submit()">{{AjouterOuModifier(BonID)}}
+                      <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                    </button>
+                  </div>
+                </div>
+
+              <!--
+              <input type="input"  name="Rapport" #Rapport="ngModel" [(ngModel)]="bonService.formData.Rapport">
+              
+              <button type="submit" (click)="Submit()" > Submit </button>
+              -->
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      
+
+      </ng-container>
+
+
+
+      <ng-container *ngIf="!(OtID>0 || BonID>0)">
+        <br><br><br>
+        <div class="center-loading-box">
+         <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+        </div>
+        <br><br><br><br>
+      </ng-container>
+
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<ng-container *ngIf="OtID>0 || BonID>0">
+    
+  <ng-container *ngIf="BonID>0">
+     {{bon | json}}
+  </ng-container>
+
+  <br>
+
+    {{ot | json}}
+    
+    <br>
+    Equipement : 
+    <span *ngFor="let niveau of niveaux; let i=index;"> 
+        {{niveau.equipement}}
+        <ng-container *ngIf="i<niveaux.length-1" > > </ng-container> 
+    </span>
+
+    <br>
+
+    <table class="table table-borderless">
+        <thead class="thead-light">
+          <th>Intervenant</th>
+          <th>date 1</th>
+          <th>time 1</th>
+          <th>date 2</th>
+          <th>time 2</th>
+          <th>tache</th>
+          <th>Description</th>
+        
+          <th>
+            <a class="btn btn-sm btn-success text-white" (click)="AddOrEditBonIntervenant(null,BonID)"><i class="fa fa-plus"></i> Ajouter un Outil</a>
+          </th>
+        </thead>
+    
+        <tbody>
+         
+          <tr *ngIf="loading" >
+            <td>
+              <ng-container> Loading ... </ng-container>
+            </td>
+          </tr>
+    
+          <tr *ngFor="let bonintervenant of corrBonService.bonintervenants;let i=index;">
+            <td>{{bonintervenant.name}}</td> 
+            <td>{{ JustDateString(bonintervenant.date1) }} </td>
+            <td>{{ JustTimeString(bonintervenant.time1) }} </td>
+            <td>{{ JustDateString(bonintervenant.date2) }} </td>
+            <td>{{ JustTimeString(bonintervenant.time2) }} </td>
+            <td>{{bonintervenant.tache}} </td>
+            <td>{{bonintervenant.description}} </td>
+            <td>
+              <a class="btn btn-sm btn-info text-white" (click)="AddOrEditBonIntervenant(i,BonID)"><i class="fa fa-pencil">Modifier</i></a>
+            
+              <ng-container *ngIf="BonID>0 && corrBonService.bonintervenants.length>1">
+                <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBonIntervenant(bonintervenant.BonIntervenantID,i)"><i class="fa fa-trash">Delete</i></a>
+            </ng-container>
+              <ng-container *ngIf="BonID==0">
+                <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBonIntervenant(bonintervenant.BonIntervenantID,i)"><i class="fa fa-trash">Delete</i></a>
+            </ng-container>
+           
+            </td>
+          </tr>
+        </tbody>
+    
+    </table>
+    
+    Rapport : <input type="input"  name="Rapport" #Rapport="ngModel" [(ngModel)]="corrBonService.formData.Rapport">
+ <br>
+
+  <ng-container *ngIf="articles.length>0">
+  chnowa taw ..
+
+   <table>
+     <thead>
+       <td>N°</td>
+       <td>Des</td>
+       <td>Qte D</td>
+       <td>Qte A</td>
+       <td>Qte U</td>
+       <td>Qte R</td>
+     </thead>
+     <tbody>
+      <ng-container  *ngFor="let article of articles;let i=index;">
+        <tr>
+        <td>{{article.article_id}}</td>
+        <td>{{article.des}}</td>
+        <td>{{article.qted}}</td>
+        <td>{{article.qtea}}</td>
+        <td>
+          <mat-form-field class="matInput-number" *ngIf="article.qtea>0">
+            <input  [class.input-error]="(article.formControl.value > roundMath(article.qtea)) || ( article.formControl.value < 0 )"
+            matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+            [min]="0" [max]="roundMath(article.qtea-article.qter)">
+         <mat-error *ngIf="1==2">Erreur</mat-error>
+        </mat-form-field>
+        </td>
+        <td>
+         {{ roundMath(article.qtea - article.formControl.value) }} [{{ roundMath(article.qter) }}]
+        </td>
+      </tr>
+      </ng-container>
+         
+     </tbody>
+   </table>
+  
+
+   </ng-container>
+
+   <ng-container *ngIf="articles.length==0">
+     No Bsm 
+  </ng-container>
+
+ 
+
+
+ <button type="submit" (click)="Submit()" > Submit </button>
+  
+
+</ng-container>
+-->

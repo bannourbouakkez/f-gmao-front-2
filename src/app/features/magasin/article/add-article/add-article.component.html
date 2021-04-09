@@ -1,0 +1,679 @@
+<div class='big-container'>
+
+
+
+  <div class="col-md-8 col-xlg-6">
+
+<ng-container *ngIf="!ArticeleID">
+<app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+</ng-container>
+<ng-container *ngIf="ArticeleID">
+  <app-breadcrumb *ngIf="breadcrumb2.length>0" [breadcrumbs]="breadcrumb2" [autres]="autres"></app-breadcrumb>
+  </ng-container>
+
+
+<!--
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Home</a></li>
+  <li class="breadcrumb-item"><a href="#">Preventif</a></li>
+  <li class="breadcrumb-item"><a href="#">Intervention</a></li>
+  <li class="breadcrumb-item active" >Ajouter Intervention</li>
+</ol>
+-->
+
+    <!-- START card -->
+    <div class="card">
+<!--
+      <div class="card-header  separator">
+        <div class="card-title">Portlet Three
+        </div>
+      </div>
+-->
+
+<div class="card-header separator">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{AjouterOuModifier(ArticeleID)}} Article</span></li>
+      </ol>
+</div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+            <!--
+                        <h3 class="mw-80">Simple but not simpler, create a separate form layout. Best for settings pages.</h3>
+                        <p class="mw-80">Want it to be more Descriptive and User-Friendly, We Made it possible, Use Separated Form Layouts Structure to Presentation your Form Fields.
+                        </p>
+                        <br>
+            -->
+
+        <ng-container *ngIf="(ArticeleID && PageLoaded) && article.exist==0">
+        <!--<ng-container>-->
+              <br><br><br>
+              <div class="center-box" >
+                 Article est supprimé .
+              </div>
+              <br><br><br><br><br>
+        </ng-container>
+        
+
+        
+<!--
+        <ng-container *ngIf="!isModifiable && InterventionID && PageInterventionLoaded">
+          <div class="alert alert-danger" role="alert">
+            <button aria-label="" class="close" data-dismiss="alert"></button>
+            Vous pouvez pas modifiée cette intrevention maintenant car elle est reliée avec un OT déja en cours .
+          </div>
+        </ng-container>
+-->     
+            
+  <!--<ng-container *ngIf=" (OutilID && PageLoaded && di.exist==1) || !DiID">-->
+  <ng-container *ngIf="(ArticeleID && PageLoaded && article.exist==1) || !ArticeleID">
+    <!--<ng-container>-->
+  <!--<ng-container>-->
+
+
+            <form [formGroup]="ArticleForm" (ngSubmit)="submitArticle()" class="form-horizontal" role="form" autocomplete="off">
+
+              <input type='hidden' formControlName="ArticleID">
+              <input type='hidden' formControlName="exist">
+              <!--<input type='hidden' formControlName="reserved">-->
+              <input type='hidden' formControlName="created_at">
+              <input type='hidden' formControlName="updated_at">
+              <input type="hidden" formControlName="imgs_dossier_id" >
+              <input type="hidden" formControlName="fichiers_dossier_id" >
+              
+
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Designation</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-9 p-1-0">
+                    <input  class='form-control input-sm'  maxlength="50" formControlName="des" >
+                    </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Code article</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <input  class='form-control input-sm'  maxlength="50" formControlName="code_article" >
+                    </div>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Code a barre</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <input  class='form-control input-sm'  maxlength="50" formControlName="code_a_barre" >
+                    </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="fname" class="col-md-5 control-label">Fournisseur</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-9 p-1-0">
+                    <nz-select *ngIf="fournisseurs.length>0" formControlName="fournisseur_id" nzShowSearch nzAllowClear nzPlaceHolder="Select Fournisseur"
+                      (ngModelChange)="SelectFournisseur($event)" >
+                      <nz-option nzValue="" nzLabel="Select ..."></nz-option>
+                    <nz-option *ngFor="let f of fournisseurs" [nzValue]="f.id" [nzLabel]="f.nom">
+                    </nz-option>
+                    </nz-select>
+                  </div>
+                  <!--<div><label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label></div>-->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Prix HT</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <nz-input-number formControlName="PrixHT" [nzMin]="0" [nzStep]="1" [nzDisabled]="ArticeleID>0"></nz-input-number>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">TVA</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <nz-input-number formControlName="artTVA" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">Unite</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-9 p-1-0">
+                    <nz-select *ngIf="unites.length>0" formControlName="unite_id" nzShowSearch nzAllowClear nzPlaceHolder="Select Unite"
+                      [nzDropdownRender]="renderunite">
+                      <nz-option nzValue="" nzLabel=""></nz-option>
+                    <nz-option *ngFor="let u of unites" [nzValue]="u.UniteID" [nzLabel]="u.unite">
+                    </nz-option>
+                    </nz-select>
+                    <ng-template #renderunite>
+                      <nz-divider></nz-divider>
+                      <div (click)="openDialogAddUnite()" class="add-item">
+                        <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+                        Ajouter unité
+                    </div>
+                    </ng-template>
+                  </div>
+                  <!--<div><label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label></div>-->
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="required col-md-5 control-label">Stock Réel</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <nz-input-number formControlName="stock" [nzMin]="0" [nzStep]="1" [nzDisabled]="ArticeleID>0"></nz-input-number>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Stock Minimale</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <nz-input-number formControlName="stock_min" [nzMin]="0" [nzStep]="1" ></nz-input-number>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Stock Maximale</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <nz-input-number formControlName="stock_max" [nzMin]="0" [nzStep]="1" ></nz-input-number>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Stock Alerte</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-6 p-1-0">
+                    <nz-input-number formControlName="stock_alert" [nzMin]="0" [nzStep]="1" ></nz-input-number>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="fname" class="required col-md-5 control-label">Famille</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-9 p-1-0">
+                    <nz-select *ngIf="familles.length>0" formControlName="famille_id" nzShowSearch nzAllowClear nzPlaceHolder="Select Famille"
+                      (ngModelChange)="SelectFamille($event,null,null)"
+                      [nzDropdownRender]="renderfamille"
+                      >
+                      <nz-option nzValue="" nzLabel=""></nz-option>
+                    <nz-option *ngFor="let f of familles" [nzValue]="f.FamilleID" [nzLabel]="f.famille">
+                    </nz-option>
+                    </nz-select>
+                    <ng-template #renderfamille>
+                      <nz-divider></nz-divider>
+                      <div (click)="openDialogAddfamille()" class="add-item">
+                        <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+                        Ajouter famille
+                    </div>
+                    </ng-template>
+                  </div>
+                  <!--<div><label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label></div>-->
+                </div>
+              </div>
+
+              <!-- *ngIf="sousfamilles.length>0 || ArticleForm.famille_id!='' "-->
+              <div class="form-group row">
+                <label for="fname" class="col-md-5 control-label">Sous Famille</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-9 p-1-0">
+                    <nz-select formControlName="sous_famille_id" nzShowSearch nzAllowClear nzPlaceHolder="Select sous famille"
+                      (ngModelChange)="Selectsous_famille_id($event,null)"
+                      [nzDisabled]="sousfamilles.length==0"
+                      >
+                      <nz-option nzValue="" nzLabel=""></nz-option>
+                    <nz-option *ngFor="let sousf of sousfamilles" [nzValue]="sousf.FamCaraID" [nzLabel]="sousf.name_famille">
+                    </nz-option>
+                    </nz-select>
+                  </div>
+                  <!--<div><label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label></div>-->
+                </div>
+              </div>
+
+
+              <div class="form-group row" *ngIf="regConfig.length>0 && ArticleForm.sous_famille_id!='0'">
+                <label for="fname" class="col-md-2 control-label"
+                    aria-required="true"></label>
+                <div class="col-md-10">
+                    <!--
+                    <nz-collapse [nzBordered]="true">
+                        <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon2" nzHeader=""
+                            [nzActive]="false">
+                            <table id="id-table-filter">
+                                <tr>
+                                    <td id="id-table-filter-first-td"></td>
+                                    <td>
+                                    -->
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                          <dynamic-form *ngIf="regConfig.length>0 && ArticleForm.sous_famille_id!='0'" [events]="eventsSubject.asObservable()"  [fields]="regConfig" (submit)="submit($event)" (isValid)="isValidFunc($event)"></dynamic-form>
+                     </div>
+                    </div>
+                    <!--
+                </td>
+            </tr>
+        </table>
+    </nz-collapse-panel>
+</nz-collapse>
+-->
+
+
+                </div>
+            </div>
+
+
+    
+
+              <div class="form-group row">
+                <label for="fname" class="col-md-5 control-label">Emplacement</label>
+                <div class="col-md-7">
+                  <div class="input-group date col-md-9 p-1-0">
+                    <nz-select *ngIf="emplacements.length>0"  formControlName="emplacement_id" nzShowSearch nzAllowClear nzPlaceHolder="Select Emplacement"
+                      [nzDropdownRender]="renderemp">
+                      <nz-option nzValue="" nzLabel=""></nz-option>
+                    <nz-option *ngFor="let e of emplacements" [nzValue]="e.EmplacementID" [nzLabel]="e.emplacement">
+                    </nz-option>
+                    </nz-select>
+                    <ng-template #renderemp>
+                      <nz-divider></nz-divider>
+                      <div (click)="openDialogAddEmplacement()" class="add-item">
+                        <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+                        Ajouter emplacement
+                    </div>
+                    </ng-template>
+                  </div>
+                  <!--<div><label class="error" *ngIf="formErrors.demandeur_user_id" [innerHTML]="formErrors.demandeur_user_id"></label></div>-->
+                </div>
+              </div>
+
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Remarques</label>
+                <div class="col-md-7">
+                  <textarea formControlName="remarques" class="form-control" rows="2"
+                    placeholder=""></textarea>
+                </div>
+              </div>
+
+  
+             
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Images</label>
+                <div class="col-md-7">
+                  <app-test-upload-files InputIDComp="1" InputType="ajouter" [InputID]="ArticeleID" [InputDossierID]="ArticleForm.get('imgs_dossier_id').value" (ActionDossierID)="ActionDossierIDFunc1($event)" (ActionUpload)="ActionUploadFunc1($event)" [UploadOrder]="UploadOrder1" [InputGetFiles]="GetFiles1" [ResetUplaodComp]="ResetUplaodComp1"></app-test-upload-files>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="name" class="col-md-5 control-label">Fichiers</label>
+                <div class="col-md-7">
+                  <app-test-upload-files InputIDComp="2" InputType="ajouter" [InputID]="ArticeleID" [InputDossierID]="ArticleForm.get('fichiers_dossier_id').value" (ActionDossierID)="ActionDossierIDFunc2($event)" (ActionUpload)="ActionUploadFunc2($event)" [UploadOrder]="UploadOrder2" [InputGetFiles]="GetFiles2" [ResetUplaodComp]="ResetUplaodComp2"></app-test-upload-files>
+                </div>
+              </div>
+
+              <!--
+              <div class="form-group row">
+                <div class="col-md-12" >
+                   <app-test-upload-files InputIDComp="1" InputType="ajouter" [InputID]="OutilID" [InputDossierID]="OutilForm.get('imgs_dossier_id').value" (ActionDossierID)="ActionDossierIDFunc1($event)" (ActionUpload)="ActionUploadFunc1($event)" [UploadOrder]="UploadOrder1" [InputGetFiles]="GetFiles1" [ResetUplaodComp]="ResetUplaodComp1"></app-test-upload-files>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12" >
+                   <app-test-upload-files InputIDComp="2" InputType="ajouter" [InputID]="OutilID" [InputDossierID]="OutilForm.get('fichiers_dossier_id').value" (ActionDossierID)="ActionDossierIDFunc2($event)" (ActionUpload)="ActionUploadFunc2($event)" [UploadOrder]="UploadOrder2" [InputGetFiles]="GetFiles2" [ResetUplaodComp]="ResetUplaodComp2"></app-test-upload-files>
+                </div>
+              </div>
+            -->
+
+            
+              
+
+              <!--(InterventionID && PageInterventionLoaded && intervention.exist==1) || !InterventionID-->
+              
+              
+              <br>
+              <!--<ng-container *ngIf="!InterventionID || ( isModifiable && InterventionID && PageInterventionLoaded) ">-->
+              <ng-container>
+              <div class="row">
+
+                <div class="col-md-6">
+
+                
+                </div>
+                <div class="col-md-6">
+                  <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="ArticleForm.valid && validCaraForm() ? 'class': 'disabled'" type="button" (click)="submitArticle()" >{{AjouterOuModifier(ArticeleID)}}
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+              
+                </div>
+              </div>
+
+            </ng-container>
+
+            </form>
+</ng-container> 
+
+
+
+<ng-container *ngIf="ArticeleID && !PageLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+  
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+<button (click)="fill()">fill</button>
+
+
+
+
+<!--
+<form [formGroup]="ArticleForm">
+
+    <input type='hidden' formControlName="ArticleID">
+    <input type='hidden' formControlName="exist">
+    <input type='hidden' formControlName="reserved">
+    
+    <input type='hidden' formControlName="created_at">
+    <input type='hidden' formControlName="updated_at">
+
+    Designation : <input formControlName="des">
+    <span *ngIf="!ArticleForm.controls['des'].valid"> not valid</span>
+    <br>
+    Code Article : <input formControlName="code_article"> 
+    <span *ngIf="!ArticleForm.controls['code_article'].valid"> not valid</span>   
+    <br>
+    Code A Barre : <input formControlName="code_a_barre"> 
+    <span *ngIf="!ArticleForm.controls['code_a_barre'].valid"> not valid</span>   
+    <br>
+
+    Fournisseur : <select *ngIf="fournisseurs.length>0" formControlName="fournisseur_id" (change)="SelectFournisseur($event.target.value)" >
+     <option value=''>Select</option>
+      <option *ngFor="let f of fournisseurs" [value]="f.id" > {{f.nom}} </option>
+    </select>
+    <br>
+
+    Prix Unitaire HT : <input formControlName="PrixHT"> % 
+    <span *ngIf="!ArticleForm.controls['PrixHT'].valid"> not valid</span>  
+
+    TVA : <input formControlName="artTVA"> % 
+    <span *ngIf="!ArticleForm.controls['artTVA'].valid"> not valid</span>    
+    <br>
+
+   
+    Unite : <select *ngIf="unites.length>0" formControlName="unite_id" >
+     <option value=''></option>
+     <option *ngFor="let u of unites" [value]="u.UniteID" > {{u.unite}} </option>
+    </select>
+    <br>
+    
+<div *ngIf="ArticeleID==undefined">
+    Stock Reel : <input formControlName="stock">
+    <span *ngIf="!ArticleForm.controls['stock'].valid"> not valid</span>
+</div>
+
+    Stock Minimale : <input formControlName="stock_min">
+    <span *ngIf="!ArticleForm.controls['stock_min'].valid"> not valid</span>
+    <br>
+    Stock Maximale : <input formControlName="stock_max">
+    <span *ngIf="!ArticleForm.controls['stock_max'].valid"> not valid</span>
+    <br>
+    Stock d'alerte : <input formControlName="stock_alert">
+    <span *ngIf="!ArticleForm.controls['stock_alert'].valid"> not valid</span>
+    <br>
+
+
+
+    Familles : <select *ngIf="familles.length>0" formControlName="famille_id" (change)="SelectFamille($event.target.value,null,null)" >
+      <option value=''></option>
+      <option *ngFor="let f of familles" [value]="f.FamilleID" > {{f.famille}} </option>
+     </select>
+     <br>
+
+     Sous Familles : <select formControlName="sous_famille_id" (change)="Selectsous_famille_id($event.target.value,null)" >
+      <option value=''>Aucune</option>
+      <option *ngFor="let sousf of sousfamilles" [value]="sousf.FamCaraID" > {{sousf.name_famille}} </option>
+     </select>
+     
+     <dynamic-form *ngIf="regConfig.length>0 && ArticleForm.sous_famille_id!='0'" [events]="eventsSubject.asObservable()"  [fields]="regConfig" (submit)="submit($event)" (isValid)="isValidFunc($event)"></dynamic-form>
+    
+     <br>
+     Emplacement : <select *ngIf="emplacements.length>0" formControlName="emplacement_id" >
+      <option value=''></option>
+      <option *ngFor="let e of emplacements" [value]="e.EmplacementID" > {{e.emplacement}} </option>
+     </select>
+     <br>
+
+    Remarques : <input formControlName="remarques">
+    <span *ngIf="!ArticleForm.controls['remarques'].valid"> not valid</span>
+    <br>
+  
+    <input type="hidden" formControlName="imgs_dossier_id" >
+
+
+  </form>
+  <button (click)="submitArticle()">submitArticle</button>
+-->
+<!--
+<br>
+Images : 
+<div *ngIf="isFiles==true">
+    <div *ngFor="let file of files;let i=index;">
+         <a [href]="publicFolder+'/'+file.BDName " ><span>{{file.OriginaleName}}</span></a>
+         <span> {{ ( file.size/(1024) ) | number: '1.0-0' }} Ko</span>
+         <span (click)="removeFile(file.FileID,i,'image')"> X </span>
+    </div>
+ </div>
+
+<form [formGroup]="uploadForm">
+  <input  type="hidden" formControlName="document" />
+  <input  type="hidden" formControlName="type" />
+  <input  type="hidden" formControlName="OriginaleName" />
+  <input  type="hidden" formControlName="BDName" />
+  <input  type="hidden" formControlName="size" />
+  <input  type="hidden" formControlName="extention" />
+  
+  <input  type="file" ng2FileSelect [uploader]="uploader" accept=".jpg,.png,.jpeg" multiple/>
+</form>
+
+
+<div *ngIf="uploader.queue.length>0" >
+  <table >
+     <thead>
+     <tr>
+       <th width="70%">File Name</th>
+       <th width="30%"> Remove </th>
+     </tr>
+     </thead>
+     <tbody>
+     <tr *ngFor="let item of uploader.queue">
+      
+       <th width="70%">
+         {{item._file.name}}
+       </th>
+       <th width="70%">
+         ( {{(item._file.size/(1024*1024)) | number: '1.0-1'}} MB)
+       </th>
+       <th class="text-center" width="30%">
+         <mat-icon (click)="item.remove()">delete</mat-icon>
+       </th>
+     </tr>
+     </tbody>
+   </table>
+ </div>
+
+
+ <div *ngIf="loadingIsStart==true">
+
+  Progress:
+  <br>
+  {{actualFileNameUpload}}<br>
+   {{nbOfFileUploaded}} / {{nbOfFiles}}  <br> 
+   {{(progress.loaded/progress.total)*100}}%<br>
+  
+  <div class="container">
+    <h2>Basic Progress Bar</h2>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" 
+         aria-valuemin="0" 
+         [attr.aria-valuemax]="100"
+         [attr.aria-valuenow]="progress.loaded"
+         [style.width.%]="(progress.loaded/progress.total)*100"
+      >
+        <span class="sr-only">70% Complete</span>
+      </div>
+    </div>
+  </div>
+  <br>
+  <div class="container">
+    <h2>Basic Progress Bar</h2>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" 
+         aria-valuemin="0" 
+         [attr.aria-valuemax]="100"
+         [attr.aria-valuenow]="progressLoaded"
+         [style.width.%]="(progressLoaded/progressTotal)*100"
+      >
+        <span class="sr-only">70% Complete</span>
+      </div>
+    </div>
+  </div>
+  
+  </div>
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Fichiers : 
+  <div *ngIf="isFiles2==true">
+   <div *ngFor="let file of files2;let i=index;">
+        <a [href]="publicFolder+'/'+file.BDName " ><span>{{file.OriginaleName}}</span></a>
+        <span> {{ ( file.size/(1024) ) | number: '1.0-0' }} Ko</span>
+        <span (click)="removeFile(file.FileID,i,'fichier')"> X </span>
+   </div>
+ </div>
+
+  <form [formGroup]="uploadForm2">
+    <input  type="hidden" formControlName="document" />
+    <input  type="hidden" formControlName="type" />
+    <input  type="hidden" formControlName="OriginaleName" />
+    <input  type="hidden" formControlName="BDName" />
+    <input  type="hidden" formControlName="size" />
+    <input  type="hidden" formControlName="extention" />
+    
+    <input  type="file" ng2FileSelect [uploader]="uploader2" multiple/>
+  </form>
+  
+  
+  <div *ngIf="uploader2.queue.length>0" >
+    <table >
+       <thead>
+       <tr>
+         <th width="70%">File Name</th>
+         <th width="30%"> Remove </th>
+       </tr>
+       </thead>
+       <tbody>
+       <tr *ngFor="let item of uploader2.queue">
+        
+         <th width="70%">
+           {{item._file.name}}
+         </th>
+         <th width="70%">
+           ( {{(item._file.size/(1024*1024)) | number: '1.0-1'}} MB)
+         </th>
+         <th class="text-center" width="30%">
+           <mat-icon (click)="item.remove()">delete</mat-icon>
+         </th>
+       </tr>
+       </tbody>
+     </table>
+   </div>
+  
+  
+   <div *ngIf="loadingIsStart2==true">
+  
+    Progress:
+    <br>
+    {{actualFileNameUpload2}}<br>
+     {{nbOfFileUploaded2}} / {{nbOfFiles2}}  <br> 
+     {{(progress2.loaded/progress2.total)*100}}%<br>
+    
+    <div class="container">
+      <h2>Basic Progress Bar</h2>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" 
+           aria-valuemin="0" 
+           [attr.aria-valuemax]="100"
+           [attr.aria-valuenow]="progress2.loaded"
+           [style.width.%]="(progress2.loaded/progress2.total)*100"
+        >
+          <span class="sr-only">70% Complete</span>
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="container">
+      <h2>Basic Progress Bar</h2>
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" 
+           aria-valuemin="0" 
+           [attr.aria-valuemax]="100"
+           [attr.aria-valuenow]="progressLoaded2"
+           [style.width.%]="(progressLoaded2/progressTotal2)*100"
+        >
+          <span class="sr-only">70% Complete</span>
+        </div>
+      </div>
+    </div>
+    
+    </div>
+
+    <button (click)="fill()">fill</button>
+
+
+
+  -->

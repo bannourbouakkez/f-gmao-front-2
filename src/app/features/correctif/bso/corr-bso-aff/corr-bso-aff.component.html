@@ -1,0 +1,426 @@
+
+
+
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+<div [ngClass]="isData ? 'big-container-list':'big-container'">
+  <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+
+    <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [home]="home"></app-breadcrumb>
+
+    <div [ngClass]="isData ? '': 'card'">
+      <div class="card-header" *ngIf="!isData">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+        </ol>
+      </div>
+
+
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-12">
+
+
+
+
+  <!--
+  {{ bsm | json }}
+  {{ response_bsm | json }}
+  -->
+        
+  <ng-container *ngIf="loaded">
+        <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+          <div class="card-header separator">
+            <div class="card-title">
+              <span class="my-specific-big-title">
+              # {{PouC(Src)}}{{bso.BsoID}}
+            </span>
+            </div>
+          </div>
+          <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+
+            <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+
+              <div class="row">
+               
+
+
+              <div class="col-5">
+
+                  <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <p class="hint-text p-t-0 fs-12">Statut</p>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">
+                            <div class="div-statuts-smaller">
+                              <div *ngIf="bso.statut=='ouvert'" class="label"
+                                style="padding:4px; padding-top:5px;">{{bso.statut}}</div>
+                              <div *ngIf="bso.statut=='repondu'" class="label label-warning"
+                                style="padding:4px; padding-top:5px;">{{bso.statut}}</div>
+                              <div *ngIf="bso.statut=='ferme'" class="label label-info"
+                                style="padding:4px; padding-top:5px;">{{bso.statut}}</div>
+                            </div>
+                           
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <ng-container *ngIf="bso.statut!='ouvert'">
+
+                    <div class="form-group row">
+  
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Repondu le</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{response_bso.created_at | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                    </div>
+                  </div>
+                 
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Repondu par</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{response_bso.name}}</span></label>
+                    </div>
+                  </div>
+                 
+                  <div class="clearfix"></div>
+                  </ng-container>
+
+                  <ng-container *ngIf="bso.statut!='ouvert'">
+                    <div class="clearfix"></div>
+                    <div class="form-group row">
+                      <label for="name" class="col-md-4 control-label">
+                        <p class="hint-text p-t-0 fs-12">Message</p>
+                      </label>
+                      <div class="col-md-8">
+                        <label class="control-label">
+                          <span class="font-affichage-contenu">
+                            {{response_bso.message}}  
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                    <div class="clearfix"></div>
+
+                  </ng-container>
+
+
+<!--
+                <div class="form-group row">
+                  <label for="name" class="col-md-6 control-label">
+                    <p class="hint-text p-t-0 fs-12">Equipement</p>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label" style="width:100%;">
+
+
+                    <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                    </app-aff-equipement>
+                      
+
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+                  <label for="name" class="col-md-6 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Tache</span>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{otp.tache}}</span>
+                        </label>
+                  </div>
+                </div>
+              -->            
+
+
+
+
+              </div>
+
+              
+              <div class="col-5 offset-1">
+
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé le</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{bso.created_at | date:'dd/MM/yyyy HH:mm'}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-4 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé par</span>
+                  </label>
+                  <div class="col-md-8">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{bso.name}}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+
+
+              </div>
+
+
+
+              </div>
+
+      
+
+            </form>
+
+
+
+
+          </div>
+        </div>
+
+       
+
+  
+    
+        
+      
+      <br> 
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                <div class="card-header separator">
+                  <div class="card-title"> 
+                    <span class="my-specific-card-title">Outils</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+
+                
+
+                  <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+            
+  
+
+  <!--
+  {{ bsm | json }}
+  {{ response_bsm | json }}
+  -->
+  
+   <!---------------- articles Table -->
+   <div id="id-div-table">
+                          
+    <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+      [nzData]="['']">
+      <thead>
+        <tr>
+          <th nzWidth="10%">#</th>
+          <th nzWidth="40%">Designation</th>
+          <th nzWidth="25%">Estimation</th>
+          <!--<th nzWidth="25%" *ngIf=" bso.statut=='repondu' || bso.statut=='ferme' " >Reponse</th>-->
+          <th nzWidth="25%" *ngIf=" bso.statut=='repondu' || bso.statut=='ferme' " >Statut</th>
+        </tr>
+      </thead>
+      <tbody>
+            
+   
+        <ng-container *ngIf="bso.statut=='repondu' || bso.statut=='ferme' " >
+          <ng-container *ngFor="let a of combined; let i=index;">
+            <tr>
+                <td>
+                  <span *ngIf="a.response.reponse==1" class="label label-success">
+                    {{a.bso.outil_id}}
+                  </span>
+                  <span *ngIf="a.response.reponse==0" class="label label-danger">
+                    {{a.bso.outil_id}}
+                  </span>
+
+                </td>
+                <td>{{a.bso.des}}</td>
+                <td>{{a.bso.estimation}} {{a.bso.periode}} (s)</td>
+
+                <!--<td>{{a.response.reponse}}</td>-->
+                <td *ngIf="a.response.reponse==1" >
+
+                  <div class="div-statuts-smaller">
+                    <div *ngIf="a.bso.statut=='enUtilisation'" class="label label-warning"
+                      style="padding:4px; padding-top:5px;">{{a.bso.statut}}</div>
+                    <div *ngIf="a.bso.statut=='termine'" class="label label-info"
+                      style="padding:4px; padding-top:5px;">{{a.bso.statut}}</div>
+                  </div>
+
+                  
+                </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+
+     <ng-container *ngIf=" bso.statut == 'ouvert' " >
+        <ng-container *ngFor=" let a of bso_dets; let i=index;">
+          <tr>
+              <td>{{a.outil_id}}</td>
+              <td>{{a.des}}</td>
+              <td>{{a.estimation}} {{a.periode}} (s)</td>
+          </tr>
+        </ng-container>
+     </ng-container>
+
+  
+  
+      </tbody>
+    </nz-table>
+  
+  </div>
+  <!--############### articles Table -->
+  
+
+  
+                              
+                  </form>
+
+                 
+
+                </div>
+              </div>
+  <ng-container *ngIf="!source">
+              <br>
+              <div class="row">
+                <div class="col-md-10">
+                </div>
+                <div class="col-md-2">
+                 
+                <ng-container *ngIf="bso.statut=='ouvert'">
+                  <button 
+                  (click)="openAccepterBso()" 
+                  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>
+                            Repondre
+                    </span>
+                    <i class="pg-icon md-18">list_bullets</i>
+                  </button>
+                </ng-container>
+
+                <ng-container *ngIf="bso.statut=='repondu'">
+                  <button 
+                  (click)="openGererBso()" 
+                  style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                    <span>
+                            Gerer
+                    </span>
+                    <i class="pg-icon md-18">note</i>
+                  </button>
+                </ng-container>
+
+                  
+
+                </div>
+              </div>
+              
+              </ng-container>
+
+           
+</ng-container>
+
+
+<ng-container *ngIf="!loaded">
+  <br>
+  <div class="center-loading-box">
+   <!--
+      <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+     -->
+      <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br>
+ </ng-container>
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+</div>
+
+
+
+<!--
+<div *ngIf="loaded">
+    {{ bso | json }}
+    {{ response_bso | json }}
+    
+    
+    <table>
+        <thead>
+            <td>N° Outil</td>
+            <td> Des </td>
+            <td *ngIf=" bso.statut=='repondu' || bso.statut=='ferme' " > ? </td>
+            <td *ngIf=" bso.statut=='repondu' || bso.statut=='ferme' " > Termine </td>
+        </thead>
+    
+        <tbody>
+    
+            <ng-container *ngIf="bso.statut=='repondu' || bso.statut=='ferme' " >
+              <ng-container *ngFor="let a of combined; let i=index;">
+                <tr>
+                    <td>{{a.bso.outil_id}}</td>
+                    <td>{{a.bso.des}}</td>
+                    <td>{{a.response.reponse}}</td>
+                    <td *ngIf="a.response.reponse==1" >{{a.bso.statut}}</td>
+                </tr>
+              </ng-container>
+            </ng-container>
+    
+         <ng-container *ngIf=" bso.statut == 'ouvert' " >
+            <ng-container *ngFor=" let a of bso_dets; let i=index;">
+              <tr>
+                  <td>{{a.outil_id}}</td>
+                  <td>{{a.des}}</td>
+              </tr>
+            </ng-container>
+         </ng-container>
+    
+    
+        </tbody>
+    
+    </table>
+  -
+    <div *ngIf=" bso.statut=='repondu' ">
+      Message : 
+      {{ response_bso.message }}
+    </div>
+  
+
+    </div>
+  -->

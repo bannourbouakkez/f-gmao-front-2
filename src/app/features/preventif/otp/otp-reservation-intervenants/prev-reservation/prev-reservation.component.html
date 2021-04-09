@@ -1,0 +1,171 @@
+
+
+<!--{{this.resIntService.reservedintervenants | json}}-->
+
+<!--
+<table class="table table-borderless">
+    <thead class="thead-light">
+      <th>Intervenant</th>
+      <th>date 1</th>
+      <th>time 1</th>
+      <th>date 2</th>
+      <th>time 2</th>
+      <th>tache</th>
+      <th>Description</th>
+    
+      <th>
+        <a class="btn btn-sm btn-success text-white" (click)="AddOrEditOtpReservedIntervenant(null,IntReservationID,DateTimeOTp)"><i class="fa fa-plus"></i> Ajouter un Outil</a>
+      </th>
+    </thead>
+
+    <tbody>
+     
+      <tr *ngIf="loading" >
+        <td>
+          <ng-container> Loading ... </ng-container>
+        </td>
+      </tr>
+
+      <tr *ngFor="let bonintervenant of resIntService.reservedintervenants;let i=index;">
+        <td>{{bonintervenant.name}}</td> 
+        <td>{{ JustDateString(bonintervenant.date1) }} </td>
+-->
+        <!--<td>{{ReglageDate(bonintervenant.time1) | date:'HH:mm' }} </td>-->
+<!--
+        <td>{{ JustTimeString(bonintervenant.time1) }} </td>
+        <td>{{ JustDateString(bonintervenant.date2) }} </td>
+        <td>{{ JustTimeString(bonintervenant.time2) }} </td>
+        <td>{{bonintervenant.tache}} </td>
+        <td>{{bonintervenant.description}} </td>
+        <td>
+          <a class="btn btn-sm btn-info text-white" (click)="AddOrEditOtpReservedIntervenant(i,IntReservationID,DateTimeOTp)"><i class="fa fa-pencil">Modifier</i></a>
+           
+        <ng-container *ngIf="IntReservationID>0 && resIntService.reservedintervenants.length>1">
+            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBonIntervenant(bonintervenant.ReservationIntervenantID,i)"><i class="fa fa-trash">Delete</i></a>
+        </ng-container>
+            <ng-container *ngIf="IntReservationID==0">
+            <a class="btn btn-sm btn-danger text-white ml-1" (click)="onDeleteBonIntervenant(bonintervenant.ReservationIntervenantID,i)"><i class="fa fa-trash">Delete</i></a>
+        </ng-container>
+       
+        </td>
+      </tr>
+    </tbody>
+
+</table>
+
+<button type="submit" (click)="Submit()" > Submit </button>
+-->
+
+
+
+
+
+
+
+
+<!-------------------------------------------------------------------------------->
+
+
+
+
+
+<div id="id-div-table">
+
+  <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+    [nzData]="['']">
+    <thead>
+      <tr>
+
+        <th nzWidth="19%">Intervenant</th>
+        <th nzWidth="12%">Date D</th>
+        <th nzWidth="9%">Temps D</th>
+        <th nzWidth="12%">Date F</th>
+        <th nzWidth="9%">Temps F</th>
+        <th nzWidth="15%">Tache</th>
+        <th nzWidth="16%">Description</th>
+        <th nzWidth="8%">
+
+
+
+<button class="btn btn-default btn-block" (click)="AddOrEditOtpReservedIntervenant(null,IntReservationID,DateTimeOTp)">
+<i class="pg-icon md-18" style="width:28px;height:10px;position:relative;top:1px;">add</i>
+</button>
+
+         
+
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf=" !(data.IntReservationID>0) && resIntService.reservedintervenants.length==0" [class.text-danger]="!isValid && resIntService.reservedintervenants.length==0">
+        <td class="font-italic text-center" colspan="4">
+          n ya pas aucun intervenant reservée  
+        </td>
+      </tr>
+      <tr *ngIf="loading" >
+        <td>
+          <ng-container> Loading ... </ng-container>
+        </td>
+      </tr>
+
+<tr *ngFor="let bonintervenant of resIntService.reservedintervenants;let i=index;">
+  <td>{{bonintervenant.name}}</td> <!--des-->
+  <td>{{JustDateString(bonintervenant.date1) | date:'dd/MM/yyyy'}}</td>
+  <td>{{JustTimeString(bonintervenant.time1)}}</td>
+  <td>{{JustDateString(bonintervenant.date2) | date:'dd/MM/yyyy'}}</td>
+  <td>{{JustTimeString(bonintervenant.time2)}}</td>
+  <td>{{bonintervenant.tache}}</td>
+  <td>{{bonintervenant.description}}</td>
+
+  <td>
+
+    <ul class="list-inline m-0">
+
+      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+          data-placement="top" title="modifier"
+          (click)="AddOrEditOtpReservedIntervenant(i,IntReservationID,DateTimeOTp)">
+          <i class="pg-icon md-18" style="width:10px;height:10px;position:relative;top:1px;">edit</i>
+        </button>
+      </li>
+
+      <ng-container *ngIf="IntReservationID>0 && resIntService.reservedintervenants.length>1">
+      <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+        <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+          data-placement="top" title="supprimer"
+          (click)="onDeleteBonIntervenant(bonintervenant.ReservationIntervenantID,i)">
+          <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+          </button>
+      </li>
+      </ng-container>
+
+      <ng-container *ngIf="IntReservationID==0">
+        <li class="list-inline-item" style="padding:0px;margin:0px;margin-right:4px;">
+          <button class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+            data-placement="top" title="supprimer"
+            (click)="onDeleteBonIntervenant(bonintervenant.ReservationIntervenantID,i)">
+            <i class="pg-icon md-18" style="width:10px;height:10px; position:relative;top:1px;">trash_alt</i>
+            </button>
+        </li>
+      </ng-container>
+
+
+
+    </ul>
+    
+   </td>
+</tr>
+    </tbody>
+  </nz-table>
+
+</div>
+
+<br>
+<div style="float:right;">
+<button class="btn btn-default" type="submit" (click)="Submit()" > Envoyer </button>
+</div>
+
+
+
+
+

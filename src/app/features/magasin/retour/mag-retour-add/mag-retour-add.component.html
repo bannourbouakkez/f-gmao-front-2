@@ -1,0 +1,403 @@
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+
+<div [ngClass]="isData ? 'big-container-list':'big-container'">
+
+
+
+  <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+
+
+<app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+
+
+
+    <div [ngClass]="isData ? '': 'card'">
+
+<div class="card-header separator" *ngIf="!isData">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{AjouterOuModifier(DiID)}} Retour</span></li> <!--ici-->
+      </ol>
+</div>
+
+
+      <div class="card-body">
+
+        <ng-container *ngIf="(RetourID && PageRetourLoaded)">
+
+
+        <div class="card card-default" style="border:1px solid gray;">
+          <div class="card-header  separator">
+            <div class="card-title">
+              <i class="pg-icon md-18" style="position:relative;top:5px;">drag_handle</i> 
+              Retour
+            </div>
+          </div>
+          <div class="card-body">
+
+
+            
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="col-5">
+
+                  <div class="form-group row">
+
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">#</span>
+                    </label>
+                    <div class="col-md-8"> 
+                      <label class="control-label">         
+                        <span class="font-affichage-contenu">
+                          
+                          
+                          <!--<span class="fast-url" [routerLink]="['/gmao/magasin/retour/retour/',retour.RetourID,isRetourCoP(isCorrectif)]" >-->
+                            {{CoP(isCorrectif)}}{{retour.RetourID}}
+                          <!--</span>-->
+                        </span>
+                      </label>
+                    </div>
+
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <p class="hint-text p-t-0 fs-12">N° Bon</p>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">
+                          <!--<span class="fast-url" [routerLink]="['/gmao',1]">-->
+                           <!--  [routerLink]="['/gmao/preventif/otp/otp/',bonp.otp_id]"-->
+
+                           
+                            <ng-container *ngIf="SrcToNumber()==1">
+                              <ng-container *ngIf="retour.bon_id">
+                                {{retour.bon_id}}
+                              </ng-container>
+                              <ng-container *ngIf="!retour.bon_id">
+                                
+                              </ng-container>
+                            </ng-container>
+
+                            <ng-container *ngIf="SrcToNumber()==2">
+                                <ng-container *ngIf="retour.bonp_id">
+                                  {{retour.bonp_id}}
+                                </ng-container>
+                                <ng-container *ngIf="!retour.bonp_id">
+
+                                </ng-container>
+                            </ng-container>
+                          
+
+                        <!--</span>-->
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  
+<ng-container *ngIf="!retour.bon_id && !retour.bonp_id" >
+  <div class="form-group row">
+    <label for="name" class="col-md-4 control-label">
+      <p class="hint-text p-t-0 fs-12">N° Ot</p>
+    </label>
+    <div class="col-md-8">
+      <label class="control-label">
+        <span class="font-affichage-contenu">
+          <!--<span class="fast-url"  [routerLink]="['/gmao',1]">-->
+           <!--  [routerLink]="['/gmao/preventif/otp/otp/',bonp.otp_id]"-->
+
+           
+            <ng-container *ngIf="SrcToNumber()==1">
+                C{{retour.ot_id}}
+            </ng-container>
+
+            <ng-container *ngIf="SrcToNumber()==2">
+                P{{retour.otp_id}}
+            </ng-container>
+          
+
+        <!--</span>-->
+        </span>
+      </label>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</ng-container>
+
+
+
+<!--
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Equipement</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label" style="width:100%">
+                        <span class="font-affichage-contenu">
+                          <app-aff-equipement [niveaux]="niveaux" type="verticale" >
+                          </app-aff-equipement>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label">
+                      <span class="hint-text p-t-0 fs-12">Tache</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.tache}}</span></label>
+                    </div>
+                  </div>
+
+
+                </div>
+
+
+                <div class="col-2 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Type</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.type}}</span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Parametrage</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.parametrage}}</span></label>
+                    </div>
+                  </div>
+
+                </div>
+
+
+                <div class="col-2 offset-1">
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Frequence</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label"><span class="font-affichage-contenu">
+                        {{intervention.frequence}}
+                      </span></label>
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="name" class="col-md-6 control-label">
+                      <span class="hint-text p-t-0 fs-12">Prochain plan</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{intervention.date_resultat | date:'dd/MM/yyyy'}}</span>
+                      </label>
+                    </div>
+                  </div>
+
+
+                -->
+              
+              </div>
+              <div class="col-5 offset-1">
+
+                <div class="form-group row">
+  
+                  <label for="name" class="col-md-6 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé le</span>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{retour.created_at  | date:'dd/MM/yyyy HH:mm'}}</span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+                <div class="form-group row">
+
+                  <label for="name" class="col-md-6 control-label" >
+                    <span class="hint-text p-t-0 fs-12">Créé par</span>
+                  </label>
+                  <div class="col-md-6">
+                    <label class="control-label">
+                      <span class="font-affichage-contenu">{{retour.name}}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+
+              </div>
+
+              </div>
+            </form>
+          
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-12">
+   
+
+              <br>
+              <ng-container>
+              <div class="row">
+                <div class="col-md-12">
+                <ng-container *ngIf="retour_dets.length>0">
+              
+                  <div id="id-div-table">
+              
+                    <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                      [nzData]="['']">
+                      <thead>
+                        <tr>
+
+                          <th>#</th>
+                          <th>Designation</th>
+                          <th>A Retouné</th>
+                          <th>Rétouné</th>
+              
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+                  <tr *ngFor="let article of retour_dets;let i=index;">
+                    
+                  
+                    <td>{{article.article_id}}</td>
+                    <td>{{article.des}}</td>
+                    <td>{{article.qtear}}</td>
+
+                       <td>
+
+                          <nz-input-number  [nzAutoFocus]="false"
+                          [class.nz-input-error]="(article.formControl.value > article.qtear) || ( article.formControl.value < 0 )"
+                          [formControl]="article.formControl" [nzMin]="0" [nzMax]="article.qtear" 
+                          [nzStep]="1">
+                          </nz-input-number>
+                      
+
+                      </td>
+
+                  </tr>
+                      </tbody>
+                    </nz-table>
+                  
+                  </div>
+              
+                <br>             
+                </ng-container>
+                </div>
+               
+
+                <div class="col-md-6">
+                </div>
+                <div class="col-md-6">
+                  <button  aria-label="" class="btn btn-success btn-lg btn-larger pull-right"
+                    [ngClass]="isValide() ? 'class': 'disabled'" type="button" (click)="submit()" >{{AjouterOuModifier(DiID)}}
+
+                    <i style='margin-left:10px;' *ngIf="LoadingReactBtn1" nz-icon nzType="loading" class="loading-icon"></i>
+                  </button>
+              
+                </div>
+              </div>
+
+            </ng-container>
+
+
+
+
+
+
+<ng-container *ngIf="RetourID && !PageRetourLoaded">
+  <br><br><br>
+  <div class="center-loading-box">
+  
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+
+
+          </div>
+        </div>
+        
+</ng-container>
+
+
+<ng-container *ngIf="!(RetourID && PageRetourLoaded)">
+  <br>
+  <div class="center-loading-box">
+   <!--
+      <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+     -->
+      <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br>
+ </ng-container>
+
+      </div>
+    </div>
+    <!-- END card -->
+  </div>
+
+
+
+</div>
+
+</div>
+
+
+<!--
+<div *ngIf="RetourID">
+
+    <table>
+        <thead>
+          <td>N°</td>
+          <td>Des</td>
+          <td>Qte AR</td>
+          <td>Qte R</td>
+        </thead>
+        <tbody>
+         <ng-container  *ngFor="let article of retour_dets;let i=index;">
+           <tr>
+           <td>{{article.article_id}}</td>
+           <td>{{article.des}}</td>
+           <td>{{article.qtear}}</td>
+           <td>
+
+             <mat-form-field class="matInput-number">
+               <input  [class.input-error]="(article.formControl.value > article.qtear) || ( article.formControl.value < 0 )"
+               matInput autocomplete="off" [formControl]="article.formControl" type="number" 
+               min="0" [max]="article.qtear">
+            <mat-error *ngIf="1==2">Erreur</mat-error>
+           </mat-form-field>
+           </td>
+           
+         </tr>
+         </ng-container>
+            
+        </tbody>
+      </table>
+
+      <button type="submit" (click)="submit()" > Submit </button>
+
+
+</div>
+-->

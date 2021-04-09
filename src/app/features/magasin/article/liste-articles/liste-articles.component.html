@@ -1,0 +1,553 @@
+<div class='big-container-list'>
+    <div class="col-md-11 col-xlg-6">
+
+        <app-breadcrumb *ngIf="breadcrumb.length>0" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+
+        <div class="card">
+            <div id="card-header-liste" class="card-header separator">
+                <ol id="breadcrumb-liste" class="breadcrumb">
+                    <li class="breadcrumb-item active"><span id="id-breadcrumb-title"
+                            class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+                </ol>
+            </div>
+
+            <div id="card-body-liste" class="card-body">
+                <div class="row">
+
+
+                    <!------------- Filter ----------------->
+                    <form id="id-filter-form" [formGroup]="filterForm" (ngSubmit)="filter()">
+
+
+                        <nz-collapse [nzBordered]="true">
+                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon" nzHeader=""
+                                [nzActive]="false">
+
+
+                                <table id="id-table-filter">
+                                    <tr>
+                                        <td id="id-table-filter-first-td"></td>
+                                        <td>
+
+                                            <div id="id-div-filter-form-horizontal" class="form-horizontal" role="form"
+                                                autocomplete="off">
+                                                <!------ Contenu filter ------->
+
+                                                    <div class="form-group row">
+                                                        <label for="fname" class="col-md-2 control-label"
+                                                            aria-required="true">Famille</label>
+                                                        <div class="col-md-10">
+    <!--Selectsous_famille_id($event.target.value)-->
+    <!--nzMode="multiple"-->
+                                                            <nz-select 
+                                                                formControlName="famille_id"
+                                                                
+                                                                (ngModelChange)="SelectFamille($event)" nzShowSearch nzAllowClear
+                                                                nzPlaceHolder="Select Famille"
+                                                                [nzDisabled]="familles.length==0"
+                                                                [nzDropdownRender]="render1">
+                                                                <nz-option *ngFor="let f of familles"
+                                                                    [nzValue]="f.FamilleID" [nzLabel]="f.famille">
+                                                                </nz-option>
+                                                            </nz-select>
+    
+                                                            <ng-template #render1>
+                                                                <nz-divider></nz-divider>
+                                                                <div (click)="openDialogAjouterFamille()" class="add-item">
+                                                                    <i style="position:relative;top:-3px;" nz-icon
+                                                                        nzType="plus"></i>
+                                                                    Ajouter Famille
+                                                                </div>
+                                                            </ng-template>
+    
+                                                        </div>
+                                                    </div>
+
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Sous Famille</label>
+                                                    <div class="col-md-10">
+<!--Selectsous_famille_id($event.target.value)-->
+                                                        <nz-select 
+                                                            formControlName="sous_famille_id"
+                                                            (ngModelChange)="Selectsous_famille_id($event)" nzShowSearch nzAllowClear
+                                                            nzPlaceHolder="Select Sous Famille"
+                                                            [nzDisabled]="sousfamilles.length==0"
+                                                            [nzDropdownRender]="render2">
+                                                            <nz-option *ngFor="let sousf of sousfamilles"
+                                                                [nzValue]="sousf.FamCaraID" [nzLabel]="sousf.name_famille">
+                                                            </nz-option>
+                                                        </nz-select>
+
+                                                        <ng-template #render2>
+                                                            <nz-divider></nz-divider>
+                                                            <div (click)="openDialogAjouterSousFamille()" class="add-item">
+                                                                <i style="position:relative;top:-3px;" nz-icon
+                                                                    nzType="plus"></i>
+                                                                Ajouter Sous Famille
+                                                            </div>
+                                                        </ng-template>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row" *ngIf="regConfig.length>0">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true"></label>
+                                                    <div class="col-md-10">
+
+                                                        
+                                                        <nz-collapse [nzBordered]="true">
+                                                            <nz-collapse-panel #idrotateicon [nzExpandedIcon]="expandedIcon2" nzHeader=""
+                                                                [nzActive]="false">
+                                
+                                
+                                                                <table id="id-table-filter">
+                                                                    <tr>
+                                                                        <td id="id-table-filter-first-td"></td>
+                                                                        <td>
+                                                        
+
+                                                        <div class="form-group row">
+                                                            <!--
+                                                            <label for="fname" class="col-md-1 control-label"
+                                                                aria-required="true">
+                                        <i class='pg-icon md-18'>filter</i>
+                                                            </label>
+                                                            -->
+                                                            <div class="col-md-12">
+                                                       
+<dynamic-form *ngIf="regConfig.length>0" [events]="eventsSubject.asObservable()" [fields]="regConfig"
+    (submit)="submit($event)" (isValid)="isValidFunc($event)"></dynamic-form>
+                                                         </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </nz-collapse-panel>
+                                    </nz-collapse>
+
+
+
+                                                    </div>
+                                                </div>
+
+                                                
+
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Emplacement</label>
+                                                    <div class="col-md-10">
+<!--Selectsous_famille_id($event.target.value)-->
+                                                        <nz-select
+                                                            formControlName="emplacement_id" 
+                                                            nzShowSearch nzAllowClear
+                                                            nzPlaceHolder="Select Emplacement"
+                                                            [nzDropdownRender]="render3">
+                                                            <nz-option [nzValue]="" [nzLabel]=""></nz-option>
+                                                            <nz-option *ngFor="let emp of emplacements"
+                                                                [nzValue]="emp.EmplacementID" [nzLabel]="emp.emplacement">
+                                                            </nz-option>
+                                                        </nz-select>
+
+                                                        <ng-template #render3>
+                                                            <nz-divider></nz-divider>
+                                                            <div (click)="openDialogAjouterEmplacement()" class="add-item">
+                                                                <i style="position:relative;top:-3px;" nz-icon
+                                                                    nzType="plus"></i>
+                                                                Ajouter Emplacement
+                                                            </div>
+                                                        </ng-template>
+
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Stock</label>
+                                                    <div class="col-md-10">
+                                                        <div class="row">
+                                                            <div class="col-md-2">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <nz-input-number formControlName="stock_sup" [nzMin]="0" [nzStep]="1"></nz-input-number>
+                                                                </div>
+                                                                <span class="help">>=</span>
+                                                            </div>
+                                                            <div class="col-md-2 sm-m-t-10">
+                                                                <div class="input-group date col-md-12"
+                                                                    style="padding:0px; margin:0px;">
+                                                                    <nz-input-number formControlName="stock_inf" [nzMin]="0" [nzStep]="1"></nz-input-number>
+
+                                                                </div>
+                                                                <span class="help"><= </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Stock</label>
+                                                    <div class="col-md-10">
+                                                        <label nz-checkbox name="infalert" formControlName="infalert" checked>
+                                                        < S. Alerte </label>
+                                                        &nbsp;  &nbsp;   &nbsp;   &nbsp; 
+                                                        <label nz-checkbox name="infmini" formControlName="infmini" checked>
+                                                        < S. Minimum</label>
+                                                        &nbsp;  &nbsp;   &nbsp;   &nbsp; 
+                                                        <label nz-checkbox name="supmaxi" formControlName="supmaxi" checked>
+                                                         > S. Maximum  </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="fname" class="col-md-2 control-label"
+                                                        aria-required="true">Commande</label>
+                                                    <div class="col-md-10">
+                                                        <label nz-checkbox name="encmd" formControlName="encmd" checked>
+                                                        En commande </label>
+                                                    </div>
+                                                </div>
+                                                <!--##### Contenu filter #####-->
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                </table>
+
+
+                            </nz-collapse-panel>
+                        </nz-collapse>
+
+
+                        <ng-template #expandedIcon let-active>
+                            <table id="id-bar-filter-table">
+                                <tr>
+                                    <td id="id-bar-filter-td-rotateicon">
+                                        <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                                            [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                                        <i class='pg-icon md-18'>filter</i> Filtre
+                                    </td>
+                                    <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                                        <nz-input-group [nzSuffix]="suffixIconSearch">
+                                            <input #searchFilterText formControlName="searchFilterText"
+                                                class="form-control input-sm" type="text" autocomplete="off" nz-input
+                                                placeholder="" id="filter" #filter />
+                                        </nz-input-group>
+                                        <ng-template #suffixIconSearch>
+                                            <i class='pg-icon md-18'>search</i>
+                                        </ng-template>
+                                    </td>
+                                    <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+
+                                        <button id="id-bar-filter-btn-first" class='btn btn-default'
+                                            type="submit">Rechercher</button>
+                                        <button type="button" class="btn btn-default" (click)="resetFilter()">
+                                            <span> Réinitialiser </span>
+                                            <!--<i class='pg-icon md-18'>refresh_alt1</i>-->
+                                        </button>
+                                        <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                                            RA </label>
+                                    </td>
+                                    <td id="id-bar-filter-last-td">
+                                        <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+                                    </td>
+                                </tr>
+                            </table>
+                        </ng-template>
+
+                    </form>
+                    <!--################# Filter ####################-->
+
+
+
+                    <!------------------- Table ----------------------->
+                    <div id="id-div-table">
+
+                        <nz-table #smallTable nzSize="small" [nzBordered]="true" [nzFrontPagination]="false"
+                            [nzShowPagination]="false" [nzData]="articles">
+                            <thead>
+                                <tr>
+                                    <th nzWidth="1%">
+                                        #
+                                    </th>
+
+                                    <!--<th># OT</th>-->
+                                    <th>Designation</th>
+                                    <th>Code Article</th>
+                                    <th>Stock</th>
+                                    <th>Famille</th>
+                                    <th>Sous Famille</th>
+                                    <th>Emplacement</th>
+                                    <th>Prix HT</th>
+                                    <th>Prix TVA</th>
+                                    <th>Fournisseur</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <ng-container
+                                    *ngFor="let article of smallTable.data | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: p, totalItems: total };let i=index;">
+                                    <!--<ng-container *ngIf="data.statut!='planifie'" >-->
+                                    <tr>
+                                        <td align="center">
+                                            <div class="table-firsttd-height">
+                                            <a href="gmao/magasin/articles/article/{{article.ArticleID}}" target="_blank">
+                                                {{article.ArticleID}}
+                                            </a>
+                                            </div>
+                                        </td>
+                                        
+        <td>{{article.des}}</td>
+        <td>{{article.code_article}}</td>
+        <td>{{article.stock}}</td>
+        <td>{{article.famille}}</td>
+        <td>{{article.name_famille}}</td>
+        <td>{{article.emplacement}}</td>
+        <!--{{article.code_a_barre}},-->
+        <td>{{article.PrixHT}}</td>
+        <td>{{article.artTVA}}</td>
+        <!--{{ roundMath(article.PrixHT * (1+(article.artTVA/100))) }},-->
+        <td>{{article.nom}}</td>
+        <!--<td></td>-->
+       
+   
+<!--
+                                        <td>
+                                            <div class="div-statuts">
+                                                <div *ngIf="bsm.statut=='enAttente'" class="label" style="padding:5px;">
+                                                    {{bsm.statut}}</div>
+                                                <div *ngIf="bsm.statut=='accepted'" class="label label-info"
+                                                    style="padding:5px;">{{bsm.statut}}</div>
+                                                <div *ngIf="bsm.statut=='refused'" class="label label-danger"
+                                                    style="padding:5px;">{{bsm.statut}}</div>
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="bsm.statut=='accepted' || bsm.statut=='refused' ">
+                                                {{bsm.updated_at | date:'dd/MM/yy HH:mm' }}
+                                            </div>
+
+                                        </td>
+                                    -->
+
+
+
+<!--
+                                                   <button [routerLink]="['/gmao/magasin/bsm/aff/',bsm.BsmID,isCorrectifOuPreventif(bsm.isCorrectif)]" class="btn btn-default btn-xs rounded-0" type="button" data-toggle="tooltip"
+                                                  data-placement="top" title="afficher"> <i class="pg-icon md-18"
+                                                    style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+                                                -->
+
+                                        <td>
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item"
+                                                    style="padding:0px;margin:0px;margin-right:4px;">
+                                                    <button
+                                                    [routerLink]="['/gmao/magasin/articles/article/',article.ArticleID]"
+                                                        class="btn btn-default btn-xs rounded-0" type="button"
+                                                        data-toggle="tooltip" data-placement="top" title="afficher"> <i
+                                                            class="pg-icon md-18"
+                                                            style="width:10px;height:10px;position:relative;top:1px;">eye</i></button>
+
+                                                </li>
+
+                    
+                                                    <li class="list-inline-item"
+                                                        style="padding:0px;margin:0px;margin-right:4px;">
+                                                        <button
+                                                        [routerLink]="['/gmao/magasin/articles/addoredit/',article.ArticleID]"
+                                                            class="btn btn-default btn-xs rounded-0" type="button"
+                                                            data-toggle="tooltip" data-placement="top" title="repondre">
+                                                            <i class="pg-icon md-18"
+                                                                style="width:10px;height:10px;position:relative;top:1px;">
+                                                                edit
+                                                            </i></button>
+                                                    </li>
+                                               
+                                            </ul>
+                                        </td>
+                                    
+
+                                    </tr>
+                                </ng-container>
+                            </tbody>
+                        </nz-table>
+
+                    </div>
+                    <!--################# Table ####################-->
+
+
+
+
+
+                    <!------------------- Pagination ----------------------->
+                    <table id="id-pagination-big-table">
+                        <tr>
+                            <td>
+
+                                <div class="my-pagination">
+                                    <table id="id-pagination-small-table">
+                                        <tr>
+                                            <td>
+                                                <nz-select [(ngModel)]="selectedItemPerPage"
+                                                    (ngModelChange)="incrementsItemsPerPage($event)">
+                                                    <nz-option nzValue="5" nzLabel="5"></nz-option>
+                                                    <nz-option nzValue="10" nzLabel="10"></nz-option>
+                                                    <nz-option nzValue="25" nzLabel="25"></nz-option>
+                                                    <nz-option nzValue="50" nzLabel="50"></nz-option>
+                                                </nz-select>
+                                            </td>
+
+                                            <td>
+                                                <pagination-controls maxSize="10" previousLabel="Précédent"
+                                                    nextLabel="&nbsp;&nbsp;Suivant&nbsp;&nbsp;"
+                                                    (pageChange)="getArticles($event)" id="server">
+                                                </pagination-controls>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                    <!--################# Pagination ####################-->
+
+
+
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<ng-template #iconTpl>
+    <!--<i class="pg-icon md-18" style="color: red;">alert_warning</i>-->
+    <i nz-icon nzType="exclamation-circle" nzTheme="outline" style="color: red;"></i>
+</ng-template>
+
+
+<ng-template #expandedIcon2 let-active>
+    <table id="id-bar-filter-table">
+        <tr>
+            <td id="id-bar-filter-td-rotateicon">
+                <i nz-icon nzType="caret-right" class="ant-collapse-arrow"
+                    [nzRotate]="idrotateicon.nzActive ? 90 : -90"></i>
+                <i class='pg-icon md-18'>filter</i> Filtre
+            </td>
+            <td id="id-bar-search-filter" (click)="$event.stopPropagation()">
+                <!--
+                    <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input #searchFilterText formControlName="searchFilterText"
+                        class="form-control input-sm" type="text" autocomplete="off" nz-input
+                        placeholder="" id="filter" #filter />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <i class='pg-icon md-18'>search</i>
+                </ng-template>
+            -->
+            </td>
+            <td id="id-bar-filter-btns" (click)="$event.stopPropagation()">
+                 <!--
+                <button id="id-bar-filter-btn-first" class='btn btn-default'
+                    type="submit">Rechercher</button>
+                <button type="button" class="btn btn-default" (click)="resetFilter()">
+                    <span> Réinitialiser </span>
+                </button>
+                <label nz-checkbox name="rechercheAuto" [formControl]="rechercheAuto">
+                    RA </label>
+                -->
+            </td>
+            <td id="id-bar-filter-last-td">
+                <i *ngIf="loadingFilter" nz-icon [nzType]="'loading'"></i>
+            </td>
+        </tr>
+    </table>
+</ng-template>
+
+
+
+
+
+
+
+<!-- =========> Filter -->
+    <!-- *ngIf="sousfamilles.length>0 || ArticleForm.famille_id!='' "-->
+    <!--(change)="SelectEmplacement($event.target.value)"-->
+<!--
+<form [formGroup]="filterForm">
+
+    <input autocomplete="off" #searchFilterText formControlName="searchFilterText" placeholder="Search...">
+    Rechecrche Automatique : <input type="checkbox" name="auto" formControlName="auto" checked>
+
+
+
+    Familles : <select *ngIf="familles.length>0" formControlName="famille_id"
+        (change)="SelectFamille($event.target.value)">
+        <option value=''></option>
+        <option *ngFor="let f of familles" [value]="f.FamilleID"> {{f.famille}} </option>
+    </select>
+    <br>
+
+    Sous Familles : <select formControlName="sous_famille_id" (change)="Selectsous_famille_id($event.target.value)">
+        <option value=''></option>
+        <option *ngFor="let sousf of sousfamilles" [value]="sousf.FamCaraID"> {{sousf.name_famille}} </option>
+    </select>
+
+    Emplacements : <select formControlName="emplacement_id">
+        <option value=''></option>
+        <option *ngFor="let emp of emplacements" [value]="emp.EmplacementID"> {{emp.emplacement}} </option>
+    </select>
+
+    Stcok actuelle :
+    <input autocomplete="off" formControlName="stock_inf" placeholder="Stock <=">
+    &
+    <input autocomplete="off" formControlName="stock_sup" placeholder="Stock >=">
+    <br>
+    Inferieur au stock alerte : <input type="checkbox" name="auto" formControlName="infalert">
+    Inferieur a stock mini : <input type="checkbox" name="auto" formControlName="infmini">
+    Supperieur a stock maxi : <input type="checkbox" name="auto" formControlName="supmaxi">
+    En commande : <input type="checkbox" name="auto" formControlName="encmd">
+
+
+</form>
+
+<dynamic-form *ngIf="regConfig.length>0" [events]="eventsSubject.asObservable()" [fields]="regConfig"
+    (submit)="submit($event)" (isValid)="isValidFunc($event)"></dynamic-form>
+<br>
+<button (click)="resetFilter()">Reset</button>
+<button (click)="filter()">Search</button>
+
+<br><br><br> <br><br><br> <br><br><br>
+<div *ngFor="let article of articles | paginate: { itemsPerPage: 10, currentPage: p };let i=index; ">
+
+    <div [routerLink]="['/magasin/articles/article/'+article.ArticleID]">
+        {{article.ArticleID}},
+        {{article.des}},
+        {{article.code_article}},
+        {{article.code_a_barre}},
+        {{article.PrixHT}},
+        {{article.artTVA}},
+        {{ roundMath(article.PrixHT * (1+(article.artTVA/100))) }},
+        {{article.nom}},
+        {{article.emplacement}}
+    </div>
+
+</div>
+<pagination-controls (pageChange)="p = $event"> </pagination-controls>
+-->
+<!--<button (click)="supprimerCmd(cmd.CommandeID,i)" >Supprimer</button>-->

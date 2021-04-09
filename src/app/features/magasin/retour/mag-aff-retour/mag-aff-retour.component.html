@@ -1,0 +1,469 @@
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+<div [ngClass]="isData ? 'big-container-list':'big-container'">
+    <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+      
+      <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+  
+      <div [ngClass]="isData ? '': 'card'">
+        <div class="card-header" *ngIf="!isData">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+          </ol>
+        </div>
+  
+  
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+  
+
+<ng-container *ngIf="RetourID && retour">
+
+
+<ng-container> 
+
+  <ng-container *ngIf="retour.bonp_id!=undefined || ( retour.bonp_id==null && retour.otp_id!=undefined )"></ng-container>   
+  <ng-container *ngIf="retour.bon_id!=undefined || ( retour.bon_id==null && retour.ot_id!=undefined )"></ng-container>
+
+          <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+            <div class="card-header separator">
+              <div class="card-title"> <span class="my-specific-big-title"># <ng-container *ngIf="SrcToNumber()==1">C</ng-container><ng-container *ngIf="SrcToNumber()==2">P</ng-container>{{retour.RetourID}}</span>
+              </div>
+            </div>
+            <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+  
+  
+              <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+  
+  
+                <div class="row">
+                 
+  
+  
+                <div class="col-5">
+  
+
+                    <div class="form-group row">
+                        <label for="name" class="col-md-4 control-label">
+                          <p class="hint-text p-t-0 fs-12">N° Bon</p>
+                        </label>
+                        <div class="col-md-8">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">
+                              <!--<span class="fast-url"  [routerLink]="['/gmao',1]">-->
+
+                               <!--  [routerLink]="['/gmao/preventif/otp/otp/',bonp.otp_id]"-->
+
+                               
+                                <ng-container *ngIf="SrcToNumber()==1">
+                                  <ng-container *ngIf="retour.bon_id">
+                                    {{retour.bon_id}}
+                                  </ng-container>
+                                  <ng-container *ngIf="!retour.bon_id">
+                                    
+                                  </ng-container>
+                                </ng-container>
+
+                                <ng-container *ngIf="SrcToNumber()==2">
+                                    <ng-container *ngIf="retour.bonp_id">
+                                      {{retour.bonp_id}}
+                                    </ng-container>
+                                    <ng-container *ngIf="!retour.bonp_id">
+  
+                                    </ng-container>
+                                </ng-container>
+                              
+
+                            <!--</span>-->
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+<ng-container *ngIf="!retour.bon_id && !retour.bonp_id" >
+                      <div class="form-group row">
+                        <label for="name" class="col-md-4 control-label">
+                          <p class="hint-text p-t-0 fs-12">N° Ot</p>
+                        </label>
+                        <div class="col-md-8">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">
+                              <!--<span class="fast-url" [routerLink]="['/gmao',1]">-->
+                               <!--  [routerLink]="['/gmao/preventif/otp/otp/',bonp.otp_id]"-->
+
+                               
+                                <ng-container *ngIf="SrcToNumber()==1">
+                                    C{{retour.ot_id}}
+                                </ng-container>
+
+                                <ng-container *ngIf="SrcToNumber()==2">
+                                    P{{retour.otp_id}}
+                                </ng-container>
+                              
+
+                            <!--</span>-->
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+</ng-container>
+
+<!--
+                  <div class="form-group row">
+                    <label for="name" class="col-md-4 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Tache</span>
+                    </label>
+                    <div class="col-md-8">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{otp.tache}}</span>
+                          </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+--> 
+
+                 
+  
+  
+  
+  
+                </div>
+  
+                
+                <div class="col-5 offset-1">
+  
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Créé le</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{retour.created_at  | date:'dd/MM/yyyy HH:mm'}}</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Créé par</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{retour.name}}
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  <ng-container *ngIf="retour.NbDeModif>0">
+  
+                  <div class="form-group row">
+                    
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Derniere modification</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{retour.last_modif | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Derniere modifieur</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{retour.modifieur_name}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+  
+                  <div class="form-group row">
+  
+                    <label for="name" class="col-md-6 control-label" >
+                      <span class="hint-text p-t-0 fs-12">Nombre de modification</span>
+                    </label>
+                    <div class="col-md-6">
+                      <label class="control-label">
+                        <span class="font-affichage-contenu">{{retour.NbDeModif}}</span></label>
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+
+                  </ng-container>
+                  <!--<div class="clearfix"></div>-->
+  
+                   
+  
+  
+                </div>
+  
+  
+  
+                </div>
+  
+        
+  
+              </form>
+  
+  
+  
+  
+            </div>
+          </div>
+</ng-container> 
+                
+                <br>
+                <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                    <div class="card-header separator">
+                      <div class="card-title"> 
+                        <span class="my-specific-card-title">Retour</span>
+                      </div>
+                    </div>
+                    <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+                      <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                       
+             
+                         <ng-container *ngIf="retour_det.length>0">
+                        
+                            <!--------------------PDR Table -->
+                        
+                            <div id="id-div-table">
+                        
+                              <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                [nzData]="['']">
+                                <thead>
+                                  <tr>
+                            
+                                    <th>ArticleID</th>
+                                    <th>Desnignation</th>
+                                    <th>Qte a retourné</th>
+                                    <th>Qte retourné</th>
+                                   
+                        
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  
+                            <tr *ngFor="let article of retour_det;let i=index;">
+                              
+                                 <td>{{article.article_id}}</td>
+                                 <td>{{article.des}}</td>
+                                 <td>{{article.qtear}}</td> 
+                                 <td>{{article.qter}}</td>
+                        
+                                
+                            </tr>
+
+                                </tbody>
+                              </nz-table>
+                            
+                            </div>
+                        
+                            
+                            
+                            <!--################## PDR table-->
+                        
+                                           </ng-container>
+                        
+                                           <!--
+                                           <ng-container *ngIf="articles.length==0">
+                                             
+                                            <p class="hint-text p-t-0 fs-12">Il n y'a pas des pieces de rechange utilisées .</p>
+                                           </ng-container>
+                                           -->
+
+                      
+                         
+                      </form>
+      
+                    
+                    
+
+  
+                    </div>
+                  </div>
+        
+                  <ng-container *ngIf="hists.length>0">
+                              
+                  <br>
+                  <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                      <div class="card-header separator">
+                        <div class="card-title"> 
+                          <span class="my-specific-card-title">Historique</span>
+                        </div>
+                      </div>
+                      <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+        
+                        <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                         
+               
+                           <ng-container *ngIf="hists.length>0">
+                          
+                              <!--------------------PDR Table -->
+                          
+                              <div id="id-div-table">
+                          
+                                <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                  [nzData]="['']">
+                                  <thead>
+                                    <tr>
+                              
+                                      <th>ArticleID</th>
+                                      <th>Desnignation</th>
+                                      <th>Utilisateur</th>
+                                      <th>Type</th>
+                                      <th>Valeur</th>
+                                      <th>isModification</th>
+                                      
+                                     
+                          
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    
+                              <tr *ngFor="let article of hists;let i=index;">
+                                
+                                   <td>{{article.article_id}}</td>
+                                   <td>{{article.des}}</td>
+                                   <td>{{article.name}}</td> 
+                                   <td>{{article.type}}</td>
+                                   <td>{{article.value}}</td>
+                                   <td>{{article.isModification}}</td>
+                                   
+                          
+                                  
+                              </tr>
+  
+                                  </tbody>
+                                </nz-table>
+                              
+                              </div>
+                          
+                              
+                              
+                              <!--################## PDR table-->
+                          
+                                             </ng-container>
+                          
+                                             <!--
+                                             <ng-container *ngIf="hists.length==0">
+                                               
+                                              <p class="hint-text p-t-0 fs-12">Il n y'a pas historique.</p>
+                                             </ng-container>
+                                             --->
+  
+                        
+                           
+                        </form>
+        
+
+                    
+                      
+                      
+  
+    
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <br>
+                  <div class="row">
+                    <div class="col-md-10">
+                    </div>
+                    <div class="col-md-2">
+                      <!--<a href="gmao/preventif/bonp/add/0/{{BonpID}}">-->
+                        <!--[routerLink]="['/gmao/magasin/retour/add/',RetourID,SrcToNumber()]" -->
+                      <button 
+                      
+
+                      (click)="openRetourAdd()" 
+                      style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                        <span>
+                            <ng-container *ngIf="retour.statut=='enAttente'">
+                                Repondre
+                            </ng-container>
+                            <ng-container *ngIf="retour.statut=='ferme'">
+                                Modifier
+                            </ng-container>
+
+                        </span>
+
+                        <ng-container *ngIf="retour.statut=='ferme'">
+                        <i class="pg-icon md-18">
+                          edit
+                        </i>
+                        </ng-container>
+
+                      </button>
+                      <!--</a>-->
+                    </div>
+                  </div>
+
+
+
+</ng-container>
+  
+
+<ng-container *ngIf="!(RetourID && retour)">
+  <br><br><br>
+  <div class="center-loading-box">
+   <!--
+           <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+          -->
+           <div class="progress-circle-indeterminate m-t-45"></div>
+  </div>
+  <br><br><br><br>
+</ng-container>
+  
+  
+  
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+  
+  </div>
+
+</div>
+
+<!--
+<div *ngIf="RetourID && retour">
+ 
+    {{ retour | json }}
+    <br>-------------------<br>
+    {{ retour_det | json }}
+    <br>-------------------<br>
+    {{ hists | json }}
+
+
+
+<ng-container *ngIf="retour.statut=='enAttente'">
+    <span> <a href="/magasin/retour/add/{{RetourID}}/{{SrcToNumber()}}" >Accepter Retour</a></span>
+</ng-container>
+
+<ng-container *ngIf="retour.statut=='ferme'">
+    <span> <a href="/magasin/retour/add/{{RetourID}}/{{SrcToNumber()}}" >Modifier Retour</a></span>
+</ng-container>
+
+</div>
+
+-->
+

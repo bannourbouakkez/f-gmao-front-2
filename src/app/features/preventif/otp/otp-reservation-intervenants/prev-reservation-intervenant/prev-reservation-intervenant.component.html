@@ -1,0 +1,263 @@
+<!--
+{{data.DateTimeOTp }}
+<hr>
+-->
+
+<!--
+<ng-container *ngIf="!formDataValidity" >
+ <div *ngFor="let msg of errorMsgs">
+   {{msg}}
+ </div>
+</ng-container>
+-->
+<!--
+<ng-container *ngIf="!formDataValidity">
+  error .
+</ng-container>
+-->
+
+
+<form #form="ngForm" autocomplete="off" (submit)="onSubmit(form)">
+
+    <input type="hidden"  name="ReservationIntervenantID" #ReservationIntervenantID="ngModel" [(ngModel)]="formData.ReservationIntervenantID">
+    <input type="hidden"  name="intreservation_id" #intreservation_id="ngModel" [(ngModel)]="formData.intreservation_id">
+    <input type="hidden"  name="name" #name="ngModel" [(ngModel)]="formData.name" > 
+    <input type="hidden"  name="tache" #name="ngModel" [(ngModel)]="formData.tache" > 
+  
+    <div id="id-div-table">
+
+      <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+        [nzData]="['']">
+        <thead>
+          <tr>
+        <th  nzWidth="18%">Intervenant</th>
+        <th nzWidth="13%">Date D</th>
+        <th nzWidth="10%">Temps D</th>
+        <th nzWidth="13%">Date F</th>
+        <th nzWidth="10%">Temps F</th>
+        <th nzWidth="18%">Tache</th>
+        <th nzWidth="18%">Description</th>
+         </tr>
+        </thead>
+
+    <tbody>
+        <tr>
+            <td>
+
+                 <!--
+                 <mat-form-field>
+                    <mat-select name="intervenant_id" [placeholder]="formData.name" ngModel  [(ngModel)]="formData.intervenant_id"  (ngModelChange)="updateName($event)"  >
+                      <mat-option>
+                        <ngx-mat-select-search  ngModel  [formControl]="bankServerSideFilteringCtrl" [searching]="searching"  placeholderLabel="Chercher Article ..."  noEntriesFoundLabel="'Aucune Article'" ></ngx-mat-select-search>
+                      </mat-option>
+                        <mat-option *ngFor="let bank of intervenantList" [value]="bank.IntervenantID">
+                        {{bank.name}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  -->
+
+
+    <nz-select name="intervenant_id" nzShowSearch nzServerSearch [nzPlaceHolder]="formData.name" (ngModelChange)="updateName($event)"
+    [(ngModel)]="formData.intervenant_id"  [nzShowArrow]="false" [nzFilterOption]="nzFilterOption" (nzOnSearch)="search($event)">
+    
+    <ng-container *ngFor="let o of intervenantList">
+      <nz-option *ngIf="!isLoading" [nzLabel]="o.name" [nzValue]="o.IntervenantID"></nz-option>
+    </ng-container>
+
+    <ng-container *ngIf="intervenantList.length==0">
+      <nz-option [nzLabel]="formData.name" [nzValue]="formData.intervenant_id"></nz-option>
+    </ng-container>
+
+    <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+      <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+    </nz-option>
+
+    </nz-select>
+
+
+            </td>
+
+            <td>
+            
+                <!--
+                <input style="width: 110px;" [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3"  name="date1" #date1 ngModel [(ngModel)]="formData.date1" readonly>
+                <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                -->
+
+                <div class="input-group date col-md-12" style="width:100%;padding:0px; margin:0px;">
+                  <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" #date1 ngModel [(ngModel)]="formData.date1"
+                    name="date1" (ngModelChange)="formDataDatesTimesChangedFunc()" readonly>
+                  <owl-date-time [pickerType]="'calendar'" #dt3></owl-date-time>
+                  <div class="input-group-append">
+                    <span class="input-group-text">
+                      <i class='icon-container'>
+                        <i class="pg-icon">calendar</i>
+                      </i>
+                    </span>
+                  </div>
+                </div>
+
+
+        
+           </td>
+           <td>
+
+            <!--
+            <input  style="width: 110px;" [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" name="time1" #time1 ngModel [(ngModel)]="formData.time1" readonly>
+            <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+            -->
+
+            
+            <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;">
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" #time1 ngModel [(ngModel)]="formData.time1"
+                name="time1" (ngModelChange)="formDataDatesTimesChangedFunc()" readonly>
+              <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">time</i>
+                  </i>
+                </span>
+              </div>
+            </div>
+
+            
+
+
+           </td>
+           <td>
+             
+            <!--
+            <input  style="width: 110px;" [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5"  name="date2" #date2 ngModel [(ngModel)]="formData.date2" readonly>
+            <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+             -->
+
+             
+            <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;" >
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" #date2 ngModel [(ngModel)]="formData.date2"
+                name="date2" (ngModelChange)="formDataDatesTimesChangedFunc()" readonly>
+              <owl-date-time [pickerType]="'calendar'" #dt5></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">calendar</i>
+                  </i>
+                </span>
+              </div>
+            </div>
+            
+
+
+         </td>
+         <td>
+
+           
+            <!--
+            <input  style="width: 110px;" [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6" name="time2" #time2 ngModel [(ngModel)]="formData.time2" readonly>
+            <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time>     
+           -->
+
+           
+            <div class="input-group date col-md-12 p-1-0" style="width:100%;padding:0px; margin:0px;" >
+              <input class='form-control input-sm' nz-input [owlDateTimeTrigger]="dt6" [owlDateTime]="dt6" #time2 ngModel [(ngModel)]="formData.time2"
+                name="time2" (ngModelChange)="formDataDatesTimesChangedFunc()" readonly>
+              <owl-date-time [pickerType]="'timer'" #dt6></owl-date-time>
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class='icon-container'>
+                    <i class="pg-icon">time</i>
+                  </i>
+                </span>
+              </div>
+            </div>
+            
+
+
+        </td>
+
+        <td style="max-width:300px;">
+
+        <!--
+        <mat-form-field>
+            <mat-select name="tache_id" [placeholder]="formData.tache" ngModel  [(ngModel)]="formData.tache_id"  (ngModelChange)="updateTache($event)"  >
+              <mat-option>
+                <ngx-mat-select-search  ngModel  [formControl]="tacheServerSideFilteringCtrl" [searching]="tachesearching"  placeholderLabel="Chercher Article ..."  noEntriesFoundLabel="'Aucune Article'" ></ngx-mat-select-search>
+              </mat-option>
+              <mat-option *ngFor="let tache of tacheList" [value]="tache.TacheID">
+                {{tache.tache}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+      -->
+
+        <!--
+        <nz-select name="tache_id" nzShowSearch nzServerSearch [nzPlaceHolder]="formData.tache" (ngModelChange)="updateTache($event)"
+        [(ngModel)]="formData.tache_id"  [nzShowArrow]="false" [nzFilterOption]="nzFilterOption2" (nzOnSearch)="search2($event)">
+         
+        <ng-container *ngFor="let o of tacheList">
+          <nz-option *ngIf="!isLoading" [nzLabel]="o.tache" [nzValue]="o.TacheID"></nz-option>
+        </ng-container>
+        
+        <ng-container *ngIf="tacheList.length==0">
+          <nz-option [nzLabel]="formData.tache" [nzValue]="formData.tache_id"></nz-option>
+        </ng-container>
+        
+        <nz-option *ngIf="isLoading" nzDisabled nzCustomContent>
+          <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+        </nz-option>
+         
+        </nz-select>
+      -->
+     
+      <nz-select name="tache_id" nzShowSearch nzAllowClear nzPlaceHolder="Select type"
+      [nzDisabled]="tacheList.length==0" [(ngModel)]="formData.tache_id" (ngModelChange)="updateTache($event)"
+      [nzDropdownRender]="render" 
+      >
+      <nz-option *ngFor="let tache of tacheList" [nzValue]="tache.TacheID" [nzLabel]="tache.tache">
+      </nz-option>
+      </nz-select>
+       
+ 
+      <ng-template #render>
+        <nz-divider></nz-divider>
+        <div *ngIf="data.InputEquipementID>0" (click)="openDialogAddTache(data.InputEquipementID)" class="add-item">
+          <i style="position:relative;top:-3px;" nz-icon nzType="plus"></i>
+          Ajouter tache
+      </div>
+      </ng-template>
+    
+     
+    
+
+        </td>
+
+         <td>
+            <!--
+            <input name="description" #description ngModel [(ngModel)]="formData.description" class="form-control">
+            -->
+            
+            <input class="form-control input-sm" name="description" #description ngModel [(ngModel)]="formData.description">
+
+          </td>
+        </tr>
+    </tbody>
+
+  </nz-table>
+     
+    </div> 
+ 
+    
+    <div class="center-loading-box-disponibilite">
+    <app-prev-is-int-reserved *ngIf="idFormDataChanged && ( TesterTimeMinTimeMax(formData.date1,formData.time1,formData.date2,formData.time2) || !(formData.intervenant_id && formData.date1 && formData.time1 && formData.date2 && formData.time2) ) " [IntervenantID]="formData.intervenant_id" [ReservationIntervenantID]="formData.ReservationIntervenantID" [date1]="formData.date1" [time1]="formData.time1" [date2]="formData.date2" [time2]="formData.time2" (ResultObject)="GetResultObject($event)" ></app-prev-is-int-reserved>
+    </div>
+
+    
+<div style="float:right;">
+<button class="btn btn-default" type="submit" > Envoyer </button>
+</div>
+
+</form>
+
+
+

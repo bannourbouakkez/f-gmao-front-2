@@ -1,0 +1,11 @@
+<p>mag-inv-aff works!</p>
+
+{{intervenants | json}}
+<br>
+{{inventaire | json}}
+<br>
+{{inventaireDet | json}}
+
+<button *ngIf="Loaded && inventaire.type=='enregistrement'" (click)="correction()">Correction</button>
+
+

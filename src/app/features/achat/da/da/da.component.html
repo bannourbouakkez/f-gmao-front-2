@@ -1,0 +1,414 @@
+<div id="" style="overflow:auto;min-height:100px; max-height: 650px; width:100%;">
+
+    <div [ngClass]="isData ? 'big-container-list':'big-container'">
+        <div [ngClass]="isData ? 'col-md-12 col-xlg-12': 'col-md-11 col-xlg-6'">
+          
+          <app-breadcrumb *ngIf="breadcrumb.length>0 && !isData" [breadcrumbs]="breadcrumb" [autres]="autres"></app-breadcrumb>
+      
+          <div [ngClass]="isData ? '': 'card'">
+            <div class="card-header" *ngIf="!isData">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item active"><span class='breadcrumb-title'>{{lastbreadcrumb()}}</span></li>
+              </ol>
+            </div>
+      
+      
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12">
+  
+<ng-container *ngIf="DaID && pageLoaded">
+              <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                <div class="card-header separator">
+                  <div class="card-title"> <span class="my-specific-big-title"># {{DaID}}</span>
+                  </div>
+                </div>
+                <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+      
+      
+                  <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+      
+      
+                    <div class="row">
+                     
+      
+      
+                    <div class="col-5">
+      
+    
+                       
+  
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Reference</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                   {{da.ref}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Statut</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                   
+
+                                   
+                                
+
+                                   <div class="div-statuts-smaller">
+                                    <div *ngIf="conversionStatut(da.statut)=='En Cours' || conversionStatut(da.statut)=='Reporté'" class="label"
+                                      style="padding:4px; padding-top:5px;">En Attente</div>
+                                    <div *ngIf="conversionStatut(da.statut)=='Confirmé'" class="label label-success"
+                                      style="padding:4px; padding-top:5px;">Confirmé</div>
+                                    <div *ngIf="conversionStatut(da.statut)=='Rejeté'" class="label label-danger"
+                                      style="padding:4px; padding-top:5px;">Réfusé</div>
+                                  </div>
+
+
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Delai</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                   {{da.delai}} jour(s)
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+
+                          <div class="form-group row">
+                            <label for="name" class="col-md-4 control-label">
+                              <p class="hint-text p-t-0 fs-12">Remarque</p>
+                            </label>
+                            <div class="col-md-8">
+                              <label class="control-label">
+                                <span class="font-affichage-contenu">
+                                   {{da.remarques}}
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                          <div class="clearfix"></div>
+    
+      
+                    </div>
+      
+                    
+                    <div class="col-5 offset-1">
+      
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Créé le</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{da.created_at  | date:'dd/MM/yyyy HH:mm'}}</span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Créé par</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{da.name}}
+                            </span>
+                          </label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+
+                      <!--
+                      <ng-container *ngIf="retour.NbDeModif>0">
+      
+                      <div class="form-group row">
+                        
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Derniere modification</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{retour.last_modif | date:'dd/MM/yyyy HH:mm'}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Derniere modifieur</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{retour.modifieur_name}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+      
+                      <div class="form-group row">
+      
+                        <label for="name" class="col-md-6 control-label" >
+                          <span class="hint-text p-t-0 fs-12">Nombre de modification</span>
+                        </label>
+                        <div class="col-md-6">
+                          <label class="control-label">
+                            <span class="font-affichage-contenu">{{retour.NbDeModif}}</span></label>
+                        </div>
+                      </div>
+                      <div class="clearfix"></div>
+    
+                      </ng-container>
+                    -->
+                       
+      
+      
+                    </div>
+      
+      
+      
+                    </div>
+      
+            
+      
+                  </form>
+      
+      
+      
+      
+                </div>
+              </div>
+                    
+                    <br>
+                    <div class="card card-default" style="margin-bottom: 0px;padding-bottom: 0px;" >
+                        <div class="card-header separator">
+                          <div class="card-title"> 
+                            <span class="my-specific-card-title">Demande d'achat</span>
+                          </div>
+                        </div>
+                        <div class="card-body" style="margin-bottom: 0px;padding-bottom: 0px;">
+          
+                          <form class="form-horizontal" style="margin-bottom: 0px;padding-bottom: 0px;">
+                           
+                 
+                             <ng-container *ngIf="daarticles.length>0">
+                            
+                                <!--------------------PDR Table -->
+                            
+                                <div id="id-div-table">
+                            
+                                  <nz-table #smallTable nzSize="small" [nzFrontPagination]="false" [nzShowPagination]="false"
+                                    [nzData]="['']">
+                                    <thead>
+                                      <tr>
+                                        
+                                        <th>#</th>
+                                        <th>Designation</th>
+                                        <th>Qte Demdé</th>
+                                        <th>Qte Cmdé</th>
+                                        <th>Qte Recepté</th>
+                                       
+                            
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      
+                                <tr *ngFor="let daarticle of daarticles; let i=index;">
+                                  
+                                       
+                                    <td>
+                                        <span *ngIf="urai(da_article(daarticle.id).QteCmde)=='accepted'" class="label label-success">{{daarticle.article_id}}</span>
+                                        <span *ngIf="urai(da_article(daarticle.id).QteCmde)=='refused'" class="label label-danger">{{daarticle.article_id}}</span>
+                                        <span *ngIf="urai(da_article(daarticle.id).QteCmde)=='undefined'">{{daarticle.article_id}}</span>
+                                    </td>
+                                    <td>{{daarticle.des}}</td>
+                                    <td>{{daarticle.qte}}</td>
+                                    <ng-container *ngIf="urai(da_article(daarticle.id).QteCmde)=='undefined'">
+                                       <td colspan="2"></td>
+                                    </ng-container>
+                                    <ng-container *ngIf="urai(da_article(daarticle.id).QteCmde)=='accepted'">
+                                        <td>{{da_article(daarticle.id).QteCmde}}</td>
+                                        <td>{{da_article(daarticle.id).TTQteRecu}}</td>
+                                    </ng-container>
+                                    <ng-container *ngIf="urai(da_article(daarticle.id).QteCmde)=='refused'">
+                                        <td colspan="2"></td>
+                                    </ng-container>
+
+<!--                          
+                                    <td
+    [attr.colspan]="( ReturnLigneNumberOrfalse(getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde)==msgEnCours || ReturnLigneNumberOrfalse(getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde)==msgRefuse ) ? '2' : '0' "
+    >
+    {{ ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde) }}
+    </td> 
+
+
+
+    <td 
+    *ngIf=" ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde ) != msgEnCours && ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde ) != msgRefuse " 
+    >
+    <div *ngIf="getLigneDaarticles_cmdeByDaArticleID(daarticle.id).TTQteRecu!=0"> 
+        {{  getLigneDaarticles_cmdeByDaArticleID(daarticle.id).TTQteRecu  }} 
+    </div> 
+
+    </td>
+-->
+
+
+
+
+                                    
+                            
+                                    
+                                </tr>
+    
+                                    </tbody>
+                                  </nz-table>
+                                
+                                </div>
+                            
+                                
+                                
+                                <!--################## PDR table-->
+                            
+                                               </ng-container>
+                            
+                                               <!--
+                                               <ng-container *ngIf="articles.length==0">
+                                                 
+                                                <p class="hint-text p-t-0 fs-12">Il n y'a pas des pieces de rechange utilisées .</p>
+                                               </ng-container>
+                                               -->
+    
+                          
+                             
+                          </form>
+          
+                        
+                        
+    
+      
+                        </div>
+                    </div>
+            
+    <ng-container *ngIf="da.statut=='rejete' || da.statut=='rejeteParAdmin'">
+                      <br>
+                      <div class="row">
+                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-2">
+                         
+                          <button [routerLink]="['/gmao/achat/da/add/'+DaID]"  
+                          style="margin:5px;" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-left">
+                            <span>
+                                Modifier
+                            </span>
+                          </button>
+                          <!--</a>-->
+                        </div>
+                      </div>
+    </ng-container>
+    
+    
+    </ng-container>
+      
+    
+    <ng-container *ngIf="!(DaID && pageLoaded)">
+      <br><br><br>
+      <div class="center-loading-box">
+       <!--
+               <i style='margin-left:10px;' nz-icon nzType="loading" class="icon icon-loading" ></i>
+              -->
+               <div class="progress-circle-indeterminate m-t-45"></div>
+      </div>
+      <br><br><br><br>
+    </ng-container>
+      
+      
+      
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      
+      
+      </div>
+    
+    </div>
+
+
+<!--
+<br><br>
+{{da | json}}
+<table border='1'>
+ <thead>
+     <td></td>
+     <td>N° Art</td>
+     <td>Qte Demande</td>
+     <td>Qte Cmde</td>
+     <td>Qte Recepté</td>
+     
+ </thead>
+
+ <tbody>
+  <ng-container *ngFor="let daarticle of daarticles; let i=index;">
+    <tr>
+
+    <td>{{daarticle.article_id}}</td>
+    <td>{{daarticle.qte}}</td>
+    
+    <td
+    [attr.colspan]="( ReturnLigneNumberOrfalse(getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde)==msgEnCours || ReturnLigneNumberOrfalse(getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde)==msgRefuse ) ? '2' : '0' "
+    >
+    {{ ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde) }}
+    </td> 
+    
+
+   
+
+    <td 
+    *ngIf=" ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde ) != msgEnCours && ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde ) != msgRefuse " 
+    >
+    <div *ngIf="getLigneDaarticles_cmdeByDaArticleID(daarticle.id).TTQteRecu!=0"> 
+        {{  getLigneDaarticles_cmdeByDaArticleID(daarticle.id).TTQteRecu  }} 
+    </div> 
+
+    </td>
+
+   </tr>
+  </ng-container>
+ </tbody>
+
+</table>
+-->
+ <!--
+    <td
+    colspan='2'
+    >{{ ReturnLigneNumberOrfalse( getLigneDaarticles_cmdeByDaArticleID(daarticle.id).QteCmde) }}</td> 
+    -->

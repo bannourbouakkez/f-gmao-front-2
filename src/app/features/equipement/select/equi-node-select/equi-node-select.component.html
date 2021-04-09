@@ -1,0 +1,137 @@
+
+<!--class='table-select-tree'-->
+<table class='table-select-tree'>
+   
+
+    <tr width="100%">
+      
+
+
+       
+		<td width="1%">
+
+         <!--
+         <span style="font-size:30px; visibility:hidden;"  >R</span>
+         -->
+         <div style="visibility:hidden;">
+         <nz-input-number></nz-input-number>
+        </div>
+         
+		</td>
+		<td width="86%">
+        
+            
+            <span *ngIf="EquipementID>0">
+
+                <span  *ngIf="res.node.data.id>0">
+
+                    <!--
+                    // Tébé3 Design Loul 
+                    <span  class='hint-text small m-t-10' *ngFor="let niveau of niveaus"> 
+                        {{niveau.equipement}} > 
+                    </span>
+                    <span class="text-primary">{{res.node.data.name}}</span>
+                    -->
+
+<!-- Design théni -->                
+  <nz-collapse [nzBordered]="false">
+    <nz-collapse-panel [nzHeader]="res.node.data.name" [nzActive]="false">
+<span *ngFor="let niveau of niveaus; let i=index;">
+  <span class="small-text no-margin">
+    <span>{{niveau.equipement}}</span>
+  </span>
+    <i style="position:relative;top:4px;" class="pg-icon md-18">chevron_right</i>
+  <br>
+</span>
+<span ><b>{{res.node.data.name}}</b></span>
+    </nz-collapse-panel>
+  </nz-collapse>
+<!-- ### Design théni -->
+                   
+
+                </span>
+                
+                </span>
+                
+                
+               
+                <span  *ngIf="InpuEquipementID>0">
+                    
+                        <!--
+                        <span  class='hint-text small m-t-10' *ngFor="let niveau of niveaus"> 
+                            {{niveau.equipement}} > 
+                        </span>
+                        <span class="text-primary">{{InpuName}}</span>
+                        -->
+
+                        <!-- Design théni -->                
+  <nz-collapse [nzBordered]="false">
+    <nz-collapse-panel [nzHeader]="InpuName" [nzActive]="false">
+<span *ngFor="let niveau of niveaus; let i=index;">
+  <span class="small-text no-margin">
+    <span>{{niveau.equipement}}</span>
+  </span>
+    <i style="position:relative;top:4px;" class="pg-icon md-18">chevron_right</i>
+  <br>
+</span>
+<span><b>{{InpuName}}</b></span>
+    </nz-collapse-panel>
+  </nz-collapse>
+<!-- ### Design théni -->
+
+                       
+                </span>
+
+                
+
+
+		</td>
+		<td width="12%" align="right" (click)="SelectNodeDialog()" class='td-table-select-tree-multi'>
+        
+            <i  style="border-left: 1px solid #e4dede;padding:5px;" class="pg-icon md-18">menu_level</i>
+
+		</td>
+		
+	</tr>
+    </table>
+
+
+<!--
+    (click)="SelectNodeDialog()" aria-label="" type="button" class="btn btn-block btn-default btn-lg btn-icon-right">
+-->
+
+
+<!--<button nz-button nzType="dashed" (click)="SelectNodeDialog()"  type='button' nzBlock>-->
+       
+
+
+
+
+<!--<span *ngIf="!EquipementID && !InpuEquipementID">Select Node</span>-->
+
+
+
+   
+<!--</button>-->
+
+
+<!--
+<i *ngIf="!EquipementID && !InpuEquipementID" nz-icon nzType="right" class="pg-icon md-18" style="float:right;">menu_level</i>
+</button>
+-->
+
+<!--
+<img (click)="SelectNodeDialog()" src="/assets/img/SelectNode.png" alt="" width="32" height="32" class='icon-tree' >
+-->
+
+
+
+
+
+
+
+
+
+
+
+

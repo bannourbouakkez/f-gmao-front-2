@@ -1,0 +1,21 @@
+<p>art-test-filter works!</p>
+
+
+  Familles : <select *ngIf="familles.length>0" formControlName="famille_id" (change)="SelectFamille($event.target.value,null,null)" >
+    <option value=''></option>
+    <option *ngFor="let f of familles" [value]="f.FamilleID" > {{f.famille}} </option>
+   </select>
+   <br>
+
+   <!-- *ngIf="sousfamilles.length>0 || ArticleForm.famille_id!='' "-->
+   Sous Familles : <select formControlName="sous_famille_id" (change)="Selectsous_famille_id($event.target.value,null)" >
+    <option value=''>Aucune</option>
+    <option *ngFor="let sousf of sousfamilles" [value]="sousf.FamCaraID" > {{sousf.name_famille}} </option>
+   </select>
+
+<dynamic-form *ngIf="regConfig.length>0" [events]="eventsSubject.asObservable()"  [fields]="regConfig" (submit)="submit($event)" (isValid)="isValidFunc($event)"></dynamic-form>
+
+
+
+<button (click)="consoleCaraFilter()">consoleCaraFilter</button>
+
