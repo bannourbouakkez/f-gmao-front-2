@@ -218,8 +218,8 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
         tokenGetter: () => {
           return localStorage.getItem('token');
         },
-        whitelistedDomains: ['localhost'],
-        blacklistedRoutes: ['localhost/auth/login']
+        //whitelistedDomains: ['localhost'],
+        //blacklistedRoutes: ['localhost/auth/login']
       }
     }),
 

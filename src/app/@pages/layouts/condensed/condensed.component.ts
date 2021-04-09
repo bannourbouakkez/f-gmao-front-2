@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class CondensedComponent extends RootLayout implements OnInit {
   _footer=true;
+
+  /*
   menuLinksOrigiale = [
     {
       label: 'Achat',
@@ -241,14 +243,14 @@ export class CondensedComponent extends RootLayout implements OnInit {
           //toggle: 'close',
          
         },
-        /*
-        {
-          label: 'Liste DI planifiées',
-          routerLink: 'correctif/plan/calender',
-          iconType: 'pg',
-          iconName: 'calendar'
-        },
-        */
+        
+        // {
+        //   label: 'Liste DI planifiées',
+        //   routerLink: 'correctif/plan/calender',
+        //   iconType: 'pg',
+        //   iconName: 'calendar'
+        // },
+        
 
         
 
@@ -305,14 +307,14 @@ export class CondensedComponent extends RootLayout implements OnInit {
           iconType: 'letter',
           iconName: 'IPs',
         },
-        /*
-        {
-          label: "Interventions Planifiées",
-          routerLink: 'preventif/plans/ipcalender',
-          iconType: 'pg',
-          iconName: 'calendar',
-        },
-        */
+       
+        // {
+        //   label: "Interventions Planifiées",
+        //   routerLink: 'preventif/plans/ipcalender',
+        //   iconType: 'pg',
+        //   iconName: 'calendar',
+        // },
+       
         {
           label: 'Ordres De Travail',
           routerLink: 'preventif/otp/otps',
@@ -349,7 +351,9 @@ export class CondensedComponent extends RootLayout implements OnInit {
 
 
 
+  ];
 
+  */
 
 
 
@@ -633,7 +637,8 @@ export class CondensedComponent extends RootLayout implements OnInit {
 
     */
 
-  ];
+ 
+
 
   menuLinks=[];
 
@@ -748,10 +753,11 @@ export class CondensedComponent extends RootLayout implements OnInit {
    }
 
    */
+   
 
 
-   //this.CreateMenu();
-   this.menuLinks=this.menuLinksOrigiale;
+   this.CreateMenu();
+   //this.menuLinks=this.menuLinksOrigiale;
    
 
 

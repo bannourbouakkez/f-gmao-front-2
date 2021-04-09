@@ -25,6 +25,7 @@ const routes: Routes = [
   //runGuardsAndResolvers: 'always',
   children: [
     //{path: '', redirectTo: '/index', pathMatch: 'full'},
+    {path: 'login', loadChildren: () => import('./features/login/login.module').then(m => m.LoginModule) },
     {path: 'achat', loadChildren: () => import('./features/achat/achat.module').then(m => m.AchatModule) },
     {path: 'magasin', loadChildren: () => import('./features/magasin/magasin.module').then(m => m.MagasinModule) },
     {path: 'equipement', loadChildren: () => import('./features/equipement/equipement.module').then(m => m.EquipementModule) },

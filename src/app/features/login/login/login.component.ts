@@ -28,4 +28,11 @@ export class LoginComponent implements OnInit {
     ) 
   }
 
+  loginThisUser(email,pwd){
+    this.loginUserData.email=email;
+    this.loginUserData.password=pwd;
+    this.loginUser();
+  }
+  
+
 }
