@@ -34,7 +34,7 @@ export class PrevBonpsComponent implements OnInit {
   // Filter Form 
   rechercheAuto = new FormControl(true);
   firstDay = new Date((new Date()).getFullYear(), (new Date()).getMonth() - 1, 2);
-  filterForm: FormGroup = new FormGroup({
+  public filterForm: FormGroup = new FormGroup({
     searchFilterText: new FormControl(),
     datemin: new FormControl(this.firstDay),
     datemax: new FormControl(),
@@ -43,7 +43,7 @@ export class PrevBonpsComponent implements OnInit {
   });
   nodes=<any>[]; // SBN
   bonps=<any>[];
-  constructor(private fb: FormBuilder,private bonpService:PrevBonpService) { }
+  constructor(public fb: FormBuilder,private bonpService:PrevBonpService) { }
 
   ngOnInit() {
     this.getBonps(1);

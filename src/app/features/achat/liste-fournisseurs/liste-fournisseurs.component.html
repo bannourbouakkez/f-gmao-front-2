@@ -1,10 +1,15 @@
 <p>liste-fournisseurs works!</p>
 
-
+<!--
 <ul>
     <li *ngFor="let f of fournisseurs;">
-        {{f.nom}} {{f.ref}} {{f.abr}} , {{f.adresse}} ... <button (click)="afficher(f.id)">afficher</button> <button (click)="edit(f.id)">modifier</button><button (click)="supprimer(f.id)">supprimer</button>
+        {{f.nom}} {{f.ref}} {{f.abr}} , {{f.adresse}} ... 
+        <button (click)="afficher(f.id)">afficher</button>
+         <button (click)="edit(f.id)">modifier</button>
+         <button (click)="supprimer(f.id)">supprimer</button>
+
     </li>
 </ul>
+-->
 
 <button [routerLink]="['/achat/fournisseurs/addoredit']">Ajouter un fournisseur</button>

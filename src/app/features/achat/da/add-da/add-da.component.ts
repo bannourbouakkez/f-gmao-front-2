@@ -50,7 +50,7 @@ loading=false;
   isValid: boolean;
   isValidDelai=true;
   form: NgForm;
-  constructor(private _fb: FormBuilder, private _daService: DaService,
+  constructor(private _fb: FormBuilder, public _daService: DaService,
     private currentRoute: ActivatedRoute, private dialog: MatDialog,
     private _router:Router
     ,private _notification: MessageService

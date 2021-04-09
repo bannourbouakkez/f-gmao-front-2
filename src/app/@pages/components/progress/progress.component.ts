@@ -5,8 +5,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./progress.component.scss']
 })
 export class ProgressComponent {
-  private _value: number;
-  private _value2: any;
+  public _value: number;
+  public _value2: any;
 
   @Input() type: string;
   @Input() color: string;
