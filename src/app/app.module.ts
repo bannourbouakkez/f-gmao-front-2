@@ -170,6 +170,10 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
 
 
 
+
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -280,7 +284,6 @@ import { AchatStatComponent } from 'src/app/features/header/ministat/achat-stat/
     //################
    ,AppRoutingModule
 
-   //,DemoComponent
 
   ],
   providers:[
