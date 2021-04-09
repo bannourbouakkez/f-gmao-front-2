@@ -35,7 +35,7 @@ import { DumpReasonComponent } from './dumps/dump-reason/dump-reason.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 //import { FormsModule } from '@angular/forms';
 import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
-import { OwlMomentDateTimeModule, OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS } from 'ng-pick-datetime-moment';
+//import { OwlMomentDateTimeModule , OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS } from 'ng-pick-datetime-moment';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { EditDateComponent } from './others/edit-date/edit-date.component';
 import { EditableDateComponent } from './others/editable-date/editable-date.component';
@@ -73,6 +73,9 @@ import { ReplacePipe } from './pipes/replace.pipe';
 
 
 
+//changement  mte3 machekil ng pick
+//kenet//import { OwlMomentDateTimeModule, OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS } from 'ng-pick-datetime-moment';
+import {  OwlMomentDateTimeModule , OWL_MOMENT_DATE_TIME_ADAPTER_OPTIONS } from 'ng-pick-datetime/date-time/adapter/moment-adapter/moment-date-time-adapter.class';
 
 
 @NgModule({
