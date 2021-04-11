@@ -716,18 +716,19 @@ export class CondensedComponent extends RootLayout implements OnInit {
   Pack_Default_Equipement = [this.Equipement_Arbre];
 
   Parametrage: any = { label: 'Parametrage', toggle: 'close', iconType: 'letter', iconName: 'PA', submenu: [] }
-  Parametrage_Gestion_acces = { label: 'Gestion Accés', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'GA' };
-  Parametrage_Gestion_Niveau = { label: 'Gestion Niveau', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'GN' };
+  Parametrage_Gestion_acces = { label: 'Gestion Droits', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'GD' };
+  Parametrage_Gestion_Niveau = { label: 'Gestion Niveaux', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'GN' };
   Parametrage_Ajouter_Utilisateur = { label: 'Ajouter Utilisateur', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'AU' };
   Parametrage_Ajouter_Intervenant = { label: 'Ajouter Intervenant', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'IN' };
+  Parametrage_Ajouter_Fournisseur = { label: 'Ajouter Fournisseur', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'FO' };
   Parametrage_Ajouter_Unite = { label: 'Ajouter Unite', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'UN' };
   Parametrage_Ajouter_Emplacement = { label: 'Ajouter Emplacement', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'EM' };
   Parametrage_Ajouter_Secteur = { label: 'Ajouter Secteur', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'SE' };
   Parametrage_Ajouter_Mode = { label: 'Ajouter Mode', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'MO' };
   Parametrage_Ajouter_Etat = { label: 'Ajouter Etat', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'ET' };
   Parametrage_Ajouter_Utilisation = { label: 'Ajouter Utilisation', routerLink: 'index/acceuil', iconType: 'letter', iconName: 'UT' };
-
-  Pack_Default_Parametrage = [this.Parametrage_Gestion_acces,this.Parametrage_Gestion_Niveau,this.Parametrage_Ajouter_Utilisateur,this.Parametrage_Ajouter_Intervenant,this.Parametrage_Ajouter_Unite,
+  
+  Pack_Default_Parametrage = [this.Parametrage_Gestion_acces,this.Parametrage_Gestion_Niveau,this.Parametrage_Ajouter_Utilisateur,this.Parametrage_Ajouter_Intervenant,this.Parametrage_Ajouter_Fournisseur,this.Parametrage_Ajouter_Unite,
   this.Parametrage_Ajouter_Emplacement,this.Parametrage_Ajouter_Secteur,this.Parametrage_Ajouter_Mode,this.Parametrage_Ajouter_Etat,
   this.Parametrage_Ajouter_Utilisation];
 
