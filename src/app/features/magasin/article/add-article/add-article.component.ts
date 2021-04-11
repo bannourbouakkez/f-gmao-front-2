@@ -249,7 +249,7 @@ emitEventToChild(res) {
       unite_id:['',Validators.required],
       code_article:[''],//,Validators.required],
       code_a_barre:[''],//,Validators.required],
-      fournisseur_id:[''],//,Validators.required],
+      fournisseur_id:['',Validators.required],//,Validators.required],
       artTVA:[0],//,[Validators.required,Validators.pattern("\\-?\\d*\\.?\\d{1,9}")]],
       stock:['',Validators.required],//,[Validators.required,Validators.pattern("\\-?\\d*\\.?\\d{1,9}")]],
       stock_min:[0],//,Validators.required],//,[Validators.required,Validators.pattern("\\-?\\d*\\.?\\d{1,9}")]],
@@ -257,8 +257,8 @@ emitEventToChild(res) {
       stock_alert:[''],//,Validators.required],//,[Validators.required,Validators.pattern("\\-?\\d*\\.?\\d{1,9}")]],
       famille_id:['',Validators.required],
       sous_famille_id:[0],
-      PrixHT:[0],//,[Validators.required,Validators.pattern("\\-?\\d*\\.?\\d{1,9}")]],
-      emplacement_id:[''],//,Validators.required],
+      PrixHT:[0,Validators.required],//,[Validators.required,Validators.pattern("\\-?\\d*\\.?\\d{1,9}")]],
+      emplacement_id:[0],//,Validators.required],
       remarques:[''],
       imgs_dossier_id:[1],
       fichiers_dossier_id:[1]
@@ -599,7 +599,7 @@ envoyer(){
             this.ArticleForm.reset();
             this.uploadReset1();
             this.uploadReset2(); 
-            this.ArticleForm.patchValue({exist:1,artTVA:0,imgs_dossier_id:1,fichiers_dossier_id:1});
+            this.ArticleForm.patchValue({stock_min:0,exist:1,artTVA:0,PrixHT:0,emplacement_id:0,imgs_dossier_id:1,fichiers_dossier_id:1,sous_famille_id:0});
             this.notification('success',res.msg, 3000);
           }else{
             this.notification('danger',res.msg, 3000);
