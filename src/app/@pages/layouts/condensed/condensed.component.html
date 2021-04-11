@@ -222,8 +222,15 @@
         -->
       
       </div>
-
+     
       <div class="d-flex align-items-center">
+       
+        <i *ngIf="loading" nz-icon [nzType]="'loading'"></i>
+        
+        &nbsp;&nbsp;&nbsp;&nbsp;
+
+     
+
         <div class="dropdown pull-right d-lg-block d-none" dropdown>
           <button class="profile-dropdown-toggle" type="button" dropdownToggle id="profileDropdown"
             aria-label="profile dropdown">

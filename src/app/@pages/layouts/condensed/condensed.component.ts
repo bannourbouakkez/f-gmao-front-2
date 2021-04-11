@@ -3,7 +3,7 @@ import { RootLayout } from '../root/root.component';
 import { DOCUMENT } from '@angular/common';
 import { AuthService } from 'src/app/shared/auth.service';
 import { pagesToggleService } from '../../services/toggler.service';
-import { Router } from '@angular/router';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'condensed-layout',
@@ -731,7 +731,7 @@ export class CondensedComponent extends RootLayout implements OnInit {
   this.Parametrage_Ajouter_Emplacement,this.Parametrage_Ajouter_Secteur,this.Parametrage_Ajouter_Mode,this.Parametrage_Ajouter_Etat,
   this.Parametrage_Ajouter_Utilisation];
 
-  
+
 
 
 
@@ -739,11 +739,23 @@ export class CondensedComponent extends RootLayout implements OnInit {
 
   //menuLinks=this.menuLinksOrigiale;//[];
 
+  loading:boolean;
+
 
 
 
   constructor(public toggler: pagesToggleService, router: Router, private _authService: AuthService) {
     super(toggler, router);
+
+    this.loading=false;
+    router.events.subscribe((event:RouterEvent)=>{
+      if(event instanceof RouteConfigLoadStart){
+        this.loading=true;
+      }else if(event instanceof RouteConfigLoadEnd){
+        this.loading=false;
+      }
+    });
+
   }
 
   ngOnInit() {

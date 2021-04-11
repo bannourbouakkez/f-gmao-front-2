@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterEvent } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'gmao';
+  }
 
 
-
-}
