@@ -694,7 +694,7 @@ export class CondensedComponent extends RootLayout implements OnInit {
   Correctif_Liste_Bon = { label: 'Bons De Travail', routerLink: 'correctif/bon/bons', iconType: 'letter', iconName: 'BTs' };
 
   Pack_Default_Correctif = [this.Correctif_Ajouter_Di, this.Correctif_Liste_Di, this.Correctif_Liste_DIP,
-  this.Correctif_Liste_Ot, this.Correctif_Liste_Bon];
+  this.Correctif_Calender,this.Correctif_Liste_Ot, this.Correctif_Liste_Bon];
 
 
   Preventif: any = { label: 'Preventif', toggle: 'close', iconType: 'letter', iconName: 'P', submenu: [] }
@@ -711,7 +711,7 @@ export class CondensedComponent extends RootLayout implements OnInit {
   Preventif_Liste_Ot = { label: 'Ordres De Travail', routerLink: 'preventif/otp/otps', iconType: 'letter', iconName: 'OTs' };
   Preventif_Liste_Bon = { label: 'Bons De Travail', routerLink: 'preventif/bonp/bonps', iconType: 'letter', iconName: 'BTs' };
 
-  Pack_Default_Preventif = [this.Preventif_Intervention, this.Preventif_Liste_IP, this.Preventif_Liste_Ot,
+  Pack_Default_Preventif = [this.Preventif_Intervention, this.Preventif_Liste_IP, this.Preventif_Calender, this.Preventif_Liste_Ot,
   this.Preventif_Liste_Bon];
 
   Equipement: any = { label: 'Equipement', toggle: 'close', iconType: 'letter', iconName: 'E', submenu: [] }
