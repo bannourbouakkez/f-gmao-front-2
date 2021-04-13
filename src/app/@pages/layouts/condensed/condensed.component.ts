@@ -689,6 +689,7 @@ export class CondensedComponent extends RootLayout implements OnInit {
   Correctif_Ajouter_Di = { label: 'Ajouter DI', routerLink: 'correctif/di/add/0', iconType: 'letter', iconName: 'ADI' };
   Correctif_Liste_Di = { label: 'Liste DIs', routerLink: 'correctif/di/dis', iconType: 'letter', iconName: 'DIs' };
   Correctif_Liste_DIP = { label: 'Liste DI planifiées', routerLink: 'correctif/plan/plans', iconType: 'letter', iconName: 'DIs' };
+  Correctif_Calender = { label: 'Calender', routerLink: 'correctif/plan/calender', iconType: 'pg', iconName: 'calendar' };
   Correctif_Liste_Ot = { label: 'Ordres De Travail', routerLink: 'correctif/ot/ots', iconType: 'letter', iconName: 'OTs' };
   Correctif_Liste_Bon = { label: 'Bons De Travail', routerLink: 'correctif/bon/bons', iconType: 'letter', iconName: 'BTs' };
 
@@ -705,6 +706,8 @@ export class CondensedComponent extends RootLayout implements OnInit {
     ]
   };
   Preventif_Liste_IP = { label: 'Interventions Planifiées', routerLink: 'preventif/plans/list', iconType: 'letter', iconName: 'IPs' };
+
+  Preventif_Calender = { label: 'Calender', routerLink: 'preventif/plans/ipcalender', iconType: 'pg', iconName: 'calendar' };
   Preventif_Liste_Ot = { label: 'Ordres De Travail', routerLink: 'preventif/otp/otps', iconType: 'letter', iconName: 'OTs' };
   Preventif_Liste_Bon = { label: 'Bons De Travail', routerLink: 'preventif/bonp/bonps', iconType: 'letter', iconName: 'BTs' };
 
